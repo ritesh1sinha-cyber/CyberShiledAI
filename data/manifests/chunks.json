@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-11-06T10:59:51+00:00",
+  "documents": 1834,
+  "chunks": 10457,
+  "per_source": {
+    "attack": 739,
+    "cwe": 1132,
+    "owasp": 1791,
+    "nist": 6795
+  },
+  "chunks_per_doc": 5.7,
+  "table_chunks": 1907,
+  "oversized_chunks": 1168,
+  "chars": {
+    "p50": 1617,
+    "p95": 2667,
+    "max": 3190
+  },
+  "params": {
+    "target_chars": 1800,
+    "max_chars": 2600,
+    "min_chars": 250,
+    "overlap_chars": 400
+  }
+}

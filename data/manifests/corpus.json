@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-11-18T09:09:49+00:00",
+  "gate": {
+    "min": 500,
+    "max": 2000,
+    "met": true
+  },
+  "documents_loaded": 1836,
+  "documents_valid": 1834,
+  "documents_thin_under_200_chars": 155,
+  "per_source": {
+    "ATTACK": {
+      "loaded": 706,
+      "valid": 706,
+      "thin": 0
+    },
+    "OWASP": {
+      "loaded": 137,
+      "valid": 137,
+      "thin": 2
+    },
+    "CWE": {
+      "loaded": 956,
+      "valid": 954,
+      "thin": 153
+    },
+    "NIST": {
+      "loaded": 37,
+      "valid": 37,
+      "thin": 0
+    }
+  },
+  "duplicates": [],
+  "missing_source_url": [],
+  "empty_or_too_short": [
+    "CWE-369",
+    "CWE-1123"
+  ],
+  "excluded": {
+    "KEV": "structured enrichment, not retrieval text (D5)",
+    "NVD": "structured tool responses, not retrieval text (D5)"
+  },
+  "doc_ids_sha256": "d85f0069089fb8fe0138a492711487abb12874b2781f6a628d2819e6fcaa7790",
+  "files": {
+    "attack_techniques.jsonl": "b1274626489ba74a66322e4df6b98dfbdfef05b51bb633af0193b30583c04e86",
+    "owasp_docs.jsonl": "b82d7fbfc16e96f52f492bd94a44a1bd76391f4eccd9e63a522d763677ab9f27",
+    "cwe.jsonl": "a33759fc1ccb9509569e55e087b4ba52b2b6d390a14c1cab82a475d9f2210352",
+    "nist_docs.jsonl": "2029c12f127d665fcde154872c62dffe861b6e5db997e6cc8f213a307c1ea6d6"
+  }
+}

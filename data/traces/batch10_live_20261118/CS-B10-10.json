@@ -1,0 +1,844 @@
+{
+ "test_id": "CS-B10-10",
+ "query": "Investigate CVE-2022-47966: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
+ "gold_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
+ "model": "Qwen/Qwen3-8B",
+ "architecture": "multi",
+ "recorded_at": "2026-11-18T08:43:35+00:00",
+ "request": {
+  "query": "Investigate CVE-2022-47966: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
+  "include_attack": true,
+  "top_k": 8
+ },
+ "http_status": 200,
+ "elapsed_ms": 25812,
+ "response": {
+  "report": {
+   "request_id": "CS-20261118084309602474",
+   "status": "partial",
+   "summary": "CVE-2022-47966 is a critical remote code execution vulnerability in Zoho ManageEngine products.",
+   "summary_evidence_ids": [
+    "EV-0001",
+    "EV-0002"
+   ],
+   "cve": {
+    "cve_id": "CVE-2022-47966",
+    "description": "Multiple Zoho ManageEngine on-premise products, such as ServiceDesk Plus through 14003, allow remote code execution due to use of Apache Santuario xmlsec (aka XML Security for Java) 1.4.1, because the xmlsec XSLT features, by design in that version, make the application responsible for certain security protections, and the ManageEngine applications did not provide those protections. This affects Access Manager Plus before 4308, Active Directory 360 before 4310, ADAudit Plus before 7081, ADManager Plus before 7162, ADSelfService Plus before 6211, Analytics Plus before 5150, Application Control Plus before 10.1.2220.18, Asset Explorer before 6983, Browser Security Plus before 11.1.2238.6, Device Control Plus before 10.1.2220.18, Endpoint Central before 10.1.2228.11, Endpoint Central MSP before 10.1.2228.11, Endpoint DLP before 10.1.2137.6, Key Manager Plus before 6401, OS Deployer before 1.1.2243.1, PAM 360 before 5713, Password Manager Pro before 12124, Patch Manager Plus before 10.1.2220.18, Remote Access Plus before 10.1.2228.11, Remote Monitoring and Management (RMM) before 10.1.41. ServiceDesk Plus before 14004, ServiceDesk Plus MSP before 13001, SupportCenter Plus before 11026, and Vulnerability Manager Plus before 10.1.2220.18. Exploitation is only possible if SAML SSO has ever been configured for a product (for some products, exploitation requires that SAML SSO is currently active).",
+    "cvss_version": "3.1",
+    "cvss_score": 9.8,
+    "severity": "CRITICAL",
+    "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cvss_source": "nvd",
+    "published": "2023-01-18",
+    "last_modified": "2026-07-31T04:16:41.843000Z"
+   },
+   "affected_products": [
+    "Zoho ManageEngine"
+   ],
+   "kev": {
+    "status": "known_exploited",
+    "catalog_version": "2026.11.04",
+    "checked_at": "2026-11-18T08:43:11.171117Z",
+    "date_added": "2023-01-23",
+    "due_date": "2023-02-13",
+    "required_action": "Apply updates per vendor instructions.",
+    "ransomware_use": true
+   },
+   "attack_mapping": [],
+   "remediation": [
+    {
+     "text": "Apply updates per vendor instructions. See ManageEngine Security Advisories for fixed versions.",
+     "evidence_ids": [
+      "EV-0003",
+      "EV-0007"
+     ]
+    }
+   ],
+   "risk": {
+    "tier": "critical",
+    "drivers": [
+     "CVSS 3.1 base score 9.8 (CRITICAL).",
+     "CISA KEV status: known_exploited."
+    ],
+    "rationale": "CVSS 3.1 score 9.8 (CRITICAL); known exploited.",
+    "evidence_ids": [
+     "EV-0002",
+     "EV-0003"
+    ]
+   },
+   "limitations": [
+    "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
+    "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
+    "Retrieved passages are ranked context, not independently verified facts.",
+    "Critic finding (summary/support): The summary does not mention the specific products affected by the vulnerability.",
+    "Critic finding (remediation/support): The remediation text does not include specific references to the retrieved passages."
+   ],
+   "citations": [
+    {
+     "evidence_id": "EV-0001",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-47966"
+    },
+    {
+     "evidence_id": "EV-0002",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-47966"
+    },
+    {
+     "evidence_id": "EV-0003",
+     "source": "CISA_KEV",
+     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+     "evidence_id": "EV-0004",
+     "source": "CISA_KEV",
+     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+     "evidence_id": "EV-0005",
+     "source": "NVD_REF",
+     "source_url": "https://attackerkb.com/topics/gvs0Gv8BID/cve-2022-47966/rapid7-analysis"
+    },
+    {
+     "evidence_id": "EV-0006",
+     "source": "NVD_REF",
+     "source_url": "https://attackerkb.com/topics/gvs0Gv8BID/cve-2022-47966/rapid7-analysis"
+    },
+    {
+     "evidence_id": "EV-0007",
+     "source": "NVD_REF",
+     "source_url": "https://www.manageengine.com/security/advisory/CVE/cve-2022-47966.html"
+    },
+    {
+     "evidence_id": "EV-0008",
+     "source": "NVD_REF",
+     "source_url": "https://www.horizon3.ai/manageengine-cve-2022-47966-technical-deep-dive/"
+    },
+    {
+     "evidence_id": "EV-0009",
+     "source": "NVD_REF",
+     "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+    },
+    {
+     "evidence_id": "EV-0010",
+     "source": "NVD_REF",
+     "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+    },
+    {
+     "evidence_id": "EV-0011",
+     "source": "NVD_REF",
+     "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+    },
+    {
+     "evidence_id": "EV-0012",
+     "source": "NVD_REF",
+     "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+    },
+    {
+     "evidence_id": "EV-0013",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
+    },
+    {
+     "evidence_id": "EV-0014",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
+    },
+    {
+     "evidence_id": "EV-0015",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+    },
+    {
+     "evidence_id": "EV-0016",
+     "source": "OWASP",
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
+    },
+    {
+     "evidence_id": "EV-0017",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+    },
+    {
+     "evidence_id": "EV-0018",
+     "source": "OWASP",
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
+    },
+    {
+     "evidence_id": "EV-0019",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
+    },
+    {
+     "evidence_id": "EV-0020",
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/179.html"
+    }
+   ],
+   "generated_at": "2026-11-18T08:43:35.006178Z"
+  },
+  "trace_id": "CS-20261118084309602474",
+  "timings": [
+   {
+    "stage": "evidence_qwen",
+    "ms": 3329
+   },
+   {
+    "stage": "evidence",
+    "ms": 1763
+   },
+   {
+    "stage": "analyst",
+    "ms": 7459
+   },
+   {
+    "stage": "critic",
+    "ms": 4001
+   },
+   {
+    "stage": "analyst",
+    "ms": 7280
+   },
+   {
+    "stage": "critic",
+    "ms": 3320
+   },
+   {
+    "stage": "final_validator",
+    "ms": 3
+   },
+   {
+    "stage": "total",
+    "ms": 25792
+   }
+  ]
+ },
+ "service_trace": {
+  "trace_id": "CS-20261118084309602474",
+  "recorded_at": "2026-11-18T08:43:35.394270+00:00",
+  "request": {
+   "query": "Investigate CVE-2022-47966: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
+   "include_attack": true,
+   "top_k": 8,
+   "conversation_context": []
+  },
+  "response": {
+   "report": {
+    "request_id": "CS-20261118084309602474",
+    "status": "partial",
+    "summary": "CVE-2022-47966 is a critical remote code execution vulnerability in Zoho ManageEngine products.",
+    "summary_evidence_ids": [
+     "EV-0001",
+     "EV-0002"
+    ],
+    "cve": {
+     "cve_id": "CVE-2022-47966",
+     "description": "Multiple Zoho ManageEngine on-premise products, such as ServiceDesk Plus through 14003, allow remote code execution due to use of Apache Santuario xmlsec (aka XML Security for Java) 1.4.1, because the xmlsec XSLT features, by design in that version, make the application responsible for certain security protections, and the ManageEngine applications did not provide those protections. This affects Access Manager Plus before 4308, Active Directory 360 before 4310, ADAudit Plus before 7081, ADManager Plus before 7162, ADSelfService Plus before 6211, Analytics Plus before 5150, Application Control Plus before 10.1.2220.18, Asset Explorer before 6983, Browser Security Plus before 11.1.2238.6, Device Control Plus before 10.1.2220.18, Endpoint Central before 10.1.2228.11, Endpoint Central MSP before 10.1.2228.11, Endpoint DLP before 10.1.2137.6, Key Manager Plus before 6401, OS Deployer before 1.1.2243.1, PAM 360 before 5713, Password Manager Pro before 12124, Patch Manager Plus before 10.1.2220.18, Remote Access Plus before 10.1.2228.11, Remote Monitoring and Management (RMM) before 10.1.41. ServiceDesk Plus before 14004, ServiceDesk Plus MSP before 13001, SupportCenter Plus before 11026, and Vulnerability Manager Plus before 10.1.2220.18. Exploitation is only possible if SAML SSO has ever been configured for a product (for some products, exploitation requires that SAML SSO is currently active).",
+     "cvss_version": "3.1",
+     "cvss_score": 9.8,
+     "severity": "CRITICAL",
+     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+     "cvss_source": "nvd",
+     "published": "2023-01-18",
+     "last_modified": "2026-07-31T04:16:41.843000Z"
+    },
+    "affected_products": [
+     "Zoho ManageEngine"
+    ],
+    "kev": {
+     "status": "known_exploited",
+     "catalog_version": "2026.11.04",
+     "checked_at": "2026-11-18T08:43:11.171117Z",
+     "date_added": "2023-01-23",
+     "due_date": "2023-02-13",
+     "required_action": "Apply updates per vendor instructions.",
+     "ransomware_use": true
+    },
+    "attack_mapping": [],
+    "remediation": [
+     {
+      "text": "Apply updates per vendor instructions. See ManageEngine Security Advisories for fixed versions.",
+      "evidence_ids": [
+       "EV-0003",
+       "EV-0007"
+      ]
+     }
+    ],
+    "risk": {
+     "tier": "critical",
+     "drivers": [
+      "CVSS 3.1 base score 9.8 (CRITICAL).",
+      "CISA KEV status: known_exploited."
+     ],
+     "rationale": "CVSS 3.1 score 9.8 (CRITICAL); known exploited.",
+     "evidence_ids": [
+      "EV-0002",
+      "EV-0003"
+     ]
+    },
+    "limitations": [
+     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
+     "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
+     "Retrieved passages are ranked context, not independently verified facts.",
+     "Critic finding (summary/support): The summary does not mention the specific products affected by the vulnerability.",
+     "Critic finding (remediation/support): The remediation text does not include specific references to the retrieved passages."
+    ],
+    "citations": [
+     {
+      "evidence_id": "EV-0001",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-47966"
+     },
+     {
+      "evidence_id": "EV-0002",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-47966"
+     },
+     {
+      "evidence_id": "EV-0003",
+      "source": "CISA_KEV",
+      "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+     },
+     {
+      "evidence_id": "EV-0004",
+      "source": "CISA_KEV",
+      "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+     },
+     {
+      "evidence_id": "EV-0005",
+      "source": "NVD_REF",
+      "source_url": "https://attackerkb.com/topics/gvs0Gv8BID/cve-2022-47966/rapid7-analysis"
+     },
+     {
+      "evidence_id": "EV-0006",
+      "source": "NVD_REF",
+      "source_url": "https://attackerkb.com/topics/gvs0Gv8BID/cve-2022-47966/rapid7-analysis"
+     },
+     {
+      "evidence_id": "EV-0007",
+      "source": "NVD_REF",
+      "source_url": "https://www.manageengine.com/security/advisory/CVE/cve-2022-47966.html"
+     },
+     {
+      "evidence_id": "EV-0008",
+      "source": "NVD_REF",
+      "source_url": "https://www.horizon3.ai/manageengine-cve-2022-47966-technical-deep-dive/"
+     },
+     {
+      "evidence_id": "EV-0009",
+      "source": "NVD_REF",
+      "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+     },
+     {
+      "evidence_id": "EV-0010",
+      "source": "NVD_REF",
+      "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+     },
+     {
+      "evidence_id": "EV-0011",
+      "source": "NVD_REF",
+      "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+     },
+     {
+      "evidence_id": "EV-0012",
+      "source": "NVD_REF",
+      "source_url": "https://github.com/horizon3ai/CVE-2022-47966"
+     },
+     {
+      "evidence_id": "EV-0013",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
+     },
+     {
+      "evidence_id": "EV-0014",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
+     },
+     {
+      "evidence_id": "EV-0015",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+     },
+     {
+      "evidence_id": "EV-0016",
+      "source": "OWASP",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
+     },
+     {
+      "evidence_id": "EV-0017",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+     },
+     {
+      "evidence_id": "EV-0018",
+      "source": "OWASP",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
+     },
+     {
+      "evidence_id": "EV-0019",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
+     },
+     {
+      "evidence_id": "EV-0020",
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/179.html"
+     }
+    ],
+    "generated_at": "2026-11-18T08:43:35.006178Z"
+   },
+   "trace_id": "CS-20261118084309602474",
+   "timings": [
+    {
+     "stage": "evidence_qwen",
+     "ms": 3329
+    },
+    {
+     "stage": "evidence",
+     "ms": 1763
+    },
+    {
+     "stage": "analyst",
+     "ms": 7459
+    },
+    {
+     "stage": "critic",
+     "ms": 4001
+    },
+    {
+     "stage": "analyst",
+     "ms": 7280
+    },
+    {
+     "stage": "critic",
+     "ms": 3320
+    },
+    {
+     "stage": "final_validator",
+     "ms": 3
+    },
+    {
+     "stage": "total",
+     "ms": 25792
+    }
+   ]
+  },
+  "evidence_interpretation": {
+   "cve_id": "CVE-2022-47966",
+   "intent": "general",
+   "query": "CVE-2022-47966 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+  },
+  "retrieval_meta": {
+   "queries": [
+    "CVE-2022-47966 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance CWE-20 Improper Input Validation remediation mitigation security controls"
+   ],
+   "review": {
+    "sufficient": true,
+    "refined_query": "CVE-2022-47966 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+   },
+   "retry_used": false
+  },
+  "revised": true,
+  "first_draft_invalid": false,
+  "first_draft_invalid_reason": null,
+  "draft_invalid_reason": null,
+  "draft_fallback_reason": null,
+  "revision_review_failed": false,
+  "first_review_failed": false,
+  "refusal_reason": null,
+  "evidence": [
+   {
+    "evidence_id": "EV-0001",
+    "claim_type": "cve_description",
+    "claim": "Multiple Zoho ManageEngine on-premise products, such as ServiceDesk Plus through 14003, allow remote code execution due to use of Apache Santuario xmlsec (aka XML Security for Java) 1.4.1, because the xmlsec XSLT features, by design in that version, make the application responsible for certain security protections, and the ManageEngine applications did not provide those protections. This affects Access Manager Plus before 4308, Active Directory 360 before 4310, ADAudit Plus before 7081, ADManager Plus before 7162, ADSelfService Plus before 6211, Analytics Plus before 5150, Application Control Plus before 10.1.2220.18, Asset Explorer before 6983, Browser Security Plus before 11.1.2238.6, Device Control Plus before 10.1.2220.18, Endpoint Central before 10.1.2228.11, Endpoint Central MSP before 10.1.2228.11, Endpoint DLP before 10.1.2137.6, Key Manager Plus before 6401, OS Deployer before 1.1.2243.1, PAM 360 before 5713, Password Manager Pro before 12124, Patch Manager Plus before 10.1.2220.18, Remote Access Plus before 10.1.2228.11, Remote Monitoring and Management (RMM) before 10.1.41. ServiceDesk Plus before 14004, ServiceDesk Plus MSP before 13001, SupportCenter Plus before 11026, and Vulnerability Manager Plus before 10.1.2220.18. Exploitation is only possible if SAML SSO has ever been configured for a product (for some products, exploitation requires that SAML SSO is currently active).",
+    "source": "NVD",
+    "source_record_id": "CVE-2022-47966",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-47966",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": "2026-07-31T04:16:41.843000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0002",
+    "claim_type": "cvss",
+    "claim": "NVD reports CVSS 3.1 base score 9.8 (CRITICAL); vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H.",
+    "source": "NVD",
+    "source_record_id": "CVE-2022-47966",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-47966",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": "2026-07-31T04:16:41.843000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0003",
+    "claim_type": "kev",
+    "claim": "CVE-2022-47966 is listed in CISA KEV as known exploited; added 2023-01-23, due 2023-02-13. Required action: Apply updates per vendor instructions..",
+    "source": "CISA_KEV",
+    "source_record_id": "CVE-2022-47966",
+    "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": "2026-11-04T20:00:05.774000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0004",
+    "claim_type": "affected_product",
+    "claim": "Affected product: Zoho ManageEngine.",
+    "source": "CISA_KEV",
+    "source_record_id": "CVE-2022-47966",
+    "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0005",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-d4637924b2a8189e#003 from Rapid7 Analysis: CVE-2022-47966.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-d4637924b2a8189e#003",
+    "source_url": "https://attackerkb.com/topics/gvs0Gv8BID/cve-2022-47966/rapid7-analysis",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0006",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-d4637924b2a8189e#004 from Rapid7 Analysis: CVE-2022-47966.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-d4637924b2a8189e#004",
+    "source_url": "https://attackerkb.com/topics/gvs0Gv8BID/cve-2022-47966/rapid7-analysis",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0007",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-979b1db95bfa2adc#000 from ManageEngine Security Advisories.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-979b1db95bfa2adc#000",
+    "source_url": "https://www.manageengine.com/security/advisory/CVE/cve-2022-47966.html",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0008",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-9707d08bc0a24231#002 from ManageEngine CVE-2022-47966 Technical Deep Dive | Horizon3.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-9707d08bc0a24231#002",
+    "source_url": "https://www.horizon3.ai/manageengine-cve-2022-47966-technical-deep-dive/",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0009",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-088bdce497ef7811#001 from GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-088bdce497ef7811#001",
+    "source_url": "https://github.com/horizon3ai/CVE-2022-47966",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0010",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-088bdce497ef7811#003 from GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-088bdce497ef7811#003",
+    "source_url": "https://github.com/horizon3ai/CVE-2022-47966",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0011",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-088bdce497ef7811#002 from GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-088bdce497ef7811#002",
+    "source_url": "https://github.com/horizon3ai/CVE-2022-47966",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0012",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-088bdce497ef7811#000 from GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-088bdce497ef7811#000",
+    "source_url": "https://github.com/horizon3ai/CVE-2022-47966",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0013",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-82r3#435 from Guide to Operational Technology (OT) Security.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-82r3#435",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0014",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-171r3#137 from Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-171r3#137",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0015",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-30r1#139",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0016",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0017",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-53Ar5#1094 from Assessing Security and Privacy Controls in Information Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-53Ar5#1094",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0018",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage OWASP-Legacy_Application_Management_Cheat_Sheet#006 from Legacy Application Management Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0019",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-82r3#272 from Guide to Operational Technology (OT) Security.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-82r3#272",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0020",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage CWE-179#000 from CWE-179 Incorrect Behavior Order: Early Validation.",
+    "source": "CWE",
+    "source_record_id": "CWE-179#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/179.html",
+    "retrieved_at": "2026-11-18T08:43:11.171117Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   }
+  ],
+  "contexts": [
+   {
+    "evidence_id": "EV-0005",
+    "chunk_id": "NVDREF-d4637924b2a8189e#003",
+    "title": "Rapid7 Analysis: CVE-2022-47966",
+    "text": "Transform raw threat data into curated, high-fidelity intelligence\n\nGlobal Threat Landscape Report\n\nFind out what is driving the shift in 2026.\nRead now\n\nResources\n\nLearn\n\nBlog\n\nWebinars and Events\n\nResource Library\n\nCybersecurity Fundamentals\n\nProduct\n\nProduct Documentation\n\nProduct Release Notes\n\nProduct Extensions\n\nProduct Toolkits\n\nCustomer Support\n\nCustomer Support\n\nRapid7 Forum\n\nPartners\n\nPartner With Rapid7\n\nPartnerships Overview\n\nPACT Partner Program\n\nExpand & enrich customer experience\n\nPACT for Service Providers\n\nUnlock SOC efficiencies\n\nFor Customers\n\nPartner Directory\n\nFind Resellers, MSSPs and Distributors\n\nTechnology Partners\n\nStrengthen your security stack\n\nAWS Partnership\n\nSecure AWS resource types\n\nPartner portal\n\nPartner Login\n\nBecome a Partner\n\nDevelop & win business\n\nGrow your business\n\nSecurity where your customers need it\nBecome a partner\n\nCompany\n\nCompany\n\nAbout Us\n\nLeadership Team\n\nOur Customers\n\nCareers\n\nContact Us\n\nMedia\n\nNewsroom\n\nAwards and Recognition\n\nInvestors\n\nIn the community\n\nSocial Good\n\nCulture\n\nBoston Bruins Partnership\n\nContactGet demo\n\nResearch\n\nRapid7 Analysis: CVE-2022-47966\n\nRapid7 Intelligence\n\nJun 16, 2026|Last updated on Jun 16, 2026|13 min read\n\nRapid7 Analysis: CVE-2022-47966\n\nTable of contents\n\nDescription\n\nAffected products\n\nBackground\n\nTechnical analysis\n\nGuidance\n\nReferences\n\nRapid7 Analysis: CVE-2022-47966\n\nTable of contents\n\nDescription\n\nAffected products\n\nBackground\n\nTechnical analysis\n\nGuidance\n\nReferences\n\nTable of contents\n\nDescription\n\nAffected products\n\nBackground\n\nTechnical analysis\n\nGuidance\n\nReferences\n\nDescription",
+    "score": 9.056893
+   },
+   {
+    "evidence_id": "EV-0006",
+    "chunk_id": "NVDREF-d4637924b2a8189e#004",
+    "title": "Rapid7 Analysis: CVE-2022-47966",
+    "text": "CVE-2022-47966 is an unauthenticated remote code execution vulnerability that affects two dozen Zoho ManageEngine products, including ADSelfService Plus, ServiceDesk Plus, and Password Manager Pro, all of which have been exploited in the wild over the past year. The vulnerability arises from an outdated dependency on Apache Santuario, which is itself vulnerable to remote code execution going back to 2008. Successful exploitation of vulnerable ManageEngine products requires the target system to have SAML-based SSO. Some implementations are only vulnerable if SAML-based SSO is currently active, and others merely require it to have been enabled at some point in the past. See Zoho’s advisory for complete details on vulnerable products.\n\nRapid7’s incident response team has confirmed multiple instances of exploitation in the wild in customer environments as of Thursday, January 19, 2023. Rapid7 observed exploitation as early as Tuesday, January 17, 2023. Security firm Horizon3 published technical details, including a proof of concept (PoC), on Thursday, January 19.\n\nImportant note: This analysis will demonstrate that while the product the public PoC targets (ServiceDesk Plus) seems to be exploitable without any special modifications, the other product we tested (ADSelfService Plus) requires an attacker to obtain and modify the PoC with two additional pieces of data (a unique GUID value and an Issuer URL) for successful exploitation. In other words, for at least one product (and possibly others), the exploit needs to be customized not only to the product, but to the individual target.\n\nAffected products",
+    "score": 7.81475
+   },
+   {
+    "evidence_id": "EV-0007",
+    "chunk_id": "NVDREF-979b1db95bfa2adc#000",
+    "title": "ManageEngine Security Advisories",
+    "text": "Security advisory for remote code execution vulnerability in multiple ManageEngine products\n\nHome »\nSecurity Advisory\n\nSeverity : Critical\n\nCVE ID : CVE-2022-47966\n\nDetails :\n\nThis advisory addresses an unauthenticated remote code execution vulnerability reported and patched in the following ManageEngine OnPremise products due to the usage of an outdated third party dependency, Apache Santuario.\n\nManageEngine On-Demand/cloud products are not affected by this vulnerability.\n\nApplicability :\n\nThis advisory is applicable only when SAML SSO is/was enabled in the ManageEngine setup.\n\nProduct Name\nImpacted Version(s)\nFixed Version(s)\nReleased On\n\nAccess Manager Plus*\n4307 and below\n4308\n7/11/2022\n\nActive Directory 360**\n4309 and below\n4310\n28/10/2022\n\nADAudit Plus**\n7080 and below\n7081\n28/10/2022\n\nADManager Plus**\n7161 and below\n7162\n28/10/2022\n\nADSelfService Plus**\n6210 and below\n6211\n28/10/2022\n\nAnalytics Plus*\n5140 and below\n5150\n7/11/2022\n\nApplication Control Plus*\n10.1.2220.17 and below\n10.1.2220.18\n28/10/2022\n\nAsset Explorer**\n6982 and below\n6983\n27/10/2022\n\nBrowser Security Plus*\n11.1.2238.5 and below\n11.1.2238.6\n28/10/2022\n\nDevice Control Plus*\n10.1.2220.17 and below\n10.1.2220.18\n28/10/2022\n\nEndpoint Central*\n10.1.2228.10 and below\n10.1.2228.11\n28/10/2022\n\nEndpoint Central MSP*\n10.1.2228.10 and below\n10.1.2228.11\n28/10/2022\n\nEndpoint DLP*\n10.1.2137.5 and below\n10.1.2137.6\n28/10/2022\n\nKey Manager Plus*\n6400 and below\n6401\n27/10/2022\n\nOS Deployer*\n1.1.2243.0 and below\n1.1.2243.1\n28/10/2022\n\nPAM 360*\n5712 and below\n5713\n7/11/2022\n\nPassword Manager Pro*\n12123 and below\n12124\n7/11/2022\n\nPatch Manager Plus*\n10.1.2220.17 and below\n10.1.2220.18\n28/10/2022\n\nRemote Access Plus*\n10.1.2228.10 and below\n10.1.2228.11\n28/10/2022",
+    "score": 6.530978
+   },
+   {
+    "evidence_id": "EV-0008",
+    "chunk_id": "NVDREF-9707d08bc0a24231#002",
+    "title": "ManageEngine CVE-2022-47966 Technical Deep Dive | Horizon3",
+    "text": "Resource Center\n\nEvents\n\nBlog\n\nDocumentation\n\nCommunity\n\nAttack Research\n\nResource Center\n\nEvents\n\nUse Cases\n\nTripwires\n\nAD Tripwires\n\nFeatured\n\nMythos didn’t break cybersecurity\n\nIt exposed what was already broken.\n\nPartners\n\nPartners\n\nMSSP/MSP\n\nTech Alliances\n\nPartner Portal\n\nCompany\n\nCompany\n\nOur Vision\n\nLeadership\n\nCareers\n\nNews\n\nTrust Center\n\nLogin\n\nHorizon3 PortalCustomer PortalPartner Portal\n\nBook a demo\n\nManageEngine CVE-2022-47966 Technical Deep Dive\n\nJames Horseman\n\nJanuary 19, 2023\n\nAttack Blogs\n\nIntroduction\n\nOn January 10, 2023, ManageEngine released a security advisory for CVE-2022-47966 (discovered by Khoadha of Viettel Cyber Security) affecting a wide range of products. The vulnerability allows an attacker to gain remote code execution by issuing a HTTP POST request containing a malicious SAML response. This vulnerability is a result of using an outdated version of Apache Santuario for XML signature validation.\n\nPatch Analysis\n\nWe started our initial research by examining the differences between ServiceDesk Plus version 14003 and version 14004. By default, Service Desk is installed into C:\\Program Files\\ManageEngine\\ServiceDesk. We installed both versions and extracted the jar files for comparison.\n\nWhile there are many jar files that have been updated, we notice that there was a single jar file that has been completely changed. libxmlsec from Apache Santuario was updated from 1.4.1 to 2.2.3. Version 1.4.1 is over a decade old.\n\nJar differences\n\nThat is a large version jump, but if we start with the 1.4.2 release notes we find an interesting change:\n\nSwitch order of XML Signature validation steps. See Issue 44629.\n\nIssue 44629 can be found here. It describes switching the order of XML signature validation steps and the security implications.",
+    "score": 5.353938
+   },
+   {
+    "evidence_id": "EV-0009",
+    "chunk_id": "NVDREF-088bdce497ef7811#001",
+    "title": "GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub",
+    "text": "horizon3ai\n\nCVE-2022-47966\n\nRepository navigation\n\nCode\n\nPull requests\n\nActions\n\nProjects\n\nSecurity and quality\n\nInsights\n\nMore items\n\nCVE-2022-47966\nPublic\n\nNotificationsYou must be signed in to change notification settings\n\nFork29 (29)\n\nStar127 (127)You must be signed in to star a repository\n\nAbout\n\nPOC for CVE-2022-47966 affecting multiple ManageEngine products\n\nResources\n\nReadme\n\nActivity\n\nCustom properties\n\nStars\n\n127 stars\n\nWatchers\n\n3 watching\n\nForks\n\n29 forks\n\nReport repository\n\nmain\n\nBranchesTags\n\nGo to file\n\nCode\nOpen more actions menu\n\nLatest commit\n\nHistory\n5 Commits\n\n5 Commits\n\nFolders and files\n\nNameName\nLast commit message\n\nLast commit date\n\nCVE-2022-47966.py\n\nCVE-2022-47966.py\n\nREADME.md\n\nREADME.md\n\nView all files\n\nRepository files navigation\n\nREADME\n\nMore items\n\nCVE-2022-47966\n\nPOC for CVE-2022-47966 affecting the following ManageEngine products:\n\nAccess Manager Plus\n\nActive Directory 360\n\nADAudit Plus\n\nADManager Plus\n\nADSelfService Plus\n\nAnalytics Plus\n\nApplication Control Plus\n\nAsset Explorer\n\nBrowser Security Plus\n\nDevice Control Plus\n\nEndpoint Central\n\nEndpoint Central MSP\n\nEndpoint DLP\n\nKey Manager Plus\n\nOS Deployer\n\nPAM 360\n\nPassword Manager Pro\n\nPatch Manager Plus\n\nRemote Access Plus\n\nRemote Monitoring and Management (RMM)\n\nServiceDesk Plus\n\nServiceDesk Plus MSP\n\nSupportCenter Plus\n\nVulnerability Manager Plus\n\nThis specific POC only works on products utilizing Apache Santuario (xmlsec) <= 1.4.1 such as:\n\nServiceDesk Plus\n\nEndpoint Central\n\nADManager Plus\n\nADSelfService Plus\n\nOther products may perform additional checks on the SAML response. Modifying this POC to work on products that perform additional checks involves:\n\nScanning the logs of the vulnerable product for stack traces or additional logs message indicating an invalid SAML response.",
+    "score": 5.023516
+   },
+   {
+    "evidence_id": "EV-0010",
+    "chunk_id": "NVDREF-088bdce497ef7811#003",
+    "title": "GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub",
+    "text": "POC for CVE-2022-47966 affecting multiple ManageEngine products\n\nResources\n\nReadme\n\nActivity\n\nCustom properties\n\nStars\n\n127 stars\n\nWatchers\n\n3 watching\n\nForks\n\n29 forks\n\nReport repository\n\nReleases\n\nPackages\n\nContributors\n\nLanguages\n\nFooter\n\n© 2026 GitHub, Inc.\n\nFooter navigation\n\nTerms\n\nPrivacy\n\nSecurity\n\nStatus\n\nCommunity\n\nDocs\n\nContact\n\nManage cookies\n\nDo not share my personal information\n\nYou can’t perform that action at this time.",
+    "score": 4.647927
+   },
+   {
+    "evidence_id": "EV-0011",
+    "chunk_id": "NVDREF-088bdce497ef7811#002",
+    "title": "GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub",
+    "text": "Reverse engineering the vulnerable product and searching for the code that implements the checks.\n\nTechnical Analysis\n\nA technical root cause analysis of the vulnerability can be found on our blog:\nhttps://www.horizon3.ai/manageengine-cve-2022-47966-technical-deep-dive\n\nOriginal Researcher's Writeup\n\nKhoadha of Viettel Security documents his original research of this vulnerability and how it can be exploited across many versions of xmlsec:\nhttps://blog.viettelcybersecurity.com/saml-show-stopper/\n\nIndicators of Compromise\n\nFor analyzing ManageEngine logs for indicators of compromise check out our IOC blog:\nhttps://www.horizon3.ai/manageengine-cve-2022-47966-iocs/\n\nSummary\n\nThis POC abuses the pre-authentication remote code execution vulnerability to run a command with Java's Runtime.exec method.\n\nUsage\n\nFor Active Directory related products, such as ADManager, an issuer argument is required:\n\nroot@kali:~# python3 ./CVE-2022-47966.py --url https://10.0.40.90:8443/samlLogin/<guid> --issuer https://sts.windows.net/<guid>/ --command notepad.exe\n\nFor other products, a URL is all that is required:\n\nroot@kali:~# python3 ./CVE-2022-47966.py --url https://10.0.40.64:8080/SamlResponseServlet --command notepad.exe\n\nMitigations\n\nUpdate to the latest version of the affected product.\n\nFollow the Horizon3.ai Attack Team on Twitter for the latest security research:\n\nHorizon3 Attack Team\n\nJames Horseman\n\nZach Hanley\n\nDisclaimer\n\nThis software has been created purely for the purposes of academic research and for the development of effective defensive techniques, and is not intended to be used to attack systems except where explicitly authorized. Project maintainers are not responsible or liable for misuse of the software. Use responsibly.\n\nAbout",
+    "score": 4.169585
+   },
+   {
+    "evidence_id": "EV-0012",
+    "chunk_id": "NVDREF-088bdce497ef7811#000",
+    "title": "GitHub - horizon3ai/CVE-2022-47966: POC for CVE-2022-47966 affecting multiple ManageEngine products · GitHub",
+    "text": "Skip to content\n\nNavigation Menu\n\nSign in\n\nProducts\n\nPlatform\n\nGitHubRepository hosting, code review, and collaboration\n\nCopilotAI coding agent for tasks, projects, and automated work\n\nBuild & Ship\n\nActionsCI/CD and automation\n\nCode QualityQuality analysis, fixes, and enforcement\n\nCodespacesCloud development environments\n\nSecure\n\nCode SecurityVulnerability detection and remediation\n\nSecret ProtectionSecret scanning and leak prevention\n\nAll Features\n\nDevelopers\n\nLearn\n\nDocumentation\n\nTraining\n\nCertifications\n\nBuild\n\nBuild with Copilot\n\nCustomize Copilot\n\nIntegrations\n\nExplore\n\nTrending repos\n\nGitHub Sponsors\n\nDeveloper articles\n\nChangelog\n\nChangelogYour source for the latest features, improvements, and fixes across GitHub products, all in one place.\n\nBusinesses\n\nBy Stage\n\nEnterprises\n\nTeam\n\nStartups\n\nNonprofits\n\nBy Industry\n\nHealthcare\n\nFinancial services\n\nManufacturing\n\nGovernment\n\nSee all industries\n\nEvaluate GitHub\n\nWhy GitHub\n\nCustomer Stories\n\nBusiness insights\n\nTrust Center\n\nAdd-ons\n\nGitHub Advanced SecurityEnterprise-grade code security\n\nCopilot for businessEnterprise-grade AI features\n\nPremium SupportEnterprise-grade 24/7 support\n\nResources\n\nLearn & Connect\n\nDocumentation\n\nResource center\n\nBlog\n\nEvents & webinars\n\nCommunity Forum\n\nCustomer Stories\n\nIntegrations\n\nSupport\n\nCustomer support\n\nTraining\n\nGitHub Status\n\nCompany\n\nAbout\n\nPartners\n\nChangelog\n\nGitHub Universe\n\nGitHub UniverseThe event for developers, by developers — talks, workshops, and what’s next for GitHub.\n\nPricing\n\nSearch/\n\nSign in\nSign up\nAppearance settings\n\nYou signed in with another tab or window. Reload to refresh your session.\nYou signed out in another tab or window. Reload to refresh your session.\nYou switched accounts on another tab or window. Reload to refresh your session.\n\nDismiss alert",
+    "score": 4.00911
+   },
+   {
+    "evidence_id": "EV-0013",
+    "chunk_id": "NIST-SP-800-82r3#435",
+    "title": "Guide to Operational Technology (OT) Security",
+    "text": "Guide to Operational Technology (OT) Security - SC-45 SYSTEM TIME SYNCHRONIZATION\n\nOT Discussion: The policy specifically addresses the unique properties and requirements of OT\nand the relationship to non-OT systems.\nSI-2 FLAW REMEDIATION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-2 | Flaw Remediation | Select | Select | Select |\n| SI-2 (2) | FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  | Select | Select |\n\nOT Discussion: Flaw remediation, or patching, is complicated since many OT employ OSs and\nother software that are no longer maintained by the vendors. OT operators may also not have the\nresources or capability to test patches and are dependent on vendors to validate the operability of\na patch. Sometimes, the organization has no choice but to accept additional risk if no vendor\npatch is available, if patching requires additional time to complete validation or testing, or if\ndeployment requires an unacceptable operations shutdown. In these situations, compensating\ncontrols should be implemented (e.g., limiting the exposure of the vulnerable system, restricting\nvulnerable services, implementing virtual patching). Other compensating controls that do not\ndecrease the residual risk but increase the ability to respond may be desirable (e.g., provide a\ntimely response in case of an incident, devise a plan to ensure that the OT can identify\nexploitation of the flaw). Testing flaw remediation in an OT may exceed the organization’s\navailable resources.\nControl Enhancement: (2) No OT discussion for this control.\nSI-3 MALICIOUS CODE PROTECTION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-3 | Malicious Code Protection | Select | Select | Select |",
+    "score": 0.014815627743634766
+   },
+   {
+    "evidence_id": "EV-0014",
+    "chunk_id": "NIST-SP-800-171r3#137",
+    "title": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations",
+    "text": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations\n\nTable 21. System and Information Integrity (SI)\n\n|  |  | TAILORING | SECURITY |\n| --- | --- | --- | --- |\n| NIST SP 800-53 CONTROLS MODERATE BASELINE |  | CRITERIA | REQUIREMENT |\n| SI-01 | Policy and Procedures | CUI | 03.15.01 |\n| SI-02 | Flaw Remediation | CUI | 03.14.01 |\n| SI-02(02) | Flaw Remediation \\| Automated Flaw Remediation Status | NCO | — |\n| SI-03 | Malicious Code Protection | CUI | 03.14.02 |\n| SI-04 | System Monitoring | CUI | 03.14.06 |\n| SI-04(02) | System Monitoring \\| Automated Tools and Mechanisms for Real- Time Analysis | NCO | — |\n| SI-04(04) | System Monitoring \\| Inbound and Outbound Communications Traffic | CUI | 03.14.06 |\n| SI-04(05) | System Monitoring \\| System-Generated Alerts | NCO | — |\n| SI-05 | Security Alerts, Advisories, and Directives | CUI | 03.14.03 |\n| SI-07 | Software, Firmware, and Information Integrity | NCO | — |\n| SI-07(01) | Software, Firmware, and Information Integrity \\| Integrity Checks | NCO | — |\n\n|  |  | TAILORING | SECURITY |\n| --- | --- | --- | --- |\n| NIST SP 800-53 CONTROLS MODERATE BASELINE |  | CRITERIA | REQUIREMENT |\n| SI-07(07) | Software, Firmware, and Information Integrity \\| Integration of Detection and Response | NCO | — |\n| SI-08 | Spam Protection | ORC | — |\n| SI-08(02) | Spam Protection \\| Automatic Updates | NCO | — |\n| SI-10 | Information Input Validation | NCO | — |\n| SI-11 | Error Handling | NCO | — |\n| SI-12 | Information Management and Retention | CUI | 03.14.08 |\n| SI-16 | Memory Protection | NCO | — |\n\nTable 22. Supply Chain Risk Management (SR)",
+    "score": 0.014479166666666668
+   },
+   {
+    "evidence_id": "EV-0015",
+    "chunk_id": "NIST-SP-800-30r1#139",
+    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
+    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
+    "score": 0.01444672131147541
+   },
+   {
+    "evidence_id": "EV-0016",
+    "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "title": "Vulnerability Disclosure Cheat Sheet",
+    "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
+    "score": 0.013986697965571206
+   },
+   {
+    "evidence_id": "EV-0017",
+    "chunk_id": "NIST-SP-800-53Ar5#1094",
+    "title": "Assessing Security and Privacy Controls in Information Systems and Organizations",
+    "text": "Assessing Security and Privacy Controls in Information Systems and Organizations - IST.SP.8\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS ASSESSMENT OBJECTIVE: Determine if: |  |\n| --- | --- |\n| SI-02(02)_ODP[01] | automated mechanisms to determine if applicable security-relevant soware and firmware updates are installed on system components are defined; |\n| SI-02(02)_ODP[02] | the frequency at which to determine if applicable security-relevant soware and firmware updates are installed on system components is defined; |\n| SI-02(02) | system components have applicable security-relevant soware and firmware updates installed <SI-02(02)_ODP[02] frequency> using <SI-02(02)_ODP[01] automated mechanisms>. |\n\nReference produced from open data\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  |\n| --- | --- |\n| POTENTIAL ASSESSMENT METHODS AND OBJECTS: |  |\n| SI-02(02)-Examine | [SELECT FROM: System and informaon integrity policy; system and informaon integrity procedures; procedures addressing flaw remediaon; automated mechanisms supporng centralized management of flaw remediaon; system design documentaon; system configuraon sengs and associated documentaon; system audit records; system security plan; other relevant documents or records]. |\n| SI-02(02)-Interview | [SELECT FROM: System/network administrators; organizaonal personnel with informaon security responsibilies; organizaonal personnel installing, configuring, and/or maintaining the system; organizaonal personnel responsible for flaw remediaon]. |\n| SI-02(02)-Test | [SELECT FROM: Automated mechanisms used to determine the state of system components with regard to flaw remediaon]. |\n\non\nis\nav",
+    "score": 0.012691570881226053
+   },
+   {
+    "evidence_id": "EV-0018",
+    "chunk_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
+    "title": "Legacy Application Management Cheat Sheet",
+    "text": "Legacy Application Management Cheat Sheet\n\nA Common Vulnerabilities and Exposures (CVE) identifier helps track a vulnerability; [assignment depends on vulnerability determination, disclosure, and the assigning authority's scope](https://github.com/CVEProject/cve-documents/blob/master/CNA_Rules.md#42-cve-id-assignment). Its presence or absence does not by itself establish remediation priority. In circumstances where patching is not practically possible for the legacy application, consider applying additional restrictions to the application/affected components as noted in the section on Authentication/Authorization.\n\n## Data Storage\n\nConfirm that, where ever possible, data handled by the application is both encrypted at rest (i.e. when stored in a database) and in transit. Cheat Sheets on [Cryptographic Storage](Cryptographic_Storage_Cheat_Sheet.md) and [HTTP Strict Transport Security](HTTP_Strict_Transport_Security_Cheat_Sheet.md) may provide some useful further context. In some circumstances legacy applications might be restricted to the use of older network protocols that only support transmission of data in plain text. In this case it is especially important to apply the most restrictive network access controls possible to the application. This could necessitate temporary or permanent air-gapping (functional isolation) of the application.\n\n## Ensuring Maintainability\n\nWhere possible, aim to maintain a high degree of institutional expertise regarding the application, so that staff can both remediate security vulnerabilities and troubleshoot the application as needed to ensure business continuity. The following recommendations apply:",
+    "score": 0.010354715378079863
+   },
+   {
+    "evidence_id": "EV-0019",
+    "chunk_id": "NIST-SP-800-82r3#272",
+    "title": "Guide to Operational Technology (OT) Security",
+    "text": "Guide to Operational Technology (OT) Security\n\nTable 17. Physical vulnerabilities and predisposing conditions\n\nTable 18. Software development vulnerabilities and predisposing conditions\n\n| Vulnerability | Description |\n| --- | --- |\n| Improper data validation | OT software may not properly validate user inputs or received data to ensure validity. Invalid data may result in numerous vulnerabilities, including buffer overflows, command injections, cross-site scripting, and path traversals. |\n| Installed security capabilities are not enabled by default | Security capabilities that were installed with the product are useless if they are not enabled or at least identified as being disabled. |\n| Inadequate authentication, privileges, and access control in software | Unauthorized access to configuration and programming software could provide the ability to corrupt a device. |\n\nTable 19. Communication and network configuration vulnerabilities and predisposing conditions",
+    "score": 0.00819672131147541
+   },
+   {
+    "evidence_id": "EV-0020",
+    "chunk_id": "CWE-179#000",
+    "title": "CWE-179 Incorrect Behavior Order: Early Validation",
+    "text": "CWE-179 Incorrect Behavior Order: Early Validation\n\nDescription: The product validates input before applying protection mechanisms that modify the input.\n\nPotential mitigations:\n- Implementation:STRATEGY:Input Validation: Inputs should be decoded and canonicalized to the application's current internal representation before being validated (CWE-180). Make sure that the application does not decode the same input twice (CWE-174). Such errors could be used to bypass allowlist validation schemes by introducing dangerous inputs after they have been checked.",
+    "score": 0.008064516129032258
+   }
+  ],
+  "model_calls": [
+   {
+    "stage": "evidence_interpretation",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 1560,
+    "prompt_tokens": 247,
+    "completion_tokens": 65,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "retrieval_review",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 1312,
+    "prompt_tokens": 2031,
+    "completion_tokens": 48,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 7455,
+    "prompt_tokens": 4951,
+    "completion_tokens": 305,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 3987,
+    "prompt_tokens": 5195,
+    "completion_tokens": 153,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 7276,
+    "prompt_tokens": 5460,
+    "completion_tokens": 312,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 3313,
+    "prompt_tokens": 5202,
+    "completion_tokens": 139,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   }
+  ],
+  "error": null
+ },
+ "error": null
+}

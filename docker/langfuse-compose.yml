@@ -1,0 +1,50 @@
+# Local-only Langfuse v2 tracing stack (decision D21).
+# Start:  docker compose -f docker/langfuse-compose.yml up -d
+# Stop:   docker compose -f docker/langfuse-compose.yml down
+# Secrets and bootstrap keys are interpolated from docker/.env next to this file;
+# that file is gitignored and must stay that way. The UI is bound to 127.0.0.1:3100
+# only and telemetry is off, so nothing leaves this machine.
+name: cybershield-langfuse
+
+services:
+  langfuse:
+    image: langfuse/langfuse:2
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3100:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD}@langfuse-db:5432/langfuse
+      NEXTAUTH_URL: http://localhost:3100
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET}
+      SALT: ${LANGFUSE_SALT}
+      ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY}
+      TELEMETRY_ENABLED: "false"
+      LANGFUSE_TELEMETRY_ENABLED: "false"
+      # Bootstrap project and keys so the stack is reproducible without the UI.
+      LANGFUSE_INIT_ORG_ID: cybershield
+      LANGFUSE_INIT_ORG_NAME: CyberShield AI
+      LANGFUSE_INIT_PROJECT_ID: cybershield-investigations
+      LANGFUSE_INIT_PROJECT_NAME: CyberShield Investigations
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_PROJECT_PUBLIC_KEY}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_PROJECT_SECRET_KEY}
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_INIT_USER_EMAIL}
+      LANGFUSE_INIT_USER_NAME: CyberShield Operator
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_INIT_USER_PASSWORD}
+    restart: unless-stopped
+
+  langfuse-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${LANGFUSE_DB_PASSWORD}
+      POSTGRES_DB: langfuse
+    volumes:
+      - ./langfuse-data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse -d langfuse"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped

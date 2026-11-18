@@ -1,0 +1,317 @@
+{
+  "generated_at": "2026-11-06T09:40:36Z",
+  "documents": 37,
+  "totals": {
+    "tables": 2190,
+    "table_rows": 17613,
+    "captions": 35,
+    "span_offset_mismatches": 0
+  },
+  "documents_without_tables": [
+    "NIST-SP-800-41r1",
+    "NIST-SP-800-92",
+    "NIST-SP-800-125",
+    "NIST-SP-800-137",
+    "NIST-SP-800-144",
+    "NIST-SP-800-153"
+  ],
+  "caption_gap_over_2": {},
+  "per_document": {
+    "NIST-SP-800-30r1": {
+      "tables": 39,
+      "table_rows": 762,
+      "captions": 0,
+      "caption_table_gap": -39,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-37r2": {
+      "tables": 22,
+      "table_rows": 556,
+      "captions": 0,
+      "caption_table_gap": -22,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-39": {
+      "tables": 1,
+      "table_rows": 30,
+      "captions": 0,
+      "caption_table_gap": -1,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-40r4": {
+      "tables": 1,
+      "table_rows": 8,
+      "captions": 0,
+      "caption_table_gap": -1,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-41r1": {
+      "tables": 0,
+      "table_rows": 0,
+      "captions": 1,
+      "caption_table_gap": 1,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-52r2": {
+      "tables": 4,
+      "table_rows": 53,
+      "captions": 2,
+      "caption_table_gap": -2,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-53r5": {
+      "tables": 48,
+      "table_rows": 1465,
+      "captions": 0,
+      "caption_table_gap": -48,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-53Ar5": {
+      "tables": 1457,
+      "table_rows": 8211,
+      "captions": 0,
+      "caption_table_gap": -1457,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-53B": {
+      "tables": 42,
+      "table_rows": 1239,
+      "captions": 20,
+      "caption_table_gap": -22,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-57pt1r5": {
+      "tables": 36,
+      "table_rows": 269,
+      "captions": 0,
+      "caption_table_gap": -36,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-61r3": {
+      "tables": 27,
+      "table_rows": 629,
+      "captions": 0,
+      "caption_table_gap": -27,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-63B-4": {
+      "tables": 15,
+      "table_rows": 115,
+      "captions": 0,
+      "caption_table_gap": -15,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-77r1": {
+      "tables": 6,
+      "table_rows": 61,
+      "captions": 0,
+      "caption_table_gap": -6,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-82r3": {
+      "tables": 291,
+      "table_rows": 1298,
+      "captions": 0,
+      "caption_table_gap": -291,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-92": {
+      "tables": 0,
+      "table_rows": 0,
+      "captions": 1,
+      "caption_table_gap": 1,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-115": {
+      "tables": 13,
+      "table_rows": 95,
+      "captions": 6,
+      "caption_table_gap": -7,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-123": {
+      "tables": 4,
+      "table_rows": 37,
+      "captions": 0,
+      "caption_table_gap": -4,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-125": {
+      "tables": 0,
+      "table_rows": 0,
+      "captions": 0,
+      "caption_table_gap": 0,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-128": {
+      "tables": 12,
+      "table_rows": 216,
+      "captions": 0,
+      "caption_table_gap": -12,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-137": {
+      "tables": 0,
+      "table_rows": 0,
+      "captions": 0,
+      "caption_table_gap": 0,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-144": {
+      "tables": 0,
+      "table_rows": 0,
+      "captions": 0,
+      "caption_table_gap": 0,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-145": {
+      "tables": 1,
+      "table_rows": 1,
+      "captions": 0,
+      "caption_table_gap": -1,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-153": {
+      "tables": 0,
+      "table_rows": 0,
+      "captions": 0,
+      "caption_table_gap": 0,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-160v1r1": {
+      "tables": 7,
+      "table_rows": 121,
+      "captions": 0,
+      "caption_table_gap": -7,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-161r1": {
+      "tables": 57,
+      "table_rows": 632,
+      "captions": 5,
+      "caption_table_gap": -52,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-171r3": {
+      "tables": 35,
+      "table_rows": 458,
+      "captions": 0,
+      "caption_table_gap": -35,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-172": {
+      "tables": 20,
+      "table_rows": 541,
+      "captions": 0,
+      "caption_table_gap": -20,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-183": {
+      "tables": 2,
+      "table_rows": 10,
+      "captions": 0,
+      "caption_table_gap": -2,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-190": {
+      "tables": 7,
+      "table_rows": 72,
+      "captions": 0,
+      "caption_table_gap": -7,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-204": {
+      "tables": 12,
+      "table_rows": 32,
+      "captions": 0,
+      "caption_table_gap": -12,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-207": {
+      "tables": 3,
+      "table_rows": 33,
+      "captions": 0,
+      "caption_table_gap": -3,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-210": {
+      "tables": 4,
+      "table_rows": 34,
+      "captions": 0,
+      "caption_table_gap": -4,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-215": {
+      "tables": 2,
+      "table_rows": 18,
+      "captions": 0,
+      "caption_table_gap": -2,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-218": {
+      "tables": 15,
+      "table_rows": 569,
+      "captions": 0,
+      "caption_table_gap": -15,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-SP-800-233": {
+      "tables": 3,
+      "table_rows": 16,
+      "captions": 0,
+      "caption_table_gap": -3,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-CSF-2.0": {
+      "tables": 3,
+      "table_rows": 25,
+      "captions": 0,
+      "caption_table_gap": -3,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    },
+    "NIST-CSWP-30": {
+      "tables": 1,
+      "table_rows": 7,
+      "captions": 0,
+      "caption_table_gap": -1,
+      "span_offset_mismatches": 0,
+      "empty_tables": 0
+    }
+  }
+}

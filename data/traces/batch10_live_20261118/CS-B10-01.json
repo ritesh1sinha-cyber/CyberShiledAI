@@ -1,0 +1,934 @@
+{
+ "test_id": "CS-B10-01",
+ "query": "Investigate CVE-2021-23017: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
+ "gold_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
+ "model": "Qwen/Qwen3-8B",
+ "architecture": "multi",
+ "recorded_at": "2026-11-18T08:40:10+00:00",
+ "request": {
+  "query": "Investigate CVE-2021-23017: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
+  "include_attack": true,
+  "top_k": 8
+ },
+ "http_status": 200,
+ "elapsed_ms": 34873,
+ "response": {
+  "report": {
+   "request_id": "CS-20261118083935579472",
+   "status": "completed",
+   "summary": "CVE-2021-23017 is a high-severity vulnerability in nginx resolver.",
+   "summary_evidence_ids": [
+    "EV-0001",
+    "EV-0002"
+   ],
+   "cve": {
+    "cve_id": "CVE-2021-23017",
+    "description": "A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.",
+    "cvss_version": "3.1",
+    "cvss_score": 7.7,
+    "severity": "HIGH",
+    "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cvss_source": "nvd",
+    "published": "2021-06-01",
+    "last_modified": "2026-06-17T03:38:13.130000Z"
+   },
+   "affected_products": [
+    "oracle communications control plane monitor",
+    "oracle communications operations monitor",
+    "oracle enterprise telephony fraud monitor",
+    "fedoraproject fedora",
+    "oracle communications session border controller"
+   ],
+   "kev": {
+    "status": "not_listed",
+    "catalog_version": "2026.11.04",
+    "checked_at": "2026-11-18T08:39:41.996786Z",
+    "date_added": null,
+    "due_date": null,
+    "required_action": null,
+    "ransomware_use": null
+   },
+   "attack_mapping": [],
+   "remediation": [
+    {
+     "text": "Update to nginx 1.20.1; apply Oracle patches for affected products.",
+     "evidence_ids": [
+      "EV-0009",
+      "EV-0010",
+      "EV-0011",
+      "EV-0012"
+     ]
+    }
+   ],
+   "risk": {
+    "tier": "medium",
+    "drivers": [
+     "CVSS 3.1 base score 7.7 (HIGH)."
+    ],
+    "rationale": "CVSS 7.7 (HIGH) with no known-exploited KEV status.",
+    "evidence_ids": [
+     "EV-0002"
+    ]
+   },
+   "limitations": [
+    "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
+    "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
+    "Retrieved passages are ranked context, not independently verified facts.",
+    "No verified MITRE ATT&CK technique mapping; retrieved passages are context, not verified facts."
+   ],
+   "citations": [
+    {
+     "evidence_id": "EV-0001",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0002",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0003",
+     "source": "CISA_KEV",
+     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+     "evidence_id": "EV-0004",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0005",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0006",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0007",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0008",
+     "source": "NVD",
+     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+    },
+    {
+     "evidence_id": "EV-0009",
+     "source": "NVD_REF",
+     "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/GNKOP2JR5L7KCIZTJRZDCUPJTUONMC5I/"
+    },
+    {
+     "evidence_id": "EV-0010",
+     "source": "NVD_REF",
+     "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/7SFVYHC7OXTEO4SMBWXDVK6E5IMEYMEE/"
+    },
+    {
+     "evidence_id": "EV-0011",
+     "source": "NVD_REF",
+     "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+    },
+    {
+     "evidence_id": "EV-0012",
+     "source": "NVD_REF",
+     "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+    },
+    {
+     "evidence_id": "EV-0013",
+     "source": "NVD_REF",
+     "source_url": "http://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html"
+    },
+    {
+     "evidence_id": "EV-0014",
+     "source": "NVD_REF",
+     "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+    },
+    {
+     "evidence_id": "EV-0015",
+     "source": "NVD_REF",
+     "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+    },
+    {
+     "evidence_id": "EV-0016",
+     "source": "NVD_REF",
+     "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/GNKOP2JR5L7KCIZTJRZDCUPJTUONMC5I/"
+    },
+    {
+     "evidence_id": "EV-0017",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
+    },
+    {
+     "evidence_id": "EV-0018",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
+    },
+    {
+     "evidence_id": "EV-0019",
+     "source": "OWASP",
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
+    },
+    {
+     "evidence_id": "EV-0020",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
+    },
+    {
+     "evidence_id": "EV-0021",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+    },
+    {
+     "evidence_id": "EV-0022",
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/210.html"
+    },
+    {
+     "evidence_id": "EV-0023",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+    },
+    {
+     "evidence_id": "EV-0024",
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/209.html"
+    }
+   ],
+   "generated_at": "2026-11-18T08:40:09.571232Z"
+  },
+  "trace_id": "CS-20261118083935579472",
+  "timings": [
+   {
+    "stage": "evidence_qwen",
+    "ms": 8935
+   },
+   {
+    "stage": "evidence",
+    "ms": 7355
+   },
+   {
+    "stage": "analyst",
+    "ms": 8393
+   },
+   {
+    "stage": "critic",
+    "ms": 2074
+   },
+   {
+    "stage": "analyst",
+    "ms": 8028
+   },
+   {
+    "stage": "critic",
+    "ms": 1698
+   },
+   {
+    "stage": "final_validator",
+    "ms": 7
+   },
+   {
+    "stage": "total",
+    "ms": 34843
+   }
+  ]
+ },
+ "service_trace": {
+  "trace_id": "CS-20261118083935579472",
+  "recorded_at": "2026-11-18T08:40:10.422153+00:00",
+  "request": {
+   "query": "Investigate CVE-2021-23017: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
+   "include_attack": true,
+   "top_k": 8,
+   "conversation_context": []
+  },
+  "response": {
+   "report": {
+    "request_id": "CS-20261118083935579472",
+    "status": "completed",
+    "summary": "CVE-2021-23017 is a high-severity vulnerability in nginx resolver.",
+    "summary_evidence_ids": [
+     "EV-0001",
+     "EV-0002"
+    ],
+    "cve": {
+     "cve_id": "CVE-2021-23017",
+     "description": "A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.",
+     "cvss_version": "3.1",
+     "cvss_score": 7.7,
+     "severity": "HIGH",
+     "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+     "cvss_source": "nvd",
+     "published": "2021-06-01",
+     "last_modified": "2026-06-17T03:38:13.130000Z"
+    },
+    "affected_products": [
+     "oracle communications control plane monitor",
+     "oracle communications operations monitor",
+     "oracle enterprise telephony fraud monitor",
+     "fedoraproject fedora",
+     "oracle communications session border controller"
+    ],
+    "kev": {
+     "status": "not_listed",
+     "catalog_version": "2026.11.04",
+     "checked_at": "2026-11-18T08:39:41.996786Z",
+     "date_added": null,
+     "due_date": null,
+     "required_action": null,
+     "ransomware_use": null
+    },
+    "attack_mapping": [],
+    "remediation": [
+     {
+      "text": "Update to nginx 1.20.1; apply Oracle patches for affected products.",
+      "evidence_ids": [
+       "EV-0009",
+       "EV-0010",
+       "EV-0011",
+       "EV-0012"
+      ]
+     }
+    ],
+    "risk": {
+     "tier": "medium",
+     "drivers": [
+      "CVSS 3.1 base score 7.7 (HIGH)."
+     ],
+     "rationale": "CVSS 7.7 (HIGH) with no known-exploited KEV status.",
+     "evidence_ids": [
+      "EV-0002"
+     ]
+    },
+    "limitations": [
+     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
+     "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
+     "Retrieved passages are ranked context, not independently verified facts.",
+     "No verified MITRE ATT&CK technique mapping; retrieved passages are context, not verified facts."
+    ],
+    "citations": [
+     {
+      "evidence_id": "EV-0001",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0002",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0003",
+      "source": "CISA_KEV",
+      "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+     },
+     {
+      "evidence_id": "EV-0004",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0005",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0006",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0007",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0008",
+      "source": "NVD",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017"
+     },
+     {
+      "evidence_id": "EV-0009",
+      "source": "NVD_REF",
+      "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/GNKOP2JR5L7KCIZTJRZDCUPJTUONMC5I/"
+     },
+     {
+      "evidence_id": "EV-0010",
+      "source": "NVD_REF",
+      "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/7SFVYHC7OXTEO4SMBWXDVK6E5IMEYMEE/"
+     },
+     {
+      "evidence_id": "EV-0011",
+      "source": "NVD_REF",
+      "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+     },
+     {
+      "evidence_id": "EV-0012",
+      "source": "NVD_REF",
+      "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+     },
+     {
+      "evidence_id": "EV-0013",
+      "source": "NVD_REF",
+      "source_url": "http://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html"
+     },
+     {
+      "evidence_id": "EV-0014",
+      "source": "NVD_REF",
+      "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+     },
+     {
+      "evidence_id": "EV-0015",
+      "source": "NVD_REF",
+      "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html"
+     },
+     {
+      "evidence_id": "EV-0016",
+      "source": "NVD_REF",
+      "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/GNKOP2JR5L7KCIZTJRZDCUPJTUONMC5I/"
+     },
+     {
+      "evidence_id": "EV-0017",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
+     },
+     {
+      "evidence_id": "EV-0018",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
+     },
+     {
+      "evidence_id": "EV-0019",
+      "source": "OWASP",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
+     },
+     {
+      "evidence_id": "EV-0020",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
+     },
+     {
+      "evidence_id": "EV-0021",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+     },
+     {
+      "evidence_id": "EV-0022",
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/210.html"
+     },
+     {
+      "evidence_id": "EV-0023",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+     },
+     {
+      "evidence_id": "EV-0024",
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/209.html"
+     }
+    ],
+    "generated_at": "2026-11-18T08:40:09.571232Z"
+   },
+   "trace_id": "CS-20261118083935579472",
+   "timings": [
+    {
+     "stage": "evidence_qwen",
+     "ms": 8935
+    },
+    {
+     "stage": "evidence",
+     "ms": 7355
+    },
+    {
+     "stage": "analyst",
+     "ms": 8393
+    },
+    {
+     "stage": "critic",
+     "ms": 2074
+    },
+    {
+     "stage": "analyst",
+     "ms": 8028
+    },
+    {
+     "stage": "critic",
+     "ms": 1698
+    },
+    {
+     "stage": "final_validator",
+     "ms": 7
+    },
+    {
+     "stage": "total",
+     "ms": 34843
+    }
+   ]
+  },
+  "evidence_interpretation": {
+   "cve_id": "CVE-2021-23017",
+   "intent": "general",
+   "query": "CVE-2021-23017 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+  },
+  "retrieval_meta": {
+   "queries": [
+    "CVE-2021-23017 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance CWE-193 Off-by-one Error remediation mitigation security controls"
+   ],
+   "review": {
+    "sufficient": true,
+    "refined_query": "..."
+   },
+   "retry_used": false
+  },
+  "revised": true,
+  "first_draft_invalid": false,
+  "first_draft_invalid_reason": null,
+  "draft_invalid_reason": null,
+  "draft_fallback_reason": null,
+  "revision_review_failed": false,
+  "first_review_failed": false,
+  "refusal_reason": null,
+  "evidence": [
+   {
+    "evidence_id": "EV-0001",
+    "claim_type": "cve_description",
+    "claim": "A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0002",
+    "claim_type": "cvss",
+    "claim": "NVD reports CVSS 3.1 base score 7.7 (HIGH); vector CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0003",
+    "claim_type": "kev",
+    "claim": "CVE-2021-23017 is not listed in CISA KEV catalog 2026.11.04.",
+    "source": "CISA_KEV",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-11-04T20:00:05.774000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0004",
+    "claim_type": "affected_product",
+    "claim": "Affected product: oracle communications control plane monitor.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0005",
+    "claim_type": "affected_product",
+    "claim": "Affected product: oracle communications operations monitor.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0006",
+    "claim_type": "affected_product",
+    "claim": "Affected product: oracle enterprise telephony fraud monitor.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0007",
+    "claim_type": "affected_product",
+    "claim": "Affected product: fedoraproject fedora.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0008",
+    "claim_type": "affected_product",
+    "claim": "Affected product: oracle communications session border controller.",
+    "source": "NVD",
+    "source_record_id": "CVE-2021-23017",
+    "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23017",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": "2026-06-17T03:38:13.130000Z",
+    "validation_status": "verified"
+   },
+   {
+    "evidence_id": "EV-0009",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-0a1a6ac89dc428b5#002 from [SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-0a1a6ac89dc428b5#002",
+    "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/GNKOP2JR5L7KCIZTJRZDCUPJTUONMC5I/",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0010",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-76cd4fb4d2d886aa#002 from [SECURITY] Fedora 34 Update: nginx-1.20.1-2.fc34 - package-announce - Fedora mailing-lists.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-76cd4fb4d2d886aa#002",
+    "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/7SFVYHC7OXTEO4SMBWXDVK6E5IMEYMEE/",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0011",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-eebfda7d36c0537b#011 from Oracle Critical Patch Update Advisory - October 2021.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-eebfda7d36c0537b#011",
+    "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0012",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-eebfda7d36c0537b#027 from Oracle Critical Patch Update Advisory - October 2021.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-eebfda7d36c0537b#027",
+    "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0013",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-187f75a665d96f9d#000 from [nginx-announce] nginx security advisory (CVE-2021-23017).",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-187f75a665d96f9d#000",
+    "source_url": "http://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0014",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-eebfda7d36c0537b#014 from Oracle Critical Patch Update Advisory - October 2021.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-eebfda7d36c0537b#014",
+    "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0015",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-eebfda7d36c0537b#008 from Oracle Critical Patch Update Advisory - October 2021.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-eebfda7d36c0537b#008",
+    "source_url": "https://www.oracle.com/security-alerts/cpuoct2021.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0016",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NVDREF-0a1a6ac89dc428b5#001 from [SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists.",
+    "source": "NVD_REF",
+    "source_record_id": "NVDREF-0a1a6ac89dc428b5#001",
+    "source_url": "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/GNKOP2JR5L7KCIZTJRZDCUPJTUONMC5I/",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0017",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-171r3#137 from Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-171r3#137",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0018",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-171r3#076 from Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-171r3#076",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0019",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0020",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-82r3#435 from Guide to Operational Technology (OT) Security.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-82r3#435",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0021",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-53Ar5#1094 from Assessing Security and Privacy Controls in Information Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-53Ar5#1094",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0022",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage CWE-210#000 from CWE-210 Self-generated Error Message Containing Sensitive Information.",
+    "source": "CWE",
+    "source_record_id": "CWE-210#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/210.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0023",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-30r1#139",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   },
+   {
+    "evidence_id": "EV-0024",
+    "claim_type": "remediation",
+    "claim": "Retrieved passage CWE-209#000 from CWE-209 Generation of Error Message Containing Sensitive Information.",
+    "source": "CWE",
+    "source_record_id": "CWE-209#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/209.html",
+    "retrieved_at": "2026-11-18T08:39:41.996786Z",
+    "source_updated_at": null,
+    "validation_status": "retrieved"
+   }
+  ],
+  "contexts": [
+   {
+    "evidence_id": "EV-0009",
+    "chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+    "title": "[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists",
+    "text": "* Tue Jun 1 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-2\n- use different fix for rhbz#1683388 as it introduced permissions issues in 1:1.20.0-2\n* Tue May 25 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-1\n- update to 1.20.1 (fixes CVE-2021-23017)\n* Fri May 21 2021 Jitka Plesnikova jplesnik@redhat.com - 1:1.20.0-4\n- Perl 5.34 rebuild\n* Fri Apr 30 2021 Lubos Uhliarik luhliari@redhat.com - 1:1.20.0-3\n- Related: #1636235 - centralizing default index.html on nginx\n--------------------------------------------------------------------------------\nReferences:\n\n[ 1 ] Bug #1964820 - CVE-2021-23017 nginx: Off-by-one in ngx_resolver_copy() when labels are followed by a pointer to a root domain name [fedora-all]\nhttps://bugzilla.redhat.com/show_bug.cgi?id=1964820\n[ 2 ] Bug #1966367 - nginx doesn't reopen the log file\nhttps://bugzilla.redhat.com/show_bug.cgi?id=1966367\n--------------------------------------------------------------------------------\n\nThis update can be installed with the \"dnf\" update program. Use\nsu -c 'dnf upgrade --advisory FEDORA-2021-b37cffac0d' at the command\nline. For more information, refer to the dnf documentation available at\nhttp://dnf.readthedocs.io/en/latest/command_ref.html#upgrade-command-label\n\nAll packages are signed with the Fedora Project GPG key. More details on the\nGPG keys used by the Fedora Project can be found at\nhttps://fedoraproject.org/keys\n--------------------------------------------------------------------------------\n\n0\n\n0\n\nReply\n\nBack to the thread\n\nBack to the list\n\nPowered by HyperKitty version 1.3.7.",
+    "score": 5.961305
+   },
+   {
+    "evidence_id": "EV-0010",
+    "chunk_id": "NVDREF-76cd4fb4d2d886aa#002",
+    "title": "[SECURITY] Fedora 34 Update: nginx-1.20.1-2.fc34 - package-announce - Fedora mailing-lists",
+    "text": "* Tue Jun 1 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-2\n- use different fix for rhbz#1683388 as it introduced permissions issues in 1:1.20.0-2\n* Tue May 25 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-1\n- update to 1.20.1 (fixes CVE-2021-23017)\n* Fri May 21 2021 Jitka Plesnikova jplesnik@redhat.com - 1:1.20.0-4\n- Perl 5.34 rebuild\n* Fri Apr 30 2021 Lubos Uhliarik luhliari@redhat.com - 1:1.20.0-3\n- Related: #1636235 - centralizing default index.html on nginx\n--------------------------------------------------------------------------------\nReferences:\n\n[ 1 ] Bug #1964820 - CVE-2021-23017 nginx: Off-by-one in ngx_resolver_copy() when labels are followed by a pointer to a root domain name [fedora-all]\nhttps://bugzilla.redhat.com/show_bug.cgi?id=1964820\n[ 2 ] Bug #1966367 - nginx doesn't reopen the log file\nhttps://bugzilla.redhat.com/show_bug.cgi?id=1966367\n--------------------------------------------------------------------------------\n\nThis update can be installed with the \"dnf\" update program. Use\nsu -c 'dnf upgrade --advisory FEDORA-2021-393d698493' at the command\nline. For more information, refer to the dnf documentation available at\nhttp://dnf.readthedocs.io/en/latest/command_ref.html#upgrade-command-label\n\nAll packages are signed with the Fedora Project GPG key. More details on the\nGPG keys used by the Fedora Project can be found at\nhttps://fedoraproject.org/keys\n--------------------------------------------------------------------------------\n\n0\n\n0\n\nReply\n\nBack to the thread\n\nBack to the list\n\nPowered by HyperKitty version 1.3.7.",
+    "score": 5.961305
+   },
+   {
+    "evidence_id": "EV-0011",
+    "chunk_id": "NVDREF-eebfda7d36c0537b#011",
+    "title": "Oracle Critical Patch Update Advisory - October 2021",
+    "text": "Product releases that are not under Premier Support or Extended Support are not tested for the presence of vulnerabilities addressed by this Critical Patch Update. However, it is likely that earlier versions of affected releases are also affected by these vulnerabilities. As a result, Oracle recommends that customers upgrade to supported versions.\n\nDatabase, Fusion Middleware, and Oracle Enterprise Manager products are patched in accordance with the Software Error Correction Support Policy explained in My Oracle Support Note 209768.1. Please review the Technical Support Policies for further guidelines regarding support policies and phases of support.\n\nCredit Statement\n\nThe following people or organizations reported security vulnerabilities addressed by this Critical Patch Update to Oracle:\n\n0xfoxone: CVE-2021-35572, CVE-2021-35573, CVE-2021-35574, CVE-2021-35656, CVE-2021-35657, CVE-2021-35658, CVE-2021-35661, CVE-2021-35662\n\nAndrej Simko of Accenture: CVE-2021-35580, CVE-2021-35581, CVE-2021-35582\n\nAnonymous researcher working with Trend Micro's Zero Day Initiative: CVE-2021-35590, CVE-2021-35592, CVE-2021-35593, CVE-2021-35594, CVE-2021-35598, CVE-2021-35621\n\nArtem Smotrakov: CVE-2021-35603\n\nAsaf Greenholts of Bank Hapoalim: CVE-2021-35550\n\nAveek Biswas of Salesforce.com: CVE-2021-27290, CVE-2021-32804\n\nBlack Lantern Security LLC: CVE-2021-35665\n\nChuck Hunley of sas.com: CVE-2021-35567\n\nDoHyun Lee (l33d0hyun) of VirtualBoBs: CVE-2021-35540\n\nEddie Zhu of Beijing DBSEC Technology Co., Ltd: CVE-2021-2332\n\nEmad Al-Mousa: CVE-2021-35576\n\nGirlelecta: CVE-2021-35659, CVE-2021-35660\n\nGuillaume Jacques of synacktiv: CVE-2021-35651, CVE-2021-35652, CVE-2021-35653, CVE-2021-35654, CVE-2021-35655\n\nHongkun Chen of Alibaba: CVE-2021-2471",
+    "score": 5.218111
+   },
+   {
+    "evidence_id": "EV-0012",
+    "chunk_id": "NVDREF-eebfda7d36c0537b#027",
+    "title": "Oracle Critical Patch Update Advisory - October 2021",
+    "text": "CVE-2021-23017\nOracle Communications Fraud Monitor\nInfrastructure (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4-4.4\n\nCVE-2021-23017\nOracle Communications Operations Monitor\nDeveloper Infrastructure (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4, 4.2, 4.3, 4.4\n\nCVE-2021-23017\nOracle Enterprise Telephony Fraud Monitor\nPolicies (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4, 4.2, 4.3, 4.4\n\nCVE-2021-22112\nOracle Communications Element Manager\nWork Orders (Spring Security)\nHTTP\nNo\n8.8\nNetwork\nLow\nLow\nNone\nUn-\n\nchanged\nHigh\nHigh\nHigh\n8.2.0.0-8.2.4.0\n\nCVE-2020-10878\nOracle Communications Diameter Signaling Router\nPlatform (Perl)\nHTTP\nYes\n8.6\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nLow\nLow\nHigh\n8.0.0.0-8.5.0.0\n\nCVE-2020-10878\nOracle Communications LSMS\nPlatform (Perl)\nHTTP\nYes\n8.6\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nLow\nLow\nHigh\n13.1-13.4\n\nCVE-2020-10878\nTekelec Platform Distribution\nPlatform (Perl)\nHTTP\nYes\n8.6\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nLow\nLow\nHigh\n7.4.0-7.7.1\n\nCVE-2021-2351\nOracle Communications Application Session Controller\nSignaling (JDBC)\nOracle Net\nYes\n8.3\nNetwork\nHigh\nNone\nRequired\nChanged\nHigh\nHigh\nHigh\n3.9\n\nCVE-2021-2461\nOracle Communications Interactive Session Recorder\nProvision API\nHTTP\nYes\n8.3\nNetwork\nLow\nNone\nNone\nChanged\nLow\nLow\nLow\n6.4\n\nCVE-2021-2351\nOracle Communications Session Report Manager\nReports (JDBC)\nOracle Net\nYes\n8.3\nNetwork\nHigh\nNone\nRequired\nChanged\nHigh\nHigh\nHigh\n8.0.0.0-8.2.5.0\n\nCVE-2021-2351\nOracle Communications Session Route Manager\nRoute Manager (JDBC)\nOracle Net\nYes\n8.3\nNetwork\nHigh\nNone\nRequired\nChanged\nHigh\nHigh\nHigh\n8.2.0.0-8.2.5.0",
+    "score": 3.588345
+   },
+   {
+    "evidence_id": "EV-0013",
+    "chunk_id": "NVDREF-187f75a665d96f9d#000",
+    "title": "[nginx-announce] nginx security advisory (CVE-2021-23017)",
+    "text": "[nginx-announce] nginx security advisory (CVE-2021-23017)\n\nMaxim Dounin\nmdounin at mdounin.ru\n\nTue May 25 15:39:38 UTC 2021\n\nPrevious message (by thread): [nginx-announce] nginx-1.20.1\n\nNext message (by thread): [nginx-announce] unit-1.24.0\n\nMessages sorted by:\n[ date ]\n[ thread ]\n[ subject ]\n[ author ]\n\nHello!\n\nA security issue in nginx resolver was identified, which might allow an\nattacker to cause 1-byte memory overwrite by using a specially crafted\nDNS response, resulting in worker process crash or, potentially, in\narbitrary code execution (CVE-2021-23017).\n\nThe issue only affects nginx if the \"resolver\" directive is used in\nthe configuration file. Further, the attack is only possible if an\nattacker is able to forge UDP packets from the DNS server.\n\nThe issue affects nginx 0.6.18 - 1.20.0.\nThe issue is fixed in nginx 1.21.0, 1.20.1.\n\nPatch for the issue can be found here:\n\nhttp://nginx.org/download/patch.2021.resolver.txt\n\nThanks to Luis Merino, Markus Vervier, Eric Sesterhenn, X41 D-Sec GmbH.\n\n--\nMaxim Dounin\nhttp://nginx.org/\n\nPrevious message (by thread): [nginx-announce] nginx-1.20.1\n\nNext message (by thread): [nginx-announce] unit-1.24.0\n\nMessages sorted by:\n[ date ]\n[ thread ]\n[ subject ]\n[ author ]\n\nMore information about the nginx-announce\nmailing list",
+    "score": 3.571077
+   },
+   {
+    "evidence_id": "EV-0014",
+    "chunk_id": "NVDREF-eebfda7d36c0537b#014",
+    "title": "Oracle Critical Patch Update Advisory - October 2021",
+    "text": "Nic Palmer (Optimus Crime)\n\nOmri Litvak\n\nOsama Mohammed\n\nPhishLabs Security Operations\n\nPriyanshu Kumawat\n\nPwnWiki Administrator of PwnWiki\n\nSergiy Kornienko\n\nSeth Duda of SquareWorks Consulting\n\nShuvam Adhikari\n\nVaishnav Pardhi\n\nVismit Sudhir Rakhecha (Druk) [2 reports]\n\nCritical Patch Update Schedule\n\nCritical Patch Updates are released on the Tuesday closest to the 17th day of January, April, July and October. The next four dates are:\n\n18 January 2022\n\n19 April 2022\n\n19 July 2022\n\n18 October 2022\n\nReferences\n\nOracle Critical Patch Updates, Security Alerts and Bulletins\n\nCritical Patch Update - October 2021 Documentation Map\n\nOracle Critical Patch Updates and Security Alerts - Frequently Asked Questions\n\nRisk Matrix Definitions\n\nUse of Common Vulnerability Scoring System (CVSS) by Oracle\n\nEnglish text version of the risk matrices\n\nCVRF XML version of the risk matrices\n\nMap of CVE to Advisory/Alert\n\nOracle Lifetime support Policy\n\nJEP 290 Reference Blocklist Filter\n\nModification History\n\nDate\nNote\n\n2022-January-18\nRev 3. Updated the essbase affected versions\n\n2021-October-28\nRev 2. Changed the product of CVE-2018-20843 from Oracle WebLogic Server Proxy Plug-In to Oracle HTTP Server and added 5.9.0.0.0 to affected versions of Oracle Business Intelligence Enterprise Edition.\n\n2021-October-19\nRev 1. Initial Release.\n\nOracle Database Products Risk Matrices\n\nThis Critical Patch Update contains 18 new security patches for Oracle Database Products divided as follows:\n\n9 new security patches for Oracle Database Products\n\n5 new security patches for Oracle Essbase\n\nNo new security patches for Oracle Global Lifecycle Management, but third party patches are provided\n\n1 new security patch for Oracle GoldenGate\n\n1 new security patch for Oracle Graph Server and Client",
+    "score": 3.409583
+   },
+   {
+    "evidence_id": "EV-0015",
+    "chunk_id": "NVDREF-eebfda7d36c0537b#008",
+    "title": "Oracle Critical Patch Update Advisory - October 2021",
+    "text": "Vulnerabilities affecting Oracle Solaris may affect Oracle ZFSSA so Oracle customers should refer to the Oracle and Sun Systems Product Suite Critical Patch Update Knowledge Document, My Oracle Support Note 2160904.1 for information on minimum revisions of security patches required to resolve ZFSSA issues published in Critical Patch Updates and Solaris Third Party bulletins.\n\nSolaris Third Party Bulletins are used to announce security patches for third party software distributed with Oracle Solaris. Solaris 10 customers should refer to the latest patch-sets which contain critical security fixes and detailed in Systems Patch Availability Document. Please see Reference Index of CVE IDs and Solaris Patches (My Oracle Support Note 1448883.1) for more information.\n\nUsers running Java SE with a browser can download the latest release from https://java.com. Users on the Windows and Mac OS X platforms can also use automatic updates to get the latest release.\n\nRisk Matrix Content\n\nRisk matrices list only security vulnerabilities that are newly addressed by the patches associated with this advisory. Risk matrices for previous security patches can be found in previous Critical Patch Update advisories and Alerts. An English text version of the risk matrices provided in this document is here.\n\nSeveral vulnerabilities addressed in this Critical Patch Update affect multiple products. Each vulnerability is identified by a CVE# which is its unique identifier. A vulnerability that affects multiple products will appear with the same CVE# in all risk matrices. A CVE# shown in italics indicates that this vulnerability impacts a different product, but also has impact on the product where the italicized CVE# is listed.",
+    "score": 3.198438
+   },
+   {
+    "evidence_id": "EV-0016",
+    "chunk_id": "NVDREF-0a1a6ac89dc428b5#001",
+    "title": "[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists",
+    "text": "August\n\nJuly\n\nJune\n\nMay\n\nApril\n\nMarch\n\nFebruary\n\nJanuary\n\n2010\n\nDecember\n\nNovember\n\nOctober\n\nSeptember\n\nAugust\n\nJuly\n\nJune\n\nMay\n\nApril\n\nMarch\n\nFebruary\n\nJanuary\n\n2009\n\nDecember\n\nNovember\n\nOctober\n\nSeptember\n\nAugust\n\nJuly\n\nJune\n\nMay\n\nApril\n\nMarch\n\nFebruary\n\nJanuary\n\n2008\n\nDecember\n\nNovember\n\nOctober\n\nSeptember\n\nAugust\n\nJuly\n\nJune\n\nMay\n\nApril\n\nMarch\n\nFebruary\n\nJanuary\n\n2007\n\nDecember\n\nNovember\n\nOctober\n\nSeptember\n\nAugust\n\nJuly\n\nJune\n\nMay\n\nApril\n\nMarch\n\nFebruary\n\nJanuary\n\n2006\n\nDecember\n\nNovember\n\nOctober\n\nSeptember\n\nAugust\n\nJuly\n\nJune\n\nMay\n\nList overview\n\nDownload\n\nthread\n\n[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33\n\nupdates＠fedoraproject.org\n\n11 Jun\n\n2021\n\n11 Jun\n\n'21\n\n6:49 a.m.\n\n--------------------------------------------------------------------------------\nFedora Update Notification\nFEDORA-2021-b37cffac0d\n2021-06-11 01:18:48.291633\n--------------------------------------------------------------------------------\n\nName : nginx\nProduct : Fedora 33\nVersion : 1.20.1\nRelease : 2.fc33\nURL : https://nginx.org\nSummary : A high performance web server and reverse proxy server\nDescription :\nNginx is a web server and a reverse proxy server for HTTP, SMTP, POP3 and\nIMAP protocols, with a strong focus on high concurrency, performance and low\nmemory usage.\n\n--------------------------------------------------------------------------------\nUpdate Information:\n\nFix log permissions issue ---- Security: 1-byte memory overwrite might occur\nduring DNS server response processing if the \"resolver\" directive was\nused, allowing an attacker who is able to forge UDP packets from the DNS\nserver to cause worker process crash or, potentially, arbitrary code\nexecution (CVE-2021-23017).\n--------------------------------------------------------------------------------\nChangeLog:",
+    "score": 2.980117
+   },
+   {
+    "evidence_id": "EV-0017",
+    "chunk_id": "NIST-SP-800-171r3#137",
+    "title": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations",
+    "text": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations\n\nTable 21. System and Information Integrity (SI)\n\n|  |  | TAILORING | SECURITY |\n| --- | --- | --- | --- |\n| NIST SP 800-53 CONTROLS MODERATE BASELINE |  | CRITERIA | REQUIREMENT |\n| SI-01 | Policy and Procedures | CUI | 03.15.01 |\n| SI-02 | Flaw Remediation | CUI | 03.14.01 |\n| SI-02(02) | Flaw Remediation \\| Automated Flaw Remediation Status | NCO | — |\n| SI-03 | Malicious Code Protection | CUI | 03.14.02 |\n| SI-04 | System Monitoring | CUI | 03.14.06 |\n| SI-04(02) | System Monitoring \\| Automated Tools and Mechanisms for Real- Time Analysis | NCO | — |\n| SI-04(04) | System Monitoring \\| Inbound and Outbound Communications Traffic | CUI | 03.14.06 |\n| SI-04(05) | System Monitoring \\| System-Generated Alerts | NCO | — |\n| SI-05 | Security Alerts, Advisories, and Directives | CUI | 03.14.03 |\n| SI-07 | Software, Firmware, and Information Integrity | NCO | — |\n| SI-07(01) | Software, Firmware, and Information Integrity \\| Integrity Checks | NCO | — |\n\n|  |  | TAILORING | SECURITY |\n| --- | --- | --- | --- |\n| NIST SP 800-53 CONTROLS MODERATE BASELINE |  | CRITERIA | REQUIREMENT |\n| SI-07(07) | Software, Firmware, and Information Integrity \\| Integration of Detection and Response | NCO | — |\n| SI-08 | Spam Protection | ORC | — |\n| SI-08(02) | Spam Protection \\| Automatic Updates | NCO | — |\n| SI-10 | Information Input Validation | NCO | — |\n| SI-11 | Error Handling | NCO | — |\n| SI-12 | Information Management and Retention | CUI | 03.14.08 |\n| SI-16 | Memory Protection | NCO | — |\n\nTable 22. Supply Chain Risk Management (SR)",
+    "score": 0.01527518656716418
+   },
+   {
+    "evidence_id": "EV-0018",
+    "chunk_id": "NIST-SP-800-171r3#076",
+    "title": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations",
+    "text": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations\n\nresponsibilities. Security-relevant updates include patches, service packs, hot fixes,\nand anti-virus signatures. Organizations address the flaws discovered during security\nassessments, continuous monitoring, incident response activities, and system error\nhandling. Organizations can take advantage of available resources (e.g., CWE or CVE\ndatabases) when remediating system flaws. Organization-defined time periods for\nupdating security-relevant software and firmware may vary based on a variety of\nfactors, including the criticality of the update (i.e., severity of the vulnerability\nrelated to the discovered flaw). Some types of flaw remediation may require more\ntesting than other types.\nREFERENCES\nSource Control: SI-02\nSupporting Publications: SP 800-39 [60], SP 800-40 [56], SP 800-128 [41]\n03.14.02 Malicious Code Protection\na. Implement malicious code protection mechanisms at system entry and exit\npoints to detect and eradicate malicious code.\nb. Update malicious code protection mechanisms as new releases are available in\naccordance with configuration management policies and procedures.\nc. Configure malicious code protection mechanisms to:\n1. Perform scans of the system [Assignment: organization-defined frequency]\nand real-time scans of files from external sources at endpoints or system\nentry and exit points as the files are downloaded, opened, or executed; and\n2. Block malicious code, quarantine malicious code, or take other mitigation\nactions in response to malicious code detection.\nDISCUSSION\nMalicious code insertions occur through the exploitation of system vulnerabilities.\nMalicious code can be inserted into the system in a variety of ways, including email,\nthe internet, and portable storage devices. Malicious code includes viruses, worms,\nTrojan horses, and spyware. Malicious code can be encoded in various formats,\ncontained in compressed or hidden files, or hidden in files using techniques such as\nsteganography. Malicious code may be present in commercial off-the-shelf software\nand custom-built software and could include logic bombs, backdoors, and other\ntypes of attacks that could affect organizational mission and business functions.\nPeriodic scans of the system and real-time scans of files from external sources as\nfiles are downloaded, opened, or executed can detect malicious code. Malicious\ncode protection mechanisms can also monitor systems for anomalous or unexpected\nbehaviors and take appropriate actions.",
+    "score": 0.013748597081930415
+   },
+   {
+    "evidence_id": "EV-0019",
+    "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "title": "Vulnerability Disclosure Cheat Sheet",
+    "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
+    "score": 0.013273558368495076
+   },
+   {
+    "evidence_id": "EV-0020",
+    "chunk_id": "NIST-SP-800-82r3#435",
+    "title": "Guide to Operational Technology (OT) Security",
+    "text": "Guide to Operational Technology (OT) Security - SC-45 SYSTEM TIME SYNCHRONIZATION\n\nOT Discussion: The policy specifically addresses the unique properties and requirements of OT\nand the relationship to non-OT systems.\nSI-2 FLAW REMEDIATION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-2 | Flaw Remediation | Select | Select | Select |\n| SI-2 (2) | FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  | Select | Select |\n\nOT Discussion: Flaw remediation, or patching, is complicated since many OT employ OSs and\nother software that are no longer maintained by the vendors. OT operators may also not have the\nresources or capability to test patches and are dependent on vendors to validate the operability of\na patch. Sometimes, the organization has no choice but to accept additional risk if no vendor\npatch is available, if patching requires additional time to complete validation or testing, or if\ndeployment requires an unacceptable operations shutdown. In these situations, compensating\ncontrols should be implemented (e.g., limiting the exposure of the vulnerable system, restricting\nvulnerable services, implementing virtual patching). Other compensating controls that do not\ndecrease the residual risk but increase the ability to respond may be desirable (e.g., provide a\ntimely response in case of an incident, devise a plan to ensure that the OT can identify\nexploitation of the flaw). Testing flaw remediation in an OT may exceed the organization’s\navailable resources.\nControl Enhancement: (2) No OT discussion for this control.\nSI-3 MALICIOUS CODE PROTECTION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-3 | Malicious Code Protection | Select | Select | Select |",
+    "score": 0.012597809076682316
+   },
+   {
+    "evidence_id": "EV-0021",
+    "chunk_id": "NIST-SP-800-53Ar5#1094",
+    "title": "Assessing Security and Privacy Controls in Information Systems and Organizations",
+    "text": "Assessing Security and Privacy Controls in Information Systems and Organizations - IST.SP.8\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS ASSESSMENT OBJECTIVE: Determine if: |  |\n| --- | --- |\n| SI-02(02)_ODP[01] | automated mechanisms to determine if applicable security-relevant soware and firmware updates are installed on system components are defined; |\n| SI-02(02)_ODP[02] | the frequency at which to determine if applicable security-relevant soware and firmware updates are installed on system components is defined; |\n| SI-02(02) | system components have applicable security-relevant soware and firmware updates installed <SI-02(02)_ODP[02] frequency> using <SI-02(02)_ODP[01] automated mechanisms>. |\n\nReference produced from open data\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  |\n| --- | --- |\n| POTENTIAL ASSESSMENT METHODS AND OBJECTS: |  |\n| SI-02(02)-Examine | [SELECT FROM: System and informaon integrity policy; system and informaon integrity procedures; procedures addressing flaw remediaon; automated mechanisms supporng centralized management of flaw remediaon; system design documentaon; system configuraon sengs and associated documentaon; system audit records; system security plan; other relevant documents or records]. |\n| SI-02(02)-Interview | [SELECT FROM: System/network administrators; organizaonal personnel with informaon security responsibilies; organizaonal personnel installing, configuring, and/or maintaining the system; organizaonal personnel responsible for flaw remediaon]. |\n| SI-02(02)-Test | [SELECT FROM: Automated mechanisms used to determine the state of system components with regard to flaw remediaon]. |\n\non\nis\nav",
+    "score": 0.011751275852806876
+   },
+   {
+    "evidence_id": "EV-0022",
+    "chunk_id": "CWE-210#000",
+    "title": "CWE-210 Self-generated Error Message Containing Sensitive Information",
+    "text": "CWE-210 Self-generated Error Message Containing Sensitive Information\n\nDescription: The product identifies an error condition and creates its own diagnostic or error messages that contain sensitive information.\n\nPotential mitigations:\n- Implementation Build and Compilation:STRATEGY:Compilation or Build Hardening: Debugging information should not make its way into a production release.\n- Implementation Build and Compilation:STRATEGY:Environment Hardening: Debugging information should not make its way into a production release.",
+    "score": 0.00819672131147541
+   },
+   {
+    "evidence_id": "EV-0023",
+    "chunk_id": "NIST-SP-800-30r1#139",
+    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
+    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
+    "score": 0.00819672131147541
+   },
+   {
+    "evidence_id": "EV-0024",
+    "chunk_id": "CWE-209#000",
+    "title": "CWE-209 Generation of Error Message Containing Sensitive Information",
+    "text": "CWE-209 Generation of Error Message Containing Sensitive Information\n\nDescription: The product generates an error message that includes sensitive information about its environment, users, or associated data.\n\nPotential mitigations:\n- Implementation: Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success. If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files. Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not.\n- Implementation: Handle exceptions internally and do not display errors containing potentially sensitive information to a user.\n- Implementation:STRATEGY:Attack Surface Reduction: Use naming conventions and strong types to make it easier to spot when sensitive data is being used. When creating structures, objects, or other complex entities, separate the sensitive and non-sensitive data as much as possible.:EFFECTIVENESS:Defense in Depth\n- Implementation Build and Compilation:STRATEGY:Compilation or Build Hardening: Debugging information should not make its way into a production release.\n- Implementation Build and Compilation:STRATEGY:Environment Hardening: Debugging information should not make its way into a production release.\n- System Configuration: Where available, configure the environment to use less verbose error messages. For example, in PHP, disable the display_errors setting during configuration, or at runtime using the error_reporting() function.\n- System Configuration: Create default error pages or messages that do not leak any information.",
+    "score": 0.008064516129032258
+   }
+  ],
+  "model_calls": [
+   {
+    "stage": "evidence_interpretation",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 1561,
+    "prompt_tokens": 247,
+    "completion_tokens": 65,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "retrieval_review",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 631,
+    "prompt_tokens": 2539,
+    "completion_tokens": 13,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 8387,
+    "prompt_tokens": 4616,
+    "completion_tokens": 339,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 2063,
+    "prompt_tokens": 4894,
+    "completion_tokens": 67,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 8022,
+    "prompt_tokens": 5072,
+    "completion_tokens": 346,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 1689,
+    "prompt_tokens": 4901,
+    "completion_tokens": 67,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   }
+  ],
+  "error": null
+ },
+ "error": null
+}

@@ -1,0 +1,30 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+# Everything fetched from outside ships as rebuildable bulk, except the NVD CVE cache:
+# app/evidence.py reads data/raw/nvd/<CVE>.json for CVSS and vendor facts, and without it
+# a fresh checkout answers "no cached NVD record" and every report degrades to partial.
+data/raw/*
+!data/raw/nvd/
+data/indexes/
+data/index/
+data/logs/
+data/backups/
+# The frozen corpus ships so chunks_sha256 and every recorded number reproduce on a new
+# machine; the 53 MB index derived from it is rebuilt by scripts/build_index.py.
+# The two Batch 10 trace sets are the evaluation dashboards' source of record.
+data/traces/*
+!data/traces/batch10/
+!data/traces/batch10_live_20261118/
+docker/.env
+docker/langfuse-data/
+*.log
+.mypy_cache/
+.streamlit/secrets.toml
+.coverage
+Thumbs.db
+.DS_Store
+desktop.ini

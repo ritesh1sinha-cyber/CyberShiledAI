@@ -1,0 +1,343 @@
+{
+  "generated_at": "2026-11-06T09:23:10+00:00",
+  "documents": {
+    "NIST-SP-800-30r1": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+      "sha256": "f214087f0bdb35932a28c16eb93932a33c67a6edfb5e6f1638866bd201c98e04",
+      "pages": 95,
+      "chars": 308433,
+      "bytes": 826897,
+      "tables": 39,
+      "pages_with_tables": 27
+    },
+    "NIST-SP-800-37r2": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-37r2.pdf",
+      "sha256": "4f75e1136bb905a654f1bcd9eefefb4108f47597276ee5eec0688f6d96f6a01d",
+      "pages": 183,
+      "chars": 569314,
+      "bytes": 2270327,
+      "tables": 22,
+      "pages_with_tables": 22
+    },
+    "NIST-SP-800-39": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf",
+      "sha256": "cf680760d171fc590396c1d98eef184af96efa971ef9880830cd2912ea1a54a8",
+      "pages": 88,
+      "chars": 318172,
+      "bytes": 1228127,
+      "tables": 1,
+      "pages_with_tables": 1
+    },
+    "NIST-SP-800-40r4": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf",
+      "sha256": "351f4a828d6c0bc8bf98f25ba3f87ec5add0ed8cf8bb4a6e6cb4e7e4a9731833",
+      "pages": 28,
+      "chars": 71785,
+      "bytes": 562944,
+      "tables": 1,
+      "pages_with_tables": 1
+    },
+    "NIST-SP-800-41r1": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-41r1.pdf",
+      "sha256": "06642409a8f0dcc9de8725f2d76d6feedea2d4d1faa860c2ee18488863dd1f4f",
+      "pages": 48,
+      "chars": 136288,
+      "bytes": 339557,
+      "tables": 0,
+      "pages_with_tables": 0
+    },
+    "NIST-SP-800-52r2": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-52r2.pdf",
+      "sha256": "f9a4dbb9cc6ac6778bb9f4e6be9272c2f14d113f3ad241a295684ac6bd71f257",
+      "pages": 72,
+      "chars": 171656,
+      "bytes": 814862,
+      "tables": 4,
+      "pages_with_tables": 4
+    },
+    "NIST-SP-800-53r5": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+      "sha256": "fc63bcd61715d0181dd8e85998b1e6201ae3515fc6626102101cab1841e11ec6",
+      "pages": 492,
+      "chars": 1467449,
+      "bytes": 6073678,
+      "tables": 48,
+      "pages_with_tables": 48
+    },
+    "NIST-SP-800-53Ar5": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+      "sha256": "75665570048b969ad465a4f4f1db425ce505c374951c2c64e462949c6b21be47",
+      "pages": 733,
+      "chars": 1855231,
+      "bytes": 7469808,
+      "tables": 1457,
+      "pages_with_tables": 654
+    },
+    "NIST-SP-800-53B": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53B.pdf",
+      "sha256": "8a9dae903c2e4924d7b67c246faa32757d15f9731abb85922fad63f9ea0e02fa",
+      "pages": 85,
+      "chars": 207255,
+      "bytes": 1627293,
+      "tables": 42,
+      "pages_with_tables": 42
+    },
+    "NIST-SP-800-57pt1r5": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf",
+      "sha256": "cc32391022c1382ac7c91490f6bcc8838e0f889925270da23ef4e800e2ecb7ad",
+      "pages": 171,
+      "chars": 479166,
+      "bytes": 1688080,
+      "tables": 36,
+      "pages_with_tables": 34
+    },
+    "NIST-SP-800-61r3": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf",
+      "sha256": "e5593d6bb85daecec7e8d9549400c7b3473bcc3f06e469c82218073afa7fba2d",
+      "pages": 48,
+      "chars": 108354,
+      "bytes": 1040566,
+      "tables": 27,
+      "pages_with_tables": 26
+    },
+    "NIST-SP-800-63B-4": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b-4.pdf",
+      "sha256": "d9ab89576b5ae2cfb3ba37781110788dea27a85a5079496dbfc1a79834670afd",
+      "pages": 129,
+      "chars": 273403,
+      "bytes": 993734,
+      "tables": 15,
+      "pages_with_tables": 14
+    },
+    "NIST-SP-800-77r1": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf",
+      "sha256": "bc2a36dcccf96476d4e0d09468901726c930f2554115c440988bae746074bd70",
+      "pages": 166,
+      "chars": 443011,
+      "bytes": 3106924,
+      "tables": 6,
+      "pages_with_tables": 6
+    },
+    "NIST-SP-800-82r3": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf",
+      "sha256": "608f554514d381853e24e0b33123b7080fbd757826f460032690aade63394616",
+      "pages": 316,
+      "chars": 720134,
+      "bytes": 8584345,
+      "tables": 291,
+      "pages_with_tables": 127
+    },
+    "NIST-SP-800-92": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-92.pdf",
+      "sha256": "466c3ab1580bc3b2e25d11bbd4b2ac92fd1762b3c5b10596924981bc1b9e61e1",
+      "pages": 72,
+      "chars": 186987,
+      "bytes": 1759842,
+      "tables": 0,
+      "pages_with_tables": 0
+    },
+    "NIST-SP-800-115": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf",
+      "sha256": "58e5ed41e5c8ca34ce14fd80b70f118f2c6d613d1647bc307edca30bcc45f063",
+      "pages": 80,
+      "chars": 246154,
+      "bytes": 544047,
+      "tables": 13,
+      "pages_with_tables": 9
+    },
+    "NIST-SP-800-123": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-123.pdf",
+      "sha256": "182ae5d23011108fba08c3a56c5029b8a26a428480ae38ac61877f6f3365db41",
+      "pages": 53,
+      "chars": 143686,
+      "bytes": 263703,
+      "tables": 4,
+      "pages_with_tables": 2
+    },
+    "NIST-SP-800-125": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-125.pdf",
+      "sha256": "da8bd5054eb1d6a1942cf756901e5ebfece26458580af143971bc54f45d5114d",
+      "pages": 35,
+      "chars": 102168,
+      "bytes": 265880,
+      "tables": 0,
+      "pages_with_tables": 0
+    },
+    "NIST-SP-800-128": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-128.pdf",
+      "sha256": "ee97c5be0a5a1c70165bf960c67042c5ed1bcb186aeb592eada60e512ab35a70",
+      "pages": 99,
+      "chars": 262853,
+      "bytes": 1528756,
+      "tables": 12,
+      "pages_with_tables": 12
+    },
+    "NIST-SP-800-137": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
+      "sha256": "2d1c0bf459f5e1bfd41ceb5eac83bf62e4c34bf08e2e7088b37cb73a11442b98",
+      "pages": 80,
+      "chars": 213446,
+      "bytes": 986916,
+      "tables": 0,
+      "pages_with_tables": 0
+    },
+    "NIST-SP-800-144": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-144.pdf",
+      "sha256": "47f0fdf31f4f2b37fb2a8fa0bf77235aad0b3daa74a6397603a619a839500a42",
+      "pages": 80,
+      "chars": 227720,
+      "bytes": 1105061,
+      "tables": 0,
+      "pages_with_tables": 0
+    },
+    "NIST-SP-800-145": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf",
+      "sha256": "7b0c1a9fdfc67218b8ba2098f448c100c27070db91736b3c87fed63bfa21d418",
+      "pages": 7,
+      "chars": 10806,
+      "bytes": 85781,
+      "tables": 1,
+      "pages_with_tables": 1
+    },
+    "NIST-SP-800-153": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-153.pdf",
+      "sha256": "6e8d44de32789ecb3267c8a7778eb3088c15f5c860cf6e823243c8030ed3ec09",
+      "pages": 24,
+      "chars": 54689,
+      "bytes": 625526,
+      "tables": 0,
+      "pages_with_tables": 0
+    },
+    "NIST-SP-800-160v1r1": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-160v1r1.pdf",
+      "sha256": "eced250e47e542698ddfd5e72bd7feae14268e72a1e9ea49af9984c0e01ff7b8",
+      "pages": 195,
+      "chars": 501723,
+      "bytes": 8181396,
+      "tables": 7,
+      "pages_with_tables": 7
+    },
+    "NIST-SP-800-161r1": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-161r1.pdf",
+      "sha256": "c8250b1ea542640a7cffc145be08c6b17ff76bd695f8c0ac1b40c49d45355d89",
+      "pages": 327,
+      "chars": 830023,
+      "bytes": 4845469,
+      "tables": 57,
+      "pages_with_tables": 54
+    },
+    "NIST-SP-800-171r3": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf",
+      "sha256": "3e4631df8b5d61f40a6e542b52779ef30ddbbfff31e09214fa94ad6e6f5e6d08",
+      "pages": 120,
+      "chars": 253380,
+      "bytes": 1593213,
+      "tables": 35,
+      "pages_with_tables": 17
+    },
+    "NIST-SP-800-172": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-172.pdf",
+      "sha256": "3847d851bdd52eb8824fbf57c4d2294099fa68e4b9a505401ba3f0f48fec721b",
+      "pages": 85,
+      "chars": 200948,
+      "bytes": 1302225,
+      "tables": 20,
+      "pages_with_tables": 20
+    },
+    "NIST-SP-800-183": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-183.pdf",
+      "sha256": "d2ec695aeeb64f0f5f28b9e473ca6b7a0afc4948cc0cc84dc21c6dab4c3c3811",
+      "pages": 30,
+      "chars": 61801,
+      "bytes": 2864065,
+      "tables": 2,
+      "pages_with_tables": 2
+    },
+    "NIST-SP-800-190": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf",
+      "sha256": "0ebad52c4a3aba971b3a707b056e57238d1c4ad8f212dffd461ff9f5fed1bdb6",
+      "pages": 63,
+      "chars": 156416,
+      "bytes": 666229,
+      "tables": 7,
+      "pages_with_tables": 6
+    },
+    "NIST-SP-800-204": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204.pdf",
+      "sha256": "25412c860165e5ee1cfbf26ed47c56f4d213b1996a73365f5561be6403cf7588",
+      "pages": 50,
+      "chars": 122135,
+      "bytes": 814054,
+      "tables": 12,
+      "pages_with_tables": 11
+    },
+    "NIST-SP-800-207": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf",
+      "sha256": "0290d6ece24874287316f4bf430fef770aa4ec08a2227c8f2c1e5b2ff975e03d",
+      "pages": 59,
+      "chars": 151846,
+      "bytes": 966908,
+      "tables": 3,
+      "pages_with_tables": 3
+    },
+    "NIST-SP-800-210": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-210.pdf",
+      "sha256": "147271600180dfd048c21da0892a1228f574bdf7b69f5982710a3aa6ebf79a95",
+      "pages": 34,
+      "chars": 75402,
+      "bytes": 1289805,
+      "tables": 4,
+      "pages_with_tables": 4
+    },
+    "NIST-SP-800-215": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-215.pdf",
+      "sha256": "159e17820a0a337c4a7e9c7ee8b966823e81dc72f5c6229e7d7244c40b0b1645",
+      "pages": 41,
+      "chars": 93221,
+      "bytes": 1089318,
+      "tables": 2,
+      "pages_with_tables": 2
+    },
+    "NIST-SP-800-218": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf",
+      "sha256": "617746e553a9e2da49bfbd4eef0dfc3094758a39b869314e4173ac36605cde22",
+      "pages": 36,
+      "chars": 111292,
+      "bytes": 739891,
+      "tables": 15,
+      "pages_with_tables": 15
+    },
+    "NIST-SP-800-233": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-233.pdf",
+      "sha256": "4048f4c47dff6e877ebd4144f98b107ecef4c2a079b32cd08200e60defe92b2e",
+      "pages": 43,
+      "chars": 89333,
+      "bytes": 1043253,
+      "tables": 3,
+      "pages_with_tables": 2
+    },
+    "NIST-CSF-2.0": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
+      "sha256": "3c31f46fee98cac0c4323453e5109291a213b4de7fef8c058af9bf67f717433c",
+      "pages": 32,
+      "chars": 65936,
+      "bytes": 1518858,
+      "tables": 3,
+      "pages_with_tables": 3
+    },
+    "NIST-CSWP-30": {
+      "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.30.pdf",
+      "sha256": "055ec1a83ffa6b0ea57714d15d5ad21d3cc79b75c58d4b162a14b2ab4f43ba9a",
+      "pages": 20,
+      "chars": 37447,
+      "bytes": 775990,
+      "tables": 1,
+      "pages_with_tables": 1
+    }
+  },
+  "count": 37,
+  "failures": [],
+  "total_pages": 4319,
+  "total_chars": 11329063,
+  "total_tables": 2190
+}

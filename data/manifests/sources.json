@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-11-06T07:38:14+00:00",
+  "sources": {
+    "kev": {
+      "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+      "sha256": "273b7e449828f0af92e012bf03270a6a6c3deb21dc7a50b46ebe0447ea196bff",
+      "catalog_version": "2026.11.04",
+      "released": "2026-11-04T20:00:05.774Z",
+      "count": 1768
+    },
+    "attack": {
+      "url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json",
+      "sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+      "spec_version": null,
+      "collection": "bundle--334dd54f-ac9f-4990-9d9e-e51ecfff5430",
+      "count": 706,
+      "techniques_with_cve_mentions": 5
+    },
+    "owasp": {
+      "url": "https://codeload.github.com/OWASP/CheatSheetSeries/tar.gz/refs/heads/master",
+      "sha256": "bdd7666ec14dddf190ce86304d11d013d343ae262c44dfcc206aef9309ad3258",
+      "count": 137,
+      "license": "CC BY-SA 4.0 (verify before redistributing text)"
+    },
+    "cwe": {
+      "url": "https://cwe.mitre.org/data/csv/1000.csv.zip",
+      "sha256": "b3b8fc1bb6e2398ce4f1a7b0f5f74949f6cd568a26190d203e1103c3aafa6ff5",
+      "count": 956,
+      "license": "CWE terms of use (MITRE)"
+    },
+    "nist": {
+      "url": "https://csrc.nist.gov/publications (PDFs on nvlpubs.nist.gov)",
+      "count": 37,
+      "pages": 4319,
+      "chars": 12106699,
+      "sha256_note": "per-file hashes in data/manifests/nist.json",
+      "tables": 2190,
+      "table_rows": 17613,
+      "documents_without_ruled_tables": 6,
+      "table_extraction": "pdfplumber rules -> Markdown, spans in data/processed/nist_docs.jsonl"
+    }
+  },
+  "derived_documents": {
+    "kev": 1768,
+    "attack": 706,
+    "owasp": 137,
+    "cwe": 956,
+    "nist": 37
+  }
+}

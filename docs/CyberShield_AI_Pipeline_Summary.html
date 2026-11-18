@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberShield AI — How the Knowledge Pipeline Works</title>
+<style>
+:root{--ink:#172033;--muted:#5d687b;--line:#dce3ed;--blue:#2457a7;--pale:#eef4ff;--bg:#f5f7fb;--green:#176b4b;--amber:#8a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.58 "Segoe UI",Arial,sans-serif}
+main{max-width:1080px;margin:0 auto;padding:28px 22px 54px}
+header{background:linear-gradient(125deg,#183b70,#2863ad);color:white;border-radius:18px;padding:34px 36px;margin-bottom:22px}
+.kicker{font-size:12px;letter-spacing:.13em;text-transform:uppercase;opacity:.85;font-weight:700}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.12;margin:8px 0 12px}
+header p{max-width:800px;margin:0;color:#e8efff;font-size:17px}
+section,.note{background:white;border:1px solid var(--line);border-radius:15px;padding:24px;margin:18px 0;box-shadow:0 4px 16px #17203308}
+h2{font-size:23px;margin:0 0 12px}h3{font-size:18px;margin:20px 0 8px}
+p{margin:8px 0 12px}.muted,.small{color:var(--muted)}.small{font-size:13px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{text-align:left;background:#f0f4fa;color:#26344c;font-weight:700}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--pale);color:var(--blue);font-size:12px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.metric{background:#f6f8fc;border:1px solid var(--line);border-radius:12px;padding:15px}
+.metric b{display:block;font-size:27px;color:var(--blue);line-height:1.15}
+.metric span{font-size:12px;color:var(--muted)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.flow div{background:var(--pale);border:1px solid #d9e5fb;border-radius:10px;padding:13px;text-align:center;font-weight:650;font-size:14px}
+.callout{border-left:4px solid var(--blue);background:#f2f6fd;padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.warn{border-left-color:#c18a22;background:#fff8e9}
+ul{padding-left:22px;margin:8px 0}li{margin:5px 0}
+.source{font-weight:700;white-space:nowrap}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:25px}
+.example{background:#0f1c2e;color:#dbe7ff;border-radius:12px;padding:18px;font:13px/1.55 Consolas,monospace;overflow-x:auto}
+.example .good{color:#8be0b0}
+@media(max-width:760px){main{padding:14px}.cards{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(2,1fr)}section{padding:18px;overflow-x:auto}header{padding:25px 22px}table{min-width:660px}}
+@media print{body{background:white}main{max-width:none;padding:0}section,.note{box-shadow:none;break-inside:avoid}header{background:#eaf1fc;color:#172033}header p{color:#334} }
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div class="kicker">CyberShield AI · Architecture in plain English</div>
+ <h1>How the knowledge pipeline works</h1>
+ <p>From downloading security documents to answering a CVE question — every design choice, what it replaced, and why. Written so a non-technical reader can follow it.</p>
+</header>
+
+<section>
+ <h2>Latest architecture validation · 16 November 2026</h2>
+ <div class="callout"><b>Planner removed.</b> A deterministic safety gate runs before workflow execution. Evidence with Qwen interprets the CVE or follow-up, queries RAG, reviews relevance and could retry once (raised to a 3-search cap later the same day — see below). The single-agent control uses one answer synthesis call after this shared evidence stage; the multi-agent flow adds a Critic.</div>
+ <div class="flow">
+  <div><b>Single-agent</b><br>80/80 · 300 Qwen calls<br>P95 15.368 s</div>
+  <div><b>Multi-agent</b><br>80/80 · 377 Qwen calls<br>P95 16.188 s</div>
+  <div><b>Evidence parity</b><br>Identical in 77 investigations<br>0 mismatches</div>
+  <div><b>Output reliability</b><br>0 truncations in either run<br>177 tests passed at that run · 215 on 17 November</div>
+ </div>
+ <p>Both runs used the same frozen gold SHA and deterministic grader. The Critic added 77 calls and 0.82 seconds to P95 latency without improving the score in this batch. A rubric regression now recognizes “KEV” as the cited source for the CISA KEV required action; no gold questions or answers were changed. Fresh-CVE, repeated-day, independent human gold review, operational trace retention and concurrency evidence remain outstanding.</p>
+ <p>Results: <code>data/evaluation/architecture_comparison_20261116.json</code>. Earlier evaluation JSON files preserve their original historical results.</p>
+ <h3>Answer-to-reference metrics (secondary)</h3>
+ <p>ROUGE-L F1 averages 0.1880 (single) and 0.1855 (multi); the FastEmbed cosine averages 0.5174 and 0.5157 — the earlier local-model measurement, taken before the embedding swap of 18 November 2026 (D32). These measure text overlap and embedding similarity, not answer correctness. A cosine measured before 18 November 2026 is not comparable with one measured after it, and the two are never placed in the same column or table. The initial 160-call LLM judge scored all answers 5/5 but detected only 1/5 degraded calibration controls, so its results are marked unreliable. The revised judge prompt passed 5/5 calibration controls; its full 160-answer run is pending. See <code>data/evaluation/answer_metrics_status_20261116.md</code>.</p>
+ <h3>Added later on 16 November 2026: reference-first retrieval, a 3-search cap and a revision loop</h3>
+ <ul>
+  <li><b>Reference-first retrieval:</b> the pages each NVD record itself cites became a first-class retrieval source. A snapshot script fetched 365 of the 526 http(s) URLs cited in the 57 cached NVD snapshots (69.4%; 43.7 MB stored as SHA-256-named files); 161 URLs failed permanently and are recorded with error reasons (66x403 bot-walls including all 32 cisa.gov query URLs, 36x425 CDN throttling, 25x404, ~34 timeouts; 6 ftp:// URLs were skipped) and nothing is fabricated for them. 315 of the 365 fetched documents produced 3,341 chunks covering 34 of the 56 referenced CVEs. The Evidence agent now searches the investigated CVE's own reference pages first and emits <code>NVD_REF</code> citations, falling back to the generic corpus when a CVE has no reference chunks; the frozen generic index was not rebuilt, so earlier retrieval benchmarks stay comparable. Live CS-056 (Log4Shell remediation) now cites 8 official NVD_REF pages first, where the old run cited only generic CWE+KEV passages.</li>
+  <li><b>Retrieval loop cap 3:</b> the generic RAG loop allows up to 3 searches per investigation — the initial query plus up to two reviewer-driven refinements. Each search is still gated by a Qwen retrieval review; repeated refined queries are skipped; exhausting all rounds while the reviewer is still unsatisfied records an explicit limitation. Under the earlier one-retry cap the reviewer wanted a refined query in 69 of 80 questions of the 16 November multi-agent run.</li>
+  <li><b>Critic-driven revision:</b> when the first Critic review reports a failing status, the Analyst is re-prompted once with the previous draft plus the Critic's issues, and the Critic re-reviews the revised draft before validation. A revised draft that fails deterministic validation falls back to the deterministic evidence-assembled draft; an unparseable second review reverts to the original draft and records <code>revision_review_failed</code>.</li>
+  <li><b>Deterministic fallback deferred:</b> a first draft that parses but breaks a deterministic rule is no longer replaced instantly. It is kept (<code>draft_invalid</code>), reviewed by the Critic, and one revision is forced even when every Critic status passes; deterministic assembly now happens only for unparseable or truncated output (which cannot be reviewed) or when the revision still fails validation.</li>
+  <li><b>Revision prompt fix (EV-0000):</b> diagnosis showed Qwen3-8B deterministically wrote a nonexistent placeholder ID <code>EV-0000</code> into the limitations section of every draft, so every model draft for CS-001 was rejected and it always shipped deterministic fallback text. The revision request now embeds the full evidence package and the exact validation failure, the Analyst system prompt requires an empty evidence_ids list in limitations, and validator errors name the offending ID and section. Verified live: 3/3 CS-001 first drafts validated (previously 3/3 broke); CS-001 completed end-to-end with model-authored prose in 25.9 s; CS-030 completed via revision in 24.2 s; revision-path runs took 24–32 s.</li>
+ </ul>
+ <h3>Added on 17 November 2026: local-only tracing (D21)</h3>
+ <ul>
+  <li><b>Every run now also exports a Langfuse trace:</b> one trace per investigation, one span per workflow stage carrying that stage's result, and one generation per Qwen call carrying the <b>raw prompt and the raw completion</b> with token usage, latency and finish reason. The stack is self-hosted and reachable only on <code>127.0.0.1:3100</code>; export stays off unless it is explicitly enabled with both keys set and a loopback host, and a public Langfuse URL disables export instead of sending data out. The local JSONL trace remains the system of record, tracing can never fail a run, and the earlier runs — the 80-question evaluations, the demos and the judge benchmark — were not traced afterwards, so this view starts 2026-11-17.</li>
+ </ul>
+ <p class="small"><b>Comparability caveat:</b> the Analyst system prompt changed on 16 November 2026, so runs after that change are not strictly comparable with the frozen 80-question results above. Worst case is now 8 Qwen calls per investigation (1 evidence interpretation + up to 3 retrieval reviews + analyst + critic + revision analyst + critic re-review).</p>
+</section>
+
+<section>
+ <h2>1. The big picture</h2>
+ <p>CyberShield AI answers questions such as <i>"What is CVE-2021-44228, is it being exploited, and what should we do?"</i> To answer well it needs two kinds of knowledge: <b>facts about this specific vulnerability</b> and <b>general security knowledge</b> about how attackers behave and how defenders should respond.</p>
+ <div class="flow">
+  <div>Download trusted sources</div><div>Clean &amp; convert them</div><div>Cut into small passages</div><div>Index for fast search</div>
+ </div>
+ <div class="callout"><b>The one decision that shapes everything:</b> NVD and CISA KEV are <b>lookups</b> — we ask them for facts about one CVE. ATT&amp;CK, CWE, OWASP and NIST are the <b>searchable library</b> — we search them for explanations and guidance. Mixing the two would let the system "find" an answer by re-reading data it already looked up, which would make our test scores meaningless.</div>
+</section>
+
+<section>
+ <h2>2. The six sources, in one table</h2>
+ <table>
+  <thead><tr><th>Source</th><th>What it tells us</th><th>Format we downloaded</th><th>How we use it</th></tr></thead>
+  <tbody>
+   <tr><td class="source">NVD</td><td>The CVE itself: description, severity score, affected products.</td><td><span class="pill">JSON API</span></td><td>Structured lookup for one CVE at a time.</td></tr>
+   <tr><td class="source">CISA KEV</td><td>Whether a vulnerability is confirmed to be exploited in the wild.</td><td><span class="pill">JSON catalogue</span></td><td>Structured enrichment, with a freshness check.</td></tr>
+   <tr><td class="source">MITRE ATT&amp;CK</td><td>How attackers operate — their tactics and techniques.</td><td><span class="pill">STIX JSON bundle</span></td><td>Searchable technique knowledge.</td></tr>
+   <tr><td class="source">CWE</td><td>The catalogue of software weakness types and their mitigations.</td><td><span class="pill">ZIP containing CSV</span></td><td>Searchable weakness definitions.</td></tr>
+   <tr><td class="source">OWASP</td><td>Practical developer guidance: how to prevent and fix problems.</td><td><span class="pill">Markdown archive</span></td><td>Searchable, heading-based guidance.</td></tr>
+   <tr><td class="source">NIST</td><td>Formal security controls, baselines and risk-management standards.</td><td><span class="pill">PDF publications</span></td><td>Searchable text <b>and tables</b>.</td></tr>
+  </tbody>
+ </table>
+ <p>Each source was taken in its <b>native format</b> rather than converting everything to one format first. Native formats keep information we need later: Markdown keeps headings, CSV keeps columns, PDF keeps page layout and table borders.</p>
+ <div class="callout"><b>Added 16 November 2026 — a seventh source: the pages NVD itself cites.</b> For each cached NVD record we snapshot the http(s) pages listed as its references: 365 of 526 fetched (43.7 MB), with 161 permanently unavailable and recorded with error reasons — never fabricated. 315 fetched documents became 3,341 extra chunks in a separate store covering 34 of the 56 referenced CVEs, searched first for the investigated CVE before the generic library. NVD's structured records stay out of the searchable library; the pages it recommends now join the searchable side.</div>
+</section>
+
+<section>
+ <h2>3. Downloading and cleaning</h2>
+ <ul>
+  <li><b>Versioned snapshots, not live fetches.</b> We save a local copy of every source and record its version and a SHA-256 fingerprint. That means anyone can rebuild the exact same knowledge base and get the exact same test results.</li>
+  <li><b>Resumable downloads.</b> Interrupted downloads and extractions continue from where they stopped instead of starting over — important when 37 large PDFs take a long time.</li>
+  <li><b>Cleaning per source, not one rule for all.</b> ATT&amp;CK: discard revoked and deprecated techniques. CWE: drop deprecated entries and translate machine markup into readable mitigation bullets. OWASP: keep the cheat sheets, skip templates. NIST: strip repeated page headers, footers and page numbers.</li>
+  <li><b>Cleaning that does not change meaning.</b> We remove invisible characters and formatting noise, but we never lowercase, stem or shorten text — that would damage identifiers such as CVE-2021-44228 and control names like AC-1.</li>
+  <li><b>Dedup and minimum size.</b> Repeated documents are rejected by ID and by content fingerprint; records under 100 characters are dropped as unusable.</li>
+ </ul>
+ <div class="cards">
+  <div class="metric"><b>1,834</b><span>valid unique documents in the library</span></div>
+  <div class="metric"><b>706</b><span>ATT&amp;CK techniques</span></div>
+  <div class="metric"><b>954</b><span>CWE weakness definitions</span></div>
+  <div class="metric"><b>137</b><span>OWASP cheat sheets (+37 NIST PDFs)</span></div>
+ </div>
+</section>
+
+<section>
+ <h2>4. The hard part: PDFs with tables</h2>
+ <p>NIST publications are full of compliance tables — for example, which controls are required for low, moderate and high security baselines. A normal PDF-to-text tool reads the page as a stream of words. The columns disappear, and a row such as <i>AC-1, Policy and Procedures, x, x, x</i> becomes meaningless: nobody can tell which baseline each "x" belongs to.</p>
+ <p>We switched to <b>pdfplumber</b>, which sees the lines that draw the table grid. Each page is cut into bands: text above a table, the table, text below it. Tables become Markdown, in reading order.</p>
+ <div class="example">| CONTROL NUMBER | CONTROL NAME | PRIVACY | <span class="good">LOW | MOD | HIGH</span> |
+| AC-1 | Policy and Procedures | x | <span class="good">x | x | x</span> |
+| AC-2 | Account Management |  | <span class="good">x | x | x</span> |</div>
+ <p>Every table keeps its header, so a fragment is understandable on its own.</p>
+ <table>
+  <thead><tr><th>Problem we hit</th><th>What caused it</th><th>How we fixed it</th></tr></thead>
+  <tbody>
+   <tr><td>Tables full of empty cells</td><td>NIST draws every border as two lines about 5 pt apart; the extractor saw them as two columns.</td><td>Snap tolerance widened to 6 pt so the pair is treated as one border.</td></tr>
+   <tr><td>Headers spelt backwards</td><td>Vertical header labels are rotated 90° in the PDF and read bottom-up.</td><td>Detect tall, narrow header cells and reverse the text.</td></tr>
+   <tr><td>Extra phantom columns</td><td>Decorative boxes look like column borders to the extractor.</td><td>Drop any column that has no data in any row.</td></tr>
+   <tr><td>Multi-row headers treated as data</td><td>Labels like BASELINES / LOW / MOD / HIGH are stacked across rows.</td><td>Merge the stacked header rows, but stop merging when a row looks like real data.</td></tr>
+   <tr><td>Extraction ran 50 minutes and grew to 1.8 GB</td><td>The tool searched for tables on every page, including text-only pages, and kept everything in memory.</td><td>Skip pages without table lines, render each table immediately, and run 3–4 documents in parallel.</td></tr>
+  </tbody>
+ </table>
+ <div class="cards">
+  <div class="metric"><b>2,190</b><span>tables recovered</span></div>
+  <div class="metric"><b>17,613</b><span>data rows preserved</span></div>
+  <div class="metric"><b>0</b><span>table position mismatches</span></div>
+  <div class="metric"><b>37</b><span>NIST publications, 4,319 pages</span></div>
+ </div>
+ <div class="callout warn"><b>Honest limitation:</b> 6 NIST documents use <b>borderless</b> tables — no drawn lines. Our method cannot see them, so those tables stay as plain text. Figures and diagrams are also skipped, because these PDFs already have a text layer and OCR would be slower and less accurate.</div>
+</section>
+
+<section>
+ <h2>5. Cutting the library into searchable passages (chunking)</h2>
+ <p>A 500-page standard cannot be searched as one block, and a one-sentence fragment is useless on its own. We split documents into passages of about <b>1,800 characters (≈450 tokens)</b>, with a hard cap of 2,600 characters.</p>
+ <ul>
+  <li><b>Tables are never cut mid-row.</b> A table that fits stays whole. An oversized table splits by rows, and <b>every part repeats the header</b>, so no fragment loses its column meaning.</li>
+  <li><b>Headings travel with the text.</b> Each passage carries the section heading it came from, so a fragment of NIST 800-53 still says which control family it belongs to.</li>
+  <li><b>Long paragraphs split at sentences</b>, not at arbitrary character positions.</li>
+  <li><b>Small overlap between prose passages</b> (400 characters) so a sentence cut at a boundary is still findable. Tables are never overlapped — duplicated rows would double-count evidence.</li>
+ </ul>
+ <div class="callout"><b>Why not the standard recipe?</b> Most tutorials use a fixed 512-token window or a recursive character splitter. Both cut straight through tables and separate a control from its heading. Semantic chunking (splitting where the meaning changes) costs an embedding pass and still cannot guarantee table integrity. Structure-aware splitting uses information the documents already give us.</div>
+ <div class="cards">
+  <div class="metric"><b>10,457</b><span>searchable passages</span></div>
+  <div class="metric"><b>1,907</b><span>passages containing tables</span></div>
+  <div class="metric"><b>1,617</b><span>typical passage size (characters)</span></div>
+  <div class="metric"><b>3,190</b><span>largest passage (characters)</span></div>
+ </div>
+</section>
+
+<section>
+ <h2>6. Making the passages searchable (embeddings + hybrid search)</h2>
+ <p>Two search methods work together:</p>
+ <ul>
+  <li><b>Keyword search (BM25)</b> finds exact terms such as "AC-1" or "Log4j". Fast, but it cannot match different wording.</li>
+  <li><b>Semantic search (embeddings)</b> converts each passage into a list of 384 numbers — a fingerprint of its meaning. A question becomes the same kind of fingerprint, and we find the closest ones. This finds relevant passages even when the wording differs.</li>
+ </ul>
+ <p>The two ranked lists are merged with <b>Reciprocal Rank Fusion</b>: each passage earns points for how high it appeared in each list. We use ranks instead of raw scores because the two methods score on incompatible scales.</p>
+ <table>
+  <thead><tr><th>Option we tried</th><th>What happened</th><th>Decision</th></tr></thead>
+  <tbody>
+   <tr><td>bge-small embeddings, run locally</td><td>Quantised model ran at 2.8 passages/second on this CPU — a build that was still unfinished after ~55 minutes.</td><td>Rejected <b>as a local CPU model</b>: too slow to iterate. The same model family is now used, but hosted (row below), so the build cost is no longer ours.</td></tr>
+   <tr><td>all-MiniLM-L6-v2 (local)</td><td>Same 384 dimensions, 14.7 passages/second on this CPU. The whole index built in 709 seconds — the earlier local-model figures.</td><td><b>Chosen on 11–12 November</b> for measured speed at equal dimensions, correct at the time it was measured. <b>Superseded 18 November 2026 (D32)</b>: no local embedding model runs here now.</td></tr>
+   <tr><td>Remote embedding API</td><td>A public third-party API would send our corpus outside and add network latency and cost.</td><td>Rejected for privacy, cost and reproducibility <b>for an outside provider</b>. Reversed 18 November 2026 (D32) for the course's own compliant internal endpoint — see the row below. Cost and latency are now real and measured.</td></tr>
+   <tr><td>Course embedding endpoint (hosted <code>bge-small-en-v1.5</code>)</td><td>One internal endpoint produces every vector in the system — the index build, each query vector, and the descriptive answer-vs-reference cosine — at 384 dimensions, returned already L2-normalised.</td><td><b>Chosen 18 November 2026 (D32)</b>, on the user's direction, so a single model defines every vector and no second vector space can exist.</td></tr>
+   <tr><td>Cross-encoder reranker</td><td>Reranking made results slightly <b>worse</b> (nDCG 0.633 vs 0.655) and added 8.2 seconds per question.</td><td>Rejected: slower and less accurate here.</td></tr>
+   <tr><td>A vector database</td><td>Our entire index is 16 MB and dense search took 8 ms with plain NumPy.</td><td><b>Format changed 18 November (D29), decision stands.</b> The vectors now live in a FAISS flat index file that the retriever searches in-process — a library plus a local file, still exact search and still 8 ms. A separate vector database <em>service</em> remains rejected as unnecessary infrastructure at this size.</td></tr>
+  </tbody>
+ </table>
+ <p class="small"><b>Added 16 November 2026:</b> the NVD reference chunks live in a separate store searched with per-CVE-scoped BM25 using Lucene-style smoothed idf, <code>log(1+(N-df+0.5)/(df+0.5))</code>, because classic BM25Okapi idf collapses to 0 on tiny per-CVE candidate sets. The generic hybrid index above was not rebuilt, keeping the benchmark in section 7 reproducible.</p>
+ <p class="small"><b>Changed 18 November 2026 (D32) — the embeddings are no longer local.</b> <code>app/embeddings.py::EmbeddingsClient</code> is the only thing in the project that produces vectors: it calls the course embedding endpoint (model <code>bge-small-en-v1.5</code>, 384 dimensions, vectors returned already L2-normalised) for the index build in <code>scripts/build_index.py</code>, for each query in <code>app/retrieval.py</code>, and for the descriptive answer-vs-reference cosine in <code>app/answer_layers.py::cosine</code>. Nothing is embedded on this machine any more — <code>fastembed</code> has left <code>requirements.txt</code> — and there is deliberately no offline fallback, because a local model would embed the query in a different vector space from the stored vectors and silently return junk rankings. Settings are <code>embeddings_base_url</code>, <code>embeddings_api_key</code>, <code>embeddings_model</code> and <code>embeddings_ca_cert</code> in <code>app/config.py</code> (env <code>EMBEDDINGS_BASE_URL</code>, <code>EMBEDDINGS_API_KEY</code>, <code>EMBEDDINGS_MODEL</code>, <code>EMBEDDINGS_CA_CERT</code>), with TLS verified against <code>vm02-ca.crt</code> in the repository root.</p>
+ <p class="small"><b>What the endpoint forced into the design:</b> at most 16 texts per request, and every input must be under 512 model tokens — the server rejects an over-long input with HTTP 422 naming the token count rather than truncating it quietly. So text is pre-cut to 2,200 characters, which leaves 93.8% of the corpus by character count untouched (a uniform “globally safe” 1,816-character cap would have carried <i>less</i> text than the local index did), and the few dense passages that still overflow are re-cut with the count the server itself reports, bounded to four passes. 429/500/502/503 retry with backoff; an unconfigured endpoint or key raises a clear error. Index build is now about 100 ms per chunk over 10,457 chunks, against the 709-second local build recorded above. Comparability rule: a cosine measured before this change came from the local MiniLM model and is not comparable with one measured after it; the two never share a column or a table. The deterministic source-derived field check stays the only pass/fail authority — the cosine describes similarity, nothing more.</p>
+</section>
+
+<section>
+ <h2>7. How we know it works</h2>
+ <p>We measure two different things and keep them separate:</p>
+ <ul>
+  <li><b>Answer quality:</b> 80 fixed questions whose expected answers were extracted by rule from NVD, KEV and ATT&amp;CK — never written by the model. The model was tested with three prompt styles before retrieval was added. This frozen 80-question set and the Golden-100 workbook were retired on 18 November 2026; <code>CyberShield_Batch10_Consolidated_RAG_Agent_Evaluation_Traceability.xlsx</code> (Batch 10) is now the only evaluation set, so the answer-level numbers in this document are the runs measured on the retired sets.</li>
+  <li><b>Search quality:</b> 60 questions whose correct document is known and actually contains the answer (15 per source). We measure whether the right document appears in the top 5/10 and how high it ranks.</li>
+ </ul>
+ <table>
+  <thead><tr><th>Search mode</th><th>Right doc in top 5</th><th>Right doc in top 10</th><th>Rank quality (nDCG@10)</th><th>Worst-case time</th></tr></thead>
+  <tbody>
+   <tr><td>Keywords only</td><td>67%</td><td>77%</td><td>0.579</td><td>107 ms</td></tr>
+   <tr><td>Semantic only</td><td>70%</td><td>82%</td><td>0.582</td><td>10 ms</td></tr>
+   <tr><td><b>Hybrid (both)</b></td><td><b>82%</b></td><td><b>83%</b></td><td><b>0.655</b></td><td>111 ms</td></tr>
+  </tbody>
+ </table>
+ <div class="callout warn"><b>A test that caught a real problem.</b> Our first retrieval test scored 0.000 for every method. That was not a search failure: the questions asked "which ATT&amp;CK technique maps to CVE-X", but the CVE number does not appear anywhere in the technique document — that link only exists in a database. No text search can answer it. We replaced that test with the 60-question benchmark above rather than report a misleading score.</div>
+ <p class="small">Scores on the strict one-document labels understate ATT&amp;CK and CWE performance: the correct answer is sometimes a sub-technique or a different source with the same content, which our labels count as a miss.</p>
+ <p class="small">The 60-query benchmark measures the frozen generic index only. The NVD reference store added on 16 November 2026 sits beside it — searched first for the investigated CVE, with the generic index left untouched — so these scores stay comparable across versions.</p>
+</section>
+
+<section>
+ <h2>8. Choices we deliberately did not make</h2>
+ <table>
+  <thead><tr><th>Tempting option</th><th>Why we did not take it</th></tr></thead>
+  <tbody>
+   <tr><td>Query every source live at question time</td><td>Answers would change as sources change, tests would not be reproducible, and it would blow the 20-second response budget.</td></tr>
+   <tr><td>Flatten PDFs to plain text (pypdf)</td><td>Destroys table columns, and NIST baselines are the most valuable content in those PDFs.</td></tr>
+   <tr><td>Fixed-size token windows</td><td>Cuts tables and separates controls from their headings.</td></tr>
+   <tr><td>A separate vector search service (Elasticsearch, Qdrant, a hosted vector database)</td><td>A whole index fits in 16 MB and searches in 8 ms; a service would add operations burden with no benefit, and it would mean a network hop for data that must not leave this machine. <b>Partly revised 18 November (D29):</b> we did adopt FAISS, but as an in-process library over a local flat index file — exact search, the same 8 ms, and the same tie rule the frozen benchmarks were measured under, so no recorded number moved. <b>Still true after D32:</b> the index itself never leaves this machine. The course embedding endpoint receives text to vectorise and stores nothing; a hosted vector database would have kept the corpus somewhere else.</td></tr>
+   <tr><td>Let the model invent CVE→ATT&amp;CK mappings</td><td>No official mapping exists, so we ship only curated verified mappings and report the rest as unknown.</td></tr>
+   <tr><td>Model-as-judge grading</td><td>The model would grade its own work. All grading is rule-based against frozen facts.</td></tr>
+  </tbody>
+ </table>
+</section>
+
+<section>
+ <h2>9. Known gaps</h2>
+ <ul>
+  <li>English-only corpus, weighted toward US security guidance; ATT&amp;CK Mobile and ICS are not included.</li>
+  <li>Borderless NIST tables and figures are not recovered as structured content.</li>
+  <li>For this demo, any dated KEV snapshot at or before investigation time is accepted; undated or future-dated snapshots remain unknown. Production freshness requirements need separate review.</li>
+  <li>Vectors now come from the course embedding endpoint rather than a local model (18 November 2026, D32): a fresh checkout cannot rebuild the index offline, so an endpoint outage blocks a rebuild, and the served model weights cannot be inspected. The earlier local MiniLM choice was made for speed on this CPU, not because it is the best embedding model available.</li>
+  <li>Retrieval labels are strict, so ATT&amp;CK/CWE scores are a conservative lower bound.</li>
+  <li>NVD reference pages are local snapshot copies fetched on 16 November 2026; they may have changed since, and 22 of the 56 referenced CVEs have no usable reference chunks (unfetched or too-short pages) and simply use the generic corpus.</li>
+  <li>OWASP content is CC BY-SA 4.0 — attribution is required if text is redistributed.</li>
+ </ul>
+</section>
+
+<section>
+ <h2>10. The 60-second version</h2>
+ <p>"We use six trusted security sources: NVD tells us about the vulnerability, CISA tells us whether it is being exploited, ATT&amp;CK describes attacker behaviour, CWE explains the weakness, OWASP gives practical fixes, and NIST gives formal controls — and since 16 November we also snapshot the pages each NVD record itself cites and search them first for the investigated CVE. We download versioned snapshots instead of querying live, clean each source according to its own structure, and preserve what matters — IDs, headings and especially NIST's compliance tables, which we recovered as real tables instead of broken text. We cut the library into 10,457 passages that keep tables and headings intact, and search them with both keywords and semantic fingerprints, which beats either method alone. Every claim in a response has to cite a passage we actually retrieved, and every design choice above is backed by a measurement rather than a guess."</p>
+</section>
+
+<footer>CyberShield AI · Friendly presentation summary · Companion to docs/architecture_decisions.csv (100 detailed decisions) and data/manifests/*.json (measured evidence)</footer>
+</main>
+</body>
+</html>

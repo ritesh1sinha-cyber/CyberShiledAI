@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-11-18T08:35:05+00:00",
+  "chunks": 10457,
+  "model": "bge-small-en-v1.5",
+  "dim": 384,
+  "normalised": true,
+  "dense_backend": "faiss.IndexFlatIP",
+  "chunks_sha256": "72a0ce2e829fc64faee7092e1b06b0b7320363f15fa07d5d7367e36acdbb5919",
+  "files": {
+    "bm25_tokens.jsonl": "dcfd6cac331ac7bf3861b900ba83eab0dc31ca7b33e5ece490da49d43ecc9972",
+    "embeddings.npy": "7dc3447b219350e3bb3692db5d2c292abe4f7d84989b5af22641202f55c82e91",
+    "embeddings.faiss": "9cd4538b3665aed343e800145abb3591294ad95e7773342e4fe75f0b8503e356",
+    "ids.json": "93bf2d31442e1db3abf626e0554f5829dbd63ebd6268fcc93d5ee26b15450ab3"
+  }
+}
