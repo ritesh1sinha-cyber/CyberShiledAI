@@ -138,10 +138,13 @@ grading.
 
 ## Quarantine (nothing was deleted)
 
-`main` has no commits yet, so removals went to
+`main` had no commits when those removals were made, so nothing was deleted; files went to
 `C:\Users\IN009287\Desktop\KGP_cleanup_20261118T062923Z\` with a `MANIFEST.md` entry per file (reason,
 bytes, SHA-256, destination). That folder holds the retired 80-question and Golden-100 artifacts and
-the MiniLM-era 18 November live run (`superseded_live_minilm/`) that D33 replaced.
+the MiniLM-era 18 November live run (`superseded_live_minilm/`) that D33 replaced. The retirement
+predates the repository's first commit (`646cdf1`, 18 November), so those artifacts are recoverable
+only from the quarantine folder, not from git history — which is why they were moved rather than
+deleted.
 
 ## Viewing these files on the dashboard
 
