@@ -45,6 +45,53 @@ Both bind loopback only. Keep them that way: nothing in this project is meant to
 outside the machine, and there is no authentication in front of either service. Optional local
 tracing lives in `docker/langfuse-compose.yml` and stays off unless `LANGFUSE_ENABLED=true`.
 
+## Optional: the Langfuse viewer on another machine
+
+**The system does not need it.** `data/traces/investigations.jsonl` is the record, and
+`app/observability.py` wraps every SDK call so tracing can never fail an investigation; a missing
+viewer costs you a nicer screen, not evidence. `GET /traces/{request_id}` and the History tab show
+the same passages and the same citations from inside the app with no container running at all.
+
+Langfuse is a two-container stack, and only one of its files is in git:
+
+| | |
+| --- | --- |
+| Committed | `docker/langfuse-compose.yml` — the only tracked file under `docker/` |
+| Ignored | `docker/.env` (its 8 secrets: DB password, `NEXTAUTH_SECRET`, `SALT`, `ENCRYPTION_KEY`, the project's public and secret key, the UI login) |
+| Ignored | `docker/langfuse-data/` — the 78 MB Postgres directory, which is the entire trace history |
+| Ignored | `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` in `.env` |
+
+A fresh machine therefore starts an **empty project with different keys and no history**. Either
+rebuild it or carry it over.
+
+Rebuild it, if you only want tracing from now on. Install Docker Desktop from `docker.com` (its own
+download page, not a mirror); the two images pull from Docker Hub's official `langfuse/langfuse` and
+`postgres` repositories. Create `docker/.env` with the eight values — `SALT`, `NEXTAUTH_SECRET` and
+`ENCRYPTION_KEY` are yours to generate, and the encryption key must be 32 bytes as 64 hex
+characters.
+
+```
+docker compose -f docker/langfuse-compose.yml up -d      # never pass --env-file
+```
+
+First boot needs ~45 s for migrations, and port 3100 has to be free. `--env-file` breaks it: compose
+reads `docker/.env` on its own because that file sits beside the compose file. Then take the
+project's public and secret keys from the Langfuse settings page and put them, with
+`LANGFUSE_ENABLED=true` and `LANGFUSE_HOST=http://127.0.0.1:3100`, into the project `.env`. If those
+two keys do not match the project the stack actually created, export fails **silently** and the
+dashboard shows `Scores: No data` — that mismatch is the most likely reason a viewer looks empty.
+
+Carry it over, if you want the existing traces. `docker compose -f docker/langfuse-compose.yml down`
+first — copying a live Postgres data directory produces a corrupt one — then move the whole
+`docker/` folder (compose file, `.env`, `langfuse-data/`) to the same relative path on the other
+machine by an offline route, and `up -d`. Keys line up and the history appears.
+
+Two limits worth knowing before changing anything here. The viewer stays on loopback by design: a
+non-loopback `LANGFUSE_HOST` disables export rather than sending traces off the machine, because
+traces carry raw prompts and internal investigation material. And Langfuse v3 remains rejected (D21)
+— web + worker + ClickHouse + Redis + MinIO does not fit this project, so "upgrade the viewer" is a
+scope decision, not an image tag.
+
 ## Reproduce the evaluation
 
 ```
@@ -65,10 +112,10 @@ and compute nothing.
 
 | | |
 | --- | --- |
-| Committed | `app/`, `scripts/`, `pages/`, `tests/`, `docs/`, `requirements.txt`, both CA certificates, the evaluation workbook, `data/processed` (71 MB frozen corpus), `data/raw/nvd/` (2.3 MB, 155 cached NVD records), `data/manifests`, `data/evaluation`, `data/traces/batch10/` and `data/traces/batch10_live_20261118/` |
+| Committed | `app/`, `scripts/`, `pages/`, `tests/`, `docs/`, `requirements.txt`, both CA certificates, the evaluation workbook, `docker/langfuse-compose.yml`, `data/processed` (71 MB frozen corpus), `data/raw/nvd/` (2.3 MB, 155 cached NVD records), `data/manifests`, `data/evaluation`, `data/traces/batch10/` and `data/traces/batch10_live_20261118/` |
 | Ignored, rebuildable | `data/index/` (53 MB, `scripts/build_index.py`) |
 | Ignored, re-fetchable | the rest of `data/raw/` (338 MB of NIST/ATT&CK/OWASP/KEV/NVD-reference snapshots, `scripts/snapshot_*.py`) |
-| Ignored, never shared | `.env`, `.venv/`, `data/logs/`, `data/backups/`, `data/traces/investigations.jsonl` |
+| Ignored, never shared | `.env`, `.venv/`, `data/logs/`, `data/backups/`, `data/traces/investigations.jsonl`, `docker/.env`, `docker/langfuse-data/` (78 MB, see the viewer section above) |
 
 Two of these are not optional, and both were found by checking a fresh copy of the tree on
 2026-11-18 rather than by reading the code. Sizes here are the figures Windows reports (MiB);
@@ -85,8 +132,10 @@ Two of these are not optional, and both were found by checking a fresh copy of t
 
 Measured on 2026-11-18 in a scratch directory into which the file set named by
 `git ls-files -o --exclude-standard` was copied, with `.env` copied in beside it and the commands
-above run by the project venv. `main` still has no commit, so the copy stands in for the checkout:
-what it proves is that the file set is sufficient, not the git mechanics.
+above run by the project venv. `main` had no commit when the copy was taken — the repository's first
+commit came later the same day — so the copy stood in for the checkout: what it proves is that the
+file set is sufficient, not the git mechanics. Since `646cdf1` the same claim can be tested for real
+with `git clone`, and the file set below is what that clone gets.
 
 Two stages, because the first one failed:
 
