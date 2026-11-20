@@ -275,6 +275,13 @@ The Critic Agent acts as an independent code reviewer before any report is prese
 3. **Completeness:** Ensures all required sections (CVSS vector, CWE, KEV status, Remediation, Project Risk) are explicitly addressed.
 4. **Handling of Missing Data:** Confirms that unverified attributes are transparently hedged (e.g. stating "Not Listed in KEV" rather than assuming safe status).
 
+#### Evidence Provenance & Anti-Tampering Architecture: Who Provides Evidence to the Critic?
+A critical architectural safety decision in CyberShield AI is that **the Analyst Agent does NOT forward or pass the Evidence Package to the Critic Agent**:
+* **The Vulnerability of Agent-to-Agent Forwarding:** If the Analyst were responsible for bundling and sending evidence to the Critic, a hallucinating or misaligned model could easily cherry-pick, alter, or fabricate evidence passages to conceal its own errors.
+* **Orchestrator-Mediated Ground Truth (`app/workflow.py`):** In CyberShield AI's LangGraph state machine, the `EvidenceAgent` writes the immutable `EvidencePackage` directly into the shared `InvestigationState` (`state["package"]`). When the workflow routes to the Critic node, the **LangGraph Orchestrator** supplies both inputs independently:
+  $$\text{CriticReview} = \text{CriticAgent}(\text{package}=\text{state}["\text{package}"], \, \text{draft}=\text{state}["\text{draft}"])$$
+* **Adversarial Auditability:** Because the Critic receives the original, untampered evidence bundle directly from the source of record, the Analyst has zero opportunity to manipulate the factual ground against which it is audited.
+
 ### 6.4 The Targeted Self-Correction Loop
 If the Critic rejects a draft, it produces a structured issue list (e.g., *"Missing explicit distinction against related CVE-2023-42793"*). The Lead Analyst receives the critique along with the original evidence and performs **one targeted revision pass**. This self-correction loop catches subtle omissions without causing infinite generation cycles.
 
