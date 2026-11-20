@@ -117,6 +117,11 @@ class EvidenceWriter:
             )
         )
         return evidence
+def has_local_nvd(cve_id: str, nvd_dir: Path | None = None) -> bool:
+    """Return True if a cached local NVD JSON record exists for this CVE."""
+    target_dir = nvd_dir or (ROOT / "data" / "raw" / "nvd")
+    clean_id = cve_id.strip().upper()
+    return (target_dir / f"{clean_id}.json").exists()
 
 
 class EvidenceAgent:
@@ -182,6 +187,8 @@ class EvidenceAgent:
         cvss = pick_cvss(cve) or {}
         modified = parse_datetime(cve.get("lastModified"))
         published = date.fromisoformat(cve["published"][:10]) if cve.get("published") else None
+        candidates = cwe_candidates(cve)
+        cwe_ids = [c["cwe_id"] for c in candidates if c.get("cwe_id")]
         facts = CveFacts(
             cve_id=cve_id,
             description=description,
@@ -192,6 +199,7 @@ class EvidenceAgent:
             cvss_source=cvss.get("cvss_source"),
             published=published,
             last_modified=modified,
+            cwe=cwe_ids,
         )
         url = NVD_DETAIL + cve_id
         if description:
@@ -457,6 +465,19 @@ class EvidenceAgent:
         writer = EvidenceWriter(now)
         limitations: list[str] = []
         facts, raw_cve = self._collect_nvd(cve_id, writer, limitations)
+        if facts is None and getattr(request, "web_fallback_approved", False):
+            from app.fetch_web_agent import FetchFromWebAgent
+            web_agent = FetchFromWebAgent()
+            web_res = web_agent.fetch_all_sources(cve_id, writer=writer)
+            if web_res.get("found"):
+                facts = web_res["facts"]
+                raw_cve = web_res.get("raw_cve")
+                limitations.extend(web_res.get("limitations", []))
+            else:
+                limitations.append(
+                    f"Live web search across NIST NVD, CISA KEV, MITRE ATT&CK, OSV, ExploitDB, and Vendor Advisories confirmed {cve_id} does not exist in official records."
+                )
+
         kev_status, kev_row = self._collect_kev(cve_id, now, writer, limitations)
         products = self._collect_products(cve_id, raw_cve, kev_status, kev_row, writer)
         mappings = self._collect_attack(cve_id, writer) if request.include_attack else []
@@ -465,15 +486,31 @@ class EvidenceAgent:
                 "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot."
             )
         limitations.extend(state.get("additional_limitations", []))
-        contexts, retrieval_meta = self._collect_context(
-            request,
-            cve_id,
-            raw_cve,
-            writer,
-            limitations,
-            retrieval_query=state.get("retrieval_query"),
-            retrieval_reviewer=state.get("retrieval_reviewer"),
-        )
+        if facts is None and getattr(request, "web_fallback_approved", False):
+            contexts = []
+            retrieval_meta = {
+                "queries": [],
+                "review": {"sufficient": True, "refined_query": None},
+                "retry_used": False,
+            }
+        else:
+            contexts, retrieval_meta = self._collect_context(
+                request,
+                cve_id,
+                raw_cve,
+                writer,
+                limitations,
+                retrieval_query=state.get("retrieval_query"),
+                retrieval_reviewer=state.get("retrieval_reviewer"),
+            )
+        if facts is not None and getattr(request, "web_fallback_approved", False):
+            # Inject live web contexts if any
+            try:
+                for c in web_res.get("contexts", []):
+                    if c.chunk_id not in {ctx.chunk_id for ctx in contexts}:
+                        contexts.insert(0, c)
+            except Exception:
+                pass
         elapsed_ms = max(0, round((time.perf_counter() - started) * 1000))
         package = EvidencePackage(
             cve_id=cve_id,

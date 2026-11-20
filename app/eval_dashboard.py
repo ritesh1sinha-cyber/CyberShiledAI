@@ -426,8 +426,8 @@ def _batch10_llm_table() -> list[dict]:
             "Per-claim ROUGE-2 F1": number(claim["claim_rouge2_f"]),
             "Per-claim ROUGE-L F1": number(claim["claim_rougeL_f"]),
             "Per-claim semantic cosine": number(claim["claim_cosine"]),
-            "Per-claim judge agreement /5": text((claim["claim_judge"] or {}).get("agreement")),
-            "Per-claim judge verdict": text((claim["claim_judge"] or {}).get("verdict")),
+            "Per-claim judge agreement /5": text((claim.get("claim_judge") or {}).get("agreement")),
+            "Per-claim judge verdict": text((claim.get("claim_judge") or {}).get("verdict")),
             "Answer-level deterministic verdict (authority)": verdict_from_fields(
                 claim["answer_fields"]
             ),
@@ -538,7 +538,7 @@ def _batch10_llm_detail(eval_id: str) -> dict:
                             number(claim[name]) for name in ("claim_rouge1_f", "claim_rouge2_f", "claim_rougeL_f")
                         ),
                         "Per-claim semantic cosine": number(claim["claim_cosine"]),
-                        "Per-claim judge b10-claim-1.1": claim_judge_line(claim["claim_judge"] or {}),
+                        "Per-claim judge b10-claim-1.1": claim_judge_line(claim.get("claim_judge") or {}),
                     }
                     for claim in claims
                 ],

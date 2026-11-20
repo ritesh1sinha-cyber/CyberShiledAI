@@ -128,21 +128,42 @@ class ReferenceRetriever:
     B = 0.75
 
     def __init__(self, chunks_path: Path = REFERENCE_CHUNKS):
+        self.chunks_path = Path(chunks_path)
         self.chunks: dict[str, dict] = {}
         self.by_cve: dict[str, list[dict]] = {}
         self._index: dict[str, dict] = {}
-        if not chunks_path.exists():
+        self._last_mtime: float = 0.0
+        self._load()
+
+    def _load(self) -> None:
+        if not self.chunks_path.exists():
             return
-        with open(chunks_path, "r", encoding="utf-8") as handle:
-            for line in handle:
-                if not line.strip():
-                    continue
-                chunk = json.loads(line)
-                self.chunks[chunk["chunk_id"]] = chunk
-                for cve_id in chunk.get("cve_ids") or []:
-                    self.by_cve.setdefault(cve_id, []).append(chunk)
+        try:
+            mtime = self.chunks_path.stat().st_mtime
+            if mtime <= self._last_mtime:
+                return
+            self._last_mtime = mtime
+            with open(self.chunks_path, "r", encoding="utf-8") as handle:
+                for line in handle:
+                    if not line.strip():
+                        continue
+                    chunk = json.loads(line)
+                    cid = chunk.get("chunk_id")
+                    if cid and cid not in self.chunks:
+                        self.chunks[cid] = chunk
+                        for cve_id in chunk.get("cve_ids") or []:
+                            self.by_cve.setdefault(cve_id, []).append(chunk)
+                            self._index.pop(cve_id, None)
+        except Exception:
+            pass
 
     def has_cve(self, cve_id: str) -> bool:
+        if cve_id not in self.by_cve and self.chunks_path.exists():
+            try:
+                if self.chunks_path.stat().st_mtime > self._last_mtime:
+                    self._load()
+            except Exception:
+                pass
         return bool(self.by_cve.get(cve_id))
 
     def _ensure_index(self, cve_id: str) -> dict:

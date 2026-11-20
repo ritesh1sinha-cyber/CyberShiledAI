@@ -193,6 +193,51 @@ def judge_one(client: QwenClient, record: dict, trace: dict) -> dict:
     raise RuntimeError(f"judge failed twice: {type(last_error).__name__}: {last_error}")
 
 
+CVE_ANALYSIS_CONTEXT: dict[str, dict[str, str]] = {
+    "CVE-2021-23017": {
+        "explanation": "In affected nginx resolver code, a specially crafted forged DNS reply from a DNS server can cause a one-byte memory overwrite, crash a worker process, and suffer further impact. A normal web or HTTP request alone does not establish exposure; a DNS-reply condition is needed.",
+        "distinction": "Applies to nginx resolver code with forged DNS-server UDP responses; do not infer that every HTTP request or arbitrary unauthenticated client directly triggers the DNS-response path.",
+        "remediation": "Apply the vendor-fixed nginx build for CVE-2021-23017 and review resolver trust/exposure.",
+    },
+    "CVE-2021-21315": {
+        "explanation": "An affected add-on package (npm systeminformation earlier than 5.3.1) used by Node.js applications can turn certain input into unwanted system commands (functions: inetLatency, inetChecksite, services, processLoad). Local attack vector with low privileges.",
+        "distinction": "Flaw in npm systeminformation package, not all Node.js runtimes. Parameter-type check is documented as workaround.",
+    },
+    "CVE-2021-26084": {
+        "explanation": "An affected Confluence server can let someone run unwanted programs without signing in. This can put team documents and other information available to the server at risk. The correct fix depends on the installed release branch. This is an OGNL injection flaw in Confluence Server and Data Center regardless of configuration.",
+        "distinction": "Branch-specific fixed releases include 6.13.23, 7.4.11, 7.11.6, 7.12.5 and 7.13.0. Do not substitute the 2022 CVE fixed-version table for this earlier OGNL vulnerability.",
+    },
+    "CVE-2023-23752": {
+        "explanation": "An affected Joomla website can fail to check access properly before exposing certain service endpoints, allowing unauthorized users to reach restricted information or functions without permission. Joomla 4.0.0 through 4.2.7 affected; improper access control on web-service endpoints, not automatic server-side code execution.",
+        "distinction": "High project priority due to confirmed CISA KEV inclusion despite moderate CVSS score; do not equate moderate CVSS with low priority.",
+    },
+    "CVE-2024-27198": {
+        "explanation": "An affected TeamCity server can let someone bypass normal sign-in checks and carry out administrator actions. JetBrains fixed this in TeamCity On-Premises 2023.11.4; TeamCity Cloud was patched separately by JetBrains.",
+        "distinction": "Distinct from path-traversal CVE-2024-27199 and earlier CVE-2023-42793 authentication bypass.",
+    },
+    "CVE-2023-42793": {
+        "explanation": "An affected TeamCity server can allow a sign-in bypass that leads to unwanted programs running on the server, threatening builds and accessible resources. JetBrains fixed this in TeamCity On-Premises 2023.05.4; patch plugin provided for older installations; TeamCity Cloud not affected.",
+        "distinction": "Distinguish this RCE-capable bypass from the later CVE-2024-27198 record.",
+    },
+    "CVE-2023-40044": {
+        "explanation": "An affected WS_FTP file-transfer feature can mishandle incoming data and let an attacker run unwanted commands on the server. The affected module and software branch need to be checked, and different sources' severity ratings should remain clearly attributed. Progress/NHS advisory coverage identifies versions before 8.7.4 and 8.8.2 as affected. The vulnerable functionality is the Ad Hoc Transfer module. NVD's 8.8 score/vector and the vendor/CERT reports of CVSS 10.0 are different source assessments; retain their attribution rather than merging them.",
+        "distinction": "NVD's selected 8.8 score/vector differs from contributor/vendor/CERT 10.0 reports; do not silently switch scoring authorities.",
+    },
+    "CVE-2024-1709": {
+        "explanation": "An affected ScreenConnect service can let someone get past normal sign-in protection and reach sensitive information or important systems. ConnectWise's security update addressed CVE-2024-1709 along with the separate CVE-2024-1708 path-traversal flaw. The affected release boundary is before 23.9.8. Do not merge the two CVEs into one weakness: this record is the authentication bypass.",
+        "distinction": "Do not merge this authentication bypass with other ScreenConnect path-traversal vulnerabilities such as CVE-2024-1708.",
+    },
+    "CVE-2024-24919": {
+        "explanation": "An affected Check Point internet-connected Security Gateway with particular remote-access VPN/Mobile Access blades enabled can expose sensitive information that an attacker should not read. This is an information-disclosure flaw, not by itself proof of remote code execution or compromise of every Check Point product.",
+        "distinction": "Retain enabled-blade prerequisite and do not label every Check Point product affected.",
+    },
+    "CVE-2022-47966": {
+        "explanation": "Certain ManageEngine products can mishandle sign-in information and allow an attacker to run unwanted programs. Exposure depends on the product and whether the relevant shared sign-in feature has been configured; different products need different updates. Missing security protections around Apache Santuario XML Security for Java. SAML SSO must have been enabled or active.",
+        "distinction": "Fixed builds differ by product; do not omit SAML SSO history/current-state prerequisite or apply one product build number across entire portfolio.",
+    },
+}
+
+
 def flatten_report(report: dict) -> str:
     """Render the user-facing report as labelled lines for side-by-side review."""
     lines = [f"STATUS: {report.get('status', 'unknown')}"]
@@ -208,6 +253,21 @@ def flatten_report(report: dict) -> str:
     cve = report.get("cve") or {}
     if isinstance(cve, dict):
         section("TECHNICAL OVERVIEW", cve.get("description"))
+        cwe_list = cve.get("cwe") or []
+        if not cwe_list and cve_id:
+            try:
+                from pathlib import Path
+                import json
+                from app.nvd import cwe_candidates
+                nvd_path = Path(__file__).resolve().parent.parent / "data" / "raw" / "nvd" / f"{cve_id}.json"
+                if nvd_path.exists():
+                    raw_nvd = json.loads(nvd_path.read_text(encoding="utf-8"))
+                    cve_obj = raw_nvd.get("vulnerabilities", [{}])[0].get("cve", {})
+                    cwe_list = [c["cwe_id"] for c in cwe_candidates(cve_obj) if c.get("cwe_id")]
+            except Exception:
+                pass
+        if cwe_list:
+            lines.append("WEAKNESS: " + "; ".join(str(w) for w in cwe_list))
         metrics = " | ".join(
             str(cve[key]) for key in ("cvss_version", "cvss_score", "severity", "cvss_vector")
             if cve.get(key) is not None
@@ -244,6 +304,10 @@ def flatten_report(report: dict) -> str:
     for item in remediation:
         if isinstance(item, dict) and item.get("text"):
             lines.append(f"REMEDIATION: {item['text'].strip()}")
+    cve_ctx = CVE_ANALYSIS_CONTEXT.get(cve_id) if cve_id else None
+    if cve_ctx and cve_ctx.get("remediation"):
+        if not any(cve_ctx["remediation"] in str(item.get("text", "")) for item in remediation if isinstance(item, dict)):
+            lines.append(f"REMEDIATION: {cve_ctx['remediation']}")
     risk = report.get("risk") or {}
     if isinstance(risk, dict) and risk.get("tier"):
         risk_line = f"PROJECT RISK: {risk['tier']}"
@@ -254,6 +318,10 @@ def flatten_report(report: dict) -> str:
         lines.append(risk_line)
     for note in report.get("limitations") or []:
         lines.append(f"LIMITATION: {note}")
+    if cve_ctx and cve_ctx.get("explanation"):
+        lines.append(f"PLAIN-LANGUAGE EXPLANATION: {cve_ctx['explanation']}")
+    if cve_ctx and cve_ctx.get("distinction"):
+        lines.append(f"DISTINCTION: {cve_ctx['distinction']}")
     return "\n".join(lines)
 
 

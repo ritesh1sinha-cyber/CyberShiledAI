@@ -1,0 +1,992 @@
+{
+ "summary": {
+  "generated_at": "2026-11-18T10:12:12+00:00",
+  "workbook": "CyberShield_Batch10_Consolidated_RAG_Agent_Evaluation_Traceability.xlsx",
+  "dataset_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
+  "gold_sha256_verified": true,
+  "model": "Qwen/Qwen3-8B",
+  "embedding_model": "bge-small-en-v1.5",
+  "embedding_max_input_chars": 2200,
+  "judge_prompt_version": "b10-1.0",
+  "judge_prompt_source": "prompt text imported unchanged from golden-100 g100-1.1",
+  "claim_judge_prompt_version": "b10-claim-1.1",
+  "claim_judge_prompt_source": "written for this set: the model locates each required element of one gold claim by quoting the answer, and score_elements() computes the score in code from those quotes",
+  "investigations": 1,
+  "claims": 11,
+  "claim_result_totals": {
+   "Fail": 5,
+   "Partial": 2,
+   "Pass": 3,
+   "Abstain": 1
+  },
+  "claim_result_basis_totals": {
+   "lexical anchor proxy": 5,
+   "deterministic field check": 5,
+   "abstention guardrail": 1
+  },
+  "claim_results_by_family": {
+   "PLAIN-LANGUAGE SUMMARY": {
+    "Fail": 1
+   },
+   "TECHNICAL DETAILS": {
+    "Partial": 1
+   },
+   "PLAIN-LANGUAGE EXPLANATION": {
+    "Partial": 1
+   },
+   "AFFECTED / CONDITIONS": {
+    "Pass": 1
+   },
+   "SEVERITY": {
+    "Pass": 1
+   },
+   "EXPLOITATION": {
+    "Pass": 1
+   },
+   "WEAKNESS": {
+    "Fail": 1
+   },
+   "REMEDIATION": {
+    "Fail": 1
+   },
+   "PROJECT RISK": {
+    "Fail": 1
+   },
+   "GUIDANCE": {
+    "Abstain": 1
+   },
+   "DISTINCTION": {
+    "Fail": 1
+   }
+  },
+  "metrics": {
+   "rouge1_f": {
+    "count": 1,
+    "mean": 0.3733,
+    "median": 0.3733,
+    "min": 0.3733,
+    "max": 0.3733
+   },
+   "rouge2_f": {
+    "count": 1,
+    "mean": 0.1528,
+    "median": 0.1528,
+    "min": 0.1528,
+    "max": 0.1528
+   },
+   "rougeL_f": {
+    "count": 1,
+    "mean": 0.2442,
+    "median": 0.2442,
+    "min": 0.2442,
+    "max": 0.2442
+   },
+   "semantic_cosine": {
+    "count": 1,
+    "mean": 0.8691,
+    "median": 0.8691,
+    "min": 0.8691,
+    "max": 0.8691
+   },
+   "relevance_cosine": {
+    "count": 1,
+    "mean": 0.7706,
+    "median": 0.7706,
+    "min": 0.7706,
+    "max": 0.7706
+   }
+  },
+  "claim_metrics": {
+   "claim_rouge1_f": {
+    "count": 11,
+    "mean": 0.187,
+    "median": 0.101,
+    "min": 0.0,
+    "max": 0.9545
+   },
+   "claim_rouge2_f": {
+    "count": 11,
+    "mean": 0.1049,
+    "median": 0.0,
+    "min": 0.0,
+    "max": 0.9048
+   },
+   "claim_rougeL_f": {
+    "count": 11,
+    "mean": 0.1626,
+    "median": 0.0808,
+    "min": 0.0,
+    "max": 0.9545
+   },
+   "claim_cosine": {
+    "count": 11,
+    "mean": 0.7501,
+    "median": 0.7317,
+    "min": 0.665,
+    "max": 0.9306
+   }
+  },
+  "claim_judge": {
+   "scored": 0,
+   "of": 11,
+   "newly_judged_this_invocation": 0,
+   "verdict_totals": {
+    "not judged": 11
+   },
+   "agreement_score": {},
+   "element_share": {},
+   "element_totals": {
+    "elements_stated": 0,
+    "elements_conceded": 0,
+    "elements_missing": 0,
+    "elements_unquoted": 0,
+    "elements_contradicted": 0,
+    "elements_judge_omitted": 0
+   },
+   "against_deterministic_audit": {
+    "crosstab": {},
+    "rows_where_conveys_matches_Pass_or_Abstain": 0,
+    "of_judged": 0
+   }
+  },
+  "granularity": {
+   "note": "The answer-level columns are computed once per investigation, so they repeat across that investigation's claim rows by design. The claim_* columns are computed once per gold claim, so they vary row by row.",
+   "answer_level_distinct_values_per_investigation": 1,
+   "distinct_values": {
+    "rouge1_f": 1,
+    "rouge2_f": 1,
+    "rougeL_f": 1,
+    "semantic_cosine": 1,
+    "relevance_cosine": 1,
+    "claim_rouge1_f": 11,
+    "claim_rouge2_f": 6,
+    "claim_rougeL_f": 11,
+    "claim_cosine": 11
+   }
+  },
+  "deterministic_field_check": {
+   "clean_investigations": 1,
+   "of": 1,
+   "per_field": {
+    "cve_id": {
+     "match": 1,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 0
+    },
+    "cvss_version": {
+     "match": 1,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 0
+    },
+    "cvss_score": {
+     "match": 1,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 0
+    },
+    "severity": {
+     "match": 1,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 0
+    },
+    "cvss_vector": {
+     "match": 1,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 0
+    },
+    "kev_status": {
+     "match": 1,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 0
+    },
+    "kev_date_added": {
+     "match": 0,
+     "mismatch": 0,
+     "absent": 0,
+     "not-in-reference": 1
+    }
+   },
+   "note": "Answer-level agreement on the fields the gold states. This is the pass/fail authority for the stated facts; it is separate from the claim-level audit, which also checks completeness of every gold claim."
+  },
+  "answer_rollups": [
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "trace_id": "CS-20261118100819202398",
+    "report_status": "completed",
+    "claims": 11,
+    "claims_pass": 3,
+    "claims_partial": 2,
+    "claims_fail": 5,
+    "claims_abstain": 1,
+    "gold_claim_coverage": 0.3636,
+    "anchor_coverage_mean": 0.3573,
+    "claims_correct": 4,
+    "claim_result_bases": [
+     "abstention guardrail",
+     "deterministic field check",
+     "lexical anchor proxy"
+    ],
+    "by_family": {
+     "PLAIN-LANGUAGE SUMMARY": {
+      "Fail": 1
+     },
+     "TECHNICAL DETAILS": {
+      "Partial": 1
+     },
+     "PLAIN-LANGUAGE EXPLANATION": {
+      "Partial": 1
+     },
+     "AFFECTED / CONDITIONS": {
+      "Pass": 1
+     },
+     "SEVERITY": {
+      "Pass": 1
+     },
+     "EXPLOITATION": {
+      "Pass": 1
+     },
+     "WEAKNESS": {
+      "Fail": 1
+     },
+     "REMEDIATION": {
+      "Fail": 1
+     },
+     "PROJECT RISK": {
+      "Fail": 1
+     },
+     "GUIDANCE": {
+      "Abstain": 1
+     },
+     "DISTINCTION": {
+      "Fail": 1
+     }
+    },
+    "gold_evidence_recall": 0.6818,
+    "critical_fact_exact_match": 0.5,
+    "fact_claims": 6,
+    "context_precision": 0.375,
+    "context_recall": 0.9091,
+    "faithfulness": 1.0,
+    "answer_correctness": 0.3,
+    "citation_precision": 0.369,
+    "citation_coverage": 0.4545,
+    "unsupported_claim_rate": 0.0,
+    "conflict_preservation": 0.3333,
+    "abstention_correctness": 1.0,
+    "retrieved_contexts": 16,
+    "evidence_records": 24,
+    "citations": 24,
+    "revised": true,
+    "first_draft_invalid": false,
+    "latency_ms": 28948,
+    "model_calls": 6,
+    "prompt_tokens": 22269,
+    "completion_tokens": 897,
+    "top_k": 8
+   }
+  ],
+  "judge_errors": [],
+  "trace_dir": "data/traces/manual_test"
+ },
+ "rows": [
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "trace_id": "CS-20261118100819202398",
+   "dataset_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "judge_prompt_version": "b10-1.0",
+   "answer_text_chars": 1338,
+   "answer": {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "trace_id": "CS-20261118100819202398",
+    "report_status": "completed",
+    "claims": 11,
+    "claims_pass": 3,
+    "claims_partial": 2,
+    "claims_fail": 5,
+    "claims_abstain": 1,
+    "gold_claim_coverage": 0.3636,
+    "anchor_coverage_mean": 0.3573,
+    "claims_correct": 4,
+    "claim_result_bases": [
+     "abstention guardrail",
+     "deterministic field check",
+     "lexical anchor proxy"
+    ],
+    "by_family": {
+     "PLAIN-LANGUAGE SUMMARY": {
+      "Fail": 1
+     },
+     "TECHNICAL DETAILS": {
+      "Partial": 1
+     },
+     "PLAIN-LANGUAGE EXPLANATION": {
+      "Partial": 1
+     },
+     "AFFECTED / CONDITIONS": {
+      "Pass": 1
+     },
+     "SEVERITY": {
+      "Pass": 1
+     },
+     "EXPLOITATION": {
+      "Pass": 1
+     },
+     "WEAKNESS": {
+      "Fail": 1
+     },
+     "REMEDIATION": {
+      "Fail": 1
+     },
+     "PROJECT RISK": {
+      "Fail": 1
+     },
+     "GUIDANCE": {
+      "Abstain": 1
+     },
+     "DISTINCTION": {
+      "Fail": 1
+     }
+    },
+    "gold_evidence_recall": 0.6818,
+    "critical_fact_exact_match": 0.5,
+    "fact_claims": 6,
+    "context_precision": 0.375,
+    "context_recall": 0.9091,
+    "faithfulness": 1.0,
+    "answer_correctness": 0.3,
+    "citation_precision": 0.369,
+    "citation_coverage": 0.4545,
+    "unsupported_claim_rate": 0.0,
+    "conflict_preservation": 0.3333,
+    "abstention_correctness": 1.0,
+    "retrieved_contexts": 16,
+    "evidence_records": 24,
+    "citations": 24,
+    "revised": true,
+    "first_draft_invalid": false,
+    "latency_ms": 28948,
+    "model_calls": 6,
+    "prompt_tokens": 22269,
+    "completion_tokens": 897,
+    "top_k": 8
+   },
+   "fields": {
+    "cve_id": "match",
+    "cvss_version": "match",
+    "cvss_score": "match",
+    "severity": "match",
+    "cvss_vector": "match",
+    "kev_status": "match",
+    "kev_date_added": "not-in-reference"
+   },
+   "rouge1_f": 0.373272,
+   "rouge2_f": 0.152778,
+   "rougeL_f": 0.24424,
+   "semantic_cosine": 0.869056,
+   "relevance_cosine": 0.770615,
+   "judge": null
+  }
+ ],
+ "claims": [
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C01",
+   "workbook_row": 5,
+   "family": "PLAIN-LANGUAGE SUMMARY",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001, EV-0002",
+   "citation_precision": 0.0,
+   "citation_coverage": 0,
+   "supporting_citations": [],
+   "evidence_supports_claim": "Partial",
+   "support_ratio": 0.5,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-187f75a665d96f9d",
+   "source_chunk_id": "NVDREF-187f75a665d96f9d#000",
+   "chunk_locator": "[nginx-announce] nginx security advisory (CVE-2021-23017)",
+   "chunk_text": "[nginx-announce] nginx security advisory (CVE-2021-23017)\n\nMaxim Dounin\nmdounin at mdounin.ru\n\nTue May 25 15:39:38 UTC 2021\n\nPrevious message (by thread): [nginx-announce] nginx-1.20.1\n\nNext message (by thread): [nginx-announce] unit-1.24.0\n\nMessages sorted by:\n[ date ]\n[ thread ]\n[ subject ]\n[ author ]\n\nHello!\n\nA security issue in nginx resolver was identified, which might allow an\nattacker to ca",
+   "retriever_rank": 5,
+   "retrieval_score": 3.571077,
+   "structured_record_id": "",
+   "claim_coverage": 0.25,
+   "coverage_grade": "N",
+   "coverage_missing": [
+    "DNS-reply",
+    "mishandle",
+    "forged",
+    "reply",
+    "suffer",
+    "effects.",
+    "condition",
+    "normal",
+    "request",
+    "alone",
+    "establish",
+    "exposure."
+   ],
+   "gold_evidence_recall": 0.5,
+   "critical_fact_match": "n/a - prose claim",
+   "claim_result": "Fail",
+   "result_basis": "lexical anchor proxy",
+   "abstention_note": "",
+   "faithfulness": "n/a",
+   "unsupported_claim_rate": "n/a",
+   "conflict_preservation": "n/a",
+   "abstention_correctness": "n/a",
+   "conflict_notes": "",
+   "gold_claim_text": "An affected nginx server can mishandle a forged reply from a DNS server and stop a worker process or suffer other effects. An attacker must be able to meet that DNS-reply condition; a normal web request alone does not establish exposure.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "DNS-reply",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.153846,
+   "claim_rouge2_f": 0.03653,
+   "claim_rougeL_f": 0.099548,
+   "claim_cosine": 0.75214
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C02",
+   "workbook_row": 6,
+   "family": "TECHNICAL DETAILS",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001",
+   "citation_precision": 1.0,
+   "citation_coverage": 1,
+   "supporting_citations": [
+    "EV-0001"
+   ],
+   "evidence_supports_claim": "Partial",
+   "support_ratio": 0.5833,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-187f75a665d96f9d",
+   "source_chunk_id": "NVDREF-187f75a665d96f9d#000",
+   "chunk_locator": "[nginx-announce] nginx security advisory (CVE-2021-23017)",
+   "chunk_text": "[nginx-announce] nginx security advisory (CVE-2021-23017)\n\nMaxim Dounin\nmdounin at mdounin.ru\n\nTue May 25 15:39:38 UTC 2021\n\nPrevious message (by thread): [nginx-announce] nginx-1.20.1\n\nNext message (by thread): [nginx-announce] unit-1.24.0\n\nMessages sorted by:\n[ date ]\n[ thread ]\n[ subject ]\n[ author ]\n\nHello!\n\nA security issue in nginx resolver was identified, which might allow an\nattacker to ca",
+   "retriever_rank": 5,
+   "retrieval_score": 3.571077,
+   "structured_record_id": "",
+   "claim_coverage": 0.5,
+   "coverage_grade": "Partial",
+   "coverage_missing": [
+    "DNS-server",
+    "resolver.",
+    "forged",
+    "responses",
+    "one-byte",
+    "effects."
+   ],
+   "gold_evidence_recall": 0.5,
+   "critical_fact_match": "n/a - prose claim",
+   "claim_result": "Partial",
+   "result_basis": "lexical anchor proxy",
+   "abstention_note": "",
+   "faithfulness": 1,
+   "unsupported_claim_rate": 0,
+   "conflict_preservation": "n/a",
+   "abstention_correctness": "n/a",
+   "conflict_notes": "",
+   "gold_claim_text": "nginx DNS resolver. Forged DNS-server UDP responses can cause a one-byte overwrite, worker crash and potentially other effects.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "DNS-server",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.10101,
+   "claim_rouge2_f": 0.0,
+   "claim_rougeL_f": 0.080808,
+   "claim_cosine": 0.797457
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C03",
+   "workbook_row": 7,
+   "family": "PLAIN-LANGUAGE EXPLANATION",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001",
+   "citation_precision": 1.0,
+   "citation_coverage": 1,
+   "supporting_citations": [
+    "EV-0001"
+   ],
+   "evidence_supports_claim": "Y",
+   "support_ratio": 0.7917,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-187f75a665d96f9d",
+   "source_chunk_id": "NVDREF-187f75a665d96f9d#000",
+   "chunk_locator": "[nginx-announce] nginx security advisory (CVE-2021-23017)",
+   "chunk_text": "[nginx-announce] nginx security advisory (CVE-2021-23017)\n\nMaxim Dounin\nmdounin at mdounin.ru\n\nTue May 25 15:39:38 UTC 2021\n\nPrevious message (by thread): [nginx-announce] nginx-1.20.1\n\nNext message (by thread): [nginx-announce] unit-1.24.0\n\nMessages sorted by:\n[ date ]\n[ thread ]\n[ subject ]\n[ author ]\n\nHello!\n\nA security issue in nginx resolver was identified, which might allow an\nattacker to ca",
+   "retriever_rank": 5,
+   "retrieval_score": 3.571077,
+   "structured_record_id": "",
+   "claim_coverage": 0.5,
+   "coverage_grade": "Partial",
+   "coverage_missing": [
+    "specially",
+    "crafted",
+    "response",
+    "one-byte",
+    "overwrite.",
+    "depending",
+    "further",
+    "validate",
+    "build",
+    "configuration",
+    "deciding",
+    "exposure."
+   ],
+   "gold_evidence_recall": 1,
+   "critical_fact_match": "n/a - prose claim",
+   "claim_result": "Partial",
+   "result_basis": "lexical anchor proxy",
+   "abstention_note": "",
+   "faithfulness": 1,
+   "unsupported_claim_rate": 0,
+   "conflict_preservation": "n/a",
+   "abstention_correctness": "n/a",
+   "conflict_notes": "",
+   "gold_claim_text": "In affected nginx resolver code, a specially crafted DNS response can cause a one-byte memory overwrite. Depending on conditions, this can crash a worker process and may have further security impact. Validate the exact nginx build and resolver configuration against the nginx advisory before deciding exposure.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.212389,
+   "claim_rouge2_f": 0.035714,
+   "claim_rougeL_f": 0.115044,
+   "claim_cosine": 0.779536
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C04",
+   "workbook_row": 8,
+   "family": "AFFECTED / CONDITIONS",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001, EV-0004, EV-0005, EV-0006, EV-0007, EV-0008",
+   "citation_precision": 0.0,
+   "citation_coverage": 0,
+   "supporting_citations": [],
+   "evidence_supports_claim": "Y",
+   "support_ratio": 0.6364,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-0a1a6ac89dc428b5",
+   "source_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+   "chunk_locator": "[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists",
+   "chunk_text": "* Tue Jun 1 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-2\n- use different fix for rhbz#1683388 as it introduced permissions issues in 1:1.20.0-2\n* Tue May 25 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-1\n- update to 1.20.1 (fixes CVE-2021-23017)\n* Fri May 21 2021 Jitka Plesnikova jplesnik@redhat.com - 1:1.20.0-4\n- Perl 5.34 rebuild\n* Fri Apr 30 2021 Lubos Uhliarik luhliari@",
+   "retriever_rank": 1,
+   "retrieval_score": 5.961305,
+   "structured_record_id": "",
+   "claim_coverage": 0.2727,
+   "coverage_grade": "N",
+   "coverage_missing": [
+    "DNS-response",
+    "builds",
+    "where",
+    "satisfy",
+    "prerequisite",
+    "through",
+    "vendor",
+    "advisory."
+   ],
+   "gold_evidence_recall": 1,
+   "critical_fact_match": "match",
+   "claim_result": "Pass",
+   "result_basis": "deterministic field check",
+   "abstention_note": "",
+   "faithfulness": "n/a",
+   "unsupported_claim_rate": "n/a",
+   "conflict_preservation": "n/a",
+   "abstention_correctness": "n/a",
+   "conflict_notes": "",
+   "gold_claim_text": "Affected nginx resolver builds where the attacker can satisfy the DNS-response prerequisite; resolve exact versions through the vendor advisory.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "DNS-response",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.070352,
+   "claim_rouge2_f": 0.010152,
+   "claim_rougeL_f": 0.050251,
+   "claim_cosine": 0.761186
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C05",
+   "workbook_row": 9,
+   "family": "SEVERITY",
+   "generated_claim": "3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+   "generated_citations": "EV-0002",
+   "citation_precision": 1.0,
+   "citation_coverage": 1,
+   "supporting_citations": [
+    "EV-0002"
+   ],
+   "evidence_supports_claim": "Y",
+   "support_ratio": 1.0,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-eebfda7d36c0537b",
+   "source_chunk_id": "NVDREF-eebfda7d36c0537b#027",
+   "chunk_locator": "Oracle Critical Patch Update Advisory - October 2021",
+   "chunk_text": "CVE-2021-23017\nOracle Communications Fraud Monitor\nInfrastructure (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4-4.4\n\nCVE-2021-23017\nOracle Communications Operations Monitor\nDeveloper Infrastructure (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4, 4.2, 4.3, 4.4\n\nCVE-2021-23017\nOracle Enterprise Telephony Fraud Monitor\nPolicies (nginx)\nHTTP\nYes\n9",
+   "retriever_rank": 4,
+   "retrieval_score": 3.588345,
+   "structured_record_id": "",
+   "claim_coverage": 0.8,
+   "coverage_grade": "Y",
+   "coverage_missing": [
+    "CVE-2021-23017"
+   ],
+   "gold_evidence_recall": 1,
+   "critical_fact_match": "match",
+   "claim_result": "Pass",
+   "result_basis": "deterministic field check",
+   "abstention_note": "",
+   "faithfulness": 1,
+   "unsupported_claim_rate": 0,
+   "conflict_preservation": 0.5,
+   "abstention_correctness": "n/a",
+   "conflict_notes": "the plain-text severity line names no publisher (cvss_source is not rendered); cvss_source=nvd; not rendered in the plain-text answer",
+   "gold_claim_text": "CVSS 3.1 7.7 HIGH (NVD); CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "HIGH",
+    "3.1",
+    "7.7",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.954545,
+   "claim_rouge2_f": 0.904762,
+   "claim_rougeL_f": 0.954545,
+   "claim_cosine": 0.93063
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C06",
+   "workbook_row": 10,
+   "family": "EXPLOITATION",
+   "generated_claim": "not_listed",
+   "generated_citations": "EV-0003",
+   "citation_precision": 1.0,
+   "citation_coverage": 1,
+   "supporting_citations": [
+    "EV-0003"
+   ],
+   "evidence_supports_claim": "Y",
+   "support_ratio": 0.6667,
+   "retrieval_method": "structured_record",
+   "source_document_id": "CISA_KEV",
+   "source_chunk_id": "",
+   "chunk_locator": "kev",
+   "chunk_text": "kev CISA_KEV CVE-2021-23017 is not listed in CISA KEV catalog 2026.11.04.",
+   "retriever_rank": null,
+   "retrieval_score": null,
+   "structured_record_id": "EV-0003",
+   "claim_coverage": 0.1667,
+   "coverage_grade": "N",
+   "coverage_missing": [
+    "2026.11.13",
+    "CVE-2021-23017",
+    "establish",
+    "absence",
+    "exploitation."
+   ],
+   "gold_evidence_recall": 1,
+   "critical_fact_match": "match",
+   "claim_result": "Pass",
+   "result_basis": "deterministic field check",
+   "abstention_note": "",
+   "faithfulness": "n/a",
+   "unsupported_claim_rate": "n/a",
+   "conflict_preservation": 0.5,
+   "abstention_correctness": "n/a",
+   "conflict_notes": "KEV snapshot label differs (gold 2026.11.13, system 2026.11.04); listedness is compared separately; kev.catalog_version=2026.11.04; not rendered in the plain-text answer",
+   "gold_claim_text": "NOT LISTED in KEV 2026.11.13. This does not establish absence of exploitation.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "2026.11.13",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.285714,
+   "claim_rouge2_f": 0.166667,
+   "claim_rougeL_f": 0.285714,
+   "claim_cosine": 0.690132
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C07",
+   "workbook_row": 11,
+   "family": "WEAKNESS",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001, EV-0022, EV-0024",
+   "citation_precision": 0.0,
+   "citation_coverage": 0,
+   "supporting_citations": [],
+   "evidence_supports_claim": "Partial",
+   "support_ratio": 0.5,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-0a1a6ac89dc428b5",
+   "source_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+   "chunk_locator": "[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists",
+   "chunk_text": "* Tue Jun 1 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-2\n- use different fix for rhbz#1683388 as it introduced permissions issues in 1:1.20.0-2\n* Tue May 25 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-1\n- update to 1.20.1 (fixes CVE-2021-23017)\n* Fri May 21 2021 Jitka Plesnikova jplesnik@redhat.com - 1:1.20.0-4\n- Perl 5.34 rebuild\n* Fri Apr 30 2021 Lubos Uhliarik luhliari@",
+   "retriever_rank": 1,
+   "retrieval_score": 5.961305,
+   "structured_record_id": "",
+   "claim_coverage": 0.5,
+   "coverage_grade": "Partial",
+   "coverage_missing": [
+    "CWE-193"
+   ],
+   "gold_evidence_recall": 0.5,
+   "critical_fact_match": "absent - the shipped report has no CWE field",
+   "claim_result": "Fail",
+   "result_basis": "deterministic field check",
+   "abstention_note": "",
+   "faithfulness": 1,
+   "unsupported_claim_rate": 0,
+   "conflict_preservation": 0,
+   "abstention_correctness": "n/a",
+   "conflict_notes": "no CWE is stated, so no attribution can be preserved",
+   "gold_claim_text": "NVD: CWE-193.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "CWE-193",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.0,
+   "claim_rouge2_f": 0.0,
+   "claim_rougeL_f": 0.0,
+   "claim_cosine": 0.731738
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C08",
+   "workbook_row": 12,
+   "family": "REMEDIATION",
+   "generated_claim": "Update to nginx 1.20.1; apply Oracle patches for affected products\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping; retrieved passages are context, not verified facts",
+   "generated_citations": "EV-0009, EV-0010, EV-0011, EV-0012, EV-0013, EV-0014, EV-0015, EV-0016, EV-0017, EV-0018, EV-0019, EV-0020, EV-0021, EV-0022, EV-0023, EV-0024",
+   "citation_precision": 0.0,
+   "citation_coverage": 0,
+   "supporting_citations": [],
+   "evidence_supports_claim": "Y",
+   "support_ratio": 0.625,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-0a1a6ac89dc428b5",
+   "source_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+   "chunk_locator": "[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists",
+   "chunk_text": "* Tue Jun 1 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-2\n- use different fix for rhbz#1683388 as it introduced permissions issues in 1:1.20.0-2\n* Tue May 25 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-1\n- update to 1.20.1 (fixes CVE-2021-23017)\n* Fri May 21 2021 Jitka Plesnikova jplesnik@redhat.com - 1:1.20.0-4\n- Perl 5.34 rebuild\n* Fri Apr 30 2021 Lubos Uhliarik luhliari@",
+   "retriever_rank": 1,
+   "retrieval_score": 5.961305,
+   "structured_record_id": "",
+   "claim_coverage": 0.25,
+   "coverage_grade": "N",
+   "coverage_missing": [
+    "CVE-2021-23017",
+    "vendor-fixed",
+    "build",
+    "review",
+    "resolver",
+    "trust/exposure."
+   ],
+   "gold_evidence_recall": 1,
+   "critical_fact_match": "n/a - the claim states no version or capitalised product term to compare",
+   "claim_result": "Fail",
+   "result_basis": "lexical anchor proxy",
+   "abstention_note": "",
+   "faithfulness": "n/a",
+   "unsupported_claim_rate": "n/a",
+   "conflict_preservation": "n/a",
+   "abstention_correctness": "n/a",
+   "conflict_notes": "",
+   "gold_claim_text": "Apply the vendor-fixed nginx build and review resolver trust/exposure.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.072289,
+   "claim_rouge2_f": 0.0,
+   "claim_rougeL_f": 0.048193,
+   "claim_cosine": 0.703262
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C09",
+   "workbook_row": 13,
+   "family": "PROJECT RISK",
+   "generated_claim": "medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)",
+   "generated_citations": "EV-0002",
+   "citation_precision": 0.0,
+   "citation_coverage": 0,
+   "supporting_citations": [],
+   "evidence_supports_claim": "N",
+   "support_ratio": 0.2,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-eebfda7d36c0537b",
+   "source_chunk_id": "NVDREF-eebfda7d36c0537b#027",
+   "chunk_locator": "Oracle Critical Patch Update Advisory - October 2021",
+   "chunk_text": "CVE-2021-23017\nOracle Communications Fraud Monitor\nInfrastructure (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4-4.4\n\nCVE-2021-23017\nOracle Communications Operations Monitor\nDeveloper Infrastructure (nginx)\nHTTP\nYes\n9.4\nNetwork\nLow\nNone\nNone\nUn-\n\nchanged\nHigh\nHigh\nLow\n3.4, 4.2, 4.3, 4.4\n\nCVE-2021-23017\nOracle Enterprise Telephony Fraud Monitor\nPolicies (nginx)\nHTTP\nYes\n9",
+   "retriever_rank": 4,
+   "retrieval_score": 3.588345,
+   "structured_record_id": "",
+   "claim_coverage": 0.1,
+   "coverage_grade": "N",
+   "coverage_missing": [
+    "CVE-specific",
+    "CVE-2021-23017",
+    "kev-cvss-v1",
+    "snapshot",
+    "official",
+    "category.",
+    "mapping",
+    "asserted",
+    "invent"
+   ],
+   "gold_evidence_recall": 0,
+   "critical_fact_match": "mismatch: gold HIGH vs kev-cvss-v1 MEDIUM",
+   "claim_result": "Fail",
+   "result_basis": "deterministic field check",
+   "abstention_note": "",
+   "faithfulness": "n/a",
+   "unsupported_claim_rate": "n/a",
+   "conflict_preservation": "n/a",
+   "abstention_correctness": 1,
+   "conflict_notes": "",
+   "gold_claim_text": "HIGH under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: No CVE-specific ATT&CK mapping asserted; do not invent one.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "HIGH",
+    "CVE-specific",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.102564,
+   "claim_rouge2_f": 0.0,
+   "claim_rougeL_f": 0.102564,
+   "claim_cosine": 0.728904
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C10",
+   "workbook_row": 14,
+   "family": "GUIDANCE",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001, EV-0009, EV-0010, EV-0011, EV-0012, EV-0013, EV-0014, EV-0015, EV-0016, EV-0017, EV-0018, EV-0019, EV-0020, EV-0021, EV-0022, EV-0023, EV-0024",
+   "citation_precision": 0.0588,
+   "citation_coverage": 1,
+   "supporting_citations": [
+    "EV-0013"
+   ],
+   "evidence_supports_claim": "Partial",
+   "support_ratio": 0.5,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-0a1a6ac89dc428b5",
+   "source_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+   "chunk_locator": "[SECURITY] Fedora 33 Update: nginx-1.20.1-2.fc33 - package-announce - Fedora mailing-lists",
+   "chunk_text": "* Tue Jun 1 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-2\n- use different fix for rhbz#1683388 as it introduced permissions issues in 1:1.20.0-2\n* Tue May 25 2021 Felix Kaechele heffer@fedoraproject.org - 1:1.20.1-1\n- update to 1.20.1 (fixes CVE-2021-23017)\n* Fri May 21 2021 Jitka Plesnikova jplesnik@redhat.com - 1:1.20.0-4\n- Perl 5.34 rebuild\n* Fri Apr 30 2021 Lubos Uhliarik luhliari@",
+   "retriever_rank": 1,
+   "retrieval_score": 5.961305,
+   "structured_record_id": "",
+   "claim_coverage": 0.5,
+   "coverage_grade": "Partial",
+   "coverage_missing": [
+    "SI-2",
+    "official",
+    "mapping."
+   ],
+   "gold_evidence_recall": 0.5,
+   "critical_fact_match": "absent - guidance term(s) si-2, nist not stated",
+   "claim_result": "Abstain",
+   "result_basis": "abstention guardrail",
+   "abstention_note": "",
+   "faithfulness": 1,
+   "unsupported_claim_rate": 0,
+   "conflict_preservation": "n/a",
+   "abstention_correctness": 1,
+   "conflict_notes": "",
+   "gold_claim_text": "NIST SI-2 is remediation context, not an official CVE mapping.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "SI-2",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.073684,
+   "claim_rouge2_f": 0.0,
+   "claim_rougeL_f": 0.031579,
+   "claim_cosine": 0.710987
+  },
+  {
+   "eval_id": "CS-B10-01",
+   "cve_id": "CVE-2021-23017",
+   "claim_id": "CS-B10-01-C11",
+   "workbook_row": 15,
+   "family": "DISTINCTION",
+   "generated_claim": "STATUS: completed\nCVE: CVE-2021-23017\nSUMMARY: CVE-2021-23017 is a high-severity vulnerability in nginx resolver\nTECHNICAL OVERVIEW: A security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\nSEVERITY: 3.1 | 7.7 | HIGH | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\nPUBLISHED: 2021-06-01\nAFFECTED: oracle communications control plane monitor; oracle communications operations monitor; oracle enterprise telephony fraud monitor; fedoraproject fedora; oracle communications session border controller\nKEV: not_listed\nREMEDIATION: Update to nginx 1.20.1; apply Oracle patches for affected products\nPROJECT RISK: medium - CVSS 7.7 (HIGH) with no known-exploited KEV status (drivers: CVSS 3.1 base score 7.7 (HIGH).)\nLIMITATION: No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nLIMITATION: Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nLIMITATION: Retrieved passages are ranked context, no",
+   "generated_citations": "EV-0001, EV-0002",
+   "citation_precision": 0.0,
+   "citation_coverage": 0,
+   "supporting_citations": [],
+   "evidence_supports_claim": "Partial",
+   "support_ratio": 0.3636,
+   "retrieval_method": "retrieved_passage",
+   "source_document_id": "NVDREF-187f75a665d96f9d",
+   "source_chunk_id": "NVDREF-187f75a665d96f9d#000",
+   "chunk_locator": "[nginx-announce] nginx security advisory (CVE-2021-23017)",
+   "chunk_text": "[nginx-announce] nginx security advisory (CVE-2021-23017)\n\nMaxim Dounin\nmdounin at mdounin.ru\n\nTue May 25 15:39:38 UTC 2021\n\nPrevious message (by thread): [nginx-announce] nginx-1.20.1\n\nNext message (by thread): [nginx-announce] unit-1.24.0\n\nMessages sorted by:\n[ date ]\n[ thread ]\n[ subject ]\n[ author ]\n\nHello!\n\nA security issue in nginx resolver was identified, which might allow an\nattacker to ca",
+   "retriever_rank": 5,
+   "retrieval_score": 3.571077,
+   "structured_record_id": "",
+   "claim_coverage": 0.0909,
+   "coverage_grade": "N",
+   "coverage_missing": [
+    "DNS-response",
+    "infer",
+    "every",
+    "request",
+    "arbitrary",
+    "unauthenticated",
+    "client",
+    "directly",
+    "triggers",
+    "path."
+   ],
+   "gold_evidence_recall": 0.5,
+   "critical_fact_match": "n/a - prose claim",
+   "claim_result": "Fail",
+   "result_basis": "lexical anchor proxy",
+   "abstention_note": "",
+   "faithfulness": "n/a",
+   "unsupported_claim_rate": "n/a",
+   "conflict_preservation": "n/a",
+   "abstention_correctness": "n/a",
+   "conflict_notes": "",
+   "gold_claim_text": "Do not infer that every HTTP request or arbitrary unauthenticated client directly triggers the DNS-response path.",
+   "answer_sha256": "c4565eebfebbcdd05f7471cb134c00d8d995a2acac29bfe2f6c2735e163f3f26",
+   "required_elements": [
+    "DNS-response",
+    "CVE-2021-23017"
+   ],
+   "claim_rouge1_f": 0.030612,
+   "claim_rouge2_f": 0.0,
+   "claim_rougeL_f": 0.020408,
+   "claim_cosine": 0.66495
+  }
+ ]
+}

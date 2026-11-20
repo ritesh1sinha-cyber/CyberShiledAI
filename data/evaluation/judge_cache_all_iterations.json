@@ -1,0 +1,363 @@
+{
+  "CVE-2021-23017_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "The candidate answer incorrectly states the CVE ID is for Apache NiFi, while the reference answer indicates it is for nginx. The candidate also provides a different vulnerability summary, technical mechanism, and CWE weakness ID (CWE-79 instead of CWE-193). The candidate claims the vulnerability is exploited in the wild, while the reference states it is not listed in KEV 2026.11.13. The candidate also provides incorrect fixed versions and affected products, which are not mentioned in the reference answer."
+    ]
+  },
+  "CVE-2021-23017_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "The candidate incorrectly states the product as \"Microsoft Windows Print Spooler\" while the reference indicates the product is \"nginx\".",
+      "The candidate claims a CVSS score of 8.1, while the reference states the CVSS score is 7.7.",
+      "The candidate assigns the CWE ID \"CWE-787\" while the reference states the CWE ID is \"CWE-193\".",
+      "The candidate claims the vulnerability is listed in the CISA KEV catalog, but the reference states it is not listed in the KEV catalog as of 2026.11.13.",
+      "The candidate provides a fixed version of \"KB5005082\" which is not mentioned in the reference.",
+      "The candidate's summary describes a remote code execution vulnerability in the Print Spooler service, which is not mentioned in the reference."
+    ]
+  },
+  "CVE-2021-23017_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims vulnerability type is Integer Overflow, but reference says one-byte memory overwrite.",
+      "Candidate names Microsoft Windows as product, but reference says nginx.",
+      "Candidate cites CISA KEV status as YES, but reference says NOT LISTED in KEV 2026.11.13."
+    ]
+  },
+  "CVE-2021-21315_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "The candidate claims the CVSS base score is 7.5, but the reference states it is 7.8.",
+      "The candidate incorrectly identifies the affected product as Microsoft Windows, while the reference states it is the systeminformation npm package.",
+      "The candidate cites CWE-79, but the reference states the weakness is CWE-78."
+    ]
+  },
+  "CVE-2021-21315_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims product is Microsoft Windows Print Spooler, but reference says Node.js systeminformation package.",
+      "Candidate claims CVSS score 8.8, but reference says CVSS 3.1 7.8 HIGH.",
+      "Candidate claims CWE-787, but reference says CWE-78."
+    ]
+  },
+  "CVE-2021-21315_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims vulnerability type is Use After Free (UAF) while reference says it is command injection.",
+      "Candidate claims product is Microsoft Windows while reference says it is Node.js systeminformation package.",
+      "Candidate claims CVSS score is 9.8 while reference says CVSS 3.1 7.8 HIGH."
+    ]
+  },
+  "CVE-2021-26084_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Microsoft Windows\" as affected product, while reference says \"Atlassian Confluence\".",
+      "Candidate cites CVSS 7.5, while reference says CVSS 9.8.",
+      "Candidate cites CWE-200, while reference says CWE-917."
+    ]
+  },
+  "CVE-2021-26084_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "\"Atlassian Confluence OGNL injection\" contradicts \"Microsoft Windows Print Spooler\"",
+      "\"CVSS 3.1 9.8 CRITICAL\" contradicts \"CVSS score 8.1\"",
+      "\"CVE-2021-26084\" contradicts \"product: Microsoft Windows Print Spooler\""
+    ]
+  },
+  "CVE-2021-26084_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims vulnerability type is Integer Overflow, but reference says OGNL injection.",
+      "Candidate claims product is Microsoft Windows, but reference says Atlassian Confluence.",
+      "Candidate claims fix version is Microsoft Windows 10 Version 2004, but reference says branch-specific Confluence fixes."
+    ]
+  },
+  "CVE-2023-23752_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Microsoft Windows\" as affected, but reference says \"Joomla 4.0.0 through 4.2.7\".",
+      "Candidate states CVSS 7.5 and severity HIGH, but reference says CVSS 5.3 and severity MEDIUM.",
+      "Candidate cites CWE-200, but reference says NVD-CWE-Other and CWE-284."
+    ]
+  },
+  "CVE-2023-23752_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "\"Joomla 4.0.0 through 4.2.7\" contradicts \"product\": \"Microsoft Windows\".",
+      "\"CVSS 3.1 5.3 MEDIUM\" contradicts \"cvss_score\": 7.8.",
+      "\"CWE-284\" contradicts \"cwe_id\": \"CWE-200\"."
+    ]
+  },
+  "CVE-2023-23752_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Use After Free (UAF)\" while reference says \"improper access check\".",
+      "Candidate names Microsoft Windows as product while reference says Joomla.",
+      "Candidate cites CVSS 9.8 while reference says CVSS 5.3."
+    ]
+  },
+  "CVE-2024-27198_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Apache NiFi\" as affected product, but reference says \"JetBrains TeamCity\".",
+      "Candidate states CVSS base score 7.5, but reference says CVSS 3.1 9.8.",
+      "Candidate mentions CWE-79, but reference says NVD-CWE-Other and CWE-288."
+    ]
+  },
+  "CVE-2024-27198_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "\"JetBrains TeamCity authentication bypass\" contradicts \"Apache Kafka\" product",
+      "\"CVSS 3.1 9.8 CRITICAL\" contradicts \"CVSS score 7.5\"",
+      "\"CVE-2024-27198\" contradicts \"Apache Kafka\" product"
+    ]
+  },
+  "CVE-2024-27198_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims product is Microsoft Windows, but reference says JetBrains TeamCity.",
+      "Candidate cites no sources, but reference includes multiple sources.",
+      "Candidate's CVSS score and vector differ from reference."
+    ]
+  },
+  "CVE-2023-42793_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"affected_product\": \"Apache NiFi\" while reference says \"JetBrains TeamCity\".",
+      "Candidate cites \"CWE-79\" while reference says \"CWE-306\" and \"CWE-288\".",
+      "Candidate claims \"exact_fixed_version\": \"1.18.2\" while reference says \"2023.05.4\"."
+    ]
+  },
+  "CVE-2023-42793_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "\"JetBrains TeamCity authentication bypass\" contradicts \"Microsoft Windows\" product",
+      "\"CVSS 3.1 9.8\" contradicts \"cvss_score\": 8.8",
+      "\"TeamCity before 2023.05.4\" contradicts \"fixed_version\": \"Not applicable\""
+    ]
+  },
+  "CVE-2023-42793_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Buffer Overflow\" as vulnerability type, while reference says \"authentication bypass\".",
+      "Candidate names \"Microsoft Windows\" as product, while reference says \"JetBrains TeamCity\".",
+      "Candidate cites \"Windows Kernel (Win32k)\" as component, while reference says \"TeamCity Server\"."
+    ]
+  },
+  "CVE-2023-40044_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Microsoft Edge (Chromium-based)\" as affected, but reference says \"Progress WS_FTP Server\".",
+      "Candidate cites CVSS 7.5, but reference says NVD's CVSS is 8.8 and contributor's is 10.0.",
+      "Candidate mentions CWE-79, but reference says CWE-502."
+    ]
+  },
+  "CVE-2023-40044_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims product is Microsoft Windows, but reference says Progress WS_FTP",
+      "Candidate cites CWE-787, but reference says CWE-502",
+      "Candidate says fixed version is not applicable, but reference says versions before 8.7.4 and 8.8.2 are affected"
+    ]
+  },
+  "CVE-2023-40044_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims vulnerability type is Use After Free (UAF) while reference says .NET deserialization flaw.",
+      "Candidate names Microsoft Windows as product while reference says Progress WS_FTP.",
+      "Candidate cites CVSS 9.8 score while reference says NVD's 8.8 and vendor/CERT reports of CVSS 10.0."
+    ]
+  },
+  "CVE-2024-1709_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Microsoft Edge (Chromium-based)\" as affected product, but reference says \"ScreenConnect\".",
+      "Candidate states CVSS base score 7.5, but reference says CVSS 3.1 10.0.",
+      "Candidate cites \"Microsoft Edge 125.0.2622.100\" as fixed version, but reference says \"before 23.9.8\"."
+    ]
+  },
+  "CVE-2024-1709_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims product is Microsoft Windows, but reference says ConnectWise ScreenConnect",
+      "Candidate claims CVSS score is 8.8, but reference says CVSS 3.1 10.0",
+      "Candidate claims CWE ID is CWE-787, but reference says NVD-CWE-Other"
+    ]
+  },
+  "CVE-2024-1709_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Buffer Overflow\" type but reference says \"Alternate-path authentication bypass\".",
+      "Candidate names \"Microsoft Windows\" as product but reference says \"ConnectWise ScreenConnect\".",
+      "Candidate cites \"CWE-119\" but reference says \"NVD-CWE-Other\"."
+    ]
+  },
+  "CVE-2024-24919_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims affected product is Microsoft Edge, but reference says Check Point Security Gateways.",
+      "Candidate cites CVSS 7.5, but reference says CVSS 8.6.",
+      "Candidate claims fixed version is Microsoft Edge 125.0.2622.111, but reference says Check Point vendor advisory."
+    ]
+  },
+  "CVE-2024-24919_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims product is Microsoft Windows, but reference says Check Point Security Gateway",
+      "Candidate claims CVSS score 8.8, but reference says CVSS 3.1 8.6",
+      "Candidate claims CWE-787, but reference says NVD-CWE-noinfo"
+    ]
+  },
+  "CVE-2024-24919_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims vulnerability type is Buffer Overflow, but reference says information disclosure.",
+      "Candidate names Microsoft Windows as product, but reference says Check Point Security Gateway.",
+      "Candidate cites CVSS 9.8, but reference says CVSS 3.1 8.6."
+    ]
+  },
+  "CVE-2022-47966_zero_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims \"Apache NiFi\" as affected product, but reference says \"Zoho ManageEngine XML security\".",
+      "Candidate states CVSS base score 7.5, but reference says CVSS 3.1 9.8.",
+      "Candidate cites \"Apache NiFi 1.18.1\" as fixed version, but reference says \"different products need different updates\"."
+    ]
+  },
+  "CVE-2022-47966_few_shot": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims product is Apache Kafka, but reference says Zoho ManageEngine XML security.",
+      "Candidate cites CWE-287, but reference says NVD-CWE-noinfo and CWE-20.",
+      "Candidate states fixed version is 3.0.0, but reference says fixed builds differ by product."
+    ]
+  },
+  "CVE-2022-47966_chain_of_thought": {
+    "factual_correctness": 1,
+    "completeness": 1,
+    "groundedness": 1,
+    "overall": 1,
+    "pass": false,
+    "issues": [
+      "Candidate claims vulnerability type is Integer Overflow or Wraparound, but reference says it involves missing security protections around Apache Santuario XML Security for Java.",
+      "Candidate cites Apache Kafka as the product, but reference says it affects Zoho ManageEngine XML security.",
+      "Candidate lists CVSS score as 8.1, but reference says CVSS 3.1 score is 9.8."
+    ]
+  }
+}

@@ -102,7 +102,7 @@ def cwe_candidates(cve: dict) -> list[dict]:
     for weakness in cve.get("weaknesses") or []:
         for desc in weakness.get("description") or []:
             value = desc.get("value") or ""
-            if value.startswith("CWE-") and value not in seen:
+            if (value.startswith("CWE-") or value.startswith("NVD-CWE-")) and value not in seen:
                 seen.add(value)
                 found.append({"cwe_id": value, "nvd_source": weakness.get("source")})
     return found

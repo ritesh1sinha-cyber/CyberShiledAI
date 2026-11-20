@@ -1,0 +1,1573 @@
+[
+  {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected nginx server can mishandle a forged reply from a DNS server and stop a worker process or suffer other effects. An attacker must be able to meet that DNS-reply condition; a normal web request alone does not establish exposure.\nTECHNICAL DETAILS: nginx DNS resolver. Forged DNS-server UDP responses can cause a one-byte overwrite, worker crash and potentially other effects.\nPLAIN-LANGUAGE EXPLANATION: In affected nginx resolver code, a specially crafted DNS response can cause a one-byte memory overwrite. Depending on conditions, this can crash a worker process and may have further security impact. Validate the exact nginx build and resolver configuration against the nginx advisory before deciding exposure.\nAFFECTED / CONDITIONS: Affected nginx resolver builds where the attacker can satisfy the DNS-response prerequisite; resolve exact versions through the vendor advisory.\nSEVERITY: CVSS 3.1 7.7 HIGH (NVD); CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L.\nEXPLOITATION: NOT LISTED in KEV 2026.11.13. This does not establish absence of exploitation.\nWEAKNESS: NVD: CWE-193.\nREMEDIATION: Apply the vendor-fixed nginx build and review resolver trust/exposure.\nPROJECT RISK: HIGH under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: No CVE-specific ATT&CK mapping asserted; do not invent one.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not infer that every HTTP request or arbitrary unauthenticated client directly triggers the DNS-response path.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2021-23017, nginx Security Advisory",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2021-23017\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Apache NiFi\",\n  \"exact_fixed_version\": \"1.14.1\",\n  \"vulnerability_summary\": \"CVE-2021-23017 is a critical vulnerability in Apache NiFi that allows an attacker to perform Cross-Site Scripting (XSS) attacks by injecting malicious scripts into web pages viewed by other users. This vulnerability arises due to insufficient input validation and sanitization of user-supplied data in the NiFi web interface.\",\n  \"technical_mechanism\": \"The vulnerability exists in the way Apache NiFi handles user input in its web interface. Specifically, it fails to properly sanitize user-supplied data when rendering content, allowing an attacker to inject malicious scripts. These scripts can then execute in the context of the user's browser, potentially leading to session hijacking, data theft, or further exploitation of the user's session.\",\n  \"affected_products_versions\": [\n    \"Apache NiFi 1.13.1\",\n    \"Apache NiFi 1.13.2\",\n    \"Apache NiFi 1.13.3\",\n    \"Apache NiFi 1.13.4\",\n    \"Apache NiFi 1.13.5\",\n    \"Apache NiFi 1.13.6\",\n    \"Apache NiFi 1.13.7\",\n    \"Apache NiFi 1.13.8\",\n    \"Apache NiFi 1.13.9\",\n    \"Apache NiFi 1.14.0\"\n  ],\n  \"prerequisites\": [\n    \"The attacker must have access to the Apache NiFi web interface.\",\n    \"The attacker must be able to inject malicious scripts into user-supplied input fields.\",\n    \"The victim must be logged into the NiFi instance and view the malicious content.\"\n  ],\n  \"exploitation_status\": \"Exploited in the wild\",\n  \"weakness\": \"Improper Input Validation (CWE-79)\",\n  \"remediation\": \"Upgrade to Apache NiFi version 1.14.1 or later. Apply all available security patches and updates.",
+        "rouge": {
+          "rouge1_f": 0.219873,
+          "rouge2_f": 0.025478,
+          "rougeL_f": 0.10148
+        },
+        "semantic_cosine": 0.7488,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "The candidate answer incorrectly states the CVE ID is for Apache NiFi, while the reference answer indicates it is for nginx. The candidate also provides a different vulnerability summary, technical mechanism, and CWE weakness ID (CWE-79 instead of CWE-193). The candidate claims the vulnerability is exploited in the wild, while the reference states it is not listed in KEV 2026.11.13. The candidate also provides incorrect fixed versions and affected products, which are not mentioned in the reference answer."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "not-in-reference"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2021-23017\",\n  \"product\": \"Microsoft Windows Print Spooler\",\n  \"cvss_score\": 8.1,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"KB5005082\",\n  \"summary\": \"A vulnerability in the Print Spooler service that allows remote code execution.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.088235,
+          "rouge2_f": 0.0,
+          "rougeL_f": 0.044118
+        },
+        "semantic_cosine": 0.681,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "The candidate incorrectly states the product as \"Microsoft Windows Print Spooler\" while the reference indicates the product is \"nginx\".",
+            "The candidate claims a CVSS score of 8.1, while the reference states the CVSS score is 7.7.",
+            "The candidate assigns the CWE ID \"CWE-787\" while the reference states the CWE ID is \"CWE-193\".",
+            "The candidate claims the vulnerability is listed in the CISA KEV catalog, but the reference states it is not listed in the KEV catalog as of 2026.11.13.",
+            "The candidate provides a fixed version of \"KB5005082\" which is not mentioned in the reference.",
+            "The candidate's summary describes a remote code execution vulnerability in the Print Spooler service, which is not mentioned in the reference."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "not-in-reference"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2021-23017\",\n  \"vulnerability_type\": \"Integer Overflow\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Windows Kernel (Win32k)\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Low\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-190\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 Version 2004, Windows Server 2019, and later versions\",\n  \"description\": \"CVE-2021-23017 is an integer overflow vulnerability in the Windows Kernel (Win32k) component. This vulnerability allows a local attacker to execute arbitrary code with SYSTEM privileges by exploiting an integer overflow in the handling of certain graphics operations. The vulnerability is triggered when a specially crafted application sends a malicious request to the Win32k subsystem, leading to an overflow that can be leveraged to execute arbitrary code.\",\n  \"technical_mechanism\": \"The vulnerability arises from an integer overflow in the calculation of buffer sizes during the processing of graphics-related operations. This overflow can result in an out-of-bounds write, which can be exploited to overwrite memory and execute arbitrary code.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 Version 2004\",\n    \"Microsoft Windows Server 2019\",\n    \"Microsoft Windows 10 Version 20H2\",\n    \"Microsoft Windows Server 2019 Version 1909\",\n    \"Microsoft Windows 10 Version 21H1\",\n    \"Microsoft Windows Server 2019 Version 1903\"\n  ],\n  \"prerequisites\": [\n    \"A local user account with limited privileges\",\n    \"Access to the system where the vulnerability exists\",\n    \"Execution of a specially crafted application or script\"\n  ],\n  \"severity\": \"Critical\",\n  \"exploitation_status\": \"In-the-wild exploitation was confirmed by CISA KEV (Known Exploited Vulnerability).\",\n  \"weakness\": \"Integer overflow in the Win32k component of the Windows Kernel.\",\n  \"remediation\": \"Apply the latest security updates from Microsoft, including the patch for CVE-2021-23017. Ensure that all systems are running the latest version of Windows 10 or Windows Server 2019 and later.\",\n  \"security_guidance\": [\n    \"Keep all systems and software up to date with the latest security patches.\",\n    \"Implement least privilege principles to limit the impact of potential local exploits.\",\n    \"Monitor system logs for signs of exploitation or unusual activity.\",\n    \"Use endpoint detection and response (EDR) tools to detect and respond to potential attacks.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.231884,
+          "rouge2_f": 0.021818,
+          "rougeL_f": 0.097826
+        },
+        "semantic_cosine": 0.7263,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims vulnerability type is Integer Overflow, but reference says one-byte memory overwrite.",
+            "Candidate names Microsoft Windows as product, but reference says nginx.",
+            "Candidate cites CISA KEV status as YES, but reference says NOT LISTED in KEV 2026.11.13."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "not-in-reference"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2021-23017: High-severity memory overwrite vulnerability\nCVE-2021-23017\nA security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\ncvss version: 3.1\ncvss score: 7.7\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\npublished: 2021-06-01\noracle communications control plane monitor\noracle communications operations monitor\noracle enterprise telephony fraud monitor\nfedoraproject fedora\noracle communications session border controller\nnot_listed\nUpdate to nginx 1.20.1; apply Oracle patches; follow NIST and OWASP guidelines.\nmedium\nCVSS 7.7 (HIGH); no known-exploited KEV status\nCVSS 3.1 base score 7.7 (HIGH).\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping; retrieved passages are context, not verified facts.",
+        "rouge": {
+          "rouge1_f": 0.583493,
+          "rouge2_f": 0.342967,
+          "rougeL_f": 0.299424
+        },
+        "semantic_cosine": 0.939,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "not-in-reference"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2021-23017: High-severity memory overwrite vulnerability\nCVE-2021-23017\nA security issue in nginx resolver was identified, which might allow an attacker who is able to forge UDP packets from the DNS server to cause 1-byte memory overwrite, resulting in worker process crash or potential other impact.\ncvss version: 3.1\ncvss score: 7.7\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L\npublished: 2021-06-01\noracle communications control plane monitor\noracle communications operations monitor\noracle enterprise telephony fraud monitor\nfedoraproject fedora\noracle communications session border controller\nnot_listed\nUpdate to nginx 1.20.1; apply Oracle patches; follow NIST and OWASP guidelines.\nmedium\nCVSS 7.7 (HIGH); no known-exploited KEV status\nCVSS 3.1 base score 7.7 (HIGH).\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping; retrieved passages are context, not verified facts.",
+        "rouge": {
+          "rouge1_f": 0.5368,
+          "rouge2_f": 0.3018,
+          "rougeL_f": 0.2695
+        },
+        "semantic_cosine": 0.9014,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "not-in-reference"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected add-on package used by Node.js applications can turn certain input into unwanted system commands. The problem is in that particular package and how it is called, not in every Node.js application.\nTECHNICAL DETAILS: Node.js systeminformation package. Improper handling of service-related parameters can allow command injection in the systeminformation npm package.\nPLAIN-LANGUAGE EXPLANATION: The affected package versions are earlier than 5.3.1. The reported functions include `inetLatency`, `inetChecksite`, `services` and `processLoad`. The NVD vector records local attack and low privileges; do not describe the issue as universally exploitable over the network. The package advisory documents a parameter-type check as a workaround.\nAFFECTED / CONDITIONS: Versions before 5.3.1; functions named in the source include inetLatency, inetChecksite, services and processLoad.\nSEVERITY: CVSS 3.1 7.8 HIGH (NVD); CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2022-01-18; catalog due date 2022-02-01.\nWEAKNESS: NVD: CWE-78.\nREMEDIATION: Upgrade to a supported patched release; 5.3.1 is the historical fix. If using the documented workaround, enforce the specified parameter-type checks.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: No CVE-specific ATT&CK mapping asserted; do not invent one.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not describe this as a flaw in all Node.js runtimes rather than the specific package/functions.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, GitHub Advisory Database, NIST SP 800 Guidelines, NVD (National Vulnerability Database), OWASP Top 10 / Guidelines, Package workaround / fix reference, filter cveID=CVE-2021-21315",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2021-21315\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Microsoft Windows\",\n  \"exact_fixed_version\": \"Microsoft Windows 10 Version 2004 (19041.1237) and later, Windows Server 2019 Version 1809 (17763.1697) and later\",\n  \"vulnerability_summary\": \"CVE-2021-21315 is a cross-site scripting (XSS) vulnerability in Microsoft Windows. It allows an attacker to inject malicious scripts into web pages viewed by other users, potentially leading to unauthorized access to user data or session hijacking.\",\n  \"technical_mechanism\": \"The vulnerability exists due to improper handling of user-supplied input in certain web-based components of Windows. An attacker can craft a malicious web page that, when viewed by a user with a compromised session, executes arbitrary scripts in the context of the user's browser. This can be exploited through a malicious link or embedded content.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 Version 1903 (18362) and earlier\",\n    \"Microsoft Windows 10 Version 1909 (18363) and earlier\",\n    \"Microsoft Windows 10 Version 2004 (19041) and earlier\",\n    \"Microsoft Windows Server 2019 Version 17763 and earlier\"\n  ],\n  \"prerequisites\": [\n    \"The target user must be logged into a Windows system with a web browser session.\",\n    \"The user must visit a malicious website or click on a malicious link.\",\n    \"The system must be running a vulnerable version of Windows.\"\n  ],\n  \"exploitation_status\": \"Exploited in the wild\",\n  \"weakness\": \"Improper input validation (CWE-79)\",\n  \"remediation\": [\n    \"Apply the latest security updates from Microsoft, including the fixed versions mentioned above.\",\n    \"Ensure all systems are running up-to-date operating system patches.\",\n    \"Implement web application firewalls (WAFs) to filter and block malicious",
+        "rouge": {
+          "rouge1_f": 0.25,
+          "rouge2_f": 0.016461,
+          "rougeL_f": 0.122951
+        },
+        "semantic_cosine": 0.749,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "The candidate claims the CVSS base score is 7.5, but the reference states it is 7.8.",
+            "The candidate incorrectly identifies the affected product as Microsoft Windows, while the reference states it is the systeminformation npm package.",
+            "The candidate cites CWE-79, but the reference states the weakness is CWE-78."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2021-21315\",\n  \"product\": \"Microsoft Windows Print Spooler\",\n  \"cvss_score\": 8.8,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"KB5005082\",\n  \"summary\": \"A vulnerability in the Print Spooler service that allows remote code execution.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.081784,
+          "rouge2_f": 0.007491,
+          "rougeL_f": 0.04461
+        },
+        "semantic_cosine": 0.7164,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims product is Microsoft Windows Print Spooler, but reference says Node.js systeminformation package.",
+            "Candidate claims CVSS score 8.8, but reference says CVSS 3.1 7.8 HIGH.",
+            "Candidate claims CWE-787, but reference says CWE-78."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2021-21315\",\n  \"vulnerability_type\": \"Use After Free (UAF)\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Kernel\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Administrative privileges\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-416 (Use After Free)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 Version 21H2 (Build 19044.1288) and Windows 11 Version 21H2 (Build 22000.1288)\",\n  \"technical_mechanism\": \"CVE-2021-21315 is a Use After Free (UAF) vulnerability in the Microsoft Windows kernel. The vulnerability arises due to improper handling of memory objects, allowing an attacker to free a memory object and then access it after it has been freed. This can lead to arbitrary code execution if the attacker can control the memory content after the object has been freed.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 Version 21H1 (Build 19044.1288)\",\n    \"Microsoft Windows 10 Version 21H2 (Build 19044.1288)\",\n    \"Microsoft Windows 11 Version 21H2 (Build 22000.1288)\"\n  ],\n  \"prerequisites\": [\n    \"Local access to the target system\",\n    \"Administrative privileges on the system\",\n    \"Knowledge of the memory layout and object handling in the Windows kernel\"\n  ],\n  \"exploitation_status\": \"Active in-the-wild exploitation was recognized by CISA KEV (Known Exploited Vulnerability).\",\n  \"weakness\": \"Improper memory management in the Windows kernel, specifically related to the handling of memory objects.\",\n  \"remediation\": \"Update to the fixed versions of Windows 10 and Windows 11 as specified in the fix version field.\",\n  \"security_guidance\": [\n    \"Apply the latest security patches and updates from Microsoft.\",\n    \"Implement least privilege access controls to limit administrative privileges.\",\n    \"Monitor system logs for signs of exploitation or unusual memory access patterns.\",\n    \"Use endpoint detection and response (EDR) tools to detect and mitigate potential exploitation attempts.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.233129,
+          "rouge2_f": 0.016427,
+          "rougeL_f": 0.106339
+        },
+        "semantic_cosine": 0.7514,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims vulnerability type is Use After Free (UAF) while reference says it is command injection.",
+            "Candidate claims product is Microsoft Windows while reference says it is Node.js systeminformation package.",
+            "Candidate claims CVSS score is 9.8 while reference says CVSS 3.1 7.8 HIGH."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2021-21315: Command injection vulnerability in npm package systeminformation\nCVE-2021-21315\nThe System Information Library for Node.JS (npm package \"systeminformation\") is an open source collection of functions to retrieve detailed hardware, system and OS information. In systeminformation before version 5.3.1 there is a command injection vulnerability. Problem was fixed in version 5.3.1. As a workaround instead of upgrading, be sure to check or sanitize service parameters that are passed to si.inetLatency(), si.inetChecksite(), si.services(), si.processLoad() ... do only allow strings, reject any arrays. String sanitation works as expected.\ncvss version: 3.1\ncvss score: 7.8\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H\npublished: 2021-02-16\nNpm package System Information Library for Node.JS\nknown_exploited\nApply updates per vendor instructions.\nUpgrade to version >= 5.3.1; sanitize service parameters if not upgrading\nhigh\nCVSS 7.8 (HIGH); known exploited KEV\nCVSS 3.1 base score 7.8 (HIGH).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping; retrieved passages are context",
+        "rouge": {
+          "rouge1_f": 0.524085,
+          "rouge2_f": 0.232108,
+          "rougeL_f": 0.250482
+        },
+        "semantic_cosine": 0.9222,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2021-21315: Command injection vulnerability in npm package systeminformation\nCVE-2021-21315\nThe System Information Library for Node.JS (npm package \"systeminformation\") is an open source collection of functions to retrieve detailed hardware, system and OS information. In systeminformation before version 5.3.1 there is a command injection vulnerability. Problem was fixed in version 5.3.1. As a workaround instead of upgrading, be sure to check or sanitize service parameters that are passed to si.inetLatency(), si.inetChecksite(), si.services(), si.processLoad() ... do only allow strings, reject any arrays. String sanitation works as expected.\ncvss version: 3.1\ncvss score: 7.8\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H\npublished: 2021-02-16\nNpm package System Information Library for Node.JS\nknown_exploited\nApply updates per vendor instructions.\nUpgrade to version >= 5.3.1; sanitize service parameters if not upgrading\nhigh\nCVSS 7.8 (HIGH); known exploited KEV\nCVSS 3.1 base score 7.8 (HIGH).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping; retrieved passages are context",
+        "rouge": {
+          "rouge1_f": 0.4822,
+          "rouge2_f": 0.2043,
+          "rougeL_f": 0.2254
+        },
+        "semantic_cosine": 0.8853,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected Confluence server can let someone run unwanted programs without signing in. This can put team documents and other information available to the server at risk. The correct fix depends on the installed release branch.\nTECHNICAL DETAILS: Atlassian Confluence OGNL injection. An OGNL injection vulnerability can allow unauthenticated code execution on affected Server/Data Center instances.\nPLAIN-LANGUAGE EXPLANATION: This is an OGNL injection flaw in Confluence Server/Data Center. Atlassian's advisory states it is exploitable by unauthenticated users regardless of configuration. Branch-specific fixed releases include 6.13.23, 7.4.11, 7.11.6, 7.12.5 and 7.13.0; consult the advisory for the exact affected branches.\nAFFECTED / CONDITIONS: Before 6.13.23; 6.14.0\u2013<7.4.11; 7.5.0\u2013<7.11.6; and 7.12.0\u2013<7.12.5, as recorded in NVD.\nSEVERITY: CVSS 3.1 9.8 CRITICAL (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2021-11-03; catalog due date 2021-11-17.\nWEAKNESS: NVD: CWE-917.\nREMEDIATION: Apply the branch-specific supported Confluence fix and assess exposed instances under vendor guidance.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not substitute the 2022 CVE's fixed-version table for this earlier OGNL vulnerability.",
+    "sources": "Atlassian security advisory, CISA KEV Catalog, CWE Taxonomy, MITRE ATT&CK Framework, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2021-26084",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2021-26084\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-200\",\n  \"listed_on_cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Microsoft Windows\",\n  \"exact_fixed_version\": \"Microsoft Windows 10 Version 2004 (19041.1237) and later, Windows Server 2019 Version 1809 (17763.1697) and later\",\n  \"vulnerability_summary\": \"CVE-2021-26084 is a privilege escalation vulnerability in the Windows kernel that allows an attacker with local user access to gain elevated privileges on the system. This vulnerability is related to the handling of certain memory operations in the Windows kernel, which can be exploited to bypass integrity checks and escalate privileges.\",\n  \"technical_mechanism\": \"The vulnerability arises from improper validation of memory access in the Windows kernel. An attacker with local user privileges can exploit this flaw to manipulate memory structures and gain access to kernel-mode privileges. This allows the attacker to execute arbitrary code with system-level permissions.\",\n  \"prerequisites\": [\n    \"Local user account with standard user privileges\",\n    \"Access to the system where the vulnerability exists\",\n    \"Ability to execute code with local user privileges\"\n  ],\n  \"exploitation_status\": \"Exploitable\",\n  \"exploitation_details\": \"The vulnerability can be exploited by an attacker who has already gained local user access to the system. Once exploited, the attacker can escalate their privileges to system-level access, allowing them to perform actions that would normally require administrative privileges.\",\n  \"weakness\": \"Improper validation of memory access in the Windows kernel (CWE-200: Information Exposure Through Timing Channels).\",\n  \"remediation\": [\n    \"Apply the latest security updates from Microsoft, including the fixed versions mentioned above.\",\n    \"Ensure all systems are running up-to-date operating system patches.\",\n    \"Implement least privilege access controls to limit the attack surface.\",\n    \"Monitor system logs for signs of privilege escalation attempts.\"\n  ],\n  \"security_guidance\": [\n    \"Regularly apply security patches and updates to all systems.\",\n    \"Conduct regular security audits and vulnerability assessments.\",\n    \"Implement strong access control policies and limit user privileges",
+        "rouge": {
+          "rouge1_f": 0.219653,
+          "rouge2_f": 0.019342,
+          "rougeL_f": 0.088632
+        },
+        "semantic_cosine": 0.7124,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Microsoft Windows\" as affected product, while reference says \"Atlassian Confluence\".",
+            "Candidate cites CVSS 7.5, while reference says CVSS 9.8.",
+            "Candidate cites CWE-200, while reference says CWE-917."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2021-26084\",\n  \"product\": \"Microsoft Windows Print Spooler\",\n  \"cvss_score\": 8.1,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"KB5005082\",\n  \"summary\": \"A vulnerability in the Print Spooler service that allows remote code execution.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.100386,
+          "rouge2_f": 0.007782,
+          "rougeL_f": 0.03861
+        },
+        "semantic_cosine": 0.6985,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "\"Atlassian Confluence OGNL injection\" contradicts \"Microsoft Windows Print Spooler\"",
+            "\"CVSS 3.1 9.8 CRITICAL\" contradicts \"CVSS score 8.1\"",
+            "\"CVE-2021-26084\" contradicts \"product: Microsoft Windows Print Spooler\""
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2021-26084\",\n  \"vulnerability_type\": \"Integer Overflow\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Windows Kernel (Win32k)\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Low (elevation of privilege)\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-190 (Integer Overflow or Wraparound)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 Version 2004, Windows Server 2019, and Windows 11\",\n  \"description\": \"CVE-2021-26084 is an integer overflow vulnerability in the Windows Kernel (Win32k) that allows a local attacker with low privileges to elevate their privileges to SYSTEM. The vulnerability arises from improper handling of certain operations involving integer arithmetic, leading to an overflow that can be exploited to manipulate memory and gain unauthorized access.\",\n  \"technical_mechanism\": \"The vulnerability occurs when the Win32k component processes certain input data that triggers an integer overflow during a calculation. This overflow can result in an out-of-bounds memory access, which can be leveraged to execute arbitrary code with elevated privileges.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 Version 2004\",\n    \"Microsoft Windows Server 2019\",\n    \"Microsoft Windows 11\"\n  ],\n  \"prerequisites\": [\n    \"Local access to the target system\",\n    \"Execution privileges with low-level access to the Win32k component\"\n  ],\n  \"exploitation_status\": \"Active in-the-wild exploitation was recognized by CISA KEV (Known Exploited Vulnerability).\",\n  \"weakness\": \"Improper handling of integer arithmetic leading to overflow conditions.\",\n  \"remediation\": \"Apply the security update provided by Microsoft for the affected versions of Windows.\",\n  \"security_guidance\": \"Ensure all systems are updated to the latest security patches. Monitor for any signs of exploitation and implement least privilege access controls to limit potential impact.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.215517,
+          "rouge2_f": 0.021645,
+          "rougeL_f": 0.094828
+        },
+        "semantic_cosine": 0.7257,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims vulnerability type is Integer Overflow, but reference says OGNL injection.",
+            "Candidate claims product is Microsoft Windows, but reference says Atlassian Confluence.",
+            "Candidate claims fix version is Microsoft Windows 10 Version 2004, but reference says branch-specific Confluence fixes."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2021-26084: OGNL injection vulnerability in Confluence\nCVE-2021-26084\nIn affected versions of Confluence Server and Data Center, an OGNL injection vulnerability exists that would allow an unauthenticated attacker to execute arbitrary code on a Confluence Server or Data Center instance. The affected versions are before version 6.13.23, from version 6.14.0 before 7.4.11, from version 7.5.0 before 7.11.6, and from version 7.12.0 before 7.12.5.\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2021-08-30\nAtlassian Confluence Server and Data Center\nknown_exploited\nApply updates per vendor instructions.\nApply updates per vendor instructions. Remediate using NVD guidance.\ncritical\nCVSS 9.8 (CRITICAL); known exploited\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.661323,
+          "rouge2_f": 0.422535,
+          "rougeL_f": 0.336673
+        },
+        "semantic_cosine": 0.9445,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2021-26084: OGNL injection vulnerability in Confluence\nCVE-2021-26084\nIn affected versions of Confluence Server and Data Center, an OGNL injection vulnerability exists that would allow an unauthenticated attacker to execute arbitrary code on a Confluence Server or Data Center instance. The affected versions are before version 6.13.23, from version 6.14.0 before 7.4.11, from version 7.5.0 before 7.11.6, and from version 7.12.0 before 7.12.5.\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2021-08-30\nAtlassian Confluence Server and Data Center\nknown_exploited\nApply updates per vendor instructions.\nApply updates per vendor instructions. Remediate using NVD guidance.\ncritical\nCVSS 9.8 (CRITICAL); known exploited\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.6084,
+          "rouge2_f": 0.3718,
+          "rougeL_f": 0.303
+        },
+        "semantic_cosine": 0.9068,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected Joomla website can fail to check access properly before exposing certain service endpoints. Someone without permission may be able to reach information or functions that should be restricted.\nTECHNICAL DETAILS: Joomla webservice access checks. An improper access check can allow unauthorized access to webservice endpoints.\nPLAIN-LANGUAGE EXPLANATION: The dataset identifies Joomla 4.0.0 through 4.2.7 as affected. The direct issue is improper access control on web-service endpoints; do not overstate it as automatic server-side code execution. Verify the vendor's fixed release and whether the affected web-service functionality is exposed.\nAFFECTED / CONDITIONS: Joomla 4.0.0 through 4.2.7.\nSEVERITY: CVSS 3.1 5.3 MEDIUM (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2024-01-08; catalog due date 2024-01-29.\nWEAKNESS: NVD: NVD-CWE-Other; contributor(s): CWE-284.\nREMEDIATION: Apply the vendor-fixed Joomla release and review exposed webservice configuration.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not equate its moderate CVSS score with low project priority when KEV inclusion is confirmed.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, Joomla security announcements, MITRE ATT&CK Framework, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2023-23752",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2023-23752\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-200\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Microsoft Windows\",\n  \"exact_fixed_version\": \"Microsoft Windows 10 Version 21H2 (Build 19044.2237) and later\",\n  \"vulnerability_summary\": \"CVE-2023-23752 is a privilege escalation vulnerability in Microsoft Windows that allows an attacker with local access to gain higher privileges on the system. This vulnerability is related to the Windows kernel and can be exploited to elevate privileges without requiring user interaction.\",\n  \"technical_mechanism\": \"The vulnerability stems from improper handling of certain system calls or memory management within the Windows kernel. An attacker with local access can exploit this flaw to execute arbitrary code with elevated privileges, potentially leading to full system compromise.\",\n  \"prerequisites\": [\n    \"Local access to the target system\",\n    \"Execution privileges within the user context\",\n    \"Access to system resources or memory structures\"\n  ],\n  \"exploitation_status\": \"Exploitation is confirmed in the wild. This vulnerability is actively being exploited by threat actors to gain unauthorized access and escalate privileges on compromised systems.\",\n  \"weakness\": \"The vulnerability is classified under CWE-200 (Information Exposure Through an Error Message), but it is primarily a privilege escalation issue, which falls under CWE-269 (Improper Privilege Management).\",\n  \"remediation\": [\n    \"Apply the latest security updates from Microsoft, specifically the patch for Windows 10 Version 21H2 (Build 19044.2237) and later.\",\n    \"Ensure all systems are running up-to-date operating system versions.\",\n    \"Implement least privilege principles to limit user access to system resources.\",\n    \"Monitor system logs for signs of privilege escalation attempts.\"\n  ],\n  \"security_guidance\": [\n    \"Regularly apply security patches and updates to all systems.\",\n    \"Conduct vulnerability assessments and penetration testing to identify and mitigate such risks.\",\n    \"Implement strong access controls and monitor for suspicious activity.\",\n    \"Educate users and administrators about the risks of local privilege escalation and the importance of maintaining system integrity.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.252505,
+          "rouge2_f": 0.020121,
+          "rougeL_f": 0.1002
+        },
+        "semantic_cosine": 0.7145,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Microsoft Windows\" as affected, but reference says \"Joomla 4.0.0 through 4.2.7\".",
+            "Candidate states CVSS 7.5 and severity HIGH, but reference says CVSS 5.3 and severity MEDIUM.",
+            "Candidate cites CWE-200, but reference says NVD-CWE-Other and CWE-284."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2023-23752\",\n  \"product\": \"Microsoft Windows\",\n  \"cvss_score\": 7.8,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-200\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"Not applicable\",\n  \"summary\": \"A vulnerability in Microsoft Windows could allow remote code execution if an attacker sends a specially crafted request to an affected system.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.143426,
+          "rouge2_f": 0.024096,
+          "rougeL_f": 0.047809
+        },
+        "semantic_cosine": 0.7292,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "\"Joomla 4.0.0 through 4.2.7\" contradicts \"product\": \"Microsoft Windows\".",
+            "\"CVSS 3.1 5.3 MEDIUM\" contradicts \"cvss_score\": 7.8.",
+            "\"CWE-284\" contradicts \"cwe_id\": \"CWE-200\"."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2023-23752\",\n  \"vulnerability_type\": \"Use After Free (UAF)\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Kernel\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Administrative privileges\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-416 (Use After Free)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 21H2, Windows 11 22H2, Windows Server 2022\",\n  \"technical_mechanism\": \"CVE-2023-23752 is a Use After Free (UAF) vulnerability in the Microsoft Windows kernel. The vulnerability arises due to improper handling of memory objects, allowing an attacker to free a memory object and then access it after it has been freed. This can lead to arbitrary code execution if the attacker can control the memory content after the object has been freed.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 21H2\",\n    \"Microsoft Windows 11 22H2\",\n    \"Microsoft Windows Server 2022\"\n  ],\n  \"prerequisites\": [\n    \"Local access to the target system\",\n    \"Administrative privileges to exploit the vulnerability\",\n    \"Knowledge of the memory layout and object handling in the Windows kernel\"\n  ],\n  \"exploitation_status\": \"Active in-the-wild exploitation has been recognized by CISA KEV (Known Exploited Vulnerability).\",\n  \"weakness\": \"Improper memory management in the Windows kernel, specifically in the handling of memory objects, leading to a Use After Free condition.\",\n  \"remediation\": \"Apply the latest security updates from Microsoft, including the patches for CVE-2023-23752, to all affected systems. Ensure that all systems are running the latest supported versions of Windows 10, Windows 11, or Windows Server 2022.\",\n  \"security_guidance\": [\n    \"Keep all systems up to date with the latest security patches.\",\n    \"Implement least privilege access controls to limit the impact of potential exploits.\",\n    \"Monitor system logs for signs of exploitation or unusual memory access patterns.\",\n    \"Conduct regular security audits and vulnerability assessments to identify and remediate potential weaknesses.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.196653,
+          "rouge2_f": 0.021008,
+          "rougeL_f": 0.083682
+        },
+        "semantic_cosine": 0.7163,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Use After Free (UAF)\" while reference says \"improper access check\".",
+            "Candidate names Microsoft Windows as product while reference says Joomla.",
+            "Candidate cites CVSS 9.8 while reference says CVSS 5.3."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2023-23752: Improper access check in Joomla!\nCVE-2023-23752\nAn issue was discovered in Joomla! 4.0.0 through 4.2.7. An improper access check allows unauthorized access to webservice endpoints.\ncvss version: 3.1\ncvss score: 5.3\nseverity: MEDIUM\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N\npublished: 2023-02-16\nJoomla!\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use if mitigations are unavailable. Refer to NVDREF-b73295f19dfa8807#000 and NVDREF-b73295f19dfa8807#001 for details.\nhigh\nCVSS 5.3 (MEDIUM); known exploited KEV\nCVSS 3.1 base score 5.3 (MEDIUM).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.577093,
+          "rouge2_f": 0.331858,
+          "rougeL_f": 0.268722
+        },
+        "semantic_cosine": 0.9477,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2023-23752: Improper access check in Joomla!\nCVE-2023-23752\nAn issue was discovered in Joomla! 4.0.0 through 4.2.7. An improper access check allows unauthorized access to webservice endpoints.\ncvss version: 3.1\ncvss score: 5.3\nseverity: MEDIUM\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N\npublished: 2023-02-16\nJoomla!\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use if mitigations are unavailable. Refer to NVDREF-b73295f19dfa8807#000 and NVDREF-b73295f19dfa8807#001 for details.\nhigh\nCVSS 5.3 (MEDIUM); known exploited KEV\nCVSS 3.1 base score 5.3 (MEDIUM).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.5309,
+          "rouge2_f": 0.292,
+          "rougeL_f": 0.2418
+        },
+        "semantic_cosine": 0.9098,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected TeamCity server can let someone bypass its normal sign-in checks and perform administrator actions. This puts control of the software-building service at risk and requires the fix for this specific issue.\nTECHNICAL DETAILS: JetBrains TeamCity authentication bypass. An authentication bypass can allow administrative actions on TeamCity Server.\nPLAIN-LANGUAGE EXPLANATION: JetBrains fixed this issue in TeamCity 2023.11.4. The issue affects TeamCity On-Premises; TeamCity Cloud was patched by JetBrains. Keep it distinct from CVE-2024-27199, which is a separate path-traversal-related authentication bypass with more limited impact.\nAFFECTED / CONDITIONS: TeamCity before 2023.11.4.\nSEVERITY: CVSS 3.1 9.8 CRITICAL (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2024-03-07; catalog due date 2024-03-28.\nWEAKNESS: NVD: NVD-CWE-Other; contributor(s): CWE-288.\nREMEDIATION: Apply the supported TeamCity security update and inspect unauthorized administrative activity under vendor guidance.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not claim this is the same bypass or fixed version as CVE-2023-42793.",
+    "sources": "CERT-EU TeamCity advisory, CISA KEV Catalog, CWE Taxonomy, MITRE ATT&CK Framework, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2024-27198",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2024-27198\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Apache NiFi\",\n  \"exact_fixed_version\": \"1.22.1\",\n  \"vulnerability_summary\": \"CVE-2024-27198 is a critical vulnerability in Apache NiFi that allows an attacker to perform Cross-Site Scripting (XSS) attacks by injecting malicious scripts into web pages viewed by other users. This vulnerability arises due to insufficient input validation and sanitization of user-supplied data in the NiFi web interface.\",\n  \"technical_mechanism\": \"The vulnerability exists in the way Apache NiFi handles user input in its web-based user interface. Specifically, it fails to properly sanitize user-supplied input when rendering content in the browser. An attacker can exploit this by injecting malicious scripts into fields such as flow names, descriptions, or other user-facing content. When another user views the affected content, the malicious script is executed in their browser, potentially leading to session hijacking, data theft, or further exploitation.\",\n  \"affected_products_versions\": [\n    \"Apache NiFi 1.22.0\"\n  ],\n  \"prerequisites\": [\n    \"Access to the Apache NiFi web interface (either as a user or through a compromised account).\",\n    \"Ability to inject malicious scripts into user-facing content fields.\"\n  ],\n  \"exploitation_status\": \"Exploitable\",\n  \"exploitation_vector\": \"Remote code execution via XSS in the web interface.\",\n  \"impact\": \"The impact of this vulnerability includes unauthorized access to user sessions, data exfiltration, and potential further exploitation of the compromised system.\",\n  \"weakness\": \"CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\",\n  \"remediation\": \"Upgrade to Apache NiFi version 1.22.1 or later. Apply all available security patches and ensure that user input is properly sanitized and validated before rendering in the web interface.\",\n  \"security_guidance\": [\n    \"Implement strict input validation and output encoding for all user-supplied data.\",\n    \"Regularly update and patch all software components to address known vulnerabilities.\",\n    \"Conduct regular",
+        "rouge": {
+          "rouge1_f": 0.213115,
+          "rouge2_f": 0.016461,
+          "rougeL_f": 0.094262
+        },
+        "semantic_cosine": 0.7288,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Apache NiFi\" as affected product, but reference says \"JetBrains TeamCity\".",
+            "Candidate states CVSS base score 7.5, but reference says CVSS 3.1 9.8.",
+            "Candidate mentions CWE-79, but reference says NVD-CWE-Other and CWE-288."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2024-27198\",\n  \"product\": \"Apache Kafka\",\n  \"cvss_score\": 7.5,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-200\",\n  \"cisa_kev_listed\": false,\n  \"fixed_version\": \"3.6.2\",\n  \"summary\": \"A vulnerability in Apache Kafka allows an unauthenticated attacker to perform a denial of service attack by sending a malformed request.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.131687,
+          "rouge2_f": 0.008299,
+          "rougeL_f": 0.057613
+        },
+        "semantic_cosine": 0.6928,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "\"JetBrains TeamCity authentication bypass\" contradicts \"Apache Kafka\" product",
+            "\"CVSS 3.1 9.8 CRITICAL\" contradicts \"CVSS score 7.5\"",
+            "\"CVE-2024-27198\" contradicts \"Apache Kafka\" product"
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2024-27198\",\n  \"vulnerability_type\": \"Improper Input Validation\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Windows Kernel\",\n  \"attack_vector\": \"Local Network\",\n  \"privileges_required\": \"Low\",\n  \"cvss_score\": 8.8,\n  \"cvss_severity\": \"High\",\n  \"cwe\": \"CWE-20\",\n  \"kev_status\": \"NO\",\n  \"fix_version\": \"Microsoft Windows 10 Version 22H2 (Build 19045.3888) and Windows 11 Version 22H2 (Build 22621.3888)\",\n  \"description\": \"CVE-2024-27198 is a vulnerability in the Windows Kernel that allows an attacker to execute arbitrary code with elevated privileges. The vulnerability arises from improper validation of input data, which can be exploited to bypass security checks and execute malicious code.\",\n  \"technical_mechanism\": \"The vulnerability is triggered when the Windows Kernel processes specially crafted input data. The lack of proper validation allows an attacker to manipulate the input to execute arbitrary code, potentially leading to system compromise.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 Version 22H2 (Build 19045.3888)\",\n    \"Microsoft Windows 11 Version 22H2 (Build 22621.3888)\"\n  ],\n  \"prerequisites\": [\n    \"The attacker must have local network access to the target system.\",\n    \"The target system must be running the affected versions of Windows.\"\n  ],\n  \"exploitation_status\": \"Not widely reported as in-the-wild exploitation at the time of analysis.\",\n  \"weakness\": \"Improper input validation in the Windows Kernel.\",\n  \"remediation\": \"Update to the latest security patches provided by Microsoft for the affected versions of Windows.\",\n  \"security_guidance\": [\n    \"Apply the latest security updates and patches from Microsoft.\",\n    \"Monitor system logs for unusual activity that may indicate exploitation.\",\n    \"Implement network segmentation and access controls to limit potential attack surfaces.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.207373,
+          "rouge2_f": 0.013889,
+          "rougeL_f": 0.082949
+        },
+        "semantic_cosine": 0.7459,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims product is Microsoft Windows, but reference says JetBrains TeamCity.",
+            "Candidate cites no sources, but reference includes multiple sources.",
+            "Candidate's CVSS score and vector differ from reference."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2024-27198 authentication bypass vulnerability in JetBrains TeamCity\nCVE-2024-27198\nIn JetBrains TeamCity before 2023.11.4 authentication bypass allowing to perform admin actions was possible\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2024-03-04\nJetBrains TeamCity\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use if mitigations are unavailable. Remediate by funneling all access through a single choke point and checking user permissions.\ncritical\nCVSS 9.8 (CRITICAL) with known exploitation\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 1 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nRAG retrieval did not produce passages judged relevant to the question.\nCritic finding (remediation/support): The remediation text includes unverified content from CWE-288.\nCritic finding (risk/support): The risk text combines CVSS score and KEV status without explicit citation.",
+        "rouge": {
+          "rouge1_f": 0.508547,
+          "rouge2_f": 0.248927,
+          "rougeL_f": 0.226496
+        },
+        "semantic_cosine": 0.9426,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2024-27198 authentication bypass vulnerability in JetBrains TeamCity\nCVE-2024-27198\nIn JetBrains TeamCity before 2023.11.4 authentication bypass allowing to perform admin actions was possible\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2024-03-04\nJetBrains TeamCity\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use if mitigations are unavailable. Remediate by funneling all access through a single choke point and checking user permissions.\ncritical\nCVSS 9.8 (CRITICAL) with known exploitation\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 1 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nRAG retrieval did not produce passages judged relevant to the question.\nCritic finding (remediation/support): The remediation text includes unverified content from CWE-288.\nCritic finding (risk/support): The risk text combines CVSS score and KEV status without explicit citation.",
+        "rouge": {
+          "rouge1_f": 0.4679,
+          "rouge2_f": 0.2191,
+          "rougeL_f": 0.2038
+        },
+        "semantic_cosine": 0.9049,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected TeamCity server can allow a sign-in bypass that leads to unwanted programs running on the server. Because TeamCity supports software builds, a compromise could threaten the work and resources accessible through it.\nTECHNICAL DETAILS: JetBrains TeamCity authentication bypass. An authentication bypass can lead to remote code execution on TeamCity Server.\nPLAIN-LANGUAGE EXPLANATION: JetBrains states all TeamCity On-Premises versions were affected and fixed the issue in 2023.05.4. A security patch plugin was also provided for older installations. TeamCity Cloud was not affected. Do not confuse this with CVE-2024-27198, a later distinct authentication-bypass issue.\nAFFECTED / CONDITIONS: TeamCity before 2023.05.4.\nSEVERITY: CVSS 3.1 9.8 CRITICAL (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2023-10-04; catalog due date 2023-10-25.\nWEAKNESS: NVD: CWE-306; contributor(s): CWE-288.\nREMEDIATION: Apply the appropriate supported TeamCity update and review potentially compromised build infrastructure.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Distinguish this RCE-capable bypass from the later CVE-2024-27198 record.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, JetBrains security advisory, MITRE ATT&CK Framework, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2023-42793",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2023-42793\",\n  \"cvss_base_score\": 9.8,\n  \"severity_tier\": \"CRITICAL\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Apache NiFi\",\n  \"exact_fixed_version\": \"1.18.2\",\n  \"vulnerability_summary\": \"CVE-2023-42793 is a critical vulnerability in Apache NiFi that allows an attacker to perform Cross-Site Scripting (XSS) attacks by injecting malicious scripts into web pages viewed by other users. This vulnerability is due to insufficient sanitization of user-supplied input in the NiFi web interface, which can be exploited to execute arbitrary scripts in the context of the victim's browser.\",\n  \"technical_mechanism\": \"The vulnerability exists in the way Apache NiFi handles user input in its web interface. Specifically, when user input is not properly sanitized, an attacker can inject malicious scripts into the web application. These scripts can then be executed in the context of the user's browser, leading to potential session hijacking, data theft, or further exploitation of the user's session.\",\n  \"affected_products_versions\": [\n    \"Apache NiFi 1.16.5\",\n    \"Apache NiFi 1.17.0\",\n    \"Apache NiFi 1.17.1\",\n    \"Apache NiFi 1.17.2\",\n    \"Apache NiFi 1.17.3\",\n    \"Apache NiFi 1.17.4\",\n    \"Apache NiFi 1.17.5\",\n    \"Apache NiFi 1.17.6\",\n    \"Apache NiFi 1.17.7\",\n    \"Apache NiFi 1.17.8\",\n    \"Apache NiFi 1.17.9\",\n    \"Apache NiFi 1.18.0\",\n    \"Apache NiFi 1.18.1\"\n  ],\n  \"prerequisites\": [\n    \"The attacker must have access to the Apache NiFi web interface.\",\n    \"The attacker must be able to inject malicious scripts into user input fields.\",\n    \"The victim must be authenticated to the NiFi web interface.\"\n  ],\n  \"exploitation_status\": \"Exploited in the wild\",\n ",
+        "rouge": {
+          "rouge1_f": 0.187215,
+          "rouge2_f": 0.0,
+          "rougeL_f": 0.073059
+        },
+        "semantic_cosine": 0.7274,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"affected_product\": \"Apache NiFi\" while reference says \"JetBrains TeamCity\".",
+            "Candidate cites \"CWE-79\" while reference says \"CWE-306\" and \"CWE-288\".",
+            "Candidate claims \"exact_fixed_version\": \"1.18.2\" while reference says \"2023.05.4\"."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2023-42793\",\n  \"product\": \"Microsoft Windows\",\n  \"cvss_score\": 8.8,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"Not applicable\",\n  \"summary\": \"A vulnerability in Microsoft Windows allows remote code execution via specially crafted network traffic.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.108333,
+          "rouge2_f": 0.016807,
+          "rougeL_f": 0.041667
+        },
+        "semantic_cosine": 0.7323,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "\"JetBrains TeamCity authentication bypass\" contradicts \"Microsoft Windows\" product",
+            "\"CVSS 3.1 9.8\" contradicts \"cvss_score\": 8.8",
+            "\"TeamCity before 2023.05.4\" contradicts \"fixed_version\": \"Not applicable\""
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2023-42793\",\n  \"vulnerability_type\": \"Buffer Overflow\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Windows Kernel (Win32k)\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Low\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-119 (Incorrect Calculation of Buffer Size)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 22H2, Windows 11 22H2, Windows Server 2022 22H2\",\n  \"technical_mechanism\": \"CVE-2023-42793 is a buffer overflow vulnerability in the Windows Kernel (Win32k) component. The vulnerability arises from improper handling of certain graphics operations, which can lead to a buffer overflow when processing specific input. This allows an attacker to overwrite memory and potentially execute arbitrary code with elevated privileges.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 21H2\",\n    \"Microsoft Windows 10 22H2\",\n    \"Microsoft Windows 11 22H2\",\n    \"Microsoft Windows Server 2022 22H2\"\n  ],\n  \"prerequisites\": [\n    \"Local access to the target system\",\n    \"Execution of specially crafted graphics operations\"\n  ],\n  \"exploitation_status\": \"Active in-the-wild exploitation has been recognized by CISA KEV (Known Exploited Vulnerability).\",\n  \"weakness\": \"Improper validation of input data leading to buffer overflow.\",\n  \"remediation\": \"Apply the latest security updates from Microsoft, specifically the patches for Windows 10 22H2, Windows 11 22H2, and Windows Server 2022 22H2.\",\n  \"security_guidance\": [\n    \"Keep all systems up to date with the latest security patches.\",\n    \"Implement least privilege access controls to limit potential attack surfaces.\",\n    \"Monitor system logs for signs of exploitation or unusual activity.\",\n    \"Conduct regular security audits and vulnerability assessments.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.208531,
+          "rouge2_f": 0.019048,
+          "rougeL_f": 0.094787
+        },
+        "semantic_cosine": 0.7252,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Buffer Overflow\" as vulnerability type, while reference says \"authentication bypass\".",
+            "Candidate names \"Microsoft Windows\" as product, while reference says \"JetBrains TeamCity\".",
+            "Candidate cites \"Windows Kernel (Win32k)\" as component, while reference says \"TeamCity Server\"."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2023-42793: JetBrains TeamCity authentication bypass RCE\nCVE-2023-42793\nIn JetBrains TeamCity before 2023.05.4 authentication bypass leading to RCE on TeamCity Server was possible\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2023-09-19\nJetBrains TeamCity\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\ncritical\nCVSS 9.8 (CRITICAL) with known exploitation\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.579439,
+          "rouge2_f": 0.338028,
+          "rougeL_f": 0.294393
+        },
+        "semantic_cosine": 0.9376,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2023-42793: JetBrains TeamCity authentication bypass RCE\nCVE-2023-42793\nIn JetBrains TeamCity before 2023.05.4 authentication bypass leading to RCE on TeamCity Server was possible\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2023-09-19\nJetBrains TeamCity\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\ncritical\nCVSS 9.8 (CRITICAL) with known exploitation\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.5331,
+          "rouge2_f": 0.2975,
+          "rougeL_f": 0.265
+        },
+        "semantic_cosine": 0.9001,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected WS_FTP file-transfer feature can mishandle incoming data and let an attacker run unwanted commands on the server. The affected module and software branch need to be checked, and different sources' severity ratings should remain clearly attributed.\nTECHNICAL DETAILS: Progress WS_FTP Ad Hoc Transfer. A .NET deserialization flaw in the Ad Hoc Transfer module can permit remote operating-system commands before authentication.\nPLAIN-LANGUAGE EXPLANATION: Progress/NHS advisory coverage identifies versions before 8.7.4 and 8.8.2 as affected. The vulnerable functionality is the Ad Hoc Transfer module. NVD's 8.8 score/vector and the vendor/CERT reports of CVSS 10.0 are different source assessments; retain their attribution rather than merging them.\nAFFECTED / CONDITIONS: WS_FTP Server versions before 8.7.4 and 8.8.2, with the affected module/path.\nSEVERITY: CVSS 3.1 8.8 HIGH (NVD); CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2023-10-05; catalog due date 2023-10-26.\nWEAKNESS: NVD: CWE-502.\nREMEDIATION: Apply the supported branch-specific WS_FTP update and assess the exposed Ad Hoc Transfer functionality.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: NVD's selected 8.8 differs from the contributor's 10.0; do not silently switch scoring authorities.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, MITRE ATT&CK Framework, NHS England advisory, NIST SP 800 Guidelines, NVD (National Vulnerability Database), Progress WS_FTP security advisory, filter cveID=CVE-2023-40044",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2023-40044\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Microsoft Edge (Chromium-based)\",\n  \"fixed_version\": \"Microsoft Edge 115.0.1901.188\",\n  \"vulnerability_summary\": \"CVE-2023-40044 is a critical vulnerability in Microsoft Edge that allows an attacker to perform a Cross-Site Scripting (XSS) attack by exploiting a flaw in the handling of certain HTML elements. This vulnerability can be leveraged to execute arbitrary scripts in the context of the victim's browser, potentially leading to data theft, session hijacking, or further exploitation of the user's system.\",\n  \"technical_mechanism\": \"The vulnerability arises from improper sanitization of user-supplied input when rendering specific HTML elements. An attacker can craft a malicious webpage that, when viewed by a user with Microsoft Edge, will execute arbitrary JavaScript code in the context of the user's session. This is a classic XSS vulnerability, where the attacker injects malicious scripts into trusted websites, which are then executed by the browser.\",\n  \"affected_products_versions\": [\n    \"Microsoft Edge 115.0.1901.187 and earlier versions\"\n  ],\n  \"prerequisites\": [\n    \"The victim must be using Microsoft Edge (Chromium-based) version 115.0.1901.187 or earlier.\",\n    \"The victim must visit a malicious website or click on a malicious link that exploits the vulnerability.\",\n    \"The victim must not have implemented additional security measures such as Content Security Policy (CSP) or browser extensions that block XSS attacks.\"\n  ],\n  \"exploitation_status\": \"Exploitation is confirmed in the wild. This vulnerability has been actively exploited by threat actors to deliver payloads and steal user data.\",\n  \"weakness\": \"Improper input validation and sanitization of user-supplied data in the rendering engine, leading to Cross-Site Scripting (XSS) vulnerabilities.\",\n  \"remediation\": [\n    \"Update Microsoft Edge to version 115.0.1901.188 or later.\",\n    \"Implement Content Security Policy (",
+        "rouge": {
+          "rouge1_f": 0.237817,
+          "rouge2_f": 0.011742,
+          "rougeL_f": 0.101365
+        },
+        "semantic_cosine": 0.7543,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Microsoft Edge (Chromium-based)\" as affected, but reference says \"Progress WS_FTP Server\".",
+            "Candidate cites CVSS 7.5, but reference says NVD's CVSS is 8.8 and contributor's is 10.0.",
+            "Candidate mentions CWE-79, but reference says CWE-502."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2023-40044\",\n  \"product\": \"Microsoft Windows\",\n  \"cvss_score\": 8.8,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"Not applicable\",\n  \"summary\": \"A vulnerability in Microsoft Windows could allow remote code execution if a user opens a specially crafted file.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.100719,
+          "rouge2_f": 0.0,
+          "rougeL_f": 0.035971
+        },
+        "semantic_cosine": 0.7553,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims product is Microsoft Windows, but reference says Progress WS_FTP",
+            "Candidate cites CWE-787, but reference says CWE-502",
+            "Candidate says fixed version is not applicable, but reference says versions before 8.7.4 and 8.8.2 are affected"
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2023-40044\",\n  \"vulnerability_type\": \"Use After Free (UAF)\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Kernel\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Administrative privileges\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-416 (Use After Free)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 22H2, Windows 11 22H2, Windows Server 2022\",\n  \"technical_mechanism\": \"CVE-2023-40044 is a Use After Free (UAF) vulnerability in the Microsoft Windows kernel. The vulnerability arises when a memory object is freed, but a reference to it is not properly invalidated. An attacker can exploit this by triggering a race condition between the freeing of the memory and its subsequent use, leading to arbitrary code execution. This type of vulnerability is particularly dangerous because it allows an attacker to execute arbitrary code with kernel privileges, potentially leading to full system compromise.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 22H2\",\n    \"Microsoft Windows 11 22H2\",\n    \"Microsoft Windows Server 2022\"\n  ],\n  \"prerequisites\": [\n    \"Local access to the target system\",\n    \"Administrative privileges to exploit the vulnerability\",\n    \"Knowledge of the specific memory management behavior in the affected kernel version\"\n  ],\n  \"severity\": \"Critical\",\n  \"exploitation_status\": \"Active in-the-wild exploitation has been recognized by CISA KEV (Known Exploited Vulnerability).\",\n  \"weakness\": \"Improper memory management in the kernel, specifically the failure to properly invalidate references to freed memory objects.\",\n  \"remediation\": \"Apply the latest security updates from Microsoft, specifically the patches for Windows 10 22H2, Windows 11 22H2, and Windows Server 2022. Ensure that all systems are running the latest cumulative updates to mitigate this vulnerability.\",\n  \"security_guidance\": [\n    \"Keep all systems and software up to date with the latest security patches.\",\n    \"Implement least privilege access controls to limit the potential impact of local exploits.\",\n    \"Monitor system logs for signs of memory corruption or unexpected kernel behavior.\",\n    \"Conduct regular security audits and penetration testing to identify and remediate vulnerabilities.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.21172,
+          "rouge2_f": 0.026565,
+          "rougeL_f": 0.098299
+        },
+        "semantic_cosine": 0.7567,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims vulnerability type is Use After Free (UAF) while reference says .NET deserialization flaw.",
+            "Candidate names Microsoft Windows as product while reference says Progress WS_FTP.",
+            "Candidate cites CVSS 9.8 score while reference says NVD's 8.8 and vendor/CERT reports of CVSS 10.0."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2023-40044 is a known exploited high-severity vulnerability.\nCVE-2023-40044\nIn WS_FTP Server versions prior to 8.7.4 and 8.8.2, a pre-authenticated attacker could leverage a .NET deserialization vulnerability in the Ad Hoc Transfer module to execute remote commands on the underlying WS_FTP Server operating system.\ncvss version: 3.1\ncvss score: 8.8\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H\npublished: 2023-09-27\nProgress WS_FTP Server\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nhigh\nCVSS 8.8 (HIGH) and known exploited KEV.\nCVSS 3.1 base score 8.8 (HIGH).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.619289,
+          "rouge2_f": 0.465195,
+          "rougeL_f": 0.338409
+        },
+        "semantic_cosine": 0.9135,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2023-40044 is a known exploited high-severity vulnerability.\nCVE-2023-40044\nIn WS_FTP Server versions prior to 8.7.4 and 8.8.2, a pre-authenticated attacker could leverage a .NET deserialization vulnerability in the Ad Hoc Transfer module to execute remote commands on the underlying WS_FTP Server operating system.\ncvss version: 3.1\ncvss score: 8.8\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H\npublished: 2023-09-27\nProgress WS_FTP Server\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nhigh\nCVSS 8.8 (HIGH) and known exploited KEV.\nCVSS 3.1 base score 8.8 (HIGH).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.5697,
+          "rouge2_f": 0.4094,
+          "rougeL_f": 0.3046
+        },
+        "semantic_cosine": 0.877,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected ScreenConnect service can let someone get past its normal sign-in protection and reach sensitive information or important systems. This is a specific access-control flaw and should not be confused with other ScreenConnect vulnerabilities.\nTECHNICAL DETAILS: ConnectWise ScreenConnect. Alternate-path authentication bypass can permit access to sensitive information or critical systems.\nPLAIN-LANGUAGE EXPLANATION: ConnectWise's security update addressed CVE-2024-1709 along with the separate CVE-2024-1708 path-traversal flaw. The affected release boundary is before 23.9.8. Do not merge the two CVEs into one weakness: this record is the authentication bypass.\nAFFECTED / CONDITIONS: ScreenConnect 23.9.7 and earlier as recorded in the NVD description.\nSEVERITY: CVSS 3.1 10.0 CRITICAL (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2024-02-22; catalog due date 2024-02-29.\nWEAKNESS: NVD: NVD-CWE-Other; contributor(s): CWE-288.\nREMEDIATION: Apply the supported ConnectWise security update and assess unauthorized access under vendor guidance.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not merge this authentication-bypass CVE with other ScreenConnect traversal vulnerabilities.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, MITRE ATT&CK Framework, NHS England / ConnectWise update summary, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2024-1709",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2024-1709\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Microsoft Edge (Chromium-based)\",\n  \"fixed_version\": \"Microsoft Edge 125.0.2622.100\",\n  \"vulnerability_summary\": \"CVE-2024-1709 is a critical vulnerability in Microsoft Edge that allows an attacker to execute arbitrary code through a cross-site scripting (XSS) attack. The vulnerability arises from improper handling of certain input in the browser's rendering engine, which can be exploited to inject malicious scripts into web pages viewed by other users.\",\n  \"technical_mechanism\": \"The vulnerability is triggered when a user visits a malicious website that contains specially crafted input. The browser fails to properly sanitize or validate this input, allowing the attacker to inject and execute arbitrary scripts in the context of the victim's session. This can lead to unauthorized access, data exfiltration, or further exploitation of the user's system.\",\n  \"affected_products_versions\": [\n    \"Microsoft Edge 124.0.2622.0 and earlier versions\"\n  ],\n  \"prerequisites\": [\n    \"The victim must be using an affected version of Microsoft Edge.\",\n    \"The victim must visit a malicious website that exploits the vulnerability.\",\n    \"The victim must not have mitigations such as Content Security Policy (CSP) or browser extensions that block XSS attacks.\"\n  ],\n  \"exploitation_status\": \"Exploited in the wild\",\n  \"weakness\": \"Improper input validation and sanitization leading to cross-site scripting (XSS) vulnerabilities.\",\n  \"remediation\": [\n    \"Update Microsoft Edge to version 125.0.2622.100 or later.\",\n    \"Implement Content Security Policy (CSP) headers to mitigate XSS attacks.\",\n    \"Use browser extensions or enterprise policies to block or restrict potentially malicious scripts.\",\n    \"Monitor for unusual activity and ensure users are not visiting untrusted websites.\"\n  ],\n  \"security_guidance\": [\n    \"Keep all software, including browsers, up to date with the latest security patches.\",\n    \"Implement and enforce strict Content Security Policy (CSP) headers on web applications.\",\n   ",
+        "rouge": {
+          "rouge1_f": 0.253061,
+          "rouge2_f": 0.02459,
+          "rougeL_f": 0.110204
+        },
+        "semantic_cosine": 0.7566,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Microsoft Edge (Chromium-based)\" as affected product, but reference says \"ScreenConnect\".",
+            "Candidate states CVSS base score 7.5, but reference says CVSS 3.1 10.0.",
+            "Candidate cites \"Microsoft Edge 125.0.2622.100\" as fixed version, but reference says \"before 23.9.8\"."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2024-1709\",\n  \"product\": \"Microsoft Windows\",\n  \"cvss_score\": 8.8,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"Not applicable\",\n  \"summary\": \"A vulnerability in Microsoft Windows allows remote code execution through a specially crafted network request.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.089796,
+          "rouge2_f": 0.0,
+          "rougeL_f": 0.032653
+        },
+        "semantic_cosine": 0.7393,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims product is Microsoft Windows, but reference says ConnectWise ScreenConnect",
+            "Candidate claims CVSS score is 8.8, but reference says CVSS 3.1 10.0",
+            "Candidate claims CWE ID is CWE-787, but reference says NVD-CWE-Other"
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2024-1709\",\n  \"vulnerability_type\": \"Buffer Overflow\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Windows Kernel (Win32k)\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Low\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-119 (Incorrect Calculation of Buffer Size)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 22H2, Windows 11 22H2, Windows Server 2022\",\n  \"technical_mechanism\": \"CVE-2024-1709 is a buffer overflow vulnerability in the Windows Kernel (Win32k) component. The vulnerability arises from improper handling of memory operations when processing certain graphical user interface (GUI) operations. An attacker can exploit this vulnerability by crafting malicious input that causes the Win32k component to overwrite memory, potentially leading to arbitrary code execution with system privileges.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 22H2\",\n    \"Microsoft Windows 11 22H2\",\n    \"Microsoft Windows Server 2022\"\n  ],\n  \"prerequisites\": [\n    \"The target system must be running a vulnerable version of Windows.\",\n    \"The attacker must have local access to the system.\",\n    \"The attacker must be able to execute arbitrary code on the target system.\"\n  ],\n  \"exploitation_status\": \"Active in-the-wild exploitation has been recognized by CISA KEV (Known Exploited Vulnerabilities).\",\n  \"weakness\": \"The vulnerability stems from a failure to properly validate the size of data being copied into a buffer, leading to a buffer overflow condition.\",\n  \"remediation\": \"Microsoft has released patches for the affected versions of Windows. Users are advised to apply the latest security updates to mitigate the risk of exploitation.\",\n  \"security_guidance\": [\n    \"Apply the latest security patches and updates from Microsoft.\",\n    \"Implement least privilege access controls to limit the impact of potential exploits.\",\n    \"Monitor system logs for signs of exploitation or unusual activity.\",\n    \"Use endpoint detection and response (EDR) tools to detect and respond to potential attacks.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.172996,
+          "rouge2_f": 0.021186,
+          "rougeL_f": 0.080169
+        },
+        "semantic_cosine": 0.7756,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Buffer Overflow\" type but reference says \"Alternate-path authentication bypass\".",
+            "Candidate names \"Microsoft Windows\" as product but reference says \"ConnectWise ScreenConnect\".",
+            "Candidate cites \"CWE-119\" but reference says \"NVD-CWE-Other\"."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2024-1709 is known exploited\nCVE-2024-1709\nConnectWise ScreenConnect 23.9.7 and prior are affected by an Authentication Bypass Using an Alternate Path or Channel\n\n vulnerability, which may allow an attacker direct access to confidential information or \n\ncritical systems.\ncvss version: 3.1\ncvss score: 10.0\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H\npublished: 2024-02-21\nConnectWise ScreenConnect\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply vendor mitigations or discontinue use; update to 23.9.8\ncritical\nCVSS 10.0 (CRITICAL) and known exploited KEV\nCVSS 3.1 base score 10.0 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.617391,
+          "rouge2_f": 0.419214,
+          "rougeL_f": 0.278261
+        },
+        "semantic_cosine": 0.931,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2024-1709 is known exploited\nCVE-2024-1709\nConnectWise ScreenConnect 23.9.7 and prior are affected by an Authentication Bypass Using an Alternate Path or Channel\n\n vulnerability, which may allow an attacker direct access to confidential information or \n\ncritical systems.\ncvss version: 3.1\ncvss score: 10.0\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H\npublished: 2024-02-21\nConnectWise ScreenConnect\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply vendor mitigations or discontinue use; update to 23.9.8\ncritical\nCVSS 10.0 (CRITICAL) and known exploited KEV\nCVSS 3.1 base score 10.0 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.568,
+          "rouge2_f": 0.3689,
+          "rougeL_f": 0.2504
+        },
+        "semantic_cosine": 0.8938,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: An affected Check Point gateway with particular remote-access features enabled can expose information that an attacker should not be able to read. The risk depends on those features and the installed software, not just the product brand.\nTECHNICAL DETAILS: Check Point Security Gateway disclosure. Internet-connected gateways with specified VPN/Mobile Access blades can expose certain information to an attacker.\nPLAIN-LANGUAGE EXPLANATION: NVD describes information disclosure on affected internet-connected gateways with specified VPN/Mobile Access features. Verify the exact gateway release and vendor mitigation/fix advisory. This is an information-disclosure flaw, not by itself proof of remote code execution or compromise of every Check Point product.\nAFFECTED / CONDITIONS: Check Point Security Gateways with Remote Access VPN or Mobile Access Software Blades enabled; exact affected releases require the vendor advisory.\nSEVERITY: CVSS 3.1 8.6 HIGH (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2024-05-30; catalog due date 2024-06-20.\nWEAKNESS: NVD: NVD-CWE-noinfo; contributor(s): CWE-200.\nREMEDIATION: Apply the Check Point security fix for the deployed release and assess the disclosed-information risk.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Retain the enabled-blade prerequisite and do not label every Check Point product affected.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, MITRE ATT&CK Framework, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2024-24919",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2024-24919\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Microsoft Edge (Chromium-based)\",\n  \"fixed_version\": \"Microsoft Edge 125.0.2622.111\",\n  \"vulnerability_summary\": \"CVE-2024-24919 is a critical vulnerability in Microsoft Edge that allows an attacker to perform a Cross-Site Scripting (XSS) attack by exploiting a flaw in the handling of certain HTML elements. This vulnerability can be leveraged to execute arbitrary scripts in the context of the victim's browser, potentially leading to data theft, session hijacking, or further exploitation of the user's system.\",\n  \"technical_mechanism\": \"The vulnerability arises from improper sanitization of user-supplied input when rendering specific HTML elements. An attacker can craft a malicious webpage that, when viewed by a user with Microsoft Edge, will execute arbitrary JavaScript code in the context of the user's session. This is a reflected XSS vulnerability, where the malicious payload is reflected off the web server and executed in the user's browser.\",\n  \"affected_products_versions\": [\n    \"Microsoft Edge 125.0.2622.109 and earlier versions\"\n  ],\n  \"prerequisites\": [\n    \"The user must be logged into a Microsoft account or have a session active on a website that is vulnerable to XSS.\",\n    \"The user must visit a malicious website or click on a malicious link that contains the crafted payload.\",\n    \"The user must not have applied the latest security updates or patches.\"\n  ],\n  \"exploitation_status\": \"Exploitation is confirmed in the wild. This vulnerability has been actively exploited by threat actors to deliver phishing payloads and steal user credentials.\",\n  \"weakness\": \"The vulnerability is classified under CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')).\",\n  \"remediation\": [\n    \"Update Microsoft Edge to version 125.0.2622.111 or later.\",\n    \"Implement input validation and output encoding for all user-supplied data.\",\n    \"Use Content Security Policy (CSP) headers to mitigate the impact",
+        "rouge": {
+          "rouge1_f": 0.24812,
+          "rouge2_f": 0.011321,
+          "rougeL_f": 0.105263
+        },
+        "semantic_cosine": 0.7716,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims affected product is Microsoft Edge, but reference says Check Point Security Gateways.",
+            "Candidate cites CVSS 7.5, but reference says CVSS 8.6.",
+            "Candidate claims fixed version is Microsoft Edge 125.0.2622.111, but reference says Check Point vendor advisory."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2024-24919\",\n  \"product\": \"Microsoft Windows\",\n  \"cvss_score\": 8.8,\n  \"severity\": \"HIGH\",\n  \"cwe_id\": \"CWE-787\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"Not applicable\",\n  \"summary\": \"A vulnerability in Microsoft Windows allows remote code execution through a specially crafted network request.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.101083,
+          "rouge2_f": 0.014545,
+          "rougeL_f": 0.043321
+        },
+        "semantic_cosine": 0.7486,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims product is Microsoft Windows, but reference says Check Point Security Gateway",
+            "Candidate claims CVSS score 8.8, but reference says CVSS 3.1 8.6",
+            "Candidate claims CWE-787, but reference says NVD-CWE-noinfo"
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2024-24919\",\n  \"vulnerability_type\": \"Buffer Overflow\",\n  \"product\": \"Microsoft Windows\",\n  \"architectural_component\": \"Windows Kernel (Win32k)\",\n  \"attack_vector\": \"Local\",\n  \"privileges_required\": \"Low\",\n  \"cvss_score\": 9.8,\n  \"cvss_severity\": \"Critical\",\n  \"cwe\": \"CWE-119 (Incorrect Calculation of Buffer Size)\",\n  \"kev_status\": \"YES\",\n  \"fix_version\": \"Microsoft Windows 10 22H2, Windows 11 22H2, Windows Server 2022\",\n  \"technical_mechanism\": \"CVE-2024-24919 is a buffer overflow vulnerability in the Windows Kernel (Win32k) component. The vulnerability arises from improper handling of memory operations when processing certain graphical user interface (GUI) operations. An attacker can exploit this vulnerability by crafting malicious input that causes the Win32k component to overwrite memory, potentially leading to arbitrary code execution with system privileges.\",\n  \"affected_products_versions\": [\n    \"Microsoft Windows 10 22H2\",\n    \"Microsoft Windows 11 22H2\",\n    \"Microsoft Windows Server 2022\"\n  ],\n  \"prerequisites\": [\n    \"The target system must be running a vulnerable version of Windows.\",\n    \"The attacker must have local access to the system.\",\n    \"The attacker must be able to execute arbitrary code on the target system.\"\n  ],\n  \"exploitation_status\": \"Active in-the-wild exploitation has been confirmed by CISA KEV.\",\n  \"weakness\": \"Improper handling of memory operations in the Win32k component leads to a buffer overflow, which can be exploited to execute arbitrary code with elevated privileges.\",\n  \"remediation\": \"Apply the latest security updates from Microsoft, specifically the patches for Windows 10 22H2, Windows 11 22H2, and Windows Server 2022. Ensure that all systems are running the latest cumulative updates to mitigate this vulnerability.\",\n  \"security_guidance\": [\n    \"Keep all systems and software up to date with the latest security patches.\",\n    \"Implement least privilege principles to limit the impact of potential exploits.\",\n    \"Monitor system logs for signs of exploitation or unusual activity.\",\n    \"Conduct regular security audits and vulnerability assessments.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.231373,
+          "rouge2_f": 0.023622,
+          "rougeL_f": 0.105882
+        },
+        "semantic_cosine": 0.7646,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims vulnerability type is Buffer Overflow, but reference says information disclosure.",
+            "Candidate names Microsoft Windows as product, but reference says Check Point Security Gateway.",
+            "Candidate cites CVSS 9.8, but reference says CVSS 3.1 8.6."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2024-24919 allows information disclosure on Check Point gateways\nCVE-2024-24919\nPotentially allowing an attacker to read certain information on Check Point Security Gateways once connected to the internet and enabled with remote Access VPN or Mobile Access Software Blades. A Security fix that mitigates this vulnerability is available.\ncvss version: 3.1\ncvss score: 8.6\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N\npublished: 2024-05-28\nCheck Point Quantum Security Gateways\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply vendor mitigations, remove local users, rotate passwords, renew certificates\nhigh\nCVSS 8.6; known exploited\nCVSS 3.1 base score 8.6 (HIGH).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping",
+        "rouge": {
+          "rouge1_f": 0.610778,
+          "rouge2_f": 0.388778,
+          "rougeL_f": 0.307385
+        },
+        "semantic_cosine": 0.9193,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2024-24919 allows information disclosure on Check Point gateways\nCVE-2024-24919\nPotentially allowing an attacker to read certain information on Check Point Security Gateways once connected to the internet and enabled with remote Access VPN or Mobile Access Software Blades. A Security fix that mitigates this vulnerability is available.\ncvss version: 3.1\ncvss score: 8.6\nseverity: HIGH\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N\npublished: 2024-05-28\nCheck Point Quantum Security Gateways\nknown_exploited\nApply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.\nApply vendor mitigations, remove local users, rotate passwords, renew certificates\nhigh\nCVSS 8.6; known exploited\nCVSS 3.1 base score 8.6 (HIGH).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.\nNo verified MITRE ATT&CK technique mapping",
+        "rouge": {
+          "rouge1_f": 0.5619,
+          "rouge2_f": 0.3421,
+          "rougeL_f": 0.2766
+        },
+        "semantic_cosine": 0.8825,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  },
+  {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "expected_output": "PLAIN-LANGUAGE SUMMARY: Certain ManageEngine products can mishandle sign-in information and allow an attacker to run unwanted programs. Exposure depends on the product and whether the relevant shared sign-in feature has been configured; different products need different updates.\nTECHNICAL DETAILS: Zoho ManageEngine XML security. Affected applications omit security protections required by their use of Apache Santuario XML Security, enabling remote code execution.\nPLAIN-LANGUAGE EXPLANATION: The flaw involves missing security protections around Apache Santuario XML Security for Java. The vendor states SAML SSO must have been enabled: for some products it must still be active; for others, having been configured previously is enough. Fixed builds differ by product, so do not apply one product's version number to the entire ManageEngine portfolio.\nAFFECTED / CONDITIONS: Multiple on-premises ManageEngine products with individual fixed builds. SAML SSO must have been configured; some products require it to be currently active.\nSEVERITY: CVSS 3.1 9.8 CRITICAL (NVD); CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H.\nEXPLOITATION: LISTED in KEV 2026.11.13; added 2023-01-23; catalog due date 2023-02-13.\nWEAKNESS: NVD: NVD-CWE-noinfo; contributor(s): CWE-20.\nREMEDIATION: Apply the exact product-specific vendor update. ServiceDesk Plus 14004 is one historical fix, not a universal fix for every affected product.\nPROJECT RISK: CRITICAL under kev-cvss-v1, using this snapshot; not an official risk category.\nATT&CK: T1190 is relevant behavior context only; no verified CVE-to-technique mapping is asserted.\nGUIDANCE: NIST SI-2 is remediation context, not an official CVE mapping.\nDISTINCTION: Do not omit the SAML SSO history/current-state prerequisite or apply one product's build number to all ManageEngine products.",
+    "sources": "CISA KEV Catalog, CWE Taxonomy, MITRE ATT&CK Framework, ManageEngine official advisory, NIST SP 800 Guidelines, NVD (National Vulnerability Database), filter cveID=CVE-2022-47966",
+    "iterations": {
+      "zero_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2022-47966\",\n  \"cvss_base_score\": 7.5,\n  \"severity_tier\": \"HIGH\",\n  \"cwe_weakness_id\": \"CWE-79\",\n  \"cisa_kev_catalog\": \"YES\",\n  \"affected_product\": \"Apache NiFi\",\n  \"exact_fixed_version\": \"1.18.1\",\n  \"vulnerability_summary\": \"CVE-2022-47966 is a critical vulnerability in Apache NiFi that allows an attacker to perform Cross-Site Scripting (XSS) attacks by injecting malicious scripts into web pages viewed by other users. This vulnerability arises due to insufficient input validation and sanitization of user-supplied data in the NiFi web interface.\",\n  \"technical_mechanism\": \"The vulnerability exists in the way Apache NiFi handles user input in its web interface. Specifically, it fails to properly sanitize user-provided data when rendering content, allowing an attacker to inject malicious scripts. These scripts can then execute in the context of the victim's browser, potentially leading to session hijacking, data theft, or further exploitation of the user's session.\",\n  \"affected_products_versions\": [\n    \"Apache NiFi 1.16.0\",\n    \"Apache NiFi 1.16.1\",\n    \"Apache NiFi 1.16.2\",\n    \"Apache NiFi 1.16.3\",\n    \"Apache NiFi 1.16.4\",\n    \"Apache NiFi 1.16.5\",\n    \"Apache NiFi 1.16.6\",\n    \"Apache NiFi 1.16.7\",\n    \"Apache NiFi 1.16.8\",\n    \"Apache NiFi 1.16.9\",\n    \"Apache NiFi 1.17.0\",\n    \"Apache NiFi 1.17.1\",\n    \"Apache NiFi 1.17.2\",\n    \"Apache NiFi 1.17.3\",\n    \"Apache NiFi 1.17.4\",\n    \"Apache NiFi 1.17.5\",\n    \"Apache NiFi 1.17.6\",\n    \"Apache NiFi 1.17.7\",\n    \"Apache NiFi 1.17.8\",\n    \"Apache NiFi ",
+        "rouge": {
+          "rouge1_f": 0.201717,
+          "rouge2_f": 0.012931,
+          "rougeL_f": 0.081545
+        },
+        "semantic_cosine": 0.739,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims \"Apache NiFi\" as affected product, but reference says \"Zoho ManageEngine XML security\".",
+            "Candidate states CVSS base score 7.5, but reference says CVSS 3.1 9.8.",
+            "Candidate cites \"Apache NiFi 1.18.1\" as fixed version, but reference says \"different products need different updates\"."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Zero-Shot (No RAG)"
+      },
+      "few_shot": {
+        "actual_response": "{\n  \"cve_id\": \"CVE-2022-47966\",\n  \"product\": \"Apache Kafka\",\n  \"cvss_score\": 9.8,\n  \"severity\": \"CRITICAL\",\n  \"cwe_id\": \"CWE-287\",\n  \"cisa_kev_listed\": true,\n  \"fixed_version\": \"3.0.0\",\n  \"summary\": \"A vulnerability in Apache Kafka allows an unauthenticated attacker to perform a denial of service (DoS) attack by sending a specially crafted request to the Kafka server.\"\n}",
+        "rouge": {
+          "rouge1_f": 0.146032,
+          "rouge2_f": 0.01278,
+          "rougeL_f": 0.057143
+        },
+        "semantic_cosine": 0.7164,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims product is Apache Kafka, but reference says Zoho ManageEngine XML security.",
+            "Candidate cites CWE-287, but reference says NVD-CWE-noinfo and CWE-20.",
+            "Candidate states fixed version is 3.0.0, but reference says fixed builds differ by product."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Few-Shot JSON (No RAG)"
+      },
+      "chain_of_thought": {
+        "actual_response": "{\n  \"vulnerability\": \"CVE-2022-47966\",\n  \"vulnerability_type\": \"Integer Overflow or Wraparound\",\n  \"product\": \"Apache Kafka\",\n  \"architectural_component\": \"Kafka Server\",\n  \"attack_vector\": \"Network\",\n  \"privileges_required\": \"None\",\n  \"cvss_score\": 8.1,\n  \"cvss_severity\": \"High\",\n  \"cwe\": \"CWE-190\",\n  \"kev_status\": \"NO\",\n  \"affected_products_versions\": [\n    \"Apache Kafka 3.0.0\",\n    \"Apache Kafka 3.1.0\",\n    \"Apache Kafka 3.2.0\",\n    \"Apache Kafka 3.3.0\",\n    \"Apache Kafka 3.4.0\",\n    \"Apache Kafka 3.5.0\",\n    \"Apache Kafka 3.6.0\",\n    \"Apache Kafka 3.7.0\",\n    \"Apache Kafka 3.8.0\",\n    \"Apache Kafka 3.9.0\",\n    \"Apache Kafka 3.10.0\",\n    \"Apache Kafka 3.11.0\",\n    \"Apache Kafka 3.12.0\",\n    \"Apache Kafka 3.13.0\",\n    \"Apache Kafka 3.14.0\",\n    \"Apache Kafka 3.15.0\",\n    \"Apache Kafka 3.16.0\",\n    \"Apache Kafka 3.17.0\",\n    \"Apache Kafka 3.18.0\",\n    \"Apache Kafka 3.19.0\",\n    \"Apache Kafka 3.20.0\"\n  ],\n  \"prerequisites\": [\n    \"The Kafka server is running with the default configuration.\",\n    \"The attacker has network access to the Kafka server.\"\n  ],\n  \"technical_mechanism\": \"The vulnerability arises from an integer overflow or wraparound in the Kafka server's code when processing certain types of requests. This can lead to memory corruption, which may be exploited to execute arbitrary code or cause a denial of service (DoS) condition.\",\n  \"exploitation_status\": \"Not widely reported in the wild as of the latest analysis.\",\n  \"weakness\": \"Integer overflow or wraparound\",\n  \"remediation\": \"Upgrade to Apache Kafka 3.21.0 or later, which includes a fix for this vulnerability.\",\n  \"security_guidance\": [\n    \"Apply the latest security patches and updates to all software components.\",\n    \"Monitor network traffic for unusual patterns that may indicate exploitation attempts.\",\n    \"Implement network segmentation and access controls to limit exposure to untrusted sources.\",\n    \"Conduct regular security audits and vulnerability assessments.\"\n  ]\n}",
+        "rouge": {
+          "rouge1_f": 0.222222,
+          "rouge2_f": 0.015936,
+          "rougeL_f": 0.09127
+        },
+        "semantic_cosine": 0.7217,
+        "judge": {
+          "factual_correctness": 1,
+          "completeness": 1,
+          "groundedness": 1,
+          "overall": 1,
+          "pass": false,
+          "issues": [
+            "Candidate claims vulnerability type is Integer Overflow or Wraparound, but reference says it involves missing security protections around Apache Santuario XML Security for Java.",
+            "Candidate cites Apache Kafka as the product, but reference says it affects Zoho ManageEngine XML security.",
+            "Candidate lists CVSS score as 8.1, but reference says CVSS 3.1 score is 9.8."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "absent",
+          "cvss_score": "absent",
+          "severity": "absent",
+          "cvss_vector": "absent",
+          "kev_status": "absent",
+          "kev_date_added": "absent"
+        },
+        "technique_name": "Prompting: Chain-of-Thought (No RAG)"
+      },
+      "multi_agent": {
+        "actual_response": "CVE-2022-47966 affects Zoho ManageEngine products with remote code execution risk.\nCVE-2022-47966\nMultiple Zoho ManageEngine on-premise products, such as ServiceDesk Plus through 14003, allow remote code execution due to use of Apache Santuario xmlsec (aka XML Security for Java) 1.4.1, because the xmlsec XSLT features, by design in that version, make the application responsible for certain security protections, and the ManageEngine applications did not provide those protections. This affects Access Manager Plus before 4308, Active Directory 360 before 4310, ADAudit Plus before 7081, ADManager Plus before 7162, ADSelfService Plus before 6211, Analytics Plus before 5150, Application Control Plus before 10.1.2220.18, Asset Explorer before 6983, Browser Security Plus before 11.1.2238.6, Device Control Plus before 10.1.2220.18, Endpoint Central before 10.1.2228.11, Endpoint Central MSP before 10.1.2228.11, Endpoint DLP before 10.1.2137.6, Key Manager Plus before 6401, OS Deployer before 1.1.2243.1, PAM 360 before 5713, Password Manager Pro before 12124, Patch Manager Plus before 10.1.2220.18, Remote Access Plus before 10.1.2228.11, Remote Monitoring and Management (RMM) before 10.1.41. ServiceDesk Plus before 14004, ServiceDesk Plus MSP before 13001, SupportCenter Plus before 11026, and Vulnerability Manager Plus before 10.1.2220.18. Exploitation is only possible if SAML SSO has ever been configured for a product (for some products, exploitation requires that SAML SSO is currently active).\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2023-01-18\nZoho ManageEngine\nknown_exploited\nApply updates per vendor instructions.\nApply updates per vendor instructions. See NVDREF-d4637924b2a8189e#003, NVDREF-979b1db95bfa2adc#000, NVDREF-9707d08bc0a24231#002, NVDREF-088bdce497ef7811#000, NVDREF-088bdce497ef7811#001, NVDREF-088bdce497ef7811#002, NVDREF-088bdce497ef7811#003.\ncritical\nCVSS 9.8 (CRITICAL) with known exploitation.\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.535252,
+          "rouge2_f": 0.314574,
+          "rougeL_f": 0.238849
+        },
+        "semantic_cosine": 0.8828,
+        "judge": {
+          "factual_correctness": 5,
+          "completeness": 5,
+          "groundedness": 5,
+          "overall": 5,
+          "pass": true,
+          "issues": []
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Multi-Agent RAG (CyberShield AI: Lead Analyst + Critic)"
+      },
+      "single_agent": {
+        "actual_response": "CVE-2022-47966 affects Zoho ManageEngine products with remote code execution risk.\nCVE-2022-47966\nMultiple Zoho ManageEngine on-premise products, such as ServiceDesk Plus through 14003, allow remote code execution due to use of Apache Santuario xmlsec (aka XML Security for Java) 1.4.1, because the xmlsec XSLT features, by design in that version, make the application responsible for certain security protections, and the ManageEngine applications did not provide those protections. This affects Access Manager Plus before 4308, Active Directory 360 before 4310, ADAudit Plus before 7081, ADManager Plus before 7162, ADSelfService Plus before 6211, Analytics Plus before 5150, Application Control Plus before 10.1.2220.18, Asset Explorer before 6983, Browser Security Plus before 11.1.2238.6, Device Control Plus before 10.1.2220.18, Endpoint Central before 10.1.2228.11, Endpoint Central MSP before 10.1.2228.11, Endpoint DLP before 10.1.2137.6, Key Manager Plus before 6401, OS Deployer before 1.1.2243.1, PAM 360 before 5713, Password Manager Pro before 12124, Patch Manager Plus before 10.1.2220.18, Remote Access Plus before 10.1.2228.11, Remote Monitoring and Management (RMM) before 10.1.41. ServiceDesk Plus before 14004, ServiceDesk Plus MSP before 13001, SupportCenter Plus before 11026, and Vulnerability Manager Plus before 10.1.2220.18. Exploitation is only possible if SAML SSO has ever been configured for a product (for some products, exploitation requires that SAML SSO is currently active).\ncvss version: 3.1\ncvss score: 9.8\nseverity: CRITICAL\ncvss vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\npublished: 2023-01-18\nZoho ManageEngine\nknown_exploited\nApply updates per vendor instructions.\nApply updates per vendor instructions. See NVDREF-d4637924b2a8189e#003, NVDREF-979b1db95bfa2adc#000, NVDREF-9707d08bc0a24231#002, NVDREF-088bdce497ef7811#000, NVDREF-088bdce497ef7811#001, NVDREF-088bdce497ef7811#002, NVDREF-088bdce497ef7811#003.\ncritical\nCVSS 9.8 (CRITICAL) with known exploitation.\nCVSS 3.1 base score 9.8 (CRITICAL).\nCISA KEV status: known_exploited.\nNo verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.\nIncluded 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.\nRetrieved passages are ranked context, not independently verified facts.",
+        "rouge": {
+          "rouge1_f": 0.4924,
+          "rouge2_f": 0.2768,
+          "rougeL_f": 0.215
+        },
+        "semantic_cosine": 0.8475,
+        "judge": {
+          "factual_correctness": 4,
+          "completeness": 4,
+          "groundedness": 4,
+          "overall": 4,
+          "pass": true,
+          "issues": [
+            "Minor detail: missing explicit distinction against related CVE or prerequisite configuration edge-case."
+          ]
+        },
+        "fields": {
+          "cve_id": "match",
+          "cvss_version": "match",
+          "cvss_score": "match",
+          "severity": "match",
+          "cvss_vector": "match",
+          "kev_status": "match",
+          "kev_date_added": "match"
+        },
+        "technique_name": "Single-Agent RAG (Lead Analyst Only)"
+      }
+    }
+  }
+]

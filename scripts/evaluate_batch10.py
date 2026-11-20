@@ -453,6 +453,9 @@ def main() -> int:
     ):
         row["claim_cosine"] = round(value, 6)
 
+    for claim_row in claim_rows:
+        claim_row.setdefault("claim_judge", None)
+
     claim_judged = 0
     if client is not None and not args.skip_claim_judge:
         answer_of_eval = {row["eval_id"]: loaded[row["eval_id"]][1] for row in rows}

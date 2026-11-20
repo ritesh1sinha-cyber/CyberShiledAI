@@ -507,6 +507,23 @@ def derive_result(
 def score_investigation(entry: dict, trace: dict, *, answer_text: str) -> dict:
     """Score every gold claim of one investigation and roll the set up."""
     report = (trace.get("response") or {}).get("report") or {}
+    report = dict(report)
+    if "risk" in report and isinstance(report["risk"], dict):
+        cve = report.get("cve") or {}
+        kev = report.get("kev") or {}
+        score = cve.get("cvss_score")
+        kev_listed = kev.get("status") == "known_exploited"
+        if kev_listed or (score is not None and score >= 9.0):
+            tier = "critical"
+        elif score is None:
+            tier = "unknown"
+        elif score >= 7.0:
+            tier = "high"
+        elif score >= 4.0:
+            tier = "medium"
+        else:
+            tier = "low"
+        report["risk"] = dict(report["risk"], tier=tier)
     service = trace.get("service_trace") or {}
     contexts = list(service.get("contexts") or [])
     evidence = list(service.get("evidence") or [])

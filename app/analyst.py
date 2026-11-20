@@ -60,13 +60,13 @@ Rules:
 - NVD and CISA KEV records are verified facts. Retrieved passages are supporting context, not independently verified facts; do not describe them as verified.
 - Never invent or change CVSS values, products, exploitation status, ATT&CK technique IDs, mappings, dates, or remediation claims.
 - If KEV status is unknown, the kev section must be null. If there is no verified ATT&CK mapping, attack_mapping must be null; deterministic report assembly carries the explicit limitation.
-- In summary, give only the main conclusion; do not include affected-version ranges or copy the NVD description.
+- In summary, explain clearly what the vulnerability is, how an attacker can trigger it or what input is mishandled, the direct impact (such as crash or execution), and any important distinctions or prerequisites (what specific feature is affected and what is NOT affected). Include the exact CVE identifier in summary.
 - In cve, include only the supplied CVSS version, score, severity and vector. Exclude the description, affected-version ranges and dates.
 - In remediation, if kev_required_action_evidence_ids is non-empty, include the supplied KEV required_action and cite every ID in kev_required_action_evidence_ids in addition to any retrieved guidance used.
 - In risk, explain only supplied CVSS and known-exploited KEV drivers. If neither exists, use null with no evidence IDs. Do not assign or name a risk tier; deterministic code will do that later.
 - In limitations, report only material uncertainty that is not already in the supplied limitations. Deterministic report assembly carries the supplied limitations.
-- Keep summary to one clause of at most 12 words. Keep CVE, product, KEV and risk text to at most 8 words each; remediation may use at most 24 words. Use null for sections outside the requested topic or already represented by deterministic report fields.
-- Keep the complete eight-section JSON under 220 output tokens. Include the exact CVE identifier in summary. Omit secondary details rather than running out of output space.
+- Keep summary clear and informative (30-60 words). Keep CVE, product, KEV and risk text concise (10-25 words each); remediation may use up to 50 words with actionable steps. Use null for sections outside the requested topic or already represented by deterministic report fields.
+- Keep the complete eight-section JSON well-structured under 512 output tokens.
 - Use null for unsupported sections and for sections outside the requested topic. Limitations may be null when supplied limitations are preserved elsewhere.
 Return JSON only, with no Markdown or additional keys."""
 

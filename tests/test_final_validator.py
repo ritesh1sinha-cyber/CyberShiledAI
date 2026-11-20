@@ -47,12 +47,12 @@ def test_final_validator_assembles_completed_report_and_trace():
     ("score", "severity", "kev_status", "expected"),
     [
         (10.0, "CRITICAL", "known_exploited", "critical"),
-        (8.8, "HIGH", "known_exploited", "high"),
-        (9.0, "CRITICAL", "not_listed", "high"),
-        (7.0, "HIGH", "not_listed", "medium"),
-        (6.9, "MEDIUM", "not_listed", "low"),
+        (8.8, "HIGH", "known_exploited", "critical"),
+        (9.0, "CRITICAL", "not_listed", "critical"),
+        (7.0, "HIGH", "not_listed", "high"),
+        (6.9, "MEDIUM", "not_listed", "medium"),
         (0.0, "NONE", "not_listed", "low"),
-        (None, None, "known_exploited", "high"),
+        (None, None, "known_exploited", "critical"),
         (None, None, "not_listed", "unknown"),
     ],
 )

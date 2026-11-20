@@ -51,6 +51,7 @@ class InvestigateRequest(Strict):
     include_attack: bool = True
     top_k: int = Field(default=8, ge=1, le=20)
     conversation_context: list[ConversationTurn] = Field(default_factory=list, max_length=8)
+    web_fallback_approved: bool = False
 
     @field_validator("query")
     @classmethod
@@ -71,6 +72,7 @@ class CveFacts(Strict):
     cvss_source: Literal["nvd", "cna"] | None = None
     published: date | None = None
     last_modified: datetime | None = None
+    cwe: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def cvss_fields_consistent(self) -> CveFacts:

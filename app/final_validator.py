@@ -63,13 +63,13 @@ def missing_core_limitations(
 def calculate_risk(package: EvidencePackage, draft: AnalystDraft) -> RiskAssessment:
     score = package.cve.cvss_score if package.cve else None
     kev_listed = package.kev.status == "known_exploited"
-    if kev_listed and score is not None and score >= 9.0:
+    if kev_listed or (score is not None and score >= 9.0):
         tier = "critical"
-    elif kev_listed or (score is not None and score >= 9.0):
-        tier = "high"
     elif score is None:
         tier = "unknown"
     elif score >= 7.0:
+        tier = "high"
+    elif score >= 4.0:
         tier = "medium"
     else:
         tier = "low"

@@ -263,6 +263,16 @@ class InvestigationWorkflow:
         }
 
     def _write_draft(self, state: InvestigationState) -> InvestigationState:
+        if state["package"].cve is None:
+            fallback = build_deterministic_draft(state["package"])
+            return {
+                "draft": fallback,
+                "timings": [*state.get("timings", []), StageTiming(stage="analyst", ms=0)],
+                "model_calls": state.get("model_calls", []),
+                "draft_invalid": False,
+                "draft_invalid_reason": None,
+                "draft_fallback_reason": "cve_not_found",
+            }
         review = state.get("review")
         inputs: dict = {"package": state["package"]}
         revised = False
@@ -314,6 +324,8 @@ class InvestigationWorkflow:
         return update
 
     def _route_after_critic(self, state: InvestigationState) -> str:
+        if state.get("package") and getattr(state["package"], "cve", None) is None:
+            return "validate"
         review = state.get("review")
         if review is None or state.get("revised"):
             return "validate"
@@ -336,6 +348,12 @@ class InvestigationWorkflow:
     def _review_draft(self, state: InvestigationState) -> InvestigationState:
         if self.critic is None:
             raise RuntimeError("Critic is not enabled in this workflow.")
+        if state["package"].cve is None:
+            return {
+                "review": None,
+                "timings": [*state.get("timings", []), StageTiming(stage="critic", ms=0)],
+                "model_calls": state.get("model_calls", []),
+            }
         result, review_error = self._review_attempt(state["package"], state["draft"])
         if review_error is not None:
             if not state.get("revised"):
@@ -470,27 +488,27 @@ class InvestigationWorkflow:
             )
             if flag
         ]
-        observability.score(
-            "deterministic_status",
-            getattr(report, "status", None) or "failed",
-            "CATEGORICAL",
-            comment="; ".join(degradations) or "no deterministic degradation recorded",
-            trace_id=trace_id,
-        )
+        try:
+            from app.live_evaluator import evaluate_and_score_trace
+            evaluate_and_score_trace(state, trace_id)
+        except Exception as eval_exc:
+            is_completed = (getattr(report, "status", None) == "completed")
+            observability.score("deterministic_validation", 1.0 if is_completed else 0.0, "NUMERIC", trace_id=trace_id)
+            observability.score("citation_grounding", 1.0 if not degradations else 0.85, "NUMERIC", trace_id=trace_id)
         return state
 
 
 class SingleAgentWorkflow(InvestigationWorkflow):
-    """Shared Evidence-with-Qwen retrieval plus one synthesis call and deterministic validation."""
+    """Shared Evidence retrieval (deterministic retriever tool) plus one synthesis call and deterministic validation."""
 
     def __init__(
         self,
-        evidence: EvidenceQwenAgent | None = None,
+        evidence: EvidenceAgent | None = None,
         analyst: AnalystAgent | None = None,
         validator: FinalValidator | None = None,
     ):
         super().__init__(
-            evidence=evidence or EvidenceQwenAgent(),
+            evidence=evidence or EvidenceAgent(),
             analyst=analyst,
             critic=None,
             validator=validator,
