@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -34,6 +35,16 @@ class Settings(BaseSettings):
     langfuse_host: str = "http://127.0.0.1:3100"
     langfuse_public_key: str = ""
     langfuse_secret_key: str = ""
+
+    @field_validator("qwen_ca_cert", "embeddings_ca_cert", "trace_file", mode="after")
+    @classmethod
+    def resolve_paths(cls, v: str) -> str:
+        if v:
+            p = Path(v)
+            if not p.is_absolute():
+                return str(ROOT / p)
+        return v
+
 
 
 settings = Settings()

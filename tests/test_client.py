@@ -42,6 +42,7 @@ def test_client_posts_strict_request_and_parses_investigation_response():
             "include_attack": False,
             "top_k": 3,
             "conversation_context": [],
+            "web_fallback_approved": False,
         }
         return httpx.Response(200, json=response_payload())
 

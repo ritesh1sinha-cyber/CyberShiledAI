@@ -26,10 +26,10 @@ class QwenResponse:
 
 
 class QwenClient:
-    def __init__(self, timeout: float = 180.0):
+    def __init__(self, timeout: float = 30.0):
         self.timeout = timeout
 
-    def complete(self, system: str, user: str, max_tokens: int = 512) -> QwenResponse:
+    def complete(self, system: str, user: str, max_tokens: int = 512, json_mode: bool = True) -> QwenResponse:
         base_url = settings.qwen_base_url.rstrip("/")
         if "example.invalid" in base_url or not settings.qwen_api_key:
             raise QwenError("Qwen endpoint or API key is not configured.")
@@ -56,8 +56,9 @@ class QwenClient:
             "temperature": 0,
             "max_tokens": effective_max_tokens,
             "stream": False,
-            "response_format": {"type": "json_object"},
         }
+        if json_mode:
+            payload["response_format"] = {"type": "json_object"}
         progress.emit(
             "model_start",
             model=settings.qwen_model,
@@ -73,10 +74,11 @@ class QwenClient:
                     headers={"Authorization": f"Bearer {settings.qwen_api_key}"},
                 )
         except httpx.HTTPError as exc:
+            latency_ms = max(0, round((time.perf_counter() - started) * 1000))
             progress.emit(
                 "model_end",
                 ok=False,
-                ms=max(0, round((time.perf_counter() - started) * 1000)),
+                ms=latency_ms,
                 reason=f"transport failure: {type(exc).__name__}",
             )
             observability.record_generation(
@@ -89,7 +91,7 @@ class QwenClient:
                 level="ERROR",
                 status_message=f"transport failure: {type(exc).__name__}",
             )
-            raise QwenError(f"Qwen request failed: {type(exc).__name__}") from exc
+            raise QwenError(f"Qwen request failed ({type(exc).__name__}): {exc}") from exc
         latency_ms = max(0, round((time.perf_counter() - started) * 1000))
         if response.status_code != 200:
             detail = " ".join(response.text.split())[:300]
@@ -106,6 +108,8 @@ class QwenClient:
                 level="ERROR",
                 status_message=f"HTTP {response.status_code}",
             )
+            if response.status_code == 429:
+                raise QwenError(f"HTTP 429: Rate Limit / Concurrent Request Limit Exceeded ({detail})")
             raise QwenError(f"Qwen returned HTTP {response.status_code}: {detail}")
         try:
             body = response.json()

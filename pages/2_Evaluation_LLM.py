@@ -50,6 +50,13 @@ st.markdown(
         gap: 10px;
         margin-bottom: 6px;
       }
+      .page-hero-title span:not(.badge-pill) {
+        color: #ffffff !important;
+        font-weight: 800;
+      }
+      .page-hero-sub, .page-hero-sub * {
+        color: #cbd5e1 !important;
+      }
       .page-hero-sub {
         font-size: 13.5px;
         color: #cbd5e1 !important;
