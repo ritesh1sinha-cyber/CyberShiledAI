@@ -22,7 +22,7 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
-ROOT = Path(r"c:\Users\IN009287\Desktop\KGP")
+ROOT = Path(__file__).resolve().parent.parent
 SOURCE_WORKBOOK = ROOT / "CyberShield_Batch10_Consolidated_RAG_Agent_Evaluation_Traceability.xlsx"
 SOURCE_SHEET = "Batch 10 - RAG Agent Eval"
 SCORES_JSON = ROOT / "data" / "evaluation" / "batch10" / "scores.json"

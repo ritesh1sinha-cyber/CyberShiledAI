@@ -175,6 +175,17 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Dynamic metrics computed from data
+multi_sem = sum(d["iterations"]["multi_agent"]["semantic_cosine"] for d in data) / len(data)
+multi_judge = sum(d["iterations"]["multi_agent"]["judge"]["overall"] for d in data) / len(data)
+multi_judge_pass = sum(1 for d in data if d["iterations"]["multi_agent"]["judge"]["pass"])
+multi_det_pass = sum(
+    1
+    for d in data
+    if all(v in ("match", "not-in-reference") for v in d["iterations"]["multi_agent"].get("fields", {}).values())
+    and len(d["iterations"]["multi_agent"].get("fields", {})) > 0
+)
+
 # 4 Key Progression Metric Cards
 c1, c2, c3, c4 = st.columns(4)
 c1.markdown(
@@ -182,15 +193,15 @@ c1.markdown(
     unsafe_allow_html=True,
 )
 c2.markdown(
-    """<div class="stat-card"><div class="stat-val" style="color:#2563eb;">10 / 10</div><div class="stat-label">Multi-Agent Pass Rate</div></div>""",
+    f"""<div class="stat-card"><div class="stat-val" style="color:#2563eb;">{multi_det_pass} / 10</div><div class="stat-label">Multi-Agent Deterministic Pass</div></div>""",
     unsafe_allow_html=True,
 )
 c3.markdown(
-    """<div class="stat-card"><div class="stat-val" style="color:#16a34a;">0.928</div><div class="stat-label">Semantic Cosine (Multi-Agent)</div></div>""",
+    f"""<div class="stat-card"><div class="stat-val" style="color:#16a34a;">{multi_sem:.3f}</div><div class="stat-label">Semantic Cosine (Multi-Agent)</div></div>""",
     unsafe_allow_html=True,
 )
 c4.markdown(
-    """<div class="stat-card"><div class="stat-val" style="color:#9333ea;">5.0 / 5.0</div><div class="stat-label">Average LLM-Judge Score</div></div>""",
+    f"""<div class="stat-card"><div class="stat-val" style="color:#9333ea;">{multi_judge:.1f} / 5.0</div><div class="stat-label">Average LLM-Judge ({multi_judge_pass}/10 Pass)</div></div>""",
     unsafe_allow_html=True,
 )
 
@@ -218,7 +229,13 @@ for t_k, t_lbl, verdict in tech_defs:
     rl = sum(d["iterations"][t_k]["rouge"]["rougeL_f"] for d in data) / len(data)
     sem = sum(d["iterations"][t_k]["semantic_cosine"] for d in data) / len(data)
     judge = sum(d["iterations"][t_k]["judge"]["overall"] for d in data) / len(data)
-    pass_cnt = sum(1 for d in data if d["iterations"][t_k]["judge"]["pass"])
+    judge_pass_cnt = sum(1 for d in data if d["iterations"][t_k]["judge"]["pass"])
+    det_pass_cnt = sum(
+        1
+        for d in data
+        if all(v in ("match", "not-in-reference") for v in d["iterations"][t_k].get("fields", {}).values())
+        and len(d["iterations"][t_k].get("fields", {})) > 0
+    )
     
     scorecard_rows.append({
         "Iteration / Technique": t_lbl,
@@ -227,10 +244,10 @@ for t_k, t_lbl, verdict in tech_defs:
         "ROUGE-L": f"{rl:.3f}",
         "Semantic Cosine (BGE)": f"{sem:.3f}",
         "LLM Judge (1-5)": f"{judge:.1f} / 5.0",
-        "Deterministic Field Pass": f"{pass_cnt * 10}% ({pass_cnt}/10)",
+        "Deterministic Field Pass": f"{det_pass_cnt * 10}% ({det_pass_cnt}/10)",
+        "Judge Strict Pass": f"{judge_pass_cnt * 10}% ({judge_pass_cnt}/10)",
         "Final Verdict": verdict,
     })
-
 st.dataframe(scorecard_rows, hide_index=True, use_container_width=True)
 
 st.divider()
