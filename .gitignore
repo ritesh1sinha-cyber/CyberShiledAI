@@ -37,4 +37,6 @@ docs/*
 *.png
 *.docx
 *.pdf
+*.7z
+*.zip
 CyberShield_Golden_Dataset_100.xlsx
