@@ -4,21 +4,27 @@
  "gold_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
  "model": "Qwen/Qwen3-8B",
  "architecture": "multi",
- "recorded_at": "2026-11-17T18:13:52+00:00",
+ "recorded_at": "2026-11-21T17:19:11+00:00",
  "request": {
   "query": "Investigate CVE-2024-1709: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
   "include_attack": true,
   "top_k": 8
  },
  "http_status": 200,
- "elapsed_ms": 12619,
+ "elapsed_ms": 41070,
  "response": {
   "report": {
-   "request_id": "CS-20261117181340268133",
+   "request_id": "CS-20261121171830528719",
    "status": "completed",
-   "summary": "CVE-2024-1709 is known exploited",
+   "summary": "CVE-2024-1709 is a critical authentication bypass vulnerability in ConnectWise ScreenConnect 23.9.7 and prior, allowing attackers to access confidential data or systems. It is listed in CISA KEV as known exploited, with a CVSS score of 10.0. Remediation involves updating to version 23.9.8 or applying vendor mitigations. Huntress researchers confirmed the vulnerability and provided detection guidance.",
    "summary_evidence_ids": [
-    "EV-0003"
+    "EV-0001",
+    "EV-0002",
+    "EV-0003",
+    "EV-0005",
+    "EV-0006",
+    "EV-0007",
+    "EV-0008"
    ],
    "cve": {
     "cve_id": "CVE-2024-1709",
@@ -29,7 +35,11 @@
     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
     "cvss_source": "nvd",
     "published": "2024-02-21",
-    "last_modified": "2026-06-17T07:04:50.557000Z"
+    "last_modified": "2026-06-17T07:04:50.557000Z",
+    "cwe": [
+     "CWE-288",
+     "NVD-CWE-Other"
+    ]
    },
    "affected_products": [
     "ConnectWise ScreenConnect"
@@ -37,7 +47,7 @@
    "kev": {
     "status": "known_exploited",
     "catalog_version": "2026.11.04",
-    "checked_at": "2026-11-17T18:13:41.728408Z",
+    "checked_at": "2026-11-21T17:18:32.864440Z",
     "date_added": "2024-02-22",
     "due_date": "2024-02-29",
     "required_action": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
@@ -46,10 +56,14 @@
    "attack_mapping": [],
    "remediation": [
     {
-     "text": "Apply vendor mitigations or discontinue use; update to 23.9.8",
+     "text": "Update to ScreenConnect 23.9.8 immediately. Cloud users have been patched; on-premise users must apply the update. Huntress provided temporary hotfixes and detection guidance. Apply vendor mitigations or discontinue use if patches are unavailable.",
      "evidence_ids": [
+      "EV-0005",
+      "EV-0006",
+      "EV-0007",
+      "EV-0008",
       "EV-0003",
-      "EV-0005"
+      "EV-0012"
      ]
     }
    ],
@@ -59,7 +73,7 @@
      "CVSS 3.1 base score 10.0 (CRITICAL).",
      "CISA KEV status: known_exploited."
     ],
-    "rationale": "CVSS 10.0 (CRITICAL) and known exploited KEV",
+    "rationale": "CVSS score 10.0 (CRITICAL) with known exploitation. Vulnerability allows remote code execution and access to confidential data or systems.",
     "evidence_ids": [
      "EV-0002",
      "EV-0003"
@@ -68,7 +82,8 @@
    "limitations": [
     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
     "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
-    "Retrieved passages are ranked context, not independently verified facts."
+    "Retrieved passages are ranked context, not independently verified facts.",
+    "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts."
    ],
    "citations": [
     {
@@ -124,37 +139,37 @@
     {
      "evidence_id": "EV-0011",
      "source": "NVD_REF",
-     "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass"
+     "source_url": "https://www.horizon3.ai/attack-research/red-team/connectwise-screenconnect-auth-bypass-deep-dive/"
     },
     {
      "evidence_id": "EV-0012",
      "source": "NVD_REF",
-     "source_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23.9.8"
+     "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass"
     },
     {
      "evidence_id": "EV-0013",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
-    },
-    {
-     "evidence_id": "EV-0014",
      "source": "CWE",
      "source_url": "https://cwe.mitre.org/data/definitions/288.html"
     },
     {
-     "evidence_id": "EV-0015",
+     "evidence_id": "EV-0014",
      "source": "OWASP",
-     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html"
+    },
+    {
+     "evidence_id": "EV-0015",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
     },
     {
      "evidence_id": "EV-0016",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/304.html"
     },
     {
      "evidence_id": "EV-0017",
-     "source": "OWASP",
-     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/52.html"
     },
     {
      "evidence_id": "EV-0018",
@@ -168,56 +183,90 @@
     },
     {
      "evidence_id": "EV-0020",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+     "source": "OWASP",
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html"
     }
    ],
-   "generated_at": "2026-11-17T18:13:52.271919Z"
+   "generated_at": "2026-11-21T17:19:11.043684Z"
   },
-  "trace_id": "CS-20261117181340268133",
+  "trace_id": "CS-20261121171830528719",
   "timings": [
    {
     "stage": "evidence_qwen",
-    "ms": 3219
+    "ms": 4161
    },
    {
     "stage": "evidence",
-    "ms": 1761
+    "ms": 1822
    },
    {
     "stage": "analyst",
-    "ms": 6848
+    "ms": 15911
    },
    {
     "stage": "critic",
-    "ms": 1924
+    "ms": 2579
+   },
+   {
+    "stage": "analyst",
+    "ms": 15551
+   },
+   {
+    "stage": "critic",
+    "ms": 2299
    },
    {
     "stage": "final_validator",
-    "ms": 7
+    "ms": 1
    },
    {
     "stage": "total",
-    "ms": 12605
+    "ms": 41061
    }
-  ]
+  ],
+  "critic_review": {
+   "cve_id": "CVE-2024-1709",
+   "support": "pass",
+   "completeness": "pass",
+   "citations": "pass",
+   "uncertainty": "pass",
+   "checked_sections": [
+    "summary",
+    "cve",
+    "affected_products",
+    "kev",
+    "attack_mapping",
+    "remediation",
+    "risk",
+    "limitations"
+   ],
+   "issues": []
+  },
+  "revised": true
  },
  "service_trace": {
-  "trace_id": "CS-20261117181340268133",
-  "recorded_at": "2026-11-17T18:13:52.873346+00:00",
+  "trace_id": "CS-20261121171830528719",
+  "recorded_at": "2026-11-21T17:19:11.589967+00:00",
   "request": {
    "query": "Investigate CVE-2024-1709: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
    "include_attack": true,
    "top_k": 8,
-   "conversation_context": []
+   "conversation_context": [],
+   "web_fallback_approved": false
   },
   "response": {
    "report": {
-    "request_id": "CS-20261117181340268133",
+    "request_id": "CS-20261121171830528719",
     "status": "completed",
-    "summary": "CVE-2024-1709 is known exploited",
+    "summary": "CVE-2024-1709 is a critical authentication bypass vulnerability in ConnectWise ScreenConnect 23.9.7 and prior, allowing attackers to access confidential data or systems. It is listed in CISA KEV as known exploited, with a CVSS score of 10.0. Remediation involves updating to version 23.9.8 or applying vendor mitigations. Huntress researchers confirmed the vulnerability and provided detection guidance.",
     "summary_evidence_ids": [
-     "EV-0003"
+     "EV-0001",
+     "EV-0002",
+     "EV-0003",
+     "EV-0005",
+     "EV-0006",
+     "EV-0007",
+     "EV-0008"
     ],
     "cve": {
      "cve_id": "CVE-2024-1709",
@@ -228,7 +277,11 @@
      "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
      "cvss_source": "nvd",
      "published": "2024-02-21",
-     "last_modified": "2026-06-17T07:04:50.557000Z"
+     "last_modified": "2026-06-17T07:04:50.557000Z",
+     "cwe": [
+      "CWE-288",
+      "NVD-CWE-Other"
+     ]
     },
     "affected_products": [
      "ConnectWise ScreenConnect"
@@ -236,7 +289,7 @@
     "kev": {
      "status": "known_exploited",
      "catalog_version": "2026.11.04",
-     "checked_at": "2026-11-17T18:13:41.728408Z",
+     "checked_at": "2026-11-21T17:18:32.864440Z",
      "date_added": "2024-02-22",
      "due_date": "2024-02-29",
      "required_action": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
@@ -245,10 +298,14 @@
     "attack_mapping": [],
     "remediation": [
      {
-      "text": "Apply vendor mitigations or discontinue use; update to 23.9.8",
+      "text": "Update to ScreenConnect 23.9.8 immediately. Cloud users have been patched; on-premise users must apply the update. Huntress provided temporary hotfixes and detection guidance. Apply vendor mitigations or discontinue use if patches are unavailable.",
       "evidence_ids": [
+       "EV-0005",
+       "EV-0006",
+       "EV-0007",
+       "EV-0008",
        "EV-0003",
-       "EV-0005"
+       "EV-0012"
       ]
      }
     ],
@@ -258,7 +315,7 @@
       "CVSS 3.1 base score 10.0 (CRITICAL).",
       "CISA KEV status: known_exploited."
      ],
-     "rationale": "CVSS 10.0 (CRITICAL) and known exploited KEV",
+     "rationale": "CVSS score 10.0 (CRITICAL) with known exploitation. Vulnerability allows remote code execution and access to confidential data or systems.",
      "evidence_ids": [
       "EV-0002",
       "EV-0003"
@@ -267,7 +324,8 @@
     "limitations": [
      "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
      "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
-     "Retrieved passages are ranked context, not independently verified facts."
+     "Retrieved passages are ranked context, not independently verified facts.",
+     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts."
     ],
     "citations": [
      {
@@ -323,37 +381,37 @@
      {
       "evidence_id": "EV-0011",
       "source": "NVD_REF",
-      "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass"
+      "source_url": "https://www.horizon3.ai/attack-research/red-team/connectwise-screenconnect-auth-bypass-deep-dive/"
      },
      {
       "evidence_id": "EV-0012",
       "source": "NVD_REF",
-      "source_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23.9.8"
+      "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass"
      },
      {
       "evidence_id": "EV-0013",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
-     },
-     {
-      "evidence_id": "EV-0014",
       "source": "CWE",
       "source_url": "https://cwe.mitre.org/data/definitions/288.html"
      },
      {
-      "evidence_id": "EV-0015",
+      "evidence_id": "EV-0014",
       "source": "OWASP",
-      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html"
+     },
+     {
+      "evidence_id": "EV-0015",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
      },
      {
       "evidence_id": "EV-0016",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/304.html"
      },
      {
       "evidence_id": "EV-0017",
-      "source": "OWASP",
-      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/52.html"
      },
      {
       "evidence_id": "EV-0018",
@@ -367,56 +425,90 @@
      },
      {
       "evidence_id": "EV-0020",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+      "source": "OWASP",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html"
      }
     ],
-    "generated_at": "2026-11-17T18:13:52.271919Z"
+    "generated_at": "2026-11-21T17:19:11.043684Z"
    },
-   "trace_id": "CS-20261117181340268133",
+   "trace_id": "CS-20261121171830528719",
    "timings": [
     {
      "stage": "evidence_qwen",
-     "ms": 3219
+     "ms": 4161
     },
     {
      "stage": "evidence",
-     "ms": 1761
+     "ms": 1822
     },
     {
      "stage": "analyst",
-     "ms": 6848
+     "ms": 15911
     },
     {
      "stage": "critic",
-     "ms": 1924
+     "ms": 2579
+    },
+    {
+     "stage": "analyst",
+     "ms": 15551
+    },
+    {
+     "stage": "critic",
+     "ms": 2299
     },
     {
      "stage": "final_validator",
-     "ms": 7
+     "ms": 1
     },
     {
      "stage": "total",
-     "ms": 12605
+     "ms": 41061
     }
-   ]
+   ],
+   "critic_review": {
+    "cve_id": "CVE-2024-1709",
+    "support": "pass",
+    "completeness": "pass",
+    "citations": "pass",
+    "uncertainty": "pass",
+    "checked_sections": [
+     "summary",
+     "cve",
+     "affected_products",
+     "kev",
+     "attack_mapping",
+     "remediation",
+     "risk",
+     "limitations"
+    ],
+    "issues": []
+   },
+   "revised": true
   },
   "evidence_interpretation": {
    "cve_id": "CVE-2024-1709",
-   "intent": "general",
-   "query": "CVE-2024-1709 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+   "intent": "facts",
+   "query": "CVE-2024-1709 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
   },
   "retrieval_meta": {
    "queries": [
-    "CVE-2024-1709 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance CWE-288 Authentication Bypass Using an Alternate Path or Channel remediation mitigation security controls"
+    "CVE-2024-1709 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance CWE-288 Authentication Bypass Using an Alternate Path or Channel remediation mitigation security controls"
    ],
    "review": {
     "sufficient": true,
-    "refined_query": "CVE-2024-1709 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+    "refined_query": "CVE-2024-1709 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
    },
    "retry_used": false
   },
-  "revised": false,
+  "runtime": {
+   "embeddings_model": "bge-small-en-v1.5",
+   "embeddings_dim": 384,
+   "dense_backend": "faiss.IndexFlatIP",
+   "chunks_sha256": "72a0ce2e829fc64faee7092e1b06b0b7320363f15fa07d5d7367e36acdbb5919",
+   "index_generated_at": "2026-11-18T08:35:05+00:00"
+  },
+  "revised": true,
   "first_draft_invalid": false,
   "first_draft_invalid_reason": null,
   "draft_invalid_reason": null,
@@ -432,7 +524,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2024-1709",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-1709",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": "2026-06-17T07:04:50.557000Z",
     "validation_status": "verified"
    },
@@ -443,7 +535,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2024-1709",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-1709",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": "2026-06-17T07:04:50.557000Z",
     "validation_status": "verified"
    },
@@ -454,7 +546,7 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2024-1709",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": "2026-11-04T20:00:05.774000Z",
     "validation_status": "verified"
    },
@@ -465,7 +557,7 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2024-1709",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "verified"
    },
@@ -476,7 +568,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-4d6798cd87d006f0#004",
     "source_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23.9.8",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -487,7 +579,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-b73da2c3fda7deaf#004",
     "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -498,7 +590,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-f49be5772b45307e#004",
     "source_url": "https://www.huntress.com/blog/vulnerability-reproduced-immediately-patch-screenconnect-23-9-8",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -509,7 +601,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-d664c50c4acf8778#004",
     "source_url": "https://www.huntress.com/blog/detection-guidance-for-connectwise-cwe-288-2",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -520,7 +612,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-9c7ebbd70480988a#001",
     "source_url": "https://www.bleepingcomputer.com/news/security/connectwise-urges-screenconnect-admins-to-patch-critical-rce-flaw/",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -531,84 +623,84 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-4d6798cd87d006f0#001",
     "source_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23.9.8",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0011",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-b73da2c3fda7deaf#013 from ConnectWise ScreenConnect CVE-2024-1709 & CVE-2024-1708 | Huntress.",
+    "claim": "Retrieved passage NVDREF-6bca62f161bb4633#002 from ConnectWise ScreenConnect: Authentication Bypass Deep Dive | Horizon3.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-b73da2c3fda7deaf#013",
-    "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "source_record_id": "NVDREF-6bca62f161bb4633#002",
+    "source_url": "https://www.horizon3.ai/attack-research/red-team/connectwise-screenconnect-auth-bypass-deep-dive/",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0012",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-4d6798cd87d006f0#015 from ConnectWise ScreenConnect 23.9.8 security fix | ConnectWise.",
+    "claim": "Retrieved passage NVDREF-b73da2c3fda7deaf#013 from ConnectWise ScreenConnect CVE-2024-1709 & CVE-2024-1708 | Huntress.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-4d6798cd87d006f0#015",
-    "source_url": "https://www.connectwise.com/company/trust/security-bulletins/connectwise-screenconnect-23.9.8",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "source_record_id": "NVDREF-b73da2c3fda7deaf#013",
+    "source_url": "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0013",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-30r1#139",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "claim": "Retrieved passage CWE-288#000 from CWE-288 Authentication Bypass Using an Alternate Path or Channel.",
+    "source": "CWE",
+    "source_record_id": "CWE-288#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/288.html",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0014",
     "claim_type": "remediation",
-    "claim": "Retrieved passage CWE-288#000 from CWE-288 Authentication Bypass Using an Alternate Path or Channel.",
-    "source": "CWE",
-    "source_record_id": "CWE-288#000",
-    "source_url": "https://cwe.mitre.org/data/definitions/288.html",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "claim": "Retrieved passage OWASP-Vulnerable_Dependency_Management_Cheat_Sheet#006 from Vulnerable Dependency Management Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Vulnerable_Dependency_Management_Cheat_Sheet#006",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0015",
     "claim_type": "remediation",
-    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
-    "source": "OWASP",
-    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
-    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-30r1#139",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0016",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53r5#492 from Security and Privacy Controls for Information Systems and Organizations.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-53r5#492",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "claim": "Retrieved passage CWE-304#000 from CWE-304 Missing Critical Step in Authentication.",
+    "source": "CWE",
+    "source_record_id": "CWE-304#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/304.html",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0017",
     "claim_type": "remediation",
-    "claim": "Retrieved passage OWASP-Legacy_Application_Management_Cheat_Sheet#006 from Legacy Application Management Cheat Sheet.",
-    "source": "OWASP",
-    "source_record_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
-    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "claim": "Retrieved passage CWE-52#000 from CWE-52 Path Equivalence: '/multiple/trailing/slash//'.",
+    "source": "CWE",
+    "source_record_id": "CWE-52#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/52.html",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -619,7 +711,7 @@
     "source": "NIST",
     "source_record_id": "NIST-SP-800-137#109",
     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -630,18 +722,18 @@
     "source": "NIST",
     "source_record_id": "NIST-SP-800-115#111",
     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0020",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53Ar5#796 from Assessing Security and Privacy Controls in Information Systems and Organizations.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-53Ar5#796",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
-    "retrieved_at": "2026-11-17T18:13:41.728408Z",
+    "claim": "Retrieved passage OWASP-Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet#005 from Insecure Direct Object Reference Prevention Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet#005",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-21T17:18:32.864440Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    }
@@ -652,14 +744,14 @@
     "chunk_id": "NVDREF-4d6798cd87d006f0#004",
     "title": "ConnectWise ScreenConnect 23.9.8 security fix | ConnectWise",
     "text": "CWE-288 Authentication bypass using an alternate path or channel\n\nCWE-22 Improper limitation of a pathname to a restricted directory (“path traversal”)\n\nCWE ID\n\nDescription\n\nBase Score\n\nVector\n\nCWE-288\n\nAuthentication bypass using an alternate path or channel\n\n10\n\nCVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H\n\nCWE-22\n\nImproper limitation of a pathname to a restricted directory (“path traversal”)\n\n8.4\n\nCVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:H/I:H/A:H\n\nSeverity\n\nCritical—Vulnerabilities that could allow the ability to execute remote code or directly impact confidential data or critical systems.\n\nPriority\n\n1 High—Vulnerabilities that are either being targeted or have higher risk of being targeted by exploits in the wild. Recommend installing updates as emergency changes or as soon as possible (e.g., within days)\n\nAffected versions\n\nScreenConnect 23.9.7 and prior\n\nRemediation\n\nCloud\n\nThere are no actions needed by the partner, ScreenConnect servers hosted in “screenconnect.com” cloud or “hostedrmm.com” have been updated to remediate the issue.\n\nOn-premise\n\nPartners that are self-hosted or on-premise need to update their servers to version 23.9.8 immediately to apply a patch.\n\nConnectWise will also provide updated versions of releases 22.4 through 23.9.7 for the critical issue, but strongly recommend that partners update to ScreenConnect version 23.9.8.\n\nFor instructions on updating to the newest release, please reference this doc: Upgrade an on-premise installation - ConnectWise\n\nLink to patch: Download | ConnectWise ScreenConnect™\n\nActive Advisory\n\nUnauthenticated access to legacy AWS server located in the EU region\n\nScreenConnect vulnerability CWE-288\n\nScreenConnect 23.9.8 security bulletin\n\nHow to upgrade on-premise installation\n\nRemediation + Hardening Guide (pdf)",
-    "score": 14.121799
+    "score": 15.394609
    },
    {
     "evidence_id": "EV-0006",
     "chunk_id": "NVDREF-b73da2c3fda7deaf#004",
     "title": "ConnectWise ScreenConnect CVE-2024-1709 & CVE-2024-1708 | Huntress",
     "text": "Portal Login\n\nSupport\n\nBlog\n\nContact\n\nSearch\n\nGet a Demo\n\nStart for Free\n\nPortal LoginSupportBlogContact\nSearch\nSearch\n\nGet a Demo\n\nStart for Free\n\nHome\n\nBlog\n\nA Catastrophe For Control: Understanding the ScreenConnect Authentication Bypass (CVE-2024-1709 & CVE-2024-1708)\n\nPublished:\nFebruary 21, 2024\n\nA Catastrophe For Control: Understanding the ScreenConnect Authentication Bypass (CVE-2024-1709 & CVE-2024-1708)\n\nBy:\n\nTeam Huntress\n\nSummarize with AISummarize\nChatGPTClaudePerplexityGoogle AI\n\nOn February 19, 2024, ConnectWise published a security advisory for ScreenConnect version 23.9.8, referencing two vulnerabilities and software weaknesses. The same day, Huntress researchers worked to understand this threat and successfully recreated a proof-of-concept exploit demonstrating its impact.\n\nThis write-up will discuss our analysis efforts and the technical details behind this attack, which we’re coining as “SlashAndGrab.”\n\nThe ConnectWise advisory indicated that in all versions of ScreenConnect below 23.9.8 there were two vulnerabilities:\n\nCVE-2024-1709: Authentication bypass using an alternate path or channel (CWE-288)\n\nCVE-2024-1708: Improper limitation of a pathname to a restricted directory (“path traversal”) (CWE-22)\n\nThe first vulnerability was disclosed with a critical base CVSS scoring of 10, the highest possible severity. The authentication bypass would ultimately open the door for the second vulnerability.\n\nConnectWise made a patch available and expressed that all on-premise versions of ScreenConnect 23.9.7 and below must be updated immediately—cloud instances were already automatically patched.",
-    "score": 13.561836
+    "score": 14.943955
    },
    {
     "evidence_id": "EV-0007",
@@ -691,52 +783,52 @@
    },
    {
     "evidence_id": "EV-0011",
+    "chunk_id": "NVDREF-6bca62f161bb4633#002",
+    "title": "ConnectWise ScreenConnect: Authentication Bypass Deep Dive | Horizon3",
+    "text": "Resource Center\n\nEvents\n\nBlog\n\nDocumentation\n\nCommunity\n\nAttack Research\n\nResource Center\n\nEvents\n\nUse Cases\n\nTripwires\n\nAD Tripwires\n\nFeatured\n\nMythos didn’t break cybersecurity\n\nIt exposed what was already broken.\n\nPartners\n\nPartners\n\nMSSP/MSP\n\nTech Alliances\n\nPartner Portal\n\nCompany\n\nCompany\n\nOur Vision\n\nLeadership\n\nCareers\n\nNews\n\nTrust Center\n\nLogin\n\nHorizon3 PortalCustomer PortalPartner Portal\n\nBook a demo\n\nConnectWise ScreenConnect: Authentication Bypass Deep Dive\n\nJames Horseman\n\nFebruary 21, 2024\n\nAttack Blogs\n\nIntroduction\n\nOn February 19, 2023, ConnectWise published a security advisory for their ScreenConnect remote management tool. In the advisory, they describe two vulnerabilities, an authentication bypass with CVSS 10.0 and a path traversal with CVSS 8.4 (both currently without assigned CVE IDs). In this post we will dive into the technical details of the authentication bypass. You can view our POC here.\n\nUpdate: On February 21, 2023, the authentication bypass vulnerability was assigned as CVE-2024-1709 and added to CISA’s Known Exploited Vulnerability (KEV) catalog.\n\nPatch Diffing\n\nComparing versions 23.9.7.8804 and 23.9.8.8811, we find a small update to SetupWizard.aspx. We see that a check was added to make sure that the initial application setup has not been completed if a user it trying to access the SetupWizard. The SetupWizard is responsible for creating an initial user and password, so it makes sense that this page should be locked down after an initial user has been created.\n\nFigure 1. SetupWizard.aspx\n\nThe Vulnerability\n\nThere is a HTTP request filter in SetupModule.cs that has two responsibilities:\n\nIf the application hasn’t been setup, redirect all requests to SetupWizard.aspx",
+    "score": 7.887859
+   },
+   {
+    "evidence_id": "EV-0012",
     "chunk_id": "NVDREF-b73da2c3fda7deaf#013",
     "title": "ConnectWise ScreenConnect CVE-2024-1709 & CVE-2024-1708 | Huntress",
     "text": "An attacker's mistake gave Huntress an unusually clear window into how a real cybercriminal operation runs day-to-day. Here's the full investigation, including the timeline they didn't want us to see.\n\nRead the Blog\n\nRead more about Kawabunga, Dude, You’ve Been Ransomed!\n\nBlog Post\n\nKawabunga, Dude, You’ve Been Ransomed!\n\nKawaLocker is a newer ransomware variant claiming ties to the BlackByte group. Huntress analysts caught it in the wild and have the deployment details, indicators, and everything you need to know.\n\nRead the Blog\n\nRead more about CrushFTP CVE-2025-31161 Auth Bypass and Post-Exploitation\n\nBlog Post\n\nCrushFTP CVE-2025-31161 Auth Bypass and Post-Exploitation\n\nCVE-2025-31161 lets attackers manipulate how CrushFTP handles authentication, giving them admin-level access. Huntress has the full technical breakdown and post-exploitation details.Patch immediately.\n\nRead the Blog\n\nRead more about Detection Guidance for ConnectWise CVE-2024-1709\n\nBlog Post\n\nDetection Guidance for ConnectWise CVE-2024-1709\n\nConnectWise disclosed two critical ScreenConnect vulnerabilities. Huntress reproduced and weaponized the exploit within hours. Here's the detection guidance for organizations trying to identify exposure.\n\nRead the Blog\n\nSign Up for Huntress Updates\n\nGet insider access to Huntress tradecraft, killer events, and more.\n\nBusiness Email*\n\nPrivacy • Terms\n\nSubmit\n\nBy submitting this form, you accept our Terms of Service & Privacy Policy\n\nKeep me in the loop\n\nPlatform\n\nHuntress Managed Security PlatformManaged EDRManaged EDR for macOSManaged EDR for LinuxManaged ITDRManaged SIEMManaged SATManaged ISPMManaged ESPMBook a Demo\n\nSolutions\n\nPhishingComplianceBusiness Email CompromiseEducationFinanceHealthcareManufacturingState & Local Government\n\nWhy Huntress?",
     "score": 7.465949
    },
    {
-    "evidence_id": "EV-0012",
-    "chunk_id": "NVDREF-4d6798cd87d006f0#015",
-    "title": "ConnectWise ScreenConnect 23.9.8 security fix | ConnectWise",
-    "text": "Partners no longer under maintenance are eligible to install version 22.4.20001 at no additional cost, which will fix CVE-2024-1709, the critical vulnerability. However, this should be treated as an interim step. ConnectWise recommends updating to the latest release to get all the current security patches and therefore all partners should upgrade to 23.9.8 or higher using the upgrade path outlined above.\n\nFor instructions on how to renew your license, please click here or contact our sales team at screenconnectsales@connectwise.com.\n\nWhat happens once I have patched to a remediated version?\n\nAs a reminder and as part of the remediation process for on-prem partners—whether you have patched your server or still need to—it is critical to assess your systems for signs of impact while upgrading and before bringing any systems back online.\n\nOnce you have patched your on-prem instance of ScreenConnect to the latest version, you should review users with access to ScreenConnect, remove any that are not recognized, change passwords, and enable MFA.\n\nIf you are using any extensions, please validate them and remove/add them again. Once all steps are completed restart the server.\n\nTo assist in the remediation and hardening process, we encourage you to review and follow the ConnectWise ScreenConnect Remediation and Hardening Guide by Mandiant for additional protection.\n\nDo these vulnerabilities directly affect ScreenConnect clients?",
-    "score": 7.314347
-   },
-   {
     "evidence_id": "EV-0013",
-    "chunk_id": "NIST-SP-800-30r1#139",
-    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
-    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
+    "chunk_id": "CWE-288#000",
+    "title": "CWE-288 Authentication Bypass Using an Alternate Path or Channel",
+    "text": "CWE-288 Authentication Bypass Using an Alternate Path or Channel\n\nDescription: The product requires authentication, but the product has an alternate path or channel that does not require authentication.\n\nPotential mitigations:\n- Architecture and Design: Funnel all access through a single choke point to simplify how users can access a resource. For every access, perform a check to determine if the user has permissions to access the resource.",
     "score": 0.01626123744050767
    },
    {
     "evidence_id": "EV-0014",
-    "chunk_id": "CWE-288#000",
-    "title": "CWE-288 Authentication Bypass Using an Alternate Path or Channel",
-    "text": "CWE-288 Authentication Bypass Using an Alternate Path or Channel\n\nDescription: The product requires authentication, but the product has an alternate path or channel that does not require authentication.\n\nPotential mitigations:\n- Architecture and Design: Funnel all access through a single choke point to simplify how users can access a resource. For every access, perform a check to determine if the user has permissions to access the resource.",
-    "score": 0.016001024065540194
+    "chunk_id": "OWASP-Vulnerable_Dependency_Management_Cheat_Sheet#006",
+    "title": "Vulnerable Dependency Management Cheat Sheet",
+    "text": "Vulnerable Dependency Management Cheat Sheet\n\nIf the provider has provided nothing about the vulnerability, [Case 3](#case-3) can be applied skipping the _step 2_ of this case. We assume here that, at least, the [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures) has been provided.\n\n**Step 2:**\n\nUse any provider-supplied exploit as a regression test. Blocking that payload does not prove that the library is secure: test alternate inputs and all reachable paths to the affected functionality. The [Core Rule Set rule-writing guidance](https://coreruleset.org/docs/3-about-rules/creating/#advanced-transformation-usage) illustrates how small payload changes can bypass a filter. Follow the [virtual patch testing guidance](Virtual_Patching_Cheat_Sheet.md#implementationtesting-phase) and keep the permanent fix on the remediation plan.\n\nIf you have a set of automated unit or integration or functional or security tests that exist for the application, run them to verify that the protection code added does not impact the stability of the application.\n\nAdd a comment in the project _README_ explaining that the issue (specify the related [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures)) is handled during the waiting time of a patched version because the detection tool will continue to raise an alert on this dependency.\n\n**Note:** You can add the dependency to the ignore list but the ignore scope for this dependency must only cover the [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures) related to the vulnerability because a dependency can be impacted by several vulnerabilities having each one its own [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures).\n\n### Case 3\n\n#### Context",
+    "score": 0.012690763052208835
    },
    {
     "evidence_id": "EV-0015",
-    "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
-    "title": "Vulnerability Disclosure Cheat Sheet",
-    "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
-    "score": 0.01523897483260217
+    "chunk_id": "NIST-SP-800-30r1#139",
+    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
+    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
+    "score": 0.00819672131147541
    },
    {
     "evidence_id": "EV-0016",
-    "chunk_id": "NIST-SP-800-53r5#492",
-    "title": "Security and Privacy Controls for Information Systems and Organizations",
-    "text": "Security and Privacy Controls for Information Systems and Organizations\n\nCHAPTER THREE PAGE 243\nThis\npublication\nis\navailable\nfree\nof\ncharge\nfrom:\nhttps://doi.org/10.6028/NIST.SP.800-53r5\nmonitoring may also include continuous vulnerability monitoring tools that use instrumentation\nto continuously analyze components. Instrumentation-based tools may improve accuracy and\nmay be run throughout an organization without scanning. Vulnerability monitoring tools that\nfacilitate interoperability include tools that are Security Content Automated Protocol (SCAP)-\nvalidated. Thus, organizations consider using scanning tools that express vulnerabilities in the\nCommon Vulnerabilities and Exposures (CVE) naming convention and that employ the Open\nVulnerability Assessment Language (OVAL) to determine the presence of vulnerabilities. Sources\nfor vulnerability information include the Common Weakness Enumeration (CWE) listing and the\nNational Vulnerability Database (NVD). Control assessments, such as red team exercises, provide\nadditional sources of potential vulnerabilities for which to scan. Organizations also consider using\nscanning tools that express vulnerability impact by the Common Vulnerability Scoring System\n(CVSS). Vulnerability monitoring includes a channel and process for receiving reports of security\nvulnerabilities from the public at-large. Vulnerability disclosure programs can be as simple as\npublishing a monitored email address or web form that can receive reports, including notification\nauthorizing good-faith research and disclosure of security vulnerabilities. Organizations generally\nexpect that such research is happening with or without their authorization and can use public\nvulnerability disclosure channels to increase the likelihood that discovered vulnerabilities are\nreported directly to the organization for remediation. Organizations may also employ the use of financial incentives (also known as “bug bounties”) to\nfurther encourage external security researchers to report discovered vulnerabilities. Bug bounty\nprograms can be tailored to the organization’s needs. Bounties can be operated indefinitely or\nover a defined period of time and can be offered to the general public or to a curated group. Organizations may run public and private bounties simultaneously and could choose to offer\npartially credentialed access to certain participants in order to evaluate security vulnerabilities\nfrom privileged vantage points. Related Controls: CA-2, CA-7, CA-8, CM-2, CM-4, CM-6, CM-8, RA-2, RA-3, SA-11, SA-15, SC-38,\nSI-2, SI-3, SI-4, SI-7, SR-11.",
-    "score": 0.014297385620915032
+    "chunk_id": "CWE-304#000",
+    "title": "CWE-304 Missing Critical Step in Authentication",
+    "text": "CWE-304 Missing Critical Step in Authentication\n\nDescription: The product implements an authentication technique, but it skips a step that weakens the technique.",
+    "score": 0.008064516129032258
    },
    {
     "evidence_id": "EV-0017",
-    "chunk_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
-    "title": "Legacy Application Management Cheat Sheet",
-    "text": "Legacy Application Management Cheat Sheet\n\nA Common Vulnerabilities and Exposures (CVE) identifier helps track a vulnerability; [assignment depends on vulnerability determination, disclosure, and the assigning authority's scope](https://github.com/CVEProject/cve-documents/blob/master/CNA_Rules.md#42-cve-id-assignment). Its presence or absence does not by itself establish remediation priority. In circumstances where patching is not practically possible for the legacy application, consider applying additional restrictions to the application/affected components as noted in the section on Authentication/Authorization.\n\n## Data Storage\n\nConfirm that, where ever possible, data handled by the application is both encrypted at rest (i.e. when stored in a database) and in transit. Cheat Sheets on [Cryptographic Storage](Cryptographic_Storage_Cheat_Sheet.md) and [HTTP Strict Transport Security](HTTP_Strict_Transport_Security_Cheat_Sheet.md) may provide some useful further context. In some circumstances legacy applications might be restricted to the use of older network protocols that only support transmission of data in plain text. In this case it is especially important to apply the most restrictive network access controls possible to the application. This could necessitate temporary or permanent air-gapping (functional isolation) of the application.\n\n## Ensuring Maintainability\n\nWhere possible, aim to maintain a high degree of institutional expertise regarding the application, so that staff can both remediate security vulnerabilities and troubleshoot the application as needed to ensure business continuity. The following recommendations apply:",
-    "score": 0.011166103331723805
+    "chunk_id": "CWE-52#000",
+    "title": "CWE-52 Path Equivalence: '/multiple/trailing/slash//'",
+    "text": "CWE-52 Path Equivalence: '/multiple/trailing/slash//'\n\nDescription: The product accepts path input in the form of multiple trailing slash ('/multiple/trailing/slash//') without appropriate validation, which can lead to ambiguous path resolution and allow an attacker to traverse the file system to unintended locations or access arbitrary files.\n\nPotential mitigations:\n- Implementation:STRATEGY:Input Validation: Inputs should be decoded and canonicalized to the application's current internal representation before being validated (CWE-180). Make sure that the application does not decode the same input twice (CWE-174). Such errors could be used to bypass allowlist validation schemes by introducing dangerous inputs after they have been checked.",
+    "score": 0.007936507936507936
    },
    {
     "evidence_id": "EV-0018",
@@ -754,9 +846,9 @@
    },
    {
     "evidence_id": "EV-0020",
-    "chunk_id": "NIST-SP-800-53Ar5#796",
-    "title": "Assessing Security and Privacy Controls in Information Systems and Organizations",
-    "text": "Assessing Security and Privacy Controls in Information Systems and Organizations - 4.16 RISK ASSESSMENT\n\nReference produced from open data\n\n| VULNERABILITY MONITORING AND SCANNING \\| PUBLIC DISCLOSURE PROGRAM ASSESSMENT OBJECTIVE: Determine if: |  |\n| --- | --- |\n| RA-05(11) | a public reporng channel is established for receiving reports of vulnerabilies in organizaonal systems and system components. |\n| POTENTIAL ASSESSMENT METHODS AND OBJECTS: |  |\n| RA-05(11)-Examine | [SELECT FROM: Risk assessment policy; procedures addressing vulnerability scanning; risk assessment; vulnerability scanning tools and techniques documentaon; vulnerability scanning results; vulnerability management records; audit records; public reporng channel; system security plan; other relevant documents or records]. |\n| RA-05(11)-Interview | [SELECT FROM: Organizaonal personnel with vulnerability scanning responsibilies; organizaonal personnel with vulnerability scan analysis responsibilies; organizaonal personnel with security responsibilies]. |\n| RA-05(11)-Test | [SELECT FROM: Organizaonal processes for vulnerability scanning; mechanisms/ tools supporng and/or implemenng vulnerability scanning; mechanisms implemenng the public reporng of vulnerabilies]. |\n\ne free\no",
+    "chunk_id": "OWASP-Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet#005",
+    "title": "Insecure Direct Object Reference Prevention Cheat Sheet",
+    "text": "Insecure Direct Object Reference Prevention Cheat Sheet\n\n## References\n\n- [CWE-639: Authorization Bypass Through User-Controlled Key](https://cwe.mitre.org/data/definitions/639.html)\n- [OWASP WSTG: Testing for Insecure Direct Object References](https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/04-Testing_for_Insecure_Direct_Object_References/)",
     "score": 0.0078125
    }
   ],
@@ -764,36 +856,54 @@
    {
     "stage": "evidence_interpretation",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1453,
-    "prompt_tokens": 245,
-    "completion_tokens": 63,
+    "latency_ms": 2335,
+    "prompt_tokens": 510,
+    "completion_tokens": 95,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "retrieval_review",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1385,
-    "prompt_tokens": 1867,
-    "completion_tokens": 53,
+    "latency_ms": 1571,
+    "prompt_tokens": 1870,
+    "completion_tokens": 56,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "analyst",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 6846,
-    "prompt_tokens": 4080,
-    "completion_tokens": 287,
+    "latency_ms": 15910,
+    "prompt_tokens": 4234,
+    "completion_tokens": 670,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "critic",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1914,
-    "prompt_tokens": 4306,
-    "completion_tokens": 66,
+    "latency_ms": 2575,
+    "prompt_tokens": 4704,
+    "completion_tokens": 94,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 15550,
+    "prompt_tokens": 4929,
+    "completion_tokens": 678,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 2293,
+    "prompt_tokens": 4711,
+    "completion_tokens": 94,
     "finish_reason": "stop",
     "max_tokens": 1024
    }

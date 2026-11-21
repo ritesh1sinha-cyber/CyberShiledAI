@@ -351,7 +351,7 @@ def main() -> int:
     )
 
     # --skip-judge asks for no model call at all; --skip-claim-judge keeps the answer judge.
-    client = None if (args.skip_judge or args.skip_claim_judge) else QwenClient()
+    client = None if args.skip_judge else QwenClient()
     for entry, semantic, relevance in zip(entries, gold_pairs, question_pairs):
         eval_id = entry["eval_id"]
         trace, answer_text = loaded[eval_id]

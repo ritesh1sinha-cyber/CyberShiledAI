@@ -4,21 +4,23 @@
  "gold_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
  "model": "Qwen/Qwen3-8B",
  "architecture": "multi",
- "recorded_at": "2026-11-17T18:13:17+00:00",
+ "recorded_at": "2026-11-21T17:17:45+00:00",
  "request": {
   "query": "Investigate CVE-2023-42793: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
   "include_attack": true,
   "top_k": 8
  },
  "http_status": 200,
- "elapsed_ms": 11636,
+ "elapsed_ms": 42237,
  "response": {
   "report": {
-   "request_id": "CS-20261117181306136147",
-   "status": "completed",
-   "summary": "CVE-2023-42793: JetBrains TeamCity authentication bypass RCE",
+   "request_id": "CS-20261121171702844589",
+   "status": "partial",
+   "summary": "CVE-2023-42793 is a critical authentication bypass vulnerability in JetBrains TeamCity before 2023.05.4, allowing remote code execution. It is listed in CISA KEV as known exploited. Remediation includes applying vendor mitigations or discontinuing use. CVSS score: 9.8 (CRITICAL).",
    "summary_evidence_ids": [
-    "EV-0001"
+    "EV-0001",
+    "EV-0002",
+    "EV-0003"
    ],
    "cve": {
     "cve_id": "CVE-2023-42793",
@@ -29,7 +31,11 @@
     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
     "cvss_source": "nvd",
     "published": "2023-09-19",
-    "last_modified": "2026-06-17T06:24:31.210000Z"
+    "last_modified": "2026-06-17T06:24:31.210000Z",
+    "cwe": [
+     "CWE-288",
+     "CWE-306"
+    ]
    },
    "affected_products": [
     "JetBrains TeamCity"
@@ -37,7 +43,7 @@
    "kev": {
     "status": "known_exploited",
     "catalog_version": "2026.11.04",
-    "checked_at": "2026-11-17T18:13:07.640570Z",
+    "checked_at": "2026-11-21T17:17:04.830591Z",
     "date_added": "2023-10-04",
     "due_date": "2023-10-25",
     "required_action": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
@@ -46,10 +52,25 @@
    "attack_mapping": [],
    "remediation": [
     {
-     "text": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+     "text": "Apply vendor mitigations or discontinue use. Remediation guidance includes installing a plugin for older versions, upgrading to 2023.05.4, and following NIST and OWASP security controls.",
      "evidence_ids": [
       "EV-0003",
-      "EV-0005"
+      "EV-0005",
+      "EV-0006",
+      "EV-0007",
+      "EV-0008",
+      "EV-0009",
+      "EV-0010",
+      "EV-0011",
+      "EV-0012",
+      "EV-0013",
+      "EV-0014",
+      "EV-0015",
+      "EV-0016",
+      "EV-0017",
+      "EV-0018",
+      "EV-0019",
+      "EV-0020"
      ]
     }
    ],
@@ -59,7 +80,7 @@
      "CVSS 3.1 base score 9.8 (CRITICAL).",
      "CISA KEV status: known_exploited."
     ],
-    "rationale": "CVSS 9.8 (CRITICAL) with known exploitation",
+    "rationale": "CVSS score 9.8 (CRITICAL). Known exploited in CISA KEV.",
     "evidence_ids": [
      "EV-0002",
      "EV-0003"
@@ -68,7 +89,9 @@
    "limitations": [
     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
     "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
-    "Retrieved passages are ranked context, not independently verified facts."
+    "Retrieved passages are ranked context, not independently verified facts.",
+    "Critic finding (summary/completeness): Summary lacks information on technical mechanism and prerequisites.",
+    "Critic finding (remediation/completeness): Remediation text omits specific details from EV-0005 and EV-0008 about the plugin and token risks."
    ],
    "citations": [
     {
@@ -94,12 +117,12 @@
     {
      "evidence_id": "EV-0005",
      "source": "NVD_REF",
-     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
+     "source_url": "https://blog.jetbrains.com/teamcity/2023/09/cve-2023-42793-vulnerability-post-mortem/"
     },
     {
      "evidence_id": "EV-0006",
      "source": "NVD_REF",
-     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
+     "source_url": "https://www.jetbrains.com/privacy-security/issues-fixed/"
     },
     {
      "evidence_id": "EV-0007",
@@ -109,17 +132,17 @@
     {
      "evidence_id": "EV-0008",
      "source": "NVD_REF",
-     "source_url": "https://attackerkb.com/topics/1XEEEkGHzt/cve-2023-42793"
+     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
     },
     {
      "evidence_id": "EV-0009",
      "source": "NVD_REF",
-     "source_url": "https://blog.jetbrains.com/teamcity/2023/09/cve-2023-42793-vulnerability-post-mortem/"
+     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
     },
     {
      "evidence_id": "EV-0010",
      "source": "NVD_REF",
-     "source_url": "https://www.jetbrains.com/privacy-security/issues-fixed/"
+     "source_url": "https://attackerkb.com/topics/1XEEEkGHzt/cve-2023-42793"
     },
     {
      "evidence_id": "EV-0011",
@@ -133,64 +156,72 @@
     },
     {
      "evidence_id": "EV-0013",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
-    },
-    {
-     "evidence_id": "EV-0014",
      "source": "CWE",
      "source_url": "https://cwe.mitre.org/data/definitions/306.html"
     },
     {
-     "evidence_id": "EV-0015",
+     "evidence_id": "EV-0014",
      "source": "OWASP",
      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
     },
     {
-     "evidence_id": "EV-0016",
+     "evidence_id": "EV-0015",
      "source": "NIST",
      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+    },
+    {
+     "evidence_id": "EV-0016",
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
     },
     {
      "evidence_id": "EV-0017",
      "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53B.pdf"
     },
     {
      "evidence_id": "EV-0018",
-     "source": "OWASP",
-     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
     },
     {
      "evidence_id": "EV-0019",
-     "source": "CWE",
-     "source_url": "https://cwe.mitre.org/data/definitions/304.html"
+     "source": "NIST",
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
     },
     {
      "evidence_id": "EV-0020",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf"
+     "source": "OWASP",
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
     }
    ],
-   "generated_at": "2026-11-17T18:13:17.538144Z"
+   "generated_at": "2026-11-21T17:17:44.486836Z"
   },
-  "trace_id": "CS-20261117181306136147",
+  "trace_id": "CS-20261121171702844589",
   "timings": [
    {
     "stage": "evidence_qwen",
-    "ms": 3084
+    "ms": 3752
    },
    {
     "stage": "evidence",
-    "ms": 1582
+    "ms": 1766
    },
    {
     "stage": "analyst",
-    "ms": 6394
+    "ms": 12872
    },
    {
     "stage": "critic",
-    "ms": 1915
+    "ms": 4809
+   },
+   {
+    "stage": "analyst",
+    "ms": 15040
+   },
+   {
+    "stage": "critic",
+    "ms": 5170
    },
    {
     "stage": "final_validator",
@@ -198,26 +229,64 @@
    },
    {
     "stage": "total",
-    "ms": 11622
+    "ms": 42224
    }
-  ]
+  ],
+  "critic_review": {
+   "cve_id": "CVE-2023-42793",
+   "support": "pass",
+   "completeness": "fail",
+   "citations": "pass",
+   "uncertainty": "pass",
+   "checked_sections": [
+    "summary",
+    "cve",
+    "affected_products",
+    "kev",
+    "attack_mapping",
+    "remediation",
+    "risk",
+    "limitations"
+   ],
+   "issues": [
+    {
+     "section": "summary",
+     "category": "completeness",
+     "detail": "Summary lacks information on technical mechanism and prerequisites.",
+     "evidence_ids": []
+    },
+    {
+     "section": "remediation",
+     "category": "completeness",
+     "detail": "Remediation text omits specific details from EV-0005 and EV-0008 about the plugin and token risks.",
+     "evidence_ids": [
+      "EV-0005",
+      "EV-0008"
+     ]
+    }
+   ]
+  },
+  "revised": true
  },
  "service_trace": {
-  "trace_id": "CS-20261117181306136147",
-  "recorded_at": "2026-11-17T18:13:17.758527+00:00",
+  "trace_id": "CS-20261121171702844589",
+  "recorded_at": "2026-11-21T17:17:45.062485+00:00",
   "request": {
    "query": "Investigate CVE-2023-42793: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
    "include_attack": true,
    "top_k": 8,
-   "conversation_context": []
+   "conversation_context": [],
+   "web_fallback_approved": false
   },
   "response": {
    "report": {
-    "request_id": "CS-20261117181306136147",
-    "status": "completed",
-    "summary": "CVE-2023-42793: JetBrains TeamCity authentication bypass RCE",
+    "request_id": "CS-20261121171702844589",
+    "status": "partial",
+    "summary": "CVE-2023-42793 is a critical authentication bypass vulnerability in JetBrains TeamCity before 2023.05.4, allowing remote code execution. It is listed in CISA KEV as known exploited. Remediation includes applying vendor mitigations or discontinuing use. CVSS score: 9.8 (CRITICAL).",
     "summary_evidence_ids": [
-     "EV-0001"
+     "EV-0001",
+     "EV-0002",
+     "EV-0003"
     ],
     "cve": {
      "cve_id": "CVE-2023-42793",
@@ -228,7 +297,11 @@
      "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
      "cvss_source": "nvd",
      "published": "2023-09-19",
-     "last_modified": "2026-06-17T06:24:31.210000Z"
+     "last_modified": "2026-06-17T06:24:31.210000Z",
+     "cwe": [
+      "CWE-288",
+      "CWE-306"
+     ]
     },
     "affected_products": [
      "JetBrains TeamCity"
@@ -236,7 +309,7 @@
     "kev": {
      "status": "known_exploited",
      "catalog_version": "2026.11.04",
-     "checked_at": "2026-11-17T18:13:07.640570Z",
+     "checked_at": "2026-11-21T17:17:04.830591Z",
      "date_added": "2023-10-04",
      "due_date": "2023-10-25",
      "required_action": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
@@ -245,10 +318,25 @@
     "attack_mapping": [],
     "remediation": [
      {
-      "text": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "text": "Apply vendor mitigations or discontinue use. Remediation guidance includes installing a plugin for older versions, upgrading to 2023.05.4, and following NIST and OWASP security controls.",
       "evidence_ids": [
        "EV-0003",
-       "EV-0005"
+       "EV-0005",
+       "EV-0006",
+       "EV-0007",
+       "EV-0008",
+       "EV-0009",
+       "EV-0010",
+       "EV-0011",
+       "EV-0012",
+       "EV-0013",
+       "EV-0014",
+       "EV-0015",
+       "EV-0016",
+       "EV-0017",
+       "EV-0018",
+       "EV-0019",
+       "EV-0020"
       ]
      }
     ],
@@ -258,7 +346,7 @@
       "CVSS 3.1 base score 9.8 (CRITICAL).",
       "CISA KEV status: known_exploited."
      ],
-     "rationale": "CVSS 9.8 (CRITICAL) with known exploitation",
+     "rationale": "CVSS score 9.8 (CRITICAL). Known exploited in CISA KEV.",
      "evidence_ids": [
       "EV-0002",
       "EV-0003"
@@ -267,7 +355,9 @@
     "limitations": [
      "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
      "Included 8 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
-     "Retrieved passages are ranked context, not independently verified facts."
+     "Retrieved passages are ranked context, not independently verified facts.",
+     "Critic finding (summary/completeness): Summary lacks information on technical mechanism and prerequisites.",
+     "Critic finding (remediation/completeness): Remediation text omits specific details from EV-0005 and EV-0008 about the plugin and token risks."
     ],
     "citations": [
      {
@@ -293,12 +383,12 @@
      {
       "evidence_id": "EV-0005",
       "source": "NVD_REF",
-      "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
+      "source_url": "https://blog.jetbrains.com/teamcity/2023/09/cve-2023-42793-vulnerability-post-mortem/"
      },
      {
       "evidence_id": "EV-0006",
       "source": "NVD_REF",
-      "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
+      "source_url": "https://www.jetbrains.com/privacy-security/issues-fixed/"
      },
      {
       "evidence_id": "EV-0007",
@@ -308,17 +398,17 @@
      {
       "evidence_id": "EV-0008",
       "source": "NVD_REF",
-      "source_url": "https://attackerkb.com/topics/1XEEEkGHzt/cve-2023-42793"
+      "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
      },
      {
       "evidence_id": "EV-0009",
       "source": "NVD_REF",
-      "source_url": "https://blog.jetbrains.com/teamcity/2023/09/cve-2023-42793-vulnerability-post-mortem/"
+      "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/"
      },
      {
       "evidence_id": "EV-0010",
       "source": "NVD_REF",
-      "source_url": "https://www.jetbrains.com/privacy-security/issues-fixed/"
+      "source_url": "https://attackerkb.com/topics/1XEEEkGHzt/cve-2023-42793"
      },
      {
       "evidence_id": "EV-0011",
@@ -332,64 +422,72 @@
      },
      {
       "evidence_id": "EV-0013",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
-     },
-     {
-      "evidence_id": "EV-0014",
       "source": "CWE",
       "source_url": "https://cwe.mitre.org/data/definitions/306.html"
      },
      {
-      "evidence_id": "EV-0015",
+      "evidence_id": "EV-0014",
       "source": "OWASP",
       "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
      },
      {
-      "evidence_id": "EV-0016",
+      "evidence_id": "EV-0015",
       "source": "NIST",
       "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+     },
+     {
+      "evidence_id": "EV-0016",
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
      },
      {
       "evidence_id": "EV-0017",
       "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53B.pdf"
      },
      {
       "evidence_id": "EV-0018",
-      "source": "OWASP",
-      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
      },
      {
       "evidence_id": "EV-0019",
-      "source": "CWE",
-      "source_url": "https://cwe.mitre.org/data/definitions/304.html"
+      "source": "NIST",
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf"
      },
      {
       "evidence_id": "EV-0020",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf"
+      "source": "OWASP",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html"
      }
     ],
-    "generated_at": "2026-11-17T18:13:17.538144Z"
+    "generated_at": "2026-11-21T17:17:44.486836Z"
    },
-   "trace_id": "CS-20261117181306136147",
+   "trace_id": "CS-20261121171702844589",
    "timings": [
     {
      "stage": "evidence_qwen",
-     "ms": 3084
+     "ms": 3752
     },
     {
      "stage": "evidence",
-     "ms": 1582
+     "ms": 1766
     },
     {
      "stage": "analyst",
-     "ms": 6394
+     "ms": 12872
     },
     {
      "stage": "critic",
-     "ms": 1915
+     "ms": 4809
+    },
+    {
+     "stage": "analyst",
+     "ms": 15040
+    },
+    {
+     "stage": "critic",
+     "ms": 5170
     },
     {
      "stage": "final_validator",
@@ -397,26 +495,68 @@
     },
     {
      "stage": "total",
-     "ms": 11622
+     "ms": 42224
     }
-   ]
+   ],
+   "critic_review": {
+    "cve_id": "CVE-2023-42793",
+    "support": "pass",
+    "completeness": "fail",
+    "citations": "pass",
+    "uncertainty": "pass",
+    "checked_sections": [
+     "summary",
+     "cve",
+     "affected_products",
+     "kev",
+     "attack_mapping",
+     "remediation",
+     "risk",
+     "limitations"
+    ],
+    "issues": [
+     {
+      "section": "summary",
+      "category": "completeness",
+      "detail": "Summary lacks information on technical mechanism and prerequisites.",
+      "evidence_ids": []
+     },
+     {
+      "section": "remediation",
+      "category": "completeness",
+      "detail": "Remediation text omits specific details from EV-0005 and EV-0008 about the plugin and token risks.",
+      "evidence_ids": [
+       "EV-0005",
+       "EV-0008"
+      ]
+     }
+    ]
+   },
+   "revised": true
   },
   "evidence_interpretation": {
    "cve_id": "CVE-2023-42793",
-   "intent": "general",
-   "query": "CVE-2023-42793 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+   "intent": "facts",
+   "query": "CVE-2023-42793 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
   },
   "retrieval_meta": {
    "queries": [
-    "CVE-2023-42793 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance CWE-306 Missing Authentication for Critical Functionality remediation mitigation security controls"
+    "CVE-2023-42793 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance CWE-306 Missing Authentication for Critical Functionality remediation mitigation security controls"
    ],
    "review": {
     "sufficient": true,
-    "refined_query": "CVE-2023-42793 TeamCity vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+    "refined_query": "CVE-2023-42793 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
    },
    "retry_used": false
   },
-  "revised": false,
+  "runtime": {
+   "embeddings_model": "bge-small-en-v1.5",
+   "embeddings_dim": 384,
+   "dense_backend": "faiss.IndexFlatIP",
+   "chunks_sha256": "72a0ce2e829fc64faee7092e1b06b0b7320363f15fa07d5d7367e36acdbb5919",
+   "index_generated_at": "2026-11-18T08:35:05+00:00"
+  },
+  "revised": true,
   "first_draft_invalid": false,
   "first_draft_invalid_reason": null,
   "draft_invalid_reason": null,
@@ -432,7 +572,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2023-42793",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-42793",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": "2026-06-17T06:24:31.210000Z",
     "validation_status": "verified"
    },
@@ -443,7 +583,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2023-42793",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-42793",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": "2026-06-17T06:24:31.210000Z",
     "validation_status": "verified"
    },
@@ -454,7 +594,7 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2023-42793",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": "2026-11-04T20:00:05.774000Z",
     "validation_status": "verified"
    },
@@ -465,73 +605,73 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2023-42793",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "verified"
    },
    {
     "evidence_id": "EV-0005",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-5bdd6353813221dd#001 from CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar.",
+    "claim": "Retrieved passage NVDREF-0c0775f7a7c7328e#000 from CVE-2023-42793 Vulnerability in TeamCity: Post-Mortem - The JetBrains Blog.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-5bdd6353813221dd#001",
-    "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NVDREF-0c0775f7a7c7328e#000",
+    "source_url": "https://blog.jetbrains.com/teamcity/2023/09/cve-2023-42793-vulnerability-post-mortem/",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0006",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-5bdd6353813221dd#004 from CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar.",
+    "claim": "Retrieved passage NVDREF-201fad6eaf50ae12#000 from Fixed security issues.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-5bdd6353813221dd#004",
-    "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NVDREF-201fad6eaf50ae12#000",
+    "source_url": "https://www.jetbrains.com/privacy-security/issues-fixed/",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0007",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-5bdd6353813221dd#000 from CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar.",
+    "claim": "Retrieved passage NVDREF-5bdd6353813221dd#001 from CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-5bdd6353813221dd#000",
+    "source_record_id": "NVDREF-5bdd6353813221dd#001",
     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0008",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-8438df5843184745#004 from CVE-2023-42793: Authentication Bypass Using an Alternate Path or Channel | Rapid7 Vulnerability Database.",
+    "claim": "Retrieved passage NVDREF-5bdd6353813221dd#004 from CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-8438df5843184745#004",
-    "source_url": "https://attackerkb.com/topics/1XEEEkGHzt/cve-2023-42793",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NVDREF-5bdd6353813221dd#004",
+    "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0009",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-0c0775f7a7c7328e#000 from CVE-2023-42793 Vulnerability in TeamCity: Post-Mortem - The JetBrains Blog.",
+    "claim": "Retrieved passage NVDREF-5bdd6353813221dd#000 from CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-0c0775f7a7c7328e#000",
-    "source_url": "https://blog.jetbrains.com/teamcity/2023/09/cve-2023-42793-vulnerability-post-mortem/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NVDREF-5bdd6353813221dd#000",
+    "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0010",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-201fad6eaf50ae12#000 from Fixed security issues.",
+    "claim": "Retrieved passage NVDREF-8438df5843184745#004 from CVE-2023-42793: Authentication Bypass Using an Alternate Path or Channel | Rapid7 Vulnerability Database.",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-201fad6eaf50ae12#000",
-    "source_url": "https://www.jetbrains.com/privacy-security/issues-fixed/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NVDREF-8438df5843184745#004",
+    "source_url": "https://attackerkb.com/topics/1XEEEkGHzt/cve-2023-42793",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -542,7 +682,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-5bdd6353813221dd#009",
     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -553,95 +693,95 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-5bdd6353813221dd#014",
     "source_url": "https://www.sonarsource.com/blog/teamcity-vulnerability/",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0013",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-30r1#139",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "claim": "Retrieved passage CWE-306#000 from CWE-306 Missing Authentication for Critical Functionality.",
+    "source": "CWE",
+    "source_record_id": "CWE-306#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/306.html",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0014",
     "claim_type": "remediation",
-    "claim": "Retrieved passage CWE-306#000 from CWE-306 Missing Authentication for Critical Functionality.",
-    "source": "CWE",
-    "source_record_id": "CWE-306#000",
-    "source_url": "https://cwe.mitre.org/data/definitions/306.html",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0015",
     "claim_type": "remediation",
-    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
-    "source": "OWASP",
-    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
-    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "claim": "Retrieved passage NIST-SP-800-53r5#667 from Security and Privacy Controls for Information Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-53r5#667",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0016",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53r5#667 from Security and Privacy Controls for Information Systems and Organizations.",
+    "claim": "Retrieved passage NIST-SP-800-82r3#435 from Guide to Operational Technology (OT) Security.",
     "source": "NIST",
-    "source_record_id": "NIST-SP-800-53r5#667",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NIST-SP-800-82r3#435",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0017",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53r5#492 from Security and Privacy Controls for Information Systems and Organizations.",
+    "claim": "Retrieved passage NIST-SP-800-53B#098 from Control Baselines for Information Systems and Organizations.",
     "source": "NIST",
-    "source_record_id": "NIST-SP-800-53r5#492",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "source_record_id": "NIST-SP-800-53B#098",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53B.pdf",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0018",
     "claim_type": "remediation",
-    "claim": "Retrieved passage OWASP-Legacy_Application_Management_Cheat_Sheet#006 from Legacy Application Management Cheat Sheet.",
-    "source": "OWASP",
-    "source_record_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
-    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "claim": "Retrieved passage NIST-SP-800-53Ar5#1094 from Assessing Security and Privacy Controls in Information Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-53Ar5#1094",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0019",
     "claim_type": "remediation",
-    "claim": "Retrieved passage CWE-304#000 from CWE-304 Missing Critical Step in Authentication.",
-    "source": "CWE",
-    "source_record_id": "CWE-304#000",
-    "source_url": "https://cwe.mitre.org/data/definitions/304.html",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "claim": "Retrieved passage NIST-SP-800-171r3#137 from Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-171r3#137",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r3.pdf",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0020",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-137#109 from NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-137#109",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
-    "retrieved_at": "2026-11-17T18:13:07.640570Z",
+    "claim": "Retrieved passage OWASP-Legacy_Application_Management_Cheat_Sheet#006 from Legacy Application Management Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-21T17:17:04.830591Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    }
@@ -649,45 +789,45 @@
   "contexts": [
    {
     "evidence_id": "EV-0005",
+    "chunk_id": "NVDREF-0c0775f7a7c7328e#000",
+    "title": "CVE-2023-42793 Vulnerability in TeamCity: Post-Mortem - The JetBrains Blog",
+    "text": "Skip to content\n\nTopics\n\nSearch\n\nBurger menu icon\n\nIDEs\n\nCLion\n\nDataGrip\n\nGoLand\n\nIntelliJ IDEA\n\nPhpStorm\n\nPyCharm\n\nRustRover\n\nRider\n\nRubyMine\n\nWebStorm\n\nPlugins & Services\n\nJetBrains Platform\n\nScala\n\nToolbox App\n\nJetBrains AI\n\nJunie\n\nJetBrains for Data\n\nAir\n\nTeam Tools\n\nDatalore\n\nTeamCity\n\nYouTrack\n\nQodana\n\nDatabao\n\n.NET & Visual Studio\n\n.NET Tools\n\nReSharper C++\n\nLanguages & Frameworks\n\nKotlin\n\nKtor\n\nMPS\n\nAmper\n\nEducation & Research\n\nJetBrains Academy\n\nResearch\n\nCompany\n\nCompany Blog\n\nSecurity\n\nCommunity Programs\n\nLife at JetBrains\n\nJetBrains for Startups\n\nTeamCity\n\nPowerful CI/CD for DevOps-centric teams\n\nFollow\n\nFollow:\n\nX\n\nYoutube\n\nRSS\n\nSubscribe\n\nGet TeamCity\n\nAll\n\nNews\n\nReleases\n\nFeatures\n\nLivestreams\n\nHow-To's\n\nGuest posts\n\nNews\n\nCVE-2023-42793 Vulnerability in TeamCity: Post-Mortem\n\nOlga Bedrina\n\nSummary\n\nA critical vulnerability issue for TeamCity On-Premises was discovered by the Sonar team. TeamCity Cloud was not affected.\n\nThe TeamCity team released the 2023.05.4 fix for the issue.\n\nWe created a plugin that works for older TeamCity versions (8.0+) and recommended installing it to all customers who could not upgrade quickly enough.\n\nWe notified all TeamCity On-Premises customers about the vulnerability.\n\nThe issue was publicly announced.\n\nActions taken by the TeamCity team\n\nOn September 6, 2023, we received a report from Sonar regarding a critical vulnerability issue identified in TeamCity On-Premises. If abused, the flaw could enable an unauthenticated attacker with HTTP(S) access to a TeamCity server to perform a remote code execution (RCE) attack and gain administrative control of the TeamCity server.",
+    "score": 4.846181
+   },
+   {
+    "evidence_id": "EV-0006",
+    "chunk_id": "NVDREF-201fad6eaf50ae12#000",
+    "title": "Fixed security issues",
+    "text": "Products\n\nFor Business\n\nEducation\n\nSolutions\n\nSupport\n\nPricing\n\nMore\n\nPrivacy & Security\n\nProducts\n\nFor Business\n\nEducation\n\nSolutions\n\nSupport\n\nPricing\n\nLogin\n\nPrivacy & Security\n\nPrivacy & Security Trust Center Digital Signatures Fixed Issues Security Notifications Our Commitment\n\nFixed Issues\n\nFixed security issues\n\nThis page contains information about resolved security issues, including description, severity, assigned CVEs, and the product versions in which they were resolved.\n\nProduct\n\nFix version\n\nAI\n\nJetBrains Air\n\nJunie\n\nAir in IDEs\n\nAir Governance\n\nAir Teams\n\nAI News\n\nDeveloper Tools\n\nAll Products\n\nIDEs\n\n.NET and Visual Studio\n\nTeam Tools\n\nPlugin Marketplace\n\nToolbox App\n\nSolutions\n\nBusiness\n\nRemote Development\n\nGame Development\n\nDevOps\n\nInitiatives\n\nKotlin\n\nOpen Source\n\nJetBrains Research\n\nJetBrains Mono\n\nMPS\n\nEducation\n\nStudents\n\nTeachers\n\nTeams\n\nCourse Catalog\n\nUniversity Programs\n\nStore\n\nPlans and Pricing\n\nAll Products Pack\n\ndotUltimate\n\nPartners and Resellers\n\nCustomers and Awards\n\nSupport\n\nTechnical Support\n\nContact Sales\n\nDocumentation\n\nJetBrains Account\n\nResources\n\nBlog\n\nEarly Access\n\nEvents and Livestreams\n\nNewsletters\n\nIndustry Reports\n\nInspectopedia\n\nAI Agents Hub\n\nCommunity\n\nDeveloper Communities\n\nOpen-Source Partnerships\n\nDeveloper Recognition\n\nContent Creators\n\nCourse Creators\n\nCompany\n\nAbout\n\nContacts\n\nCareers\n\nBrand Assets\n\nMerchandise\n\nTrust Center\n\nLoading...English\n\nPrivacy and SecurityPrivacy NoticeTerms of UseAttributionsLegalGenuine ToolsOpt-Out\n\nCopyright © 2000-2026 JetBrains s.r.o.\n\nDeveloped with drive and IntelliJ IDEA",
+    "score": 4.602745
+   },
+   {
+    "evidence_id": "EV-0007",
     "chunk_id": "NVDREF-5bdd6353813221dd#001",
     "title": "CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar",
     "text": "All comparisons\n\nIndustries\n\nHealthcare\n\nFinancial services\n\nRetail\n\nFederal government\n\nCustomer recognition\n\nOur customers\n\nCustomer stories\n\nPricing\nDevelopers\n\nFor developers\n\nDeveloper hub\n\nLearning center\n\nCommitment to open source\n\nCommunity\n\nDeveloper guides\n\nDocumentation\n\nSonarQube Server\n\nSonarQube Cloud\n\nSonarQube for IDE\n\nSonar Vulnerability database\n\nGitar\n\nIntegrations\n\nGitHub\n\nBitbucket\n\nAzure DevOps\n\nGitLab\n\nSee all integrations\n\n40+ languages & frameworks\n\nJava\n\nJavaScript\n\nPython\n\nC#\n\nSee all\n\nResources\n\nExplore\n\nBlog\n\nGlossary\n\nDocumentation\n\nROI calculator\n\nSolution briefs\n\nWhite papers\n\nGet started\n\nOnboarding hub\n\nLearning center\n\nInteractive demos\n\nCommunity\n\nSonarQube update hub\n\nResearch\n\nDeveloper Survey report\n\nThe State of Code\n\nCoding Personalities of Leading LLMs\n\nLLM leaderboard\n\nCompany\n\nLearn about Sonar\n\nAbout Us\n\nOur customers\n\nPartners\n\nEvents hub\n\nNewsroom\n\nCareersJoin us!\n\nContact us\n\nStart for free\n\nProducts\n\nWhy Sonar\n\nPricing\nDevelopers\n\nResources\n\nCompany\n\nStart for free\n\nBlog post\nSource Code at Risk: Critical Code Vulnerability in CI/CD Platform TeamCity\n\nSeptember 26, 2023\n7 min read\n\nStefan Schiller\n\nVulnerability Researcher\n\nUpdate 2023-09-27: Full technical details added (see Technical Details section).\n\nTL;DR overview\n\nSonar's vulnerability research team discovered a critical authentication bypass vulnerability in JetBrains TeamCity, one of the most widely used CI/CD platforms, allowing unauthenticated attackers to gain administrative access to a TeamCity server instance.\n\nThe vulnerability exploits a flaw in the authentication path for certain endpoints, enabling an attacker to bypass login requirements and access the server's administrative interface without valid credentials.",
     "score": 4.551509
    },
    {
-    "evidence_id": "EV-0006",
+    "evidence_id": "EV-0008",
     "chunk_id": "NVDREF-5bdd6353813221dd#004",
     "title": "CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar",
     "text": "The existence of an authentication token named RPC2 is a strong indicator of compromise. A token with this name was very likely created by an unauthorized and potentially malicious user to gain access to the server:\n\nPlease notice that an attacker may have deleted or renamed the token after gaining a foothold on the server.\n\nTechnical Details\n\nIn the interest of responsible disclosure and ethical reporting, it’s crucial to emphasize that the technical details of this critical vulnerability were disclosed only after careful consideration and the public release of a corresponding exploit. Every effort was made to ensure that JetBrains had adequate time and information to address and remediate the vulnerability. The goal is not only to highlight the potential risks and solutions but also to collaborate towards a safer and more secure digital landscape for all stakeholders involved.\n\nRequest Interceptors\n\nTeamCity uses request interceptors in order to perform specific actions for every HTTP request. One of these actions implemented via a request interceptor is the authorization mechanism.\n\nThe class responsible for applying this and other interceptors is called RequestInterceptors. When a request is received, the preHandle method of this class is invoked, which determines if the request is suitable for pre-handling by calling requestPreHandlingAllowed:\n\njetbrains.buildServer.controllers.interceptors.RequestInterceptors\n\nCopy to clipboard\n\npublic final boolean preHandle(HttpServletRequest req, ...) {\nif (!this.requestPreHandlingAllowed(req)) {\nreturn true;\n}\n// ...\n}\n\nAmongst other things, this method checks if the requested path matches a predefined list of path expressions (myPreHandlingDisabled). For matching paths, no pre-handling should be applied:",
     "score": 4.414666
    },
    {
-    "evidence_id": "EV-0007",
+    "evidence_id": "EV-0009",
     "chunk_id": "NVDREF-5bdd6353813221dd#000",
     "title": "CVE-2023-42793 TeamCity Vulnerability | CI/CD Security | Sonar",
     "text": "NEW: Sonar releases its 2027 State of Code Developer Survey Report\n\nProducts\n\nProducts\n\nSonarQube Cloud\n\nCloud based code verification and governance for your CI/CD workflows\n\nSonarQube Server\n\nSelf-managed code verification and governance for your CI/CD workflows\n\nSonarQube Advanced Security\n\nSecure use of open source code with advanced SAST and SCA\n\nGitar\n\nReviews, fixes, and verifies your PRs - automatically, until CI passes.\n\nSonar VortexNew\n\nContext before the agent writes. Verification as it writes.\n\nSonarQube Remediation AgentNew\n\nFix code issues at scale, on demand.\n\nSonarQube Hunter AgentNew\n\nThe AI security agent that hunts logic flaws\n\nExtend Your Workflow\n\nSonarQube for IDE\n\nFree IDE extension that provides on-the-fly analysis and coding guidance\n\nSonarQube CLI\n\nCode verification in your terminal\n\nSonar MCP\n\nBring code quality and security into your AI and agentic workflows\n\nProduct plugins\n\nSonarQube Claude Code Plugin\n\nSonarQube Cursor Plugin\n\nSonarQube Codex Plugin\n\nSonarQube Antigravity Plugin\n\nSonarQube GitHub Copilot CLI Plugin\n\nWhy Sonar\n\nUse cases\n\nAI code quality\n\nValidate AI code for security and quality\n\nAI code review\n\nReview, fix, and verify PRs\n\nDeveloper-led security (DevSecOps)\n\nSecure apps and prevent vulnerabilities\n\nAutomated code review\n\nEnsure secure, high-quality code\n\nCompliance & reporting\n\nAutomate proof of code compliance\n\nSDLC governance\n\nAlign AI and developer standards\n\nSecrets detection\n\nCatch code secrets in development\n\nSupply chain security\n\nSecure your software supply chain\n\nToken optimization\n\nMake AI-assisted development economically effective\n\nAll use cases\n\nExplore\n\nAgent Centric Development Cycle (ACDC)\n\nAI solutions\n\nArchitecture management\n\nSecurity solutions\n\nCode quality solutions\n\nROI calculator\n\nLLM leaderboard",
     "score": 4.141247
    },
    {
-    "evidence_id": "EV-0008",
+    "evidence_id": "EV-0010",
     "chunk_id": "NVDREF-8438df5843184745#004",
     "title": "CVE-2023-42793: Authentication Bypass Using an Alternate Path or Channel | Rapid7 Vulnerability Database",
     "text": "© Rapid7\nLegal TermsPrivacy PolicyExport NoticeTrustCookie ListAccessibility Statement\n\nBACK TO VEDB\nCVE-2023-42793: Authentication Bypass Using an Alternate Path or Channel\n\nREQUEST DEMO\n\nIn JetBrains TeamCity before 2023.05.4 authentication bypass leading to RCE on TeamCity Server was possible\n\nCVSS Details\n\nCVSS 3.1 Base Score: 9.8\n\nCVSS 3.1 Vector: (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)\n\nCovered by Rapid7\n\nProductVendor AdvisorySolution FileAddedPublished\n\nJetbrains Teamcity—\nUpdate your TeamCity to the latest available version\nOct 15, 2024Sep 19, 2023\n\nPrioritize with Active Threat Intelligence\n\nWith curated Threat Intelligence, you can see which vulnerabilities truly put you at risk, prioritize what matters most, and act before attackers do.\nExplore Intelligence Hub\n\nCVE details\n\nCVSS v4 ScoreN/A\n\nCVSS v3 Score9.8 Critical\n\nEPSS Score93%\n\nEPSS Percentile100%\n\nIn CISA KEV CatalogueTrue\n\nPublished\nSep 19, 2023\n\nMetasploit modules\n\nJetBrains TeamCity Unauthenticated Remote Code Execution\n\nReferences\n\nNVD ↗\n\nCISA KEV ↗\n\nPOC In GitHub ↗\n\nRapid7 Analysis ↗",
     "score": 4.068292
-   },
-   {
-    "evidence_id": "EV-0009",
-    "chunk_id": "NVDREF-0c0775f7a7c7328e#000",
-    "title": "CVE-2023-42793 Vulnerability in TeamCity: Post-Mortem - The JetBrains Blog",
-    "text": "Skip to content\n\nTopics\n\nSearch\n\nBurger menu icon\n\nIDEs\n\nCLion\n\nDataGrip\n\nGoLand\n\nIntelliJ IDEA\n\nPhpStorm\n\nPyCharm\n\nRustRover\n\nRider\n\nRubyMine\n\nWebStorm\n\nPlugins & Services\n\nJetBrains Platform\n\nScala\n\nToolbox App\n\nJetBrains AI\n\nJunie\n\nJetBrains for Data\n\nAir\n\nTeam Tools\n\nDatalore\n\nTeamCity\n\nYouTrack\n\nQodana\n\nDatabao\n\n.NET & Visual Studio\n\n.NET Tools\n\nReSharper C++\n\nLanguages & Frameworks\n\nKotlin\n\nKtor\n\nMPS\n\nAmper\n\nEducation & Research\n\nJetBrains Academy\n\nResearch\n\nCompany\n\nCompany Blog\n\nSecurity\n\nCommunity Programs\n\nLife at JetBrains\n\nJetBrains for Startups\n\nTeamCity\n\nPowerful CI/CD for DevOps-centric teams\n\nFollow\n\nFollow:\n\nX\n\nYoutube\n\nRSS\n\nSubscribe\n\nGet TeamCity\n\nAll\n\nNews\n\nReleases\n\nFeatures\n\nLivestreams\n\nHow-To's\n\nGuest posts\n\nNews\n\nCVE-2023-42793 Vulnerability in TeamCity: Post-Mortem\n\nOlga Bedrina\n\nSummary\n\nA critical vulnerability issue for TeamCity On-Premises was discovered by the Sonar team. TeamCity Cloud was not affected.\n\nThe TeamCity team released the 2023.05.4 fix for the issue.\n\nWe created a plugin that works for older TeamCity versions (8.0+) and recommended installing it to all customers who could not upgrade quickly enough.\n\nWe notified all TeamCity On-Premises customers about the vulnerability.\n\nThe issue was publicly announced.\n\nActions taken by the TeamCity team\n\nOn September 6, 2023, we received a report from Sonar regarding a critical vulnerability issue identified in TeamCity On-Premises. If abused, the flaw could enable an unauthenticated attacker with HTTP(S) access to a TeamCity server to perform a remote code execution (RCE) attack and gain administrative control of the TeamCity server.",
-    "score": 4.045163
-   },
-   {
-    "evidence_id": "EV-0010",
-    "chunk_id": "NVDREF-201fad6eaf50ae12#000",
-    "title": "Fixed security issues",
-    "text": "Products\n\nFor Business\n\nEducation\n\nSolutions\n\nSupport\n\nPricing\n\nMore\n\nPrivacy & Security\n\nProducts\n\nFor Business\n\nEducation\n\nSolutions\n\nSupport\n\nPricing\n\nLogin\n\nPrivacy & Security\n\nPrivacy & Security Trust Center Digital Signatures Fixed Issues Security Notifications Our Commitment\n\nFixed Issues\n\nFixed security issues\n\nThis page contains information about resolved security issues, including description, severity, assigned CVEs, and the product versions in which they were resolved.\n\nProduct\n\nFix version\n\nAI\n\nJetBrains Air\n\nJunie\n\nAir in IDEs\n\nAir Governance\n\nAir Teams\n\nAI News\n\nDeveloper Tools\n\nAll Products\n\nIDEs\n\n.NET and Visual Studio\n\nTeam Tools\n\nPlugin Marketplace\n\nToolbox App\n\nSolutions\n\nBusiness\n\nRemote Development\n\nGame Development\n\nDevOps\n\nInitiatives\n\nKotlin\n\nOpen Source\n\nJetBrains Research\n\nJetBrains Mono\n\nMPS\n\nEducation\n\nStudents\n\nTeachers\n\nTeams\n\nCourse Catalog\n\nUniversity Programs\n\nStore\n\nPlans and Pricing\n\nAll Products Pack\n\ndotUltimate\n\nPartners and Resellers\n\nCustomers and Awards\n\nSupport\n\nTechnical Support\n\nContact Sales\n\nDocumentation\n\nJetBrains Account\n\nResources\n\nBlog\n\nEarly Access\n\nEvents and Livestreams\n\nNewsletters\n\nIndustry Reports\n\nInspectopedia\n\nAI Agents Hub\n\nCommunity\n\nDeveloper Communities\n\nOpen-Source Partnerships\n\nDeveloper Recognition\n\nContent Creators\n\nCourse Creators\n\nCompany\n\nAbout\n\nContacts\n\nCareers\n\nBrand Assets\n\nMerchandise\n\nTrust Center\n\nLoading...English\n\nPrivacy and SecurityPrivacy NoticeTerms of UseAttributionsLegalGenuine ToolsOpt-Out\n\nCopyright © 2000-2026 JetBrains s.r.o.\n\nDeveloped with drive and IntelliJ IDEA",
-    "score": 3.731644
    },
    {
     "evidence_id": "EV-0011",
@@ -705,95 +845,113 @@
    },
    {
     "evidence_id": "EV-0013",
-    "chunk_id": "NIST-SP-800-30r1#139",
-    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
-    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
-    "score": 0.015772478887232988
-   },
-   {
-    "evidence_id": "EV-0014",
     "chunk_id": "CWE-306#000",
     "title": "CWE-306 Missing Authentication for Critical Functionality",
     "text": "CWE-306 Missing Authentication for Critical Functionality\n\nDescription: The product does not perform any authentication for functionality that requires a provable user identity or consumes a significant amount of resources.",
-    "score": 0.015289449112978524
+    "score": 0.0152073732718894
    },
    {
-    "evidence_id": "EV-0015",
+    "evidence_id": "EV-0014",
     "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
     "title": "Vulnerability Disclosure Cheat Sheet",
     "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
-    "score": 0.01523897483260217
+    "score": 0.01422275641025641
    },
    {
-    "evidence_id": "EV-0016",
+    "evidence_id": "EV-0015",
     "chunk_id": "NIST-SP-800-53r5#667",
     "title": "Security and Privacy Controls for Information Systems and Organizations",
     "text": "Security and Privacy Controls for Information Systems and Organizations\n\nCHAPTER THREE PAGE 333\nThis\npublication\nis\navailable\nfree\nof\ncharge\nfrom:\nhttps://doi.org/10.6028/NIST.SP.800-53r5\nSI-2 FLAW REMEDIATION\nControl:\na. Identify, report, and correct system flaws;\nb. Test software and firmware updates related to flaw remediation for effectiveness and\npotential side effects before installation;\nc. Install security-relevant software and firmware updates within [Assignment: organizationdefined time period] of the release of the updates; and\nd. Incorporate flaw remediation into the organizational configuration management process. Discussion: The need to remediate system flaws applies to all types of software and firmware. Organizations identify systems affected by software flaws, including potential vulnerabilities\nresulting from those flaws, and report this information to designated organizational personnel\nwith information security and privacy responsibilities. Security-relevant updates include patches,\nservice packs, and malicious code signatures. Organizations also address flaws discovered during\nassessments, continuous monitoring, incident response activities, and system error handling. By\nincorporating flaw remediation into configuration management processes, required remediation\nactions can be tracked and verified. Organization-defined time periods for updating security-relevant software and firmware may\nvary based on a variety of risk factors, including the security category of the system, the criticality\nof the update (i.e., severity of the vulnerability related to the discovered flaw), the organizational\nrisk tolerance, the mission supported by the system, or the threat environment. Some types of\nflaw remediation may require more testing than other types. Organizations determine the type\nof testing needed for the specific type of flaw remediation activity under consideration and the\ntypes of changes that are to be configuration-managed. In some situations, organizations may\ndetermine that the testing of software or firmware updates is not necessary or practical, such as\nwhen implementing simple malicious code signature updates. In testing decisions, organizations\nconsider whether security-relevant software or firmware updates are obtained from authorized\nsources with appropriate digital signatures. Related Controls: CA-5, CM-3, CM-4, CM-5, CM-6, CM-8, MA-2, RA-5, SA-8, SA-10, SA-11, SI-3, SI-\n5, SI-7, SI-11.",
-    "score": 0.013559626436781609
+    "score": 0.013825757575757576
+   },
+   {
+    "evidence_id": "EV-0016",
+    "chunk_id": "NIST-SP-800-82r3#435",
+    "title": "Guide to Operational Technology (OT) Security",
+    "text": "Guide to Operational Technology (OT) Security - SC-45 SYSTEM TIME SYNCHRONIZATION\n\nOT Discussion: The policy specifically addresses the unique properties and requirements of OT\nand the relationship to non-OT systems.\nSI-2 FLAW REMEDIATION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-2 | Flaw Remediation | Select | Select | Select |\n| SI-2 (2) | FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  | Select | Select |\n\nOT Discussion: Flaw remediation, or patching, is complicated since many OT employ OSs and\nother software that are no longer maintained by the vendors. OT operators may also not have the\nresources or capability to test patches and are dependent on vendors to validate the operability of\na patch. Sometimes, the organization has no choice but to accept additional risk if no vendor\npatch is available, if patching requires additional time to complete validation or testing, or if\ndeployment requires an unacceptable operations shutdown. In these situations, compensating\ncontrols should be implemented (e.g., limiting the exposure of the vulnerable system, restricting\nvulnerable services, implementing virtual patching). Other compensating controls that do not\ndecrease the residual risk but increase the ability to respond may be desirable (e.g., provide a\ntimely response in case of an incident, devise a plan to ensure that the OT can identify\nexploitation of the flaw). Testing flaw remediation in an OT may exceed the organization’s\navailable resources.\nControl Enhancement: (2) No OT discussion for this control.\nSI-3 MALICIOUS CODE PROTECTION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-3 | Malicious Code Protection | Select | Select | Select |",
+    "score": 0.013535760014633254
    },
    {
     "evidence_id": "EV-0017",
-    "chunk_id": "NIST-SP-800-53r5#492",
-    "title": "Security and Privacy Controls for Information Systems and Organizations",
-    "text": "Security and Privacy Controls for Information Systems and Organizations\n\nCHAPTER THREE PAGE 243\nThis\npublication\nis\navailable\nfree\nof\ncharge\nfrom:\nhttps://doi.org/10.6028/NIST.SP.800-53r5\nmonitoring may also include continuous vulnerability monitoring tools that use instrumentation\nto continuously analyze components. Instrumentation-based tools may improve accuracy and\nmay be run throughout an organization without scanning. Vulnerability monitoring tools that\nfacilitate interoperability include tools that are Security Content Automated Protocol (SCAP)-\nvalidated. Thus, organizations consider using scanning tools that express vulnerabilities in the\nCommon Vulnerabilities and Exposures (CVE) naming convention and that employ the Open\nVulnerability Assessment Language (OVAL) to determine the presence of vulnerabilities. Sources\nfor vulnerability information include the Common Weakness Enumeration (CWE) listing and the\nNational Vulnerability Database (NVD). Control assessments, such as red team exercises, provide\nadditional sources of potential vulnerabilities for which to scan. Organizations also consider using\nscanning tools that express vulnerability impact by the Common Vulnerability Scoring System\n(CVSS). Vulnerability monitoring includes a channel and process for receiving reports of security\nvulnerabilities from the public at-large. Vulnerability disclosure programs can be as simple as\npublishing a monitored email address or web form that can receive reports, including notification\nauthorizing good-faith research and disclosure of security vulnerabilities. Organizations generally\nexpect that such research is happening with or without their authorization and can use public\nvulnerability disclosure channels to increase the likelihood that discovered vulnerabilities are\nreported directly to the organization for remediation. Organizations may also employ the use of financial incentives (also known as “bug bounties”) to\nfurther encourage external security researchers to report discovered vulnerabilities. Bug bounty\nprograms can be tailored to the organization’s needs. Bounties can be operated indefinitely or\nover a defined period of time and can be offered to the general public or to a curated group. Organizations may run public and private bounties simultaneously and could choose to offer\npartially credentialed access to certain participants in order to evaluate security vulnerabilities\nfrom privileged vantage points. Related Controls: CA-2, CA-7, CA-8, CM-2, CM-4, CM-6, CM-8, RA-2, RA-3, SA-11, SA-15, SC-38,\nSI-2, SI-3, SI-4, SI-7, SR-11.",
-    "score": 0.013127090301003345
+    "chunk_id": "NIST-SP-800-53B#098",
+    "title": "Control Baselines for Information Systems and Organizations",
+    "text": "Control Baselines for Information Systems and Organizations - ST.SP.800-53B\n\n| CONTROL NUMBER | CONTROL NAME CONTROL ENHANCEMENT NAME | PRIVACY CONTROL | SECURITY CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- | --- |\n| SI-1 | Policy and Procedures | x | x | x | x |\n| SI-2 | Flaw Remediation |  | x | x | x |\n| SI-2(1) | CENTRAL MANAGEMENT | W: Incorporated into PL-9. |  |  |  |\n| SI-2(2) | AUTOMATED FLAW REMEDIATION STATUS |  |  | x | x |\n| SI-2(3) | TIME TO REMEDIATE FLAWS AND BENCHMARKS FOR CORRECTIVE ACTIONS |  |  |  |  |\n| SI-2(4) | AUTOMATED PATCH MANAGEMENT TOOLS |  |  |  |  |\n| SI-2(5) | AUTOMATIC SOFTWARE AND FIRMWARE UPDATES |  |  |  |  |\n| SI-2(6) | REMOVAL OF PREVIOUS VERSIONS OF SOFTWARE AND FIRMWARE |  |  |  |  |\n| SI-3 | Malicious Code Protection |  | x | x | x |\n| SI-3(1) | CENTRAL MANAGEMENT | W: Incorporated into PL-9. |  |  |  |\n| SI-3(2) | AUTOMATIC UPDATES | W: Incorporated into SI-3. |  |  |  |\n| SI-3(3) | NON-PRIVILEGED USERS | W: Incorporated into AC-6(10). |  |  |  |\n| SI-3(4) | UPDATES ONLY BY PRIVILEGED USERS |  |  |  |  |\n| SI-3(5) | PORTABLE STORAGE DEVICES | W: Incorporated into MP-7. |  |  |  |\n| SI-3(6) | TESTING AND VERIFICATION |  |  |  |  |\n| SI-3(7) | NONSIGNATURE-BASED DETECTION | W: Incorporated into SI-3. |  |  |  |\n| SI-3(8) | DETECT UNAUTHORIZED COMMANDS |  |  |  |  |\n| SI-3(9) | AUTHENTICATE REMOTE COMMANDS | W: Moved to AC-17(10). |  |  |  |\n| SI-3(10) | MALICIOUS CODE ANALYSIS |  |  |  |  |\n| SI-4 | System Monitoring |  | x | x | x |\n| SI-4(1) | SYSTEM-WIDE INTRUSION DETECTION SYSTEM |  |  |  |  |\n| SI-4(2) | AUTOMATED TOOLS AND MECHANISMS FOR REAL-TIME ANALYSIS |  |  | x | x |\n| SI-4(3) | AUTOMATED TOOL AND MECHANISM INTEGRATION |  |  |  |  |\n| SI-4(4) | INBOUND AND OUTBOUND COMMUNICATIONS TRAFFIC |  |  | x | x |\n| SI-4(5) | SYSTEM-GENERATED ALERTS |  |  | x | x |\n| SI-4(6) | RESTRICT NON-PRIVILEGED USERS | W: Incorporated into AC-6(10). |  |  |  |\n| SI-4(7) | AUTOMATED RESPONSE TO SUSPICIOUS EVENTS |  |  |  |  |\n| SI-4(8) | PROTECTION OF MONITORING INFORMATION | W: Incorporated into SI-4. |  |  |  |\n| SI-4(9) | TESTING OF MONITORING TOOLS AND MECHANISMS |  |  |  |  |\n| SI-4(10) | VISIBILITY OF ENCRYPTED COMMUNICATIONS |  |  |  | x |\n| SI-4(11) | ANALYZE COMMUNICATIONS TRAFFIC ANOMALIES |  |  |  |  |\n| SI-4(12) | AUTOMATED ORGANIZATION-GENERATED ALERTS |  |  |  | x |",
+    "score": 0.012970918704560476
    },
    {
     "evidence_id": "EV-0018",
-    "chunk_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
-    "title": "Legacy Application Management Cheat Sheet",
-    "text": "Legacy Application Management Cheat Sheet\n\nA Common Vulnerabilities and Exposures (CVE) identifier helps track a vulnerability; [assignment depends on vulnerability determination, disclosure, and the assigning authority's scope](https://github.com/CVEProject/cve-documents/blob/master/CNA_Rules.md#42-cve-id-assignment). Its presence or absence does not by itself establish remediation priority. In circumstances where patching is not practically possible for the legacy application, consider applying additional restrictions to the application/affected components as noted in the section on Authentication/Authorization.\n\n## Data Storage\n\nConfirm that, where ever possible, data handled by the application is both encrypted at rest (i.e. when stored in a database) and in transit. Cheat Sheets on [Cryptographic Storage](Cryptographic_Storage_Cheat_Sheet.md) and [HTTP Strict Transport Security](HTTP_Strict_Transport_Security_Cheat_Sheet.md) may provide some useful further context. In some circumstances legacy applications might be restricted to the use of older network protocols that only support transmission of data in plain text. In this case it is especially important to apply the most restrictive network access controls possible to the application. This could necessitate temporary or permanent air-gapping (functional isolation) of the application.\n\n## Ensuring Maintainability\n\nWhere possible, aim to maintain a high degree of institutional expertise regarding the application, so that staff can both remediate security vulnerabilities and troubleshoot the application as needed to ensure business continuity. The following recommendations apply:",
-    "score": 0.011493506493506493
+    "chunk_id": "NIST-SP-800-53Ar5#1094",
+    "title": "Assessing Security and Privacy Controls in Information Systems and Organizations",
+    "text": "Assessing Security and Privacy Controls in Information Systems and Organizations - IST.SP.8\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS ASSESSMENT OBJECTIVE: Determine if: |  |\n| --- | --- |\n| SI-02(02)_ODP[01] | automated mechanisms to determine if applicable security-relevant soware and firmware updates are installed on system components are defined; |\n| SI-02(02)_ODP[02] | the frequency at which to determine if applicable security-relevant soware and firmware updates are installed on system components is defined; |\n| SI-02(02) | system components have applicable security-relevant soware and firmware updates installed <SI-02(02)_ODP[02] frequency> using <SI-02(02)_ODP[01] automated mechanisms>. |\n\nReference produced from open data\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  |\n| --- | --- |\n| POTENTIAL ASSESSMENT METHODS AND OBJECTS: |  |\n| SI-02(02)-Examine | [SELECT FROM: System and informaon integrity policy; system and informaon integrity procedures; procedures addressing flaw remediaon; automated mechanisms supporng centralized management of flaw remediaon; system design documentaon; system configuraon sengs and associated documentaon; system audit records; system security plan; other relevant documents or records]. |\n| SI-02(02)-Interview | [SELECT FROM: System/network administrators; organizaonal personnel with informaon security responsibilies; organizaonal personnel installing, configuring, and/or maintaining the system; organizaonal personnel responsible for flaw remediaon]. |\n| SI-02(02)-Test | [SELECT FROM: Automated mechanisms used to determine the state of system components with regard to flaw remediaon]. |\n\non\nis\nav",
+    "score": 0.01273166800966962
    },
    {
     "evidence_id": "EV-0019",
-    "chunk_id": "CWE-304#000",
-    "title": "CWE-304 Missing Critical Step in Authentication",
-    "text": "CWE-304 Missing Critical Step in Authentication\n\nDescription: The product implements an authentication technique, but it skips a step that weakens the technique.",
-    "score": 0.008064516129032258
+    "chunk_id": "NIST-SP-800-171r3#137",
+    "title": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations",
+    "text": "Protecting Controlled Unclassified Information in Nonfederal Systems and Organizations\n\nTable 21. System and Information Integrity (SI)\n\n|  |  | TAILORING | SECURITY |\n| --- | --- | --- | --- |\n| NIST SP 800-53 CONTROLS MODERATE BASELINE |  | CRITERIA | REQUIREMENT |\n| SI-01 | Policy and Procedures | CUI | 03.15.01 |\n| SI-02 | Flaw Remediation | CUI | 03.14.01 |\n| SI-02(02) | Flaw Remediation \\| Automated Flaw Remediation Status | NCO | — |\n| SI-03 | Malicious Code Protection | CUI | 03.14.02 |\n| SI-04 | System Monitoring | CUI | 03.14.06 |\n| SI-04(02) | System Monitoring \\| Automated Tools and Mechanisms for Real- Time Analysis | NCO | — |\n| SI-04(04) | System Monitoring \\| Inbound and Outbound Communications Traffic | CUI | 03.14.06 |\n| SI-04(05) | System Monitoring \\| System-Generated Alerts | NCO | — |\n| SI-05 | Security Alerts, Advisories, and Directives | CUI | 03.14.03 |\n| SI-07 | Software, Firmware, and Information Integrity | NCO | — |\n| SI-07(01) | Software, Firmware, and Information Integrity \\| Integrity Checks | NCO | — |\n\n|  |  | TAILORING | SECURITY |\n| --- | --- | --- | --- |\n| NIST SP 800-53 CONTROLS MODERATE BASELINE |  | CRITERIA | REQUIREMENT |\n| SI-07(07) | Software, Firmware, and Information Integrity \\| Integration of Detection and Response | NCO | — |\n| SI-08 | Spam Protection | ORC | — |\n| SI-08(02) | Spam Protection \\| Automatic Updates | NCO | — |\n| SI-10 | Information Input Validation | NCO | — |\n| SI-11 | Error Handling | NCO | — |\n| SI-12 | Information Management and Retention | CUI | 03.14.08 |\n| SI-16 | Memory Protection | NCO | — |\n\nTable 22. Supply Chain Risk Management (SR)",
+    "score": 0.012658227848101266
    },
    {
     "evidence_id": "EV-0020",
-    "chunk_id": "NIST-SP-800-137#109",
-    "title": "NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations",
-    "text": "NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems a\n\nsecurity control compliance activities, and security measurement. Goals for the development of\nSCAP include standardizing system security management, promoting interoperability of security\nproducts, and fostering the use of standard expressions of security content. SCAP can be used for\nmaintaining the security of organizational systems, such as automatically verifying the\ninstallation of patches, checking system security configuration settings, and examining systems\nfor signs of compromise. What Can Be Automated With SCAP\nThere are many readily available tools that can be used to automate ISCM activities using SCAP. The SCAP Product Validation Program51 is designed to test the ability of products to use the\nfeatures and functionality available through SCAP and its component standards. The SCAP validation program validates two types of vulnerability and patch scanners:\nauthenticated and unauthenticated. Authenticated vulnerability and patch scanners provide the\ncapability to scan a target system using target system logon privileges, to locate and identify the\npresence of known vulnerabilities, and evaluate the software patch status to determine the\nongoing security status of the system based on an organization’s defined patch policy. Unauthenticated vulnerability scanners provide the capability to determine the presence of known\nvulnerabilities by evaluating the target system over the network without authenticated access. SCAP-enabled vulnerability scanners can be configured to scan connected systems at regular\nintervals, thus providing a quantitative and repeatable measurement and scoring of software flaws\nacross systems. The use of SCAP-validated vulnerability scanners enables interoperability among\nvulnerability scanners and reporting tools to provide consistent detection and reporting of these\nflaws and supports comprehensive remediation capabilities. While patching and vulnerability monitoring and remediation can often appear an overwhelming\ntask, consistent mitigation of system software vulnerabilities can be achieved through a tested and\nintegrated patching process. A mature patch and vulnerability management program that\nembraces security automation technologies will help the organization to be more proactive than\nreactive with regard to maintaining appropriate levels of security for their systems. Vulnerability assessment and patch management technologies focus primarily on testing for the\npresence of known vulnerabilities in common operating systems and applications.",
-    "score": 0.008064516129032258
+    "chunk_id": "OWASP-Legacy_Application_Management_Cheat_Sheet#006",
+    "title": "Legacy Application Management Cheat Sheet",
+    "text": "Legacy Application Management Cheat Sheet\n\nA Common Vulnerabilities and Exposures (CVE) identifier helps track a vulnerability; [assignment depends on vulnerability determination, disclosure, and the assigning authority's scope](https://github.com/CVEProject/cve-documents/blob/master/CNA_Rules.md#42-cve-id-assignment). Its presence or absence does not by itself establish remediation priority. In circumstances where patching is not practically possible for the legacy application, consider applying additional restrictions to the application/affected components as noted in the section on Authentication/Authorization.\n\n## Data Storage\n\nConfirm that, where ever possible, data handled by the application is both encrypted at rest (i.e. when stored in a database) and in transit. Cheat Sheets on [Cryptographic Storage](Cryptographic_Storage_Cheat_Sheet.md) and [HTTP Strict Transport Security](HTTP_Strict_Transport_Security_Cheat_Sheet.md) may provide some useful further context. In some circumstances legacy applications might be restricted to the use of older network protocols that only support transmission of data in plain text. In this case it is especially important to apply the most restrictive network access controls possible to the application. This could necessitate temporary or permanent air-gapping (functional isolation) of the application.\n\n## Ensuring Maintainability\n\nWhere possible, aim to maintain a high degree of institutional expertise regarding the application, so that staff can both remediate security vulnerabilities and troubleshoot the application as needed to ensure business continuity. The following recommendations apply:",
+    "score": 0.01147894469812278
    }
   ],
   "model_calls": [
    {
     "stage": "evidence_interpretation",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1497,
-    "prompt_tokens": 247,
-    "completion_tokens": 65,
+    "latency_ms": 1984,
+    "prompt_tokens": 512,
+    "completion_tokens": 83,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "retrieval_review",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1316,
-    "prompt_tokens": 1886,
-    "completion_tokens": 50,
+    "latency_ms": 1578,
+    "prompt_tokens": 1801,
+    "completion_tokens": 57,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "analyst",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 6390,
-    "prompt_tokens": 3975,
-    "completion_tokens": 267,
+    "latency_ms": 12869,
+    "prompt_tokens": 4162,
+    "completion_tokens": 529,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "critic",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1908,
-    "prompt_tokens": 4181,
-    "completion_tokens": 67,
+    "latency_ms": 4801,
+    "prompt_tokens": 4583,
+    "completion_tokens": 186,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 15037,
+    "prompt_tokens": 4869,
+    "completion_tokens": 635,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 5163,
+    "prompt_tokens": 4590,
+    "completion_tokens": 216,
     "finish_reason": "stop",
     "max_tokens": 1024
    }

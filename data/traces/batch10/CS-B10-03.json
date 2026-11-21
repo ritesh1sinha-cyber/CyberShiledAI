@@ -4,21 +4,25 @@
  "gold_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
  "model": "Qwen/Qwen3-8B",
  "architecture": "multi",
- "recorded_at": "2026-11-17T18:12:20+00:00",
+ "recorded_at": "2026-11-21T17:15:41+00:00",
  "request": {
   "query": "Investigate CVE-2021-26084: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
   "include_attack": true,
   "top_k": 8
  },
  "http_status": 200,
- "elapsed_ms": 21051,
+ "elapsed_ms": 38676,
  "response": {
   "report": {
-   "request_id": "CS-20261117181159115723",
-   "status": "completed",
-   "summary": "CVE-2021-26084: OGNL injection vulnerability in Confluence",
+   "request_id": "CS-20261121171502732392",
+   "status": "partial",
+   "summary": "CVE-2021-26084 is a critical OGNL injection vulnerability in Atlassian Confluence Server and Data Center, allowing unauthenticated attackers to execute arbitrary code. It affects versions before 6.13.23, 7.4.11, 7.11.6, and 7.12.5. The CVSS score is 9.8 (CRITICAL), and it is listed in CISA KEV as known exploited. Remediation involves applying vendor updates.",
    "summary_evidence_ids": [
-    "EV-0001"
+    "EV-0001",
+    "EV-0002",
+    "EV-0003",
+    "EV-0004",
+    "EV-0005"
    ],
    "cve": {
     "cve_id": "CVE-2021-26084",
@@ -29,7 +33,10 @@
     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
     "cvss_source": "nvd",
     "published": "2021-08-30",
-    "last_modified": "2026-06-17T03:42:49.750000Z"
+    "last_modified": "2026-06-17T03:42:49.750000Z",
+    "cwe": [
+     "CWE-917"
+    ]
    },
    "affected_products": [
     "Atlassian Confluence Server and Data Center"
@@ -37,7 +44,7 @@
    "kev": {
     "status": "known_exploited",
     "catalog_version": "2026.11.04",
-    "checked_at": "2026-11-17T18:12:00.634050Z",
+    "checked_at": "2026-11-21T17:15:04.804334Z",
     "date_added": "2021-11-03",
     "due_date": "2021-11-17",
     "required_action": "Apply updates per vendor instructions.",
@@ -46,10 +53,18 @@
    "attack_mapping": [],
    "remediation": [
     {
-     "text": "Apply updates per vendor instructions. Remediate using NVD guidance.",
+     "text": "Apply updates per vendor instructions. Additional guidance includes encoding user input, validating input, and disabling EL expressions if possible. Refer to NIST and CWE resources for further mitigation strategies.",
      "evidence_ids": [
       "EV-0003",
-      "EV-0005"
+      "EV-0005",
+      "EV-0007",
+      "EV-0008",
+      "EV-0009",
+      "EV-0010",
+      "EV-0011",
+      "EV-0012",
+      "EV-0013",
+      "EV-0014"
      ]
     }
    ],
@@ -59,7 +74,7 @@
      "CVSS 3.1 base score 9.8 (CRITICAL).",
      "CISA KEV status: known_exploited."
     ],
-    "rationale": "CVSS 9.8 (CRITICAL); known exploited",
+    "rationale": "CVSS 3.1 base score 9.8 (CRITICAL). Known exploited in the wild, with potential for ransomware use.",
     "evidence_ids": [
      "EV-0002",
      "EV-0003"
@@ -68,7 +83,9 @@
    "limitations": [
     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
     "Included 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
-    "Retrieved passages are ranked context, not independently verified facts."
+    "Retrieved passages are ranked context, not independently verified facts.",
+    "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts.",
+    "Critic finding (summary/completeness): The summary fails to address the requested inquiry facet: bypass mechanism."
    ],
    "citations": [
     {
@@ -108,94 +125,125 @@
     },
     {
      "evidence_id": "EV-0008",
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/146.html"
+    },
+    {
+     "evidence_id": "EV-0009",
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/74.html"
+    },
+    {
+     "evidence_id": "EV-0010",
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/209.html"
+    },
+    {
+     "evidence_id": "EV-0011",
      "source": "NIST",
      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
     },
     {
-     "evidence_id": "EV-0009",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
-    },
-    {
-     "evidence_id": "EV-0010",
-     "source": "OWASP",
-     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
-    },
-    {
-     "evidence_id": "EV-0011",
-     "source": "CWE",
-     "source_url": "https://cwe.mitre.org/data/definitions/210.html"
-    },
-    {
      "evidence_id": "EV-0012",
-     "source": "CWE",
-     "source_url": "https://cwe.mitre.org/data/definitions/75.html"
-    },
-    {
-     "evidence_id": "EV-0013",
      "source": "NIST",
      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf"
     },
     {
-     "evidence_id": "EV-0014",
+     "evidence_id": "EV-0013",
      "source": "CWE",
-     "source_url": "https://cwe.mitre.org/data/definitions/733.html"
+     "source_url": "https://cwe.mitre.org/data/definitions/1336.html"
+    },
+    {
+     "evidence_id": "EV-0014",
+     "source": "OWASP",
+     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
     }
    ],
-   "generated_at": "2026-11-17T18:12:19.482428Z"
+   "generated_at": "2026-11-21T17:15:40.697665Z"
   },
-  "trace_id": "CS-20261117181159115723",
+  "trace_id": "CS-20261121171502732392",
   "timings": [
    {
     "stage": "evidence_qwen",
-    "ms": 2999
+    "ms": 3490
    },
    {
     "stage": "evidence",
-    "ms": 1483
+    "ms": 1418
    },
    {
     "stage": "analyst",
-    "ms": 6846
+    "ms": 16173
    },
    {
     "stage": "critic",
-    "ms": 1872
+    "ms": 2057
    },
    {
     "stage": "analyst",
-    "ms": 7007
+    "ms": 14437
    },
    {
     "stage": "critic",
-    "ms": 1633
+    "ms": 1803
    },
    {
     "stage": "final_validator",
-    "ms": 2
+    "ms": 1
    },
    {
     "stage": "total",
-    "ms": 21039
+    "ms": 38669
    }
-  ]
+  ],
+  "critic_review": {
+   "cve_id": "CVE-2021-26084",
+   "support": "pass",
+   "completeness": "fail",
+   "citations": "pass",
+   "uncertainty": "pass",
+   "checked_sections": [
+    "summary",
+    "cve",
+    "affected_products",
+    "kev",
+    "attack_mapping",
+    "remediation",
+    "risk",
+    "limitations"
+   ],
+   "issues": [
+    {
+     "section": "summary",
+     "category": "completeness",
+     "detail": "The summary fails to address the requested inquiry facet: bypass mechanism.",
+     "evidence_ids": []
+    }
+   ]
+  },
+  "revised": true
  },
  "service_trace": {
-  "trace_id": "CS-20261117181159115723",
-  "recorded_at": "2026-11-17T18:12:20.154851+00:00",
+  "trace_id": "CS-20261121171502732392",
+  "recorded_at": "2026-11-21T17:15:41.401144+00:00",
   "request": {
    "query": "Investigate CVE-2021-26084: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
    "include_attack": true,
    "top_k": 8,
-   "conversation_context": []
+   "conversation_context": [],
+   "web_fallback_approved": false
   },
   "response": {
    "report": {
-    "request_id": "CS-20261117181159115723",
-    "status": "completed",
-    "summary": "CVE-2021-26084: OGNL injection vulnerability in Confluence",
+    "request_id": "CS-20261121171502732392",
+    "status": "partial",
+    "summary": "CVE-2021-26084 is a critical OGNL injection vulnerability in Atlassian Confluence Server and Data Center, allowing unauthenticated attackers to execute arbitrary code. It affects versions before 6.13.23, 7.4.11, 7.11.6, and 7.12.5. The CVSS score is 9.8 (CRITICAL), and it is listed in CISA KEV as known exploited. Remediation involves applying vendor updates.",
     "summary_evidence_ids": [
-     "EV-0001"
+     "EV-0001",
+     "EV-0002",
+     "EV-0003",
+     "EV-0004",
+     "EV-0005"
     ],
     "cve": {
      "cve_id": "CVE-2021-26084",
@@ -206,7 +254,10 @@
      "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
      "cvss_source": "nvd",
      "published": "2021-08-30",
-     "last_modified": "2026-06-17T03:42:49.750000Z"
+     "last_modified": "2026-06-17T03:42:49.750000Z",
+     "cwe": [
+      "CWE-917"
+     ]
     },
     "affected_products": [
      "Atlassian Confluence Server and Data Center"
@@ -214,7 +265,7 @@
     "kev": {
      "status": "known_exploited",
      "catalog_version": "2026.11.04",
-     "checked_at": "2026-11-17T18:12:00.634050Z",
+     "checked_at": "2026-11-21T17:15:04.804334Z",
      "date_added": "2021-11-03",
      "due_date": "2021-11-17",
      "required_action": "Apply updates per vendor instructions.",
@@ -223,10 +274,18 @@
     "attack_mapping": [],
     "remediation": [
      {
-      "text": "Apply updates per vendor instructions. Remediate using NVD guidance.",
+      "text": "Apply updates per vendor instructions. Additional guidance includes encoding user input, validating input, and disabling EL expressions if possible. Refer to NIST and CWE resources for further mitigation strategies.",
       "evidence_ids": [
        "EV-0003",
-       "EV-0005"
+       "EV-0005",
+       "EV-0007",
+       "EV-0008",
+       "EV-0009",
+       "EV-0010",
+       "EV-0011",
+       "EV-0012",
+       "EV-0013",
+       "EV-0014"
       ]
      }
     ],
@@ -236,7 +295,7 @@
       "CVSS 3.1 base score 9.8 (CRITICAL).",
       "CISA KEV status: known_exploited."
      ],
-     "rationale": "CVSS 9.8 (CRITICAL); known exploited",
+     "rationale": "CVSS 3.1 base score 9.8 (CRITICAL). Known exploited in the wild, with potential for ransomware use.",
      "evidence_ids": [
       "EV-0002",
       "EV-0003"
@@ -245,7 +304,9 @@
     "limitations": [
      "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
      "Included 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
-     "Retrieved passages are ranked context, not independently verified facts."
+     "Retrieved passages are ranked context, not independently verified facts.",
+     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 2 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts.",
+     "Critic finding (summary/completeness): The summary fails to address the requested inquiry facet: bypass mechanism."
     ],
     "citations": [
      {
@@ -285,86 +346,112 @@
      },
      {
       "evidence_id": "EV-0008",
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/146.html"
+     },
+     {
+      "evidence_id": "EV-0009",
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/74.html"
+     },
+     {
+      "evidence_id": "EV-0010",
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/209.html"
+     },
+     {
+      "evidence_id": "EV-0011",
       "source": "NIST",
       "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
      },
      {
-      "evidence_id": "EV-0009",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
-     },
-     {
-      "evidence_id": "EV-0010",
-      "source": "OWASP",
-      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
-     },
-     {
-      "evidence_id": "EV-0011",
-      "source": "CWE",
-      "source_url": "https://cwe.mitre.org/data/definitions/210.html"
-     },
-     {
       "evidence_id": "EV-0012",
-      "source": "CWE",
-      "source_url": "https://cwe.mitre.org/data/definitions/75.html"
-     },
-     {
-      "evidence_id": "EV-0013",
       "source": "NIST",
       "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf"
      },
      {
-      "evidence_id": "EV-0014",
+      "evidence_id": "EV-0013",
       "source": "CWE",
-      "source_url": "https://cwe.mitre.org/data/definitions/733.html"
+      "source_url": "https://cwe.mitre.org/data/definitions/1336.html"
+     },
+     {
+      "evidence_id": "EV-0014",
+      "source": "OWASP",
+      "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html"
      }
     ],
-    "generated_at": "2026-11-17T18:12:19.482428Z"
+    "generated_at": "2026-11-21T17:15:40.697665Z"
    },
-   "trace_id": "CS-20261117181159115723",
+   "trace_id": "CS-20261121171502732392",
    "timings": [
     {
      "stage": "evidence_qwen",
-     "ms": 2999
+     "ms": 3490
     },
     {
      "stage": "evidence",
-     "ms": 1483
+     "ms": 1418
     },
     {
      "stage": "analyst",
-     "ms": 6846
+     "ms": 16173
     },
     {
      "stage": "critic",
-     "ms": 1872
+     "ms": 2057
     },
     {
      "stage": "analyst",
-     "ms": 7007
+     "ms": 14437
     },
     {
      "stage": "critic",
-     "ms": 1633
+     "ms": 1803
     },
     {
      "stage": "final_validator",
-     "ms": 2
+     "ms": 1
     },
     {
      "stage": "total",
-     "ms": 21039
+     "ms": 38669
     }
-   ]
+   ],
+   "critic_review": {
+    "cve_id": "CVE-2021-26084",
+    "support": "pass",
+    "completeness": "fail",
+    "citations": "pass",
+    "uncertainty": "pass",
+    "checked_sections": [
+     "summary",
+     "cve",
+     "affected_products",
+     "kev",
+     "attack_mapping",
+     "remediation",
+     "risk",
+     "limitations"
+    ],
+    "issues": [
+     {
+      "section": "summary",
+      "category": "completeness",
+      "detail": "The summary fails to address the requested inquiry facet: bypass mechanism.",
+      "evidence_ids": []
+     }
+    ]
+   },
+   "revised": true
   },
   "evidence_interpretation": {
    "cve_id": "CVE-2021-26084",
-   "intent": "general",
-   "query": "CVE-2021-26084 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+   "intent": "facts",
+   "query": "CVE-2021-26084 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
   },
   "retrieval_meta": {
    "queries": [
-    "CVE-2021-26084 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance CWE-917 Improper Neutralization of Special Elements used in an Expression Language Statement remediation mitigation security controls"
+    "CVE-2021-26084 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance CWE-917 Improper Neutralization of Special Elements used in an Expression Language Statement remediation mitigation security controls"
    ],
    "review": {
     "sufficient": true,
@@ -372,9 +459,16 @@
    },
    "retry_used": false
   },
+  "runtime": {
+   "embeddings_model": "bge-small-en-v1.5",
+   "embeddings_dim": 384,
+   "dense_backend": "faiss.IndexFlatIP",
+   "chunks_sha256": "72a0ce2e829fc64faee7092e1b06b0b7320363f15fa07d5d7367e36acdbb5919",
+   "index_generated_at": "2026-11-18T08:35:05+00:00"
+  },
   "revised": true,
-  "first_draft_invalid": true,
-  "first_draft_invalid_reason": "Remediation must cite retrieved guidance when available.",
+  "first_draft_invalid": false,
+  "first_draft_invalid_reason": null,
   "draft_invalid_reason": null,
   "draft_fallback_reason": null,
   "revision_review_failed": false,
@@ -388,7 +482,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2021-26084",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-26084",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": "2026-06-17T03:42:49.750000Z",
     "validation_status": "verified"
    },
@@ -399,7 +493,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2021-26084",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-26084",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": "2026-06-17T03:42:49.750000Z",
     "validation_status": "verified"
    },
@@ -410,7 +504,7 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2021-26084",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": "2026-11-04T20:00:05.774000Z",
     "validation_status": "verified"
    },
@@ -421,7 +515,7 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2021-26084",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "verified"
    },
@@ -432,7 +526,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-83ccdb4894640521#000",
     "source_url": "https://jira.atlassian.com/browse/CONFSERVER-67940",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -443,7 +537,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-83ccdb4894640521#001",
     "source_url": "https://jira.atlassian.com/browse/CONFSERVER-67940",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -454,84 +548,84 @@
     "source": "CWE",
     "source_record_id": "CWE-917#000",
     "source_url": "https://cwe.mitre.org/data/definitions/917.html",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0008",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-30r1#139",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage CWE-146#000 from CWE-146 Improper Neutralization of Expression/Command Delimiters.",
+    "source": "CWE",
+    "source_record_id": "CWE-146#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/146.html",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0009",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53r5#492 from Security and Privacy Controls for Information Systems and Organizations.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-53r5#492",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage CWE-74#000 from CWE-74 Improper Neutralization of Special Elements in Output Used by a Downstream Component.",
+    "source": "CWE",
+    "source_record_id": "CWE-74#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/74.html",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0010",
     "claim_type": "remediation",
-    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
-    "source": "OWASP",
-    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
-    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage CWE-209#000 from CWE-209 Generation of Error Message Containing Sensitive Information.",
+    "source": "CWE",
+    "source_record_id": "CWE-209#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/209.html",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0011",
     "claim_type": "remediation",
-    "claim": "Retrieved passage CWE-210#000 from CWE-210 Self-generated Error Message Containing Sensitive Information.",
-    "source": "CWE",
-    "source_record_id": "CWE-210#000",
-    "source_url": "https://cwe.mitre.org/data/definitions/210.html",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage NIST-SP-800-30r1#139 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-30r1#139",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0012",
     "claim_type": "remediation",
-    "claim": "Retrieved passage CWE-75#000 from CWE-75 Failure to Sanitize Special Elements into a Different Plane.",
-    "source": "CWE",
-    "source_record_id": "CWE-75#000",
-    "source_url": "https://cwe.mitre.org/data/definitions/75.html",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage NIST-SP-800-137#109 from NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations.",
+    "source": "NIST",
+    "source_record_id": "NIST-SP-800-137#109",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0013",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-137#109 from NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-137#109",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage CWE-1336#000 from CWE-1336 Improper Neutralization of Special Elements Used in a Template Engine.",
+    "source": "CWE",
+    "source_record_id": "CWE-1336#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/1336.html",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0014",
     "claim_type": "remediation",
-    "claim": "Retrieved passage CWE-733#000 from CWE-733 Compiler Optimization Removal or Modification of Security-critical Code.",
-    "source": "CWE",
-    "source_record_id": "CWE-733#000",
-    "source_url": "https://cwe.mitre.org/data/definitions/733.html",
-    "retrieved_at": "2026-11-17T18:12:00.634050Z",
+    "claim": "Retrieved passage OWASP-Vulnerability_Disclosure_Cheat_Sheet#014 from Vulnerability Disclosure Cheat Sheet.",
+    "source": "OWASP",
+    "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
+    "retrieved_at": "2026-11-21T17:15:04.804334Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    }
@@ -542,7 +636,7 @@
     "chunk_id": "NVDREF-83ccdb4894640521#000",
     "title": "Loading...",
     "text": "Log inSkip to main contentSkip to sidebar\n\nLinked Applications\n\nLoading…\n\nDashboards\n\nProjects\n\nIssues\n\nGive feedback to Atlassian\n\nHelp\n\nKeyboard Shortcuts\n\nAbout Jira\n\nJira Credits\n\nLog In\n\nIMPORTANT: JAC is a Public system and anyone on the internet will be able to view the data in the created JAC tickets. Please don’t include Customer or Sensitive data in the JAC ticket.\n\nConfluence Data Center\n\nCONFSERVER-67940\n\nConfluence Server Webwork OGNL injection - CVE-2021-26084\n\nLog In\n\nPublished\n\nExport\n\nnullView workflowXMLWordPrintable\n\nDetails\n\nType:\n\nPublic Security Vulnerability\n\nResolution:\n\nFixed\n\nPriority:\n\nLow\n\nFix Version/s:\n\n6.13.23, 7.4.11, 7.11.6, 7.12.5, 7.13.0\n\nAffects Version/s:\n\n6.6.0, 6.13.0, 7.4.0, 7.12.0\n\nComponent/s:\n\nNone\n\nLabels:\n\nCVE-2021-26084\n\nadvisory\n\nadvisory-released\n\ndont-import\n\nsecurity\n\nSymptom Severity:\n\nSeverity 1 - Critical\n\nCVSS Score:\n\n9.8\n\nCVSS Severity:\n\nCritical\n\nCVE ID:\n\nCVE-2021-26084\n\nDescription\n\nThis vulnerability is being actively exploited in the wild. Affected servers should be patched immediately.\n\nAn OGNL injection vulnerability exists that allows an unauthenticated attacker to execute arbitrary code on a Confluence Server or Data Center instance.\n\nThe CVE ID is CVE-2021-26084.\n\nAcknowledgements\n\nThe issue was discovered by Benny Jacob (SnowyOwl) via the Atlassian public bug bounty program.\n\nThe affected versions are before version 6.13.23, from version 6.14.0 before 7.4.11, from version 7.5.0 before 7.11.6, and from version 7.12.0 before 7.12.5.\n\nAffected versions:\n\nversion < 6.13.23\n\n6.14.0 ≤ version < 7.4.11\n\n7.5.0 ≤ version < 7.11.6\n\n7.12.0 ≤ version < 7.12.5\n\nFixed versions:\n\n6.13.23\n\n7.4.11\n\n7.11.6\n\n7.12.5\n\n7.13.0\n\nAttachments\n\nIssue Links\n\nis related to",
-    "score": 4.806522
+    "score": 5.353701
    },
    {
     "evidence_id": "EV-0006",
@@ -556,55 +650,55 @@
     "chunk_id": "CWE-917#000",
     "title": "CWE-917 Improper Neutralization of Special Elements used in an Expression Language Statement",
     "text": "CWE-917 Improper Neutralization of Special Elements used in an Expression Language Statement\n\nDescription: The product constructs all or part of an expression language (EL) statement in a framework such as a Java Server Page (JSP) using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended EL statement before it is executed.\n\nPotential mitigations:\n- Architecture and Design: Avoid adding user-controlled data into an expression interpreter when possible.\n- Implementation: If user-controlled data must be added to an expression interpreter, one or more of the following should be performed: Validate that the user input will not evaluate as an expression Encode the user input in a way that ensures it is not evaluated as an expression\n- System Configuration Operation: The framework or tooling might allow the developer to disable or deactivate the processing of EL expressions, such as setting the isELIgnored attribute for a JSP page to true.",
-    "score": 0.01639344262295082
+    "score": 0.016133229247983348
    },
    {
     "evidence_id": "EV-0008",
-    "chunk_id": "NIST-SP-800-30r1#139",
-    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
-    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
-    "score": 0.015527202696196438
+    "chunk_id": "CWE-146#000",
+    "title": "CWE-146 Improper Neutralization of Expression/Command Delimiters",
+    "text": "CWE-146 Improper Neutralization of Expression/Command Delimiters\n\nDescription: The product receives input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could be interpreted as expression or command delimiters when they are sent to a downstream component.",
+    "score": 0.012406015037593985
    },
    {
     "evidence_id": "EV-0009",
-    "chunk_id": "NIST-SP-800-53r5#492",
-    "title": "Security and Privacy Controls for Information Systems and Organizations",
-    "text": "Security and Privacy Controls for Information Systems and Organizations\n\nCHAPTER THREE PAGE 243\nThis\npublication\nis\navailable\nfree\nof\ncharge\nfrom:\nhttps://doi.org/10.6028/NIST.SP.800-53r5\nmonitoring may also include continuous vulnerability monitoring tools that use instrumentation\nto continuously analyze components. Instrumentation-based tools may improve accuracy and\nmay be run throughout an organization without scanning. Vulnerability monitoring tools that\nfacilitate interoperability include tools that are Security Content Automated Protocol (SCAP)-\nvalidated. Thus, organizations consider using scanning tools that express vulnerabilities in the\nCommon Vulnerabilities and Exposures (CVE) naming convention and that employ the Open\nVulnerability Assessment Language (OVAL) to determine the presence of vulnerabilities. Sources\nfor vulnerability information include the Common Weakness Enumeration (CWE) listing and the\nNational Vulnerability Database (NVD). Control assessments, such as red team exercises, provide\nadditional sources of potential vulnerabilities for which to scan. Organizations also consider using\nscanning tools that express vulnerability impact by the Common Vulnerability Scoring System\n(CVSS). Vulnerability monitoring includes a channel and process for receiving reports of security\nvulnerabilities from the public at-large. Vulnerability disclosure programs can be as simple as\npublishing a monitored email address or web form that can receive reports, including notification\nauthorizing good-faith research and disclosure of security vulnerabilities. Organizations generally\nexpect that such research is happening with or without their authorization and can use public\nvulnerability disclosure channels to increase the likelihood that discovered vulnerabilities are\nreported directly to the organization for remediation. Organizations may also employ the use of financial incentives (also known as “bug bounties”) to\nfurther encourage external security researchers to report discovered vulnerabilities. Bug bounty\nprograms can be tailored to the organization’s needs. Bounties can be operated indefinitely or\nover a defined period of time and can be offered to the general public or to a curated group. Organizations may run public and private bounties simultaneously and could choose to offer\npartially credentialed access to certain participants in order to evaluate security vulnerabilities\nfrom privileged vantage points. Related Controls: CA-2, CA-7, CA-8, CM-2, CM-4, CM-6, CM-8, RA-2, RA-3, SA-11, SA-15, SC-38,\nSI-2, SI-3, SI-4, SI-7, SR-11.",
-    "score": 0.013528138528138528
+    "chunk_id": "CWE-74#000",
+    "title": "CWE-74 Improper Neutralization of Special Elements in Output Used by a Downstream Component",
+    "text": "CWE-74 Improper Neutralization of Special Elements in Output Used by a Downstream Component\n\nDescription: The product constructs all or part of a command, data structure, or record using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify how it is parsed or interpreted when it is sent to a downstream component.\n\nPotential mitigations:\n- Requirements: Programming languages and supporting technologies might be chosen which are not subject to these issues.\n- Implementation: Utilize an appropriate mix of allowlist and denylist parsing to filter control-plane syntax from all input.",
+    "score": 0.00819672131147541
    },
    {
     "evidence_id": "EV-0010",
-    "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
-    "title": "Vulnerability Disclosure Cheat Sheet",
-    "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
-    "score": 0.0125
+    "chunk_id": "CWE-209#000",
+    "title": "CWE-209 Generation of Error Message Containing Sensitive Information",
+    "text": "CWE-209 Generation of Error Message Containing Sensitive Information\n\nDescription: The product generates an error message that includes sensitive information about its environment, users, or associated data.\n\nPotential mitigations:\n- Implementation: Ensure that error messages only contain minimal details that are useful to the intended audience and no one else. The messages need to strike the balance between being too cryptic (which can confuse users) or being too detailed (which may reveal more than intended). The messages should not reveal the methods that were used to determine the error. Attackers can use detailed information to refine or optimize their original attack, thereby increasing their chances of success. If errors must be captured in some detail, record them in log messages, but consider what could occur if the log messages can be viewed by attackers. Highly sensitive information such as passwords should never be saved to log files. Avoid inconsistent messaging that might accidentally tip off an attacker about internal state, such as whether a user account exists or not.\n- Implementation: Handle exceptions internally and do not display errors containing potentially sensitive information to a user.\n- Implementation:STRATEGY:Attack Surface Reduction: Use naming conventions and strong types to make it easier to spot when sensitive data is being used. When creating structures, objects, or other complex entities, separate the sensitive and non-sensitive data as much as possible.:EFFECTIVENESS:Defense in Depth\n- Implementation Build and Compilation:STRATEGY:Compilation or Build Hardening: Debugging information should not make its way into a production release.\n- Implementation Build and Compilation:STRATEGY:Environment Hardening: Debugging information should not make its way into a production release.\n- System Configuration: Where available, configure the environment to use less verbose error messages. For example, in PHP, disable the display_errors setting during configuration, or at runtime using the error_reporting() function.\n- System Configuration: Create default error pages or messages that do not leak any information.",
+    "score": 0.008064516129032258
    },
    {
     "evidence_id": "EV-0011",
-    "chunk_id": "CWE-210#000",
-    "title": "CWE-210 Self-generated Error Message Containing Sensitive Information",
-    "text": "CWE-210 Self-generated Error Message Containing Sensitive Information\n\nDescription: The product identifies an error condition and creates its own diagnostic or error messages that contain sensitive information.\n\nPotential mitigations:\n- Implementation Build and Compilation:STRATEGY:Compilation or Build Hardening: Debugging information should not make its way into a production release.\n- Implementation Build and Compilation:STRATEGY:Environment Hardening: Debugging information should not make its way into a production release.",
+    "chunk_id": "NIST-SP-800-30r1#139",
+    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
+    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
     "score": 0.008064516129032258
    },
    {
     "evidence_id": "EV-0012",
-    "chunk_id": "CWE-75#000",
-    "title": "CWE-75 Failure to Sanitize Special Elements into a Different Plane",
-    "text": "CWE-75 Failure to Sanitize Special Elements into a Different Plane\n\nDescription: The product does not adequately filter user-controlled input for special elements with control implications.\n\nPotential mitigations:\n- Requirements: Programming languages and supporting technologies might be chosen which are not subject to these issues.\n- Implementation: Utilize an appropriate mix of allowlist and denylist parsing to filter special element syntax from all input.",
-    "score": 0.007936507936507936
-   },
-   {
-    "evidence_id": "EV-0013",
     "chunk_id": "NIST-SP-800-137#109",
     "title": "NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations",
     "text": "NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems a\n\nsecurity control compliance activities, and security measurement. Goals for the development of\nSCAP include standardizing system security management, promoting interoperability of security\nproducts, and fostering the use of standard expressions of security content. SCAP can be used for\nmaintaining the security of organizational systems, such as automatically verifying the\ninstallation of patches, checking system security configuration settings, and examining systems\nfor signs of compromise. What Can Be Automated With SCAP\nThere are many readily available tools that can be used to automate ISCM activities using SCAP. The SCAP Product Validation Program51 is designed to test the ability of products to use the\nfeatures and functionality available through SCAP and its component standards. The SCAP validation program validates two types of vulnerability and patch scanners:\nauthenticated and unauthenticated. Authenticated vulnerability and patch scanners provide the\ncapability to scan a target system using target system logon privileges, to locate and identify the\npresence of known vulnerabilities, and evaluate the software patch status to determine the\nongoing security status of the system based on an organization’s defined patch policy. Unauthenticated vulnerability scanners provide the capability to determine the presence of known\nvulnerabilities by evaluating the target system over the network without authenticated access. SCAP-enabled vulnerability scanners can be configured to scan connected systems at regular\nintervals, thus providing a quantitative and repeatable measurement and scoring of software flaws\nacross systems. The use of SCAP-validated vulnerability scanners enables interoperability among\nvulnerability scanners and reporting tools to provide consistent detection and reporting of these\nflaws and supports comprehensive remediation capabilities. While patching and vulnerability monitoring and remediation can often appear an overwhelming\ntask, consistent mitigation of system software vulnerabilities can be achieved through a tested and\nintegrated patching process. A mature patch and vulnerability management program that\nembraces security automation technologies will help the organization to be more proactive than\nreactive with regard to maintaining appropriate levels of security for their systems. Vulnerability assessment and patch management technologies focus primarily on testing for the\npresence of known vulnerabilities in common operating systems and applications.",
     "score": 0.007936507936507936
    },
    {
+    "evidence_id": "EV-0013",
+    "chunk_id": "CWE-1336#000",
+    "title": "CWE-1336 Improper Neutralization of Special Elements Used in a Template Engine",
+    "text": "CWE-1336 Improper Neutralization of Special Elements Used in a Template Engine\n\nDescription: The product uses a template engine to insert or process externally-influenced input, but it does not neutralize or incorrectly neutralizes special elements or syntax that can be interpreted as template expressions or other code directives when processed by the engine.\n\nExtended description: In some cases, XSS-style attacks can work, which can obscure the root cause if the developer does not closely investigate the root cause of the error. Template engines can be used on the server or client, so both sides could be affected by injection. The mechanisms of attack or the affected technologies might be different, but the mistake is fundamentally the same.\n\nPotential mitigations:\n- Architecture and Design: Choose a template engine that offers a sandbox or restricted mode, or at least limits the power of any available expressions, function calls, or commands.\n- Implementation: Use the template engine's sandbox or restricted mode, if available.",
+    "score": 0.0078125
+   },
+   {
     "evidence_id": "EV-0014",
-    "chunk_id": "CWE-733#000",
-    "title": "CWE-733 Compiler Optimization Removal or Modification of Security-critical Code",
-    "text": "CWE-733 Compiler Optimization Removal or Modification of Security-critical Code\n\nDescription: The developer builds a security-critical protection mechanism into the software, but the compiler optimizes the program such that the mechanism is removed or modified.",
+    "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
+    "title": "Vulnerability Disclosure Cheat Sheet",
+    "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
     "score": 0.0078125
    }
   ],
@@ -612,17 +706,17 @@
    {
     "stage": "evidence_interpretation",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1514,
-    "prompt_tokens": 247,
-    "completion_tokens": 65,
+    "latency_ms": 2070,
+    "prompt_tokens": 512,
+    "completion_tokens": 83,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "retrieval_review",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1194,
-    "prompt_tokens": 1723,
+    "latency_ms": 1234,
+    "prompt_tokens": 1359,
     "completion_tokens": 45,
     "finish_reason": "stop",
     "max_tokens": 1024
@@ -630,17 +724,17 @@
    {
     "stage": "analyst",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 6843,
-    "prompt_tokens": 3591,
-    "completion_tokens": 291,
+    "latency_ms": 16171,
+    "prompt_tokens": 3493,
+    "completion_tokens": 682,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "critic",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1867,
-    "prompt_tokens": 3821,
+    "latency_ms": 2054,
+    "prompt_tokens": 3972,
     "completion_tokens": 67,
     "finish_reason": "stop",
     "max_tokens": 1024
@@ -648,17 +742,17 @@
    {
     "stage": "analyst",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 7004,
-    "prompt_tokens": 4038,
-    "completion_tokens": 305,
+    "latency_ms": 14435,
+    "prompt_tokens": 4198,
+    "completion_tokens": 587,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "critic",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1627,
-    "prompt_tokens": 3835,
+    "latency_ms": 1799,
+    "prompt_tokens": 3972,
     "completion_tokens": 67,
     "finish_reason": "stop",
     "max_tokens": 1024

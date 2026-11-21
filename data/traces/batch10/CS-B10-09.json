@@ -4,21 +4,23 @@
  "gold_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
  "model": "Qwen/Qwen3-8B",
  "architecture": "multi",
- "recorded_at": "2026-11-17T18:14:04+00:00",
+ "recorded_at": "2026-11-21T17:19:51+00:00",
  "request": {
   "query": "Investigate CVE-2024-24919: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
   "include_attack": true,
   "top_k": 8
  },
  "http_status": 200,
- "elapsed_ms": 12088,
+ "elapsed_ms": 39913,
  "response": {
   "report": {
-   "request_id": "CS-20261117181352893382",
-   "status": "completed",
-   "summary": "CVE-2024-24919 allows information disclosure on Check Point gateways",
+   "request_id": "CS-20261121171911600246",
+   "status": "partial",
+   "summary": "CVE-2024-24919; NVD record available; CVSS 8.6 HIGH; listed in CISA KEV as known exploited; product: Check Point Quantum Security Gateways.",
    "summary_evidence_ids": [
-    "EV-0001"
+    "EV-0002",
+    "EV-0003",
+    "EV-0004"
    ],
    "cve": {
     "cve_id": "CVE-2024-24919",
@@ -29,7 +31,11 @@
     "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
     "cvss_source": "nvd",
     "published": "2024-05-28",
-    "last_modified": "2026-08-05T05:16:41.323000Z"
+    "last_modified": "2026-08-05T05:16:41.323000Z",
+    "cwe": [
+     "CWE-200",
+     "NVD-CWE-noinfo"
+    ]
    },
    "affected_products": [
     "Check Point Quantum Security Gateways"
@@ -37,7 +43,7 @@
    "kev": {
     "status": "known_exploited",
     "catalog_version": "2026.11.04",
-    "checked_at": "2026-11-17T18:13:54.396035Z",
+    "checked_at": "2026-11-21T17:19:13.808204Z",
     "date_added": "2024-05-30",
     "due_date": "2024-06-20",
     "required_action": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
@@ -46,23 +52,33 @@
    "attack_mapping": [],
    "remediation": [
     {
-     "text": "Apply vendor mitigations, remove local users, rotate passwords, renew certificates",
+     "text": "Use CWE-200 guidance: CWE-200 Exposure of Sensitive Information to an Unauthorized Actor. CISA KEV required action: Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
      "evidence_ids": [
       "EV-0003",
       "EV-0005",
       "EV-0006",
       "EV-0007",
-      "EV-0008"
+      "EV-0008",
+      "EV-0009",
+      "EV-0010",
+      "EV-0011",
+      "EV-0012",
+      "EV-0013",
+      "EV-0014",
+      "EV-0015",
+      "EV-0016",
+      "EV-0017",
+      "EV-0018"
      ]
     }
    ],
    "risk": {
-    "tier": "high",
+    "tier": "critical",
     "drivers": [
      "CVSS 3.1 base score 8.6 (HIGH).",
      "CISA KEV status: known_exploited."
     ],
-    "rationale": "CVSS 8.6; known exploited",
+    "rationale": "CVSS score 8.6 (HIGH); CISA KEV lists the CVE as known exploited.",
     "evidence_ids": [
      "EV-0002",
      "EV-0003"
@@ -72,7 +88,9 @@
     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
     "Included 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
     "Retrieved passages are ranked context, not independently verified facts.",
-    "No verified MITRE ATT&CK technique mapping"
+    "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts. The model draft was rejected by deterministic validation; this concise draft was assembled from the cited evidence.",
+    "Critic finding (summary/support): Summary does not mention the vulnerability's technical mechanism or exploitation status.",
+    "Critic finding (summary/completeness): Summary does not address the user's inquiry about prerequisites or root cause."
    ],
    "citations": [
     {
@@ -143,75 +161,120 @@
     {
      "evidence_id": "EV-0014",
      "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf"
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
     },
     {
      "evidence_id": "EV-0015",
      "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
     },
     {
      "evidence_id": "EV-0016",
      "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
     },
     {
      "evidence_id": "EV-0017",
      "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf"
+     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
     },
     {
      "evidence_id": "EV-0018",
-     "source": "NIST",
-     "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+     "source": "CWE",
+     "source_url": "https://cwe.mitre.org/data/definitions/213.html"
     }
    ],
-   "generated_at": "2026-11-17T18:14:04.619968Z"
+   "generated_at": "2026-11-21T17:19:50.790007Z"
   },
-  "trace_id": "CS-20261117181352893382",
+  "trace_id": "CS-20261121171911600246",
   "timings": [
    {
     "stage": "evidence_qwen",
-    "ms": 3184
+    "ms": 3873
    },
    {
     "stage": "evidence",
-    "ms": 1684
+    "ms": 1666
    },
    {
     "stage": "analyst",
-    "ms": 6649
+    "ms": 14736
    },
    {
     "stage": "critic",
-    "ms": 1884
+    "ms": 2558
+   },
+   {
+    "stage": "analyst",
+    "ms": 14688
+   },
+   {
+    "stage": "critic",
+    "ms": 3330
    },
    {
     "stage": "final_validator",
-    "ms": 3
+    "ms": 1
    },
    {
     "stage": "total",
-    "ms": 12076
+    "ms": 39904
    }
-  ]
+  ],
+  "critic_review": {
+   "cve_id": "CVE-2024-24919",
+   "support": "fail",
+   "completeness": "fail",
+   "citations": "pass",
+   "uncertainty": "pass",
+   "checked_sections": [
+    "summary",
+    "cve",
+    "affected_products",
+    "kev",
+    "attack_mapping",
+    "remediation",
+    "risk",
+    "limitations"
+   ],
+   "issues": [
+    {
+     "section": "summary",
+     "category": "support",
+     "detail": "Summary does not mention the vulnerability's technical mechanism or exploitation status.",
+     "evidence_ids": [
+      "EV-0001"
+     ]
+    },
+    {
+     "section": "summary",
+     "category": "completeness",
+     "detail": "Summary does not address the user's inquiry about prerequisites or root cause.",
+     "evidence_ids": []
+    }
+   ]
+  },
+  "revised": true
  },
  "service_trace": {
-  "trace_id": "CS-20261117181352893382",
-  "recorded_at": "2026-11-17T18:14:04.968914+00:00",
+  "trace_id": "CS-20261121171911600246",
+  "recorded_at": "2026-11-21T17:19:51.503126+00:00",
   "request": {
    "query": "Investigate CVE-2024-24919: explain the vulnerability, technical mechanism, affected products/versions and prerequisites, severity, exploitation status, weakness, remediation and relevant security guidance.",
    "include_attack": true,
    "top_k": 8,
-   "conversation_context": []
+   "conversation_context": [],
+   "web_fallback_approved": false
   },
   "response": {
    "report": {
-    "request_id": "CS-20261117181352893382",
-    "status": "completed",
-    "summary": "CVE-2024-24919 allows information disclosure on Check Point gateways",
+    "request_id": "CS-20261121171911600246",
+    "status": "partial",
+    "summary": "CVE-2024-24919; NVD record available; CVSS 8.6 HIGH; listed in CISA KEV as known exploited; product: Check Point Quantum Security Gateways.",
     "summary_evidence_ids": [
-     "EV-0001"
+     "EV-0002",
+     "EV-0003",
+     "EV-0004"
     ],
     "cve": {
      "cve_id": "CVE-2024-24919",
@@ -222,7 +285,11 @@
      "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
      "cvss_source": "nvd",
      "published": "2024-05-28",
-     "last_modified": "2026-08-05T05:16:41.323000Z"
+     "last_modified": "2026-08-05T05:16:41.323000Z",
+     "cwe": [
+      "CWE-200",
+      "NVD-CWE-noinfo"
+     ]
     },
     "affected_products": [
      "Check Point Quantum Security Gateways"
@@ -230,7 +297,7 @@
     "kev": {
      "status": "known_exploited",
      "catalog_version": "2026.11.04",
-     "checked_at": "2026-11-17T18:13:54.396035Z",
+     "checked_at": "2026-11-21T17:19:13.808204Z",
      "date_added": "2024-05-30",
      "due_date": "2024-06-20",
      "required_action": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
@@ -239,23 +306,33 @@
     "attack_mapping": [],
     "remediation": [
      {
-      "text": "Apply vendor mitigations, remove local users, rotate passwords, renew certificates",
+      "text": "Use CWE-200 guidance: CWE-200 Exposure of Sensitive Information to an Unauthorized Actor. CISA KEV required action: Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
       "evidence_ids": [
        "EV-0003",
        "EV-0005",
        "EV-0006",
        "EV-0007",
-       "EV-0008"
+       "EV-0008",
+       "EV-0009",
+       "EV-0010",
+       "EV-0011",
+       "EV-0012",
+       "EV-0013",
+       "EV-0014",
+       "EV-0015",
+       "EV-0016",
+       "EV-0017",
+       "EV-0018"
       ]
      }
     ],
     "risk": {
-     "tier": "high",
+     "tier": "critical",
      "drivers": [
       "CVSS 3.1 base score 8.6 (HIGH).",
       "CISA KEV status: known_exploited."
      ],
-     "rationale": "CVSS 8.6; known exploited",
+     "rationale": "CVSS score 8.6 (HIGH); CISA KEV lists the CVE as known exploited.",
      "evidence_ids": [
       "EV-0002",
       "EV-0003"
@@ -265,7 +342,9 @@
      "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot.",
      "Included 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since.",
      "Retrieved passages are ranked context, not independently verified facts.",
-     "No verified MITRE ATT&CK technique mapping"
+     "No verified MITRE ATT&CK technique mapping was found for this CVE in the available snapshot. Included 6 passages from the CVE's own NVD-cited reference pages; these are snapshot copies fetched locally, so page content may have changed since. Retrieved passages are ranked context, not independently verified facts. The model draft was rejected by deterministic validation; this concise draft was assembled from the cited evidence.",
+     "Critic finding (summary/support): Summary does not mention the vulnerability's technical mechanism or exploitation status.",
+     "Critic finding (summary/completeness): Summary does not address the user's inquiry about prerequisites or root cause."
     ],
     "citations": [
      {
@@ -336,79 +415,128 @@
      {
       "evidence_id": "EV-0014",
       "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf"
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf"
      },
      {
       "evidence_id": "EV-0015",
       "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
      },
      {
       "evidence_id": "EV-0016",
       "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
      },
      {
       "evidence_id": "EV-0017",
       "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf"
+      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
      },
      {
       "evidence_id": "EV-0018",
-      "source": "NIST",
-      "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+      "source": "CWE",
+      "source_url": "https://cwe.mitre.org/data/definitions/213.html"
      }
     ],
-    "generated_at": "2026-11-17T18:14:04.619968Z"
+    "generated_at": "2026-11-21T17:19:50.790007Z"
    },
-   "trace_id": "CS-20261117181352893382",
+   "trace_id": "CS-20261121171911600246",
    "timings": [
     {
      "stage": "evidence_qwen",
-     "ms": 3184
+     "ms": 3873
     },
     {
      "stage": "evidence",
-     "ms": 1684
+     "ms": 1666
     },
     {
      "stage": "analyst",
-     "ms": 6649
+     "ms": 14736
     },
     {
      "stage": "critic",
-     "ms": 1884
+     "ms": 2558
+    },
+    {
+     "stage": "analyst",
+     "ms": 14688
+    },
+    {
+     "stage": "critic",
+     "ms": 3330
     },
     {
      "stage": "final_validator",
-     "ms": 3
+     "ms": 1
     },
     {
      "stage": "total",
-     "ms": 12076
+     "ms": 39904
     }
-   ]
+   ],
+   "critic_review": {
+    "cve_id": "CVE-2024-24919",
+    "support": "fail",
+    "completeness": "fail",
+    "citations": "pass",
+    "uncertainty": "pass",
+    "checked_sections": [
+     "summary",
+     "cve",
+     "affected_products",
+     "kev",
+     "attack_mapping",
+     "remediation",
+     "risk",
+     "limitations"
+    ],
+    "issues": [
+     {
+      "section": "summary",
+      "category": "support",
+      "detail": "Summary does not mention the vulnerability's technical mechanism or exploitation status.",
+      "evidence_ids": [
+       "EV-0001"
+      ]
+     },
+     {
+      "section": "summary",
+      "category": "completeness",
+      "detail": "Summary does not address the user's inquiry about prerequisites or root cause.",
+      "evidence_ids": []
+     }
+    ]
+   },
+   "revised": true
   },
   "evidence_interpretation": {
    "cve_id": "CVE-2024-24919",
-   "intent": "general",
-   "query": "CVE-2024-24919 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+   "intent": "facts",
+   "query": "CVE-2024-24919 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
   },
   "retrieval_meta": {
    "queries": [
-    "CVE-2024-24919 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance CWE-200 Exposure of Sensitive Information to an Unauthorized Actor remediation mitigation security controls"
+    "CVE-2024-24919 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance CWE-200 Exposure of Sensitive Information to an Unauthorized Actor remediation mitigation security controls"
    ],
    "review": {
     "sufficient": true,
-    "refined_query": "CVE-2024-24919 vulnerability details, technical mechanism, affected products, prerequisites, severity, exploitation status, weakness, remediation, and security guidance"
+    "refined_query": "CVE-2024-24919 vulnerability details, technical mechanism, affected products/versions, prerequisites, severity, exploitation status, weakness, remediation, and relevant security guidance"
    },
    "retry_used": false
   },
-  "revised": false,
-  "first_draft_invalid": false,
-  "first_draft_invalid_reason": null,
+  "runtime": {
+   "embeddings_model": "bge-small-en-v1.5",
+   "embeddings_dim": 384,
+   "dense_backend": "faiss.IndexFlatIP",
+   "chunks_sha256": "72a0ce2e829fc64faee7092e1b06b0b7320363f15fa07d5d7367e36acdbb5919",
+   "index_generated_at": "2026-11-18T08:35:05+00:00"
+  },
+  "revised": true,
+  "first_draft_invalid": true,
+  "first_draft_invalid_reason": "Analyst used unsuitable evidence for 'risk'.",
   "draft_invalid_reason": null,
-  "draft_fallback_reason": null,
+  "draft_fallback_reason": "Analyst used unsuitable evidence for 'risk'.",
   "revision_review_failed": false,
   "first_review_failed": false,
   "refusal_reason": null,
@@ -420,7 +548,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2024-24919",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-24919",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": "2026-08-05T05:16:41.323000Z",
     "validation_status": "verified"
    },
@@ -431,7 +559,7 @@
     "source": "NVD",
     "source_record_id": "CVE-2024-24919",
     "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-24919",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": "2026-08-05T05:16:41.323000Z",
     "validation_status": "verified"
    },
@@ -442,7 +570,7 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2024-24919",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": "2026-11-04T20:00:05.774000Z",
     "validation_status": "verified"
    },
@@ -453,29 +581,29 @@
     "source": "CISA_KEV",
     "source_record_id": "CVE-2024-24919",
     "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "verified"
    },
    {
     "evidence_id": "EV-0005",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-4d007665011311da#000 from Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919).",
+    "claim": "Retrieved passage NVDREF-4d007665011311da#001 from Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919).",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-4d007665011311da#000",
+    "source_record_id": "NVDREF-4d007665011311da#001",
     "source_url": "https://www.mnemonic.io/resources/blog/advisory-check-point-remote-access-vpn-vulnerability-cve-2024-24919/",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0006",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NVDREF-4d007665011311da#001 from Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919).",
+    "claim": "Retrieved passage NVDREF-4d007665011311da#000 from Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919).",
     "source": "NVD_REF",
-    "source_record_id": "NVDREF-4d007665011311da#001",
+    "source_record_id": "NVDREF-4d007665011311da#000",
     "source_url": "https://www.mnemonic.io/resources/blog/advisory-check-point-remote-access-vpn-vulnerability-cve-2024-24919/",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -486,7 +614,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-4d007665011311da#003",
     "source_url": "https://www.mnemonic.io/resources/blog/advisory-check-point-remote-access-vpn-vulnerability-cve-2024-24919/",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -497,7 +625,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-4d007665011311da#002",
     "source_url": "https://www.mnemonic.io/resources/blog/advisory-check-point-remote-access-vpn-vulnerability-cve-2024-24919/",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -508,7 +636,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-4d007665011311da#004",
     "source_url": "https://www.mnemonic.io/resources/blog/advisory-check-point-remote-access-vpn-vulnerability-cve-2024-24919/",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -519,7 +647,7 @@
     "source": "NVD_REF",
     "source_record_id": "NVDREF-56e0e5bf49c15e1d#000",
     "source_url": "https://support.checkpoint.com/results/sk/sk182336",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -530,7 +658,7 @@
     "source": "NIST",
     "source_record_id": "NIST-SP-800-30r1#139",
     "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -541,7 +669,7 @@
     "source": "CWE",
     "source_record_id": "CWE-200#000",
     "source_url": "https://cwe.mitre.org/data/definitions/200.html",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
@@ -552,62 +680,62 @@
     "source": "OWASP",
     "source_record_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
     "source_url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0014",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-61r3#063 from Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile.",
+    "claim": "Retrieved passage NIST-SP-800-82r3#435 from Guide to Operational Technology (OT) Security.",
     "source": "NIST",
-    "source_record_id": "NIST-SP-800-61r3#063",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "source_record_id": "NIST-SP-800-82r3#435",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-82r3.pdf",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0015",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-39#130 from NIST SP 800-39,  Managing Information Security Risk: Organization, Mission, and Information System View.",
+    "claim": "Retrieved passage NIST-SP-800-30r1#077 from NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments.",
     "source": "NIST",
-    "source_record_id": "NIST-SP-800-39#130",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "source_record_id": "NIST-SP-800-30r1#077",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0016",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53r5#492 from Security and Privacy Controls for Information Systems and Organizations.",
+    "claim": "Retrieved passage NIST-SP-800-39#130 from NIST SP 800-39,  Managing Information Security Risk: Organization, Mission, and Information System View.",
     "source": "NIST",
-    "source_record_id": "NIST-SP-800-53r5#492",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "source_record_id": "NIST-SP-800-39#130",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0017",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-137#086 from NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations.",
+    "claim": "Retrieved passage NIST-SP-800-53Ar5#1094 from Assessing Security and Privacy Controls in Information Systems and Organizations.",
     "source": "NIST",
-    "source_record_id": "NIST-SP-800-137#086",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-137.pdf",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "source_record_id": "NIST-SP-800-53Ar5#1094",
+    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    },
    {
     "evidence_id": "EV-0018",
     "claim_type": "remediation",
-    "claim": "Retrieved passage NIST-SP-800-53r5#813 from Security and Privacy Controls for Information Systems and Organizations.",
-    "source": "NIST",
-    "source_record_id": "NIST-SP-800-53r5#813",
-    "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-    "retrieved_at": "2026-11-17T18:13:54.396035Z",
+    "claim": "Retrieved passage CWE-213#000 from CWE-213 Exposure of Sensitive Information Due to Incompatible Policies.",
+    "source": "CWE",
+    "source_record_id": "CWE-213#000",
+    "source_url": "https://cwe.mitre.org/data/definitions/213.html",
+    "retrieved_at": "2026-11-21T17:19:13.808204Z",
     "source_updated_at": null,
     "validation_status": "retrieved"
    }
@@ -615,17 +743,17 @@
   "contexts": [
    {
     "evidence_id": "EV-0005",
+    "chunk_id": "NVDREF-4d007665011311da#001",
+    "title": "Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919)",
+    "text": "Update 31.05.2024: It is now proven that the vulnerability allows a threat actor to retrieve all files on the local filesystem. This includes password hashes for all local accounts, SSH keys, certificates and other critical files. Threat actors can gain full shell access on vulnerable systems with relative ease.\n\nThreat Intelligence assessment\n\nCheck Point Software Technologies and mnemonic have observed attempts of exploiting this vulnerability.\n\nmnemonic has several observations of this exploit being used in the wild and is currently investigating activity related to the use of this vulnerability. The vulnerability is particularly critical because it does not require any user interaction or privileges, making it easy to exploit remotely.\n\nWe have observed threat actors extracting ntds.dit from compromised customers within 2-3 hours after logging in with a local user. mnemonic links this vulnerability to the activity described in our blog about the misuse of Visual Studio Code for traffic tunneling. CVE-2024-24919 was in that case used to extract user information which the threat actor then used to move laterally in the network.\n\nUpdate 31.05.2024: A POC to exploit the vulnerability is now publicly available.\n\nAffected systems\n\nThe vulnerability is not tied to specific software versions. Remediations and fixes will need to be implemented in the form of a hotfix released after the vulnerability's announcement.\n\nGateways using only Site-to-Site IPSEC VPN are not affected.\n\nRecommendations\n\nUpdate 31.05.2024: Additional recommendations and mitigations added in italics.\n\nAll gateways with Mobile Access blade active (or formerly active) should be treated as vulnerable.",
+    "score": 3.668291
+   },
+   {
+    "evidence_id": "EV-0006",
     "chunk_id": "NVDREF-4d007665011311da#000",
     "title": "Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919)",
     "text": "Skip to content\n\nWritten by:\n\nUpdate 31.05.2024: Added clarification on severity of the vulnerability, recommendations and mitigations. A Proof of Concept (POC) to exploit the vulnerability is now publicly available. CVSS score has been increased from 7.5 to 8.6. Updated Check Point support links.\n\nA critical vulnerability has been discovered in Check Point Security Gateways with Remote Access VPN enabled, also referred to as the \"Mobile Access\" blade. The vulnerability also applies to instances where Check Point Mobile Secure Workspace with Capsule is used.\n\nThe vulnerability is considered critical because it allows unauthorised actors to extract information from gateways connected to the Internet.\n\nmnemonic has observed attempts of exploitation in customer environments since April 30, 2024.\n\nBackground: CVE-2024-24919\n\nLate in the evening on May 28, 2024, mnemonic was contacted by Check Point Norway, urging us to patch all customers with Remote Access VPN and Mobile Access enabled.\n\nThe vulnerability in question impacts all Check Point gateways with the Mobile Access blade enabled, including Capsule Workspace. It has been assigned a CVSS v3.1 base score of 8.6 (HIGH).\n\nThe vulnerability allows a threat actor to enumerate and extract password hashes for all local accounts, including the account used to connect to Active Directory. The full extent of the consequences is still unknown. However, it is known that password hashes of legacy local users with password-only authentication can be extracted, including service accounts used to connect to Active Directory. Weak passwords can be compromised, leading to further misuse and potential lateral movement within the network.",
     "score": 3.273671
-   },
-   {
-    "evidence_id": "EV-0006",
-    "chunk_id": "NVDREF-4d007665011311da#001",
-    "title": "Advisory: Check Point Remote Access VPN vulnerability (CVE-2024-24919)",
-    "text": "Update 31.05.2024: It is now proven that the vulnerability allows a threat actor to retrieve all files on the local filesystem. This includes password hashes for all local accounts, SSH keys, certificates and other critical files. Threat actors can gain full shell access on vulnerable systems with relative ease.\n\nThreat Intelligence assessment\n\nCheck Point Software Technologies and mnemonic have observed attempts of exploiting this vulnerability.\n\nmnemonic has several observations of this exploit being used in the wild and is currently investigating activity related to the use of this vulnerability. The vulnerability is particularly critical because it does not require any user interaction or privileges, making it easy to exploit remotely.\n\nWe have observed threat actors extracting ntds.dit from compromised customers within 2-3 hours after logging in with a local user. mnemonic links this vulnerability to the activity described in our blog about the misuse of Visual Studio Code for traffic tunneling. CVE-2024-24919 was in that case used to extract user information which the threat actor then used to move laterally in the network.\n\nUpdate 31.05.2024: A POC to exploit the vulnerability is now publicly available.\n\nAffected systems\n\nThe vulnerability is not tied to specific software versions. Remediations and fixes will need to be implemented in the form of a hotfix released after the vulnerability's announcement.\n\nGateways using only Site-to-Site IPSEC VPN are not affected.\n\nRecommendations\n\nUpdate 31.05.2024: Additional recommendations and mitigations added in italics.\n\nAll gateways with Mobile Access blade active (or formerly active) should be treated as vulnerable.",
-    "score": 3.117474
    },
    {
     "evidence_id": "EV-0007",
@@ -660,92 +788,110 @@
     "chunk_id": "NIST-SP-800-30r1#139",
     "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
     "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments - TABLE F-2: ASSESSMENT SCALE – VULNERABILITY SEVERITY\n\n| Qualitative Values | Semi-Quantitative Values |  | Description |\n| --- | --- | --- | --- |\n|  |  |  | The vulnerability is exposed and exploitable, and its exploitation could result in severe impacts. |\n| Very High | 96-100 | 10 | Relevant security control or other remediation is not implemented and not planned; or no security |\n|  |  |  | measure can be identified to remediate the vulnerability. |\n|  |  |  | The vulnerability is of high concern, based on the exposure of the vulnerability and ease of |\n| High | 80-95 | 8 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is planned but not implemented; compensating |\n|  |  |  | controls are in place and at least minimally effective. |\n|  |  |  | The vulnerability is of moderate concern, based on the exposure of the vulnerability and ease of |\n| Moderate | 21-79 | 5 | exploitation and/or on the severity of impacts that could result from its exploitation. |\n|  |  |  | Relevant security control or other remediation is partially implemented and somewhat effective. |\n|  |  |  | The vulnerability is of minor concern, but effectiveness of remediation could be improved. |\n| Low | 5-20 | 2 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented and somewhat effective. |\n|  |  |  | The vulnerability is not of concern. |\n| Very Low | 0-4 | 0 |  |\n|  |  |  | Relevant security control or other remediation is fully implemented, assessed, and effective. |",
-    "score": 0.016133229247983348
+    "score": 0.015549662487945998
    },
    {
     "evidence_id": "EV-0012",
     "chunk_id": "CWE-200#000",
     "title": "CWE-200 Exposure of Sensitive Information to an Unauthorized Actor",
     "text": "CWE-200 Exposure of Sensitive Information to an Unauthorized Actor\n\nDescription: The product exposes sensitive information to an actor that is not explicitly authorized to have access to that information.\n\nPotential mitigations:\n- Architecture and Design:STRATEGY:Separation of Privilege: Compartmentalize the system to have safe areas where trust boundaries can be unambiguously drawn. Do not allow sensitive data to go outside of the trust boundary and always be careful when interfacing with a compartment outside of the safe area. Ensure that appropriate compartmentalization is built into the system design, and the compartmentalization allows for and reinforces privilege separation functionality. Architects and designers should rely on the principle of least privilege to decide the appropriate time to use privileges and the time to drop privileges.",
-    "score": 0.015504807692307693
+    "score": 0.01398533950617284
    },
    {
     "evidence_id": "EV-0013",
     "chunk_id": "OWASP-Vulnerability_Disclosure_Cheat_Sheet#014",
     "title": "Vulnerability Disclosure Cheat Sheet",
     "text": "Vulnerability Disclosure Cheat Sheet\n\n#### Commercial and Open Source Software\n\nOnce the vulnerability has been resolved (and retested), the details should be published in a security advisory for the software. It is important to remember that publishing the details of security issues **does not make the vendor look bad**. All software has security vulnerabilities, and demonstrating a clear and established process for handling and disclosing them gives far more confidence in the security of the software than trying to hide the issues.\n\nAt a minimum, the security advisory must contain:\n\n- A high level summary of the vulnerability, including the impact.\n- A clear list of vulnerable versions.\n- A clear list of patch versions.\n- Any caveats on when the software is vulnerable (for example, if only certain configurations are affected).\n- Any workarounds or mitigation that can be implemented as a temporary fix.\n- A Common Vulnerabilities and Exposures (CVE) ID, if one has been assigned. Request an ID through the [appropriate CVE Numbering Authority (CNA)](https://www.cve.org/ReportRequest/ReportRequestForNonCNAs#RequestCVEID), subject to the [CVE assignment rules](https://www.cve.org/ResourcesSupport/AllResources/CNARules/#section_4-2_CVE_ID_Assignment).\n\nWhere possible it is also good to include:\n\n- The timeline of the vulnerability disclosure process.\n- Credit for the researcher who identified the vulnerability.\n- Technical details of the vulnerability.\n- IDS/IPS signatures or other indicators of compromise.\n\nSecurity advisories should be easy for developers and system administrators to find. Common ways to publish them include:\n\n- A dedicated \"security\" or \"security advisories\" page on the website.\n- A security mailing list or forum.\n- Linked from the main changelogs and release notes.",
-    "score": 0.013673318551367332
+    "score": 0.013656633221850612
    },
    {
     "evidence_id": "EV-0014",
-    "chunk_id": "NIST-SP-800-61r3#063",
-    "title": "Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile",
-    "text": "Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Co\n\nAppendix B. Glossary\nadverse cybersecurity event\nAny event with a potentially negative impact on cybersecurity.\ncomputer security incident\nSee cybersecurity incident.\ncyber threat intelligence\nCyber threat information that has been aggregated, transformed, analyzed, interpreted, or enriched to provide the\nnecessary context for decision-making processes. [SP800-150, adapted]\ncybersecurity incident\nAn occurrence that actually or imminently jeopardizes, without lawful authority, the integrity, confidentiality, or\navailability of information or an information system; or constitutes a violation or imminent threat of violation of\nlaw, security policies, security procedures, or acceptable use policies. [FISMA2014]\nevent\nAny observable occurrence involving computing assets, including physical and virtual platforms, networks, services,\nand cloud environments.\nincident\nSee cybersecurity incident.\nincident response\nThe remediation or mitigation of violations of security policies and recommended practices. [FISMA2014]\nindicators of compromise\nTechnical artifacts or observables that suggest that an attack is imminent or is currently underway or that a\ncompromise may have already occurred. [SP800-150, adapted]\ntactics, techniques, and procedures\nThe behavior of an actor. A tactic is the highest-level description of this behavior, while techniques give a more\ndetailed description of behavior in the context of a tactic, and procedures an even lower-level, highly detailed\ndescription in the context of a technique. [SP800-150]\nthreat\nAny circumstance or event with the potential to adversely impact organizational operations (including mission,\nfunctions, image, or reputation), organizational assets, individuals, other organizations, or the Nation through an\ninformation system via unauthorized access, destruction, disclosure, or modification of information, and/or denial\nof service. [SP800-30r1]\nvulnerability\nA weakness in a system, system security procedures, internal controls, or implementation by which an actor or\nevent may intentionally exploit or accidentally trigger the weakness to access, modify, or disrupt the normal\noperations of a system, resulting in a security incident or violation of the system’s security policy. [CNSSI-4009,\nadapted]",
-    "score": 0.013559021623537754
+    "chunk_id": "NIST-SP-800-82r3#435",
+    "title": "Guide to Operational Technology (OT) Security",
+    "text": "Guide to Operational Technology (OT) Security - SC-45 SYSTEM TIME SYNCHRONIZATION\n\nOT Discussion: The policy specifically addresses the unique properties and requirements of OT\nand the relationship to non-OT systems.\nSI-2 FLAW REMEDIATION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-2 | Flaw Remediation | Select | Select | Select |\n| SI-2 (2) | FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  | Select | Select |\n\nOT Discussion: Flaw remediation, or patching, is complicated since many OT employ OSs and\nother software that are no longer maintained by the vendors. OT operators may also not have the\nresources or capability to test patches and are dependent on vendors to validate the operability of\na patch. Sometimes, the organization has no choice but to accept additional risk if no vendor\npatch is available, if patching requires additional time to complete validation or testing, or if\ndeployment requires an unacceptable operations shutdown. In these situations, compensating\ncontrols should be implemented (e.g., limiting the exposure of the vulnerable system, restricting\nvulnerable services, implementing virtual patching). Other compensating controls that do not\ndecrease the residual risk but increase the ability to respond may be desirable (e.g., provide a\ntimely response in case of an incident, devise a plan to ensure that the OT can identify\nexploitation of the flaw). Testing flaw remediation in an OT may exceed the organization’s\navailable resources.\nControl Enhancement: (2) No OT discussion for this control.\nSI-3 MALICIOUS CODE PROTECTION\n\n| CNTL NO. | CONTROL NAME Control Enhancement Name | CONTROL BASELINES LOW | MOD | HIGH |\n| --- | --- | --- | --- | --- |\n| SI-3 | Malicious Code Protection | Select | Select | Select |",
+    "score": 0.0132404181184669
    },
    {
     "evidence_id": "EV-0015",
-    "chunk_id": "NIST-SP-800-39#130",
-    "title": "NIST SP 800-39,  Managing Information Security Risk: Organization, Mission, and Information System View",
-    "text": "NIST SP 800-39,  Managing Information Security Risk: Organization, Mission, and Information System V\n\nSee\nTailoring. APPENDIX B PAGE B-10\n\n________________________________________________________________________________________________\nTechnical Controls Security controls (i.e., safeguards or countermeasures) for\n[FIPS 200] an information system that are primarily implemented\nand executed by the information system through\nmechanisms contained in the hardware, software, or\nfirmware components of the system.\nThreat Any circumstance or event with the potential to adversely\n[CNSSI 4009] impact organizational operations (including mission,\nfunctions, image, or reputation), organizational assets,\nindividuals, other organizations, or the Nation through an\ninformation system via unauthorized access, destruction,\ndisclosure, modification of information, and/or denial of\nservice.\nThreat Assessment Process of formally evaluating the degree of threat to an\n[CNSSI 4009] information system or enterprise and describing the\nnature of the threat.\nThreat Source The intent and method targeted at the intentional\n[CNSSI 4009] exploitation of a vulnerability or a situation and method\nthat may accidentally exploit a vulnerability.\nThe attribute of a person or enterprise that provides\nTrustworthiness\n[CNSSI 4009] confidence to others of the qualifications, capabilities,\nand reliability of that entity to perform specific tasks and\nfulfill assigned responsibilities.\nVulnerability Weakness in an information system, system security\n[CNSSI 4009] procedures, internal controls, or implementation that\ncould be exploited by a threat source.\nVulnerability Assessment Systematic examination of an information system or\n[CNSSI 4009] product to determine the adequacy of security measures,\nidentify security deficiencies, provide data from which to\npredict the effectiveness of proposed security measures,\nand confirm the adequacy of such measures after\nimplementation.\nAPPENDIX B PAGE B-11",
-    "score": 0.013198757763975156
+    "chunk_id": "NIST-SP-800-30r1#077",
+    "title": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments",
+    "text": "NIST Special Publication 800-30 Revision 1, Guide for Conducting Risk Assessments\n\nIDENTIFY VULNERABILITIES AND PREDISPOSING CONDITIONS\nTASK 2-3: Identify vulnerabilities and predisposing conditions that affect the likelihood that threat events of\nconcern result in adverse impacts. Supplemental Guidance: The primary purpose of vulnerability assessments is to understand the nature and degree to\nwhich organizations, mission/business processes, and information systems are vulnerable to threat sources identified in\nTask 2-1 and the threat events identified in Task 2-2 that can be initiated by those threat sources. Vulnerabilities at Tier\n1 can be pervasive across organizations and can have wide-ranging adverse impacts if exploited by threat events. For\nexample, organizational failure to consider supply chain activities can result in organizations acquiring subverted\ncomponents that adversaries could exploit to disrupt organizational missions/business functions or to obtain sensitive\norganizational information. Vulnerabilities at Tier 2 can be described in terms of organizational mission/business\nprocesses, enterprise architecture, the use of multiple information systems, or common infrastructures/shared services. At Tier 2, vulnerabilities typically cross or span information system boundaries. Vulnerabilities at Tier 3 can be\ndescribed in terms of the information technologies employed within organizational information systems, the\nenvironments in which those systems operate, and/or the lack of or weaknesses in system-specific security controls. There is potentially a many-to-many relationship between threat events and vulnerabilities. Multiple threat events can\nexploit a single vulnerability, and conversely, multiple vulnerabilities can be exploited by a single threat event. The\nseverity of a vulnerability is an assessment of the relative importance of mitigating such a vulnerability. Initially, the\nextent to which mitigation is unplanned can serve as a surrogate for vulnerability severity. Once the risks associated\nwith a particular vulnerability have been assessed, the impact severity and exposure of the vulnerability given the\nsecurity controls implemented and other vulnerabilities can be taken into consideration in assessing vulnerability\nseverity. Assessments of vulnerability severity support risk response. Vulnerabilities can be identified at varying\ndegrees of granularity and specificity. The level of detail provided in any particular vulnerability assessment is\nconsistent with the purpose of the risk assessment and the type of inputs needed to support follow-on likelihood and\nimpact determinations.",
+    "score": 0.01219153936545241
    },
    {
     "evidence_id": "EV-0016",
-    "chunk_id": "NIST-SP-800-53r5#492",
-    "title": "Security and Privacy Controls for Information Systems and Organizations",
-    "text": "Security and Privacy Controls for Information Systems and Organizations\n\nCHAPTER THREE PAGE 243\nThis\npublication\nis\navailable\nfree\nof\ncharge\nfrom:\nhttps://doi.org/10.6028/NIST.SP.800-53r5\nmonitoring may also include continuous vulnerability monitoring tools that use instrumentation\nto continuously analyze components. Instrumentation-based tools may improve accuracy and\nmay be run throughout an organization without scanning. Vulnerability monitoring tools that\nfacilitate interoperability include tools that are Security Content Automated Protocol (SCAP)-\nvalidated. Thus, organizations consider using scanning tools that express vulnerabilities in the\nCommon Vulnerabilities and Exposures (CVE) naming convention and that employ the Open\nVulnerability Assessment Language (OVAL) to determine the presence of vulnerabilities. Sources\nfor vulnerability information include the Common Weakness Enumeration (CWE) listing and the\nNational Vulnerability Database (NVD). Control assessments, such as red team exercises, provide\nadditional sources of potential vulnerabilities for which to scan. Organizations also consider using\nscanning tools that express vulnerability impact by the Common Vulnerability Scoring System\n(CVSS). Vulnerability monitoring includes a channel and process for receiving reports of security\nvulnerabilities from the public at-large. Vulnerability disclosure programs can be as simple as\npublishing a monitored email address or web form that can receive reports, including notification\nauthorizing good-faith research and disclosure of security vulnerabilities. Organizations generally\nexpect that such research is happening with or without their authorization and can use public\nvulnerability disclosure channels to increase the likelihood that discovered vulnerabilities are\nreported directly to the organization for remediation. Organizations may also employ the use of financial incentives (also known as “bug bounties”) to\nfurther encourage external security researchers to report discovered vulnerabilities. Bug bounty\nprograms can be tailored to the organization’s needs. Bounties can be operated indefinitely or\nover a defined period of time and can be offered to the general public or to a curated group. Organizations may run public and private bounties simultaneously and could choose to offer\npartially credentialed access to certain participants in order to evaluate security vulnerabilities\nfrom privileged vantage points. Related Controls: CA-2, CA-7, CA-8, CM-2, CM-4, CM-6, CM-8, RA-2, RA-3, SA-11, SA-15, SC-38,\nSI-2, SI-3, SI-4, SI-7, SR-11.",
-    "score": 0.011944214305440487
+    "chunk_id": "NIST-SP-800-39#130",
+    "title": "NIST SP 800-39,  Managing Information Security Risk: Organization, Mission, and Information System View",
+    "text": "NIST SP 800-39,  Managing Information Security Risk: Organization, Mission, and Information System V\n\nSee\nTailoring. APPENDIX B PAGE B-10\n\n________________________________________________________________________________________________\nTechnical Controls Security controls (i.e., safeguards or countermeasures) for\n[FIPS 200] an information system that are primarily implemented\nand executed by the information system through\nmechanisms contained in the hardware, software, or\nfirmware components of the system.\nThreat Any circumstance or event with the potential to adversely\n[CNSSI 4009] impact organizational operations (including mission,\nfunctions, image, or reputation), organizational assets,\nindividuals, other organizations, or the Nation through an\ninformation system via unauthorized access, destruction,\ndisclosure, modification of information, and/or denial of\nservice.\nThreat Assessment Process of formally evaluating the degree of threat to an\n[CNSSI 4009] information system or enterprise and describing the\nnature of the threat.\nThreat Source The intent and method targeted at the intentional\n[CNSSI 4009] exploitation of a vulnerability or a situation and method\nthat may accidentally exploit a vulnerability.\nThe attribute of a person or enterprise that provides\nTrustworthiness\n[CNSSI 4009] confidence to others of the qualifications, capabilities,\nand reliability of that entity to perform specific tasks and\nfulfill assigned responsibilities.\nVulnerability Weakness in an information system, system security\n[CNSSI 4009] procedures, internal controls, or implementation that\ncould be exploited by a threat source.\nVulnerability Assessment Systematic examination of an information system or\n[CNSSI 4009] product to determine the adequacy of security measures,\nidentify security deficiencies, provide data from which to\npredict the effectiveness of proposed security measures,\nand confirm the adequacy of such measures after\nimplementation.\nAPPENDIX B PAGE B-11",
+    "score": 0.011715150717388443
    },
    {
     "evidence_id": "EV-0017",
-    "chunk_id": "NIST-SP-800-137#086",
-    "title": "NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems and Organizations",
-    "text": "NIST SP 800-137, Information Security Continuous Monitoring (ISCM) for Federal Information Systems a\n\nThreat Any circumstance or event with the potential to adversely impact\n[CNSSI 4009, Adapted] organizational operations (including mission, functions, image, or\nreputation), organizational assets, individuals, other\norganizations, or the Nation through an information system via\nunauthorized access, destruction, disclosure, modification of\ninformation, and/or denial of service.\nThreat Information Analytical insights into trends, technologies, or tactics of an\n[CNSSI 4009, Adapted] adversarial nature affecting information systems security.\nThreat Source The intent and method targeted at the intentional exploitation of a\n[FIPS 200] vulnerability or a situation and method that may accidentally\ntrigger a vulnerability. Synonymous with threat agent.\nVulnerability Weakness in an information system, system security procedures,\n[CNSSI 4009] internal controls, or implementation that could be exploited or\ntriggered by a threat source.\nVulnerability Assessment Formal description and evaluation of the vulnerabilities in an\n[CNSSI 4009] information system.\nWhite Box Testing See Comprehensive Testing.\nAPPENDIX B PAGE B-15",
-    "score": 0.011869850579528
+    "chunk_id": "NIST-SP-800-53Ar5#1094",
+    "title": "Assessing Security and Privacy Controls in Information Systems and Organizations",
+    "text": "Assessing Security and Privacy Controls in Information Systems and Organizations - IST.SP.8\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS ASSESSMENT OBJECTIVE: Determine if: |  |\n| --- | --- |\n| SI-02(02)_ODP[01] | automated mechanisms to determine if applicable security-relevant soware and firmware updates are installed on system components are defined; |\n| SI-02(02)_ODP[02] | the frequency at which to determine if applicable security-relevant soware and firmware updates are installed on system components is defined; |\n| SI-02(02) | system components have applicable security-relevant soware and firmware updates installed <SI-02(02)_ODP[02] frequency> using <SI-02(02)_ODP[01] automated mechanisms>. |\n\nReference produced from open data\n\n| FLAW REMEDIATION \\| AUTOMATED FLAW REMEDIATION STATUS |  |\n| --- | --- |\n| POTENTIAL ASSESSMENT METHODS AND OBJECTS: |  |\n| SI-02(02)-Examine | [SELECT FROM: System and informaon integrity policy; system and informaon integrity procedures; procedures addressing flaw remediaon; automated mechanisms supporng centralized management of flaw remediaon; system design documentaon; system configuraon sengs and associated documentaon; system audit records; system security plan; other relevant documents or records]. |\n| SI-02(02)-Interview | [SELECT FROM: System/network administrators; organizaonal personnel with informaon security responsibilies; organizaonal personnel installing, configuring, and/or maintaining the system; organizaonal personnel responsible for flaw remediaon]. |\n| SI-02(02)-Test | [SELECT FROM: Automated mechanisms used to determine the state of system components with regard to flaw remediaon]. |\n\non\nis\nav",
+    "score": 0.011077111383108934
    },
    {
     "evidence_id": "EV-0018",
-    "chunk_id": "NIST-SP-800-53r5#813",
-    "title": "Security and Privacy Controls for Information Systems and Organizations",
-    "text": "Security and Privacy Controls for Information Systems and Organizations\n\nAPPENDIX A PAGE 423\nThis\npublication\nis\navailable\nfree\nof\ncharge\nfrom:\nhttps://doi.org/10.6028/NIST.SP.800-53r5\nvulnerability Weakness in an information system, system security procedures,\n[SP 800-30] internal controls, or implementation that could be exploited or\ntriggered by a threat source.\nvulnerability analysis See vulnerability assessment.\nvulnerability assessment Systematic examination of an information system or product to\n[CNSSI 4009] determine the adequacy of security measures, identify security\ndeficiencies, provide data from which to predict the\neffectiveness of proposed security measures, and confirm the\nadequacy of such measures after implementation.",
-    "score": 0.009980237154150197
+    "chunk_id": "CWE-213#000",
+    "title": "CWE-213 Exposure of Sensitive Information Due to Incompatible Policies",
+    "text": "CWE-213 Exposure of Sensitive Information Due to Incompatible Policies\n\nDescription: The product's intended functionality exposes information to certain actors in accordance with the developer's security policy, but this information is regarded as sensitive according to the intended security policies of other stakeholders such as the product's administrator, users, or others whose information is being processed.\n\nPotential mitigations:\n- Requirements Architecture and Design: When handling information, the developer must consider whether the information is regarded as sensitive by different stakeholders, such as users or administrators. Each stakeholder effectively has its own intended security policy that the product is expected to uphold. When a developer does not treat that information as sensitive, this can introduce a vulnerability that violates the expectations of the product's users.",
+    "score": 0.00819672131147541
    }
   ],
   "model_calls": [
    {
     "stage": "evidence_interpretation",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1494,
-    "prompt_tokens": 247,
-    "completion_tokens": 65,
+    "latency_ms": 2206,
+    "prompt_tokens": 512,
+    "completion_tokens": 97,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "retrieval_review",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1407,
-    "prompt_tokens": 1814,
-    "completion_tokens": 54,
+    "latency_ms": 1458,
+    "prompt_tokens": 1817,
+    "completion_tokens": 57,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "analyst",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 6644,
-    "prompt_tokens": 3680,
-    "completion_tokens": 281,
+    "latency_ms": 14733,
+    "prompt_tokens": 3831,
+    "completion_tokens": 641,
     "finish_reason": "stop",
     "max_tokens": 1024
    },
    {
     "stage": "critic",
     "model": "Qwen/Qwen3-8B",
-    "latency_ms": 1876,
-    "prompt_tokens": 3900,
-    "completion_tokens": 67,
+    "latency_ms": 2555,
+    "prompt_tokens": 4275,
+    "completion_tokens": 95,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "analyst",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 14687,
+    "prompt_tokens": 4541,
+    "completion_tokens": 641,
+    "finish_reason": "stop",
+    "max_tokens": 1024
+   },
+   {
+    "stage": "critic",
+    "model": "Qwen/Qwen3-8B",
+    "latency_ms": 3328,
+    "prompt_tokens": 4243,
+    "completion_tokens": 134,
     "finish_reason": "stop",
     "max_tokens": 1024
    }
