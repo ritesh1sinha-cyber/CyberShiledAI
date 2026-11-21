@@ -765,6 +765,14 @@ def render_response(response: InvestigateResponse, client: CyberShieldClient) ->
     report = response.report
     st.markdown("---")
 
+    if report.status == "refused":
+        st.error(
+            f"🛑 **Security Policy Guard Refusal: Request Blocked**\n\n"
+            f"**Reason:** {report.summary}\n\n"
+            f"ℹ️ *CyberShield AI is strictly dedicated to defensive cybersecurity vulnerability analysis (NVD/KEV facts, CVSS severity, attack techniques, and remediation guidance). Irrelevant topics (politics, trivia, entertainment) and adversarial instructions are strictly blocked.*"
+        )
+        return
+
     if st.session_state.get("used_web_agent") and report.cve is None:
         st.warning(
             "⚠️ **Live Web Search Completed — CVE Not Found:** `FetchFromWebAgent` queried NIST NVD REST API 2.0, "
@@ -1521,6 +1529,14 @@ def main() -> None:
             st.session_state.pop("pending_hitl", None)
             st.session_state.pop("execute_hitl_run", None)
 
+            from app.policy import refusal_reason
+            p_reason = refusal_reason(query)
+            if p_reason:
+                st.session_state["policy_refusal"] = p_reason
+                execute_run = False
+            else:
+                st.session_state.pop("policy_refusal", None)
+
             # Check if query targets a single CVE not in local offline database
             matches = CVE_RE.findall(query)
             target_cve = matches[0].upper() if len(matches) == 1 else None
@@ -1536,6 +1552,13 @@ def main() -> None:
                 execute_run = False
             else:
                 execute_run = True
+
+        if st.session_state.get("policy_refusal"):
+            st.error(
+                f"🛑 **Security Policy Guard Refusal (Intake Gateway)**\n\n"
+                f"{st.session_state['policy_refusal']}\n\n"
+                f"ℹ️ *CyberShield AI is an autonomous cybersecurity copilot strictly dedicated to defensive vulnerability analysis. Off-topic requests (such as politics, elections, general trivia, entertainment, or non-security inquiries) and adversarial jailbreak attempts are blocked before invoking models or retrieval tools.*"
+            )
 
         # Render Human-in-the-Loop (HITL) Operator Approval Interface if pending
         pending_hitl = st.session_state.get("pending_hitl")
@@ -1733,6 +1756,16 @@ def main() -> None:
                     mode_key = "chain_of_thought"
                     sys_prompt = COT_SYSTEM
                     prompt_name = "prompt_chain_of_thought"
+                    
+                from app.policy import refusal_reason
+                p_reason = refusal_reason(query)
+                if p_reason:
+                    st.error(
+                        f"🛑 **Security Policy Guard Refusal (Direct LLM Gate)**\n\n"
+                        f"{p_reason}\n\n"
+                        f"ℹ️ *Direct LLM execution aborted: The query was blocked by the intake policy guard before sending tokens to the model.*"
+                    )
+                    st.stop()
                     
                 with st.status(f"⚡ Querying Direct LLM ({prompt_name}) without RAG", expanded=True) as status:
                     try:

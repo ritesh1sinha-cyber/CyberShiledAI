@@ -17,13 +17,21 @@ from app.contracts import (
     TraceDetail,
 )
 from app.identifiers import CVE_RE, resolve_request_cve
+from app.policy import refusal_reason
 from app.service import InvestigationService
 
 REQUEST_ID_RE = re.compile(r"CS-\d{4,}")
 
 
 def _boundary_detail(request: InvestigateRequest) -> dict | None:
-    """Return the structured refusal when a request is outside the one-CVE boundary."""
+    """Return the structured refusal when a request is outside the one-CVE boundary or policy."""
+    reason = refusal_reason(request.query)
+    if reason is not None:
+        return {
+            "code": "unsafe_request_refused",
+            "message": reason,
+        }
+
     cve_ids = {match.upper() for match in CVE_RE.findall(request.query)}
     if cve_ids:
         if len(cve_ids) > 1:

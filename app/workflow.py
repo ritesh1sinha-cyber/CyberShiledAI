@@ -5,7 +5,9 @@ import time
 from typing import TypedDict
 from uuid import uuid4
 
+from datetime import datetime, timezone
 from langgraph.graph import END, START, StateGraph
+from app.policy import refusal_reason
 
 from app import observability, progress
 from app.analyst import AnalystAgent, build_deterministic_draft
@@ -47,6 +49,7 @@ class InvestigationState(TypedDict, total=False):
     model_calls: list[ModelCallTrace]
     evidence_interpretation: dict
     retrieval_meta: dict
+    refusal_reason: str | None
 
 
 REVIEW_FIELDS = ("support", "completeness", "citations", "uncertainty")
@@ -254,15 +257,37 @@ class InvestigationWorkflow:
         timings = [*state.get("timings", []), *result.get("timings", [])]
         if isinstance(package, EvidencePackage):
             timings.extend(package.timings)
-        return {
+        update = {
             "package": package,
             "timings": timings,
             "model_calls": [*state.get("model_calls", []), *result.get("model_calls", [])],
             "evidence_interpretation": result.get("interpretation", {}),
             "retrieval_meta": result.get("retrieval_meta", {}),
         }
+        if result.get("refusal_reason"):
+            update["refusal_reason"] = result["refusal_reason"]
+        return update
 
     def _write_draft(self, state: InvestigationState) -> InvestigationState:
+        if state.get("refusal_reason"):
+            reason = state["refusal_reason"]
+            return {
+                "draft": AnalystDraft(
+                    summary=reason,
+                    cve=None,
+                    affected_products=[],
+                    kev=None,
+                    attack_mapping=[],
+                    remediation=[],
+                    risk=None,
+                    limitations=[reason],
+                ),
+                "timings": [*state.get("timings", []), StageTiming(stage="analyst", ms=0)],
+                "model_calls": state.get("model_calls", []),
+                "draft_invalid": False,
+                "draft_invalid_reason": None,
+                "draft_fallback_reason": "policy_refusal",
+            }
         if state["package"].cve is None:
             fallback = build_deterministic_draft(state["package"])
             return {
@@ -408,6 +433,18 @@ class InvestigationWorkflow:
         }
 
     def _validate_report(self, state: InvestigationState) -> InvestigationState:
+        if state.get("refusal_reason"):
+            report = Report(
+                request_id=state.get("request_id") or uuid4().hex,
+                status="refused",
+                summary=state["refusal_reason"],
+                limitations=[state["refusal_reason"]],
+                generated_at=datetime.now(timezone.utc),
+            )
+            return {
+                "report": report,
+                "timings": state.get("timings", []),
+            }
         result = self.validator.collect(
             {
                 "package": state["package"],
@@ -425,8 +462,38 @@ class InvestigationWorkflow:
     def run(
         self, request: InvestigateRequest, request_id: str | None = None
     ) -> InvestigationState:
-        state = {"request": request, "request_id": request_id}
         trace_id = request_id or uuid4().hex
+        reason = refusal_reason(request.query)
+        if reason:
+            report = Report(
+                request_id=trace_id,
+                status="refused",
+                summary=reason,
+                limitations=[
+                    "The query was blocked by the Security Policy Guard. No evidence collection, drafting, critique, or validation was performed."
+                ],
+                generated_at=datetime.now(timezone.utc),
+            )
+            observability.start_trace(
+                name="cve_investigation",
+                trace_id=trace_id,
+                input_data={"query": request.query},
+                metadata={"request_id": trace_id, "architecture": "critic" if self.use_critic else "single_agent"},
+            )
+            observability.finish_trace(
+                {"status": "refused", "summary": reason},
+                {"status": "refused", "architecture": "critic" if self.use_critic else "single_agent"},
+            )
+            observability.score("deterministic_status", "refused", "CATEGORICAL", comment="policy refusal", trace_id=trace_id)
+            return {
+                "request": request,
+                "request_id": trace_id,
+                "report": report,
+                "refusal_reason": reason,
+                "timings": [StageTiming(stage="policy", ms=1)],
+                "model_calls": [],
+            }
+        state = {"request": request, "request_id": request_id}
         observability.start_trace(
             name="cve_investigation",
             trace_id=trace_id,
