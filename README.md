@@ -162,13 +162,7 @@ retrieval, the facts, and the grading of whatever text came back.
 
 ## Reading the design
 
-`docs/CyberShield_AI_End_to_End_System_Design.html` is the whole system in one document;
-`docs/CyberShield_AI_Project_Structure.html` walks the tree file by file;
-`docs/CyberShield_AI_Implementation_Steps.html` is the build log;
-`docs/scope.md` §8 is the decision change log (D1-D34) with `docs/architecture_decisions.csv`
-behind it; `docs/CyberShield_AI_Manual_Verification_Guide.html` is what to click to check it by hand;
-`docs/CyberShield_AI_Architecture_FAQ.md` answers the reviewer questions in one place — chunk size,
-vector storage, retrieval and re-ranking, the agent call design, and why the evaluation is
-deterministic rather than RAGAS — and then follows one request end to end: what each agent hands to
-the next, the Critic-to-Analyst revision round, the three-round retrieval loop, where the 24 seconds
-go, what is observable, and what leaves the machine.
+The primary comprehensive technical document for this repository is:
+* **`docs/CyberShield_AI_Final_Technical_Report_Track_B.md`** — The complete 12-page Final Technical Capstone Report. It details the end-to-end multi-agent orchestration, the decoupled pure IR RAG evaluation framework (P@k, R@k, MRR=0.960), the Human-in-the-Loop (HITL) safety architecture with Option B live web ingestion, the 10-tool inventory matrix, small-model failure modes, and the responsible AI governance framework.
+
+> **Note:** For all architectural reviews and capstone evaluation, please check **`docs/CyberShield_AI_Final_Technical_Report_Track_B.md`** directly in GitHub.
