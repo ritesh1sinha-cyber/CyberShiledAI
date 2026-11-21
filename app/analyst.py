@@ -60,12 +60,12 @@ Rules:
 - NVD and CISA KEV records are verified facts. Retrieved passages are supporting context, not independently verified facts; do not describe them as verified.
 - Never invent or change CVSS values, products, exploitation status, ATT&CK technique IDs, mappings, dates, or remediation claims.
 - If KEV status is unknown, the kev section must be null. If there is no verified ATT&CK mapping, attack_mapping must be null; deterministic report assembly carries the explicit limitation.
-- In summary, explain clearly what the vulnerability is, how an attacker can trigger it or what input is mishandled, the direct impact (such as crash or execution), and any important distinctions or prerequisites (what specific feature is affected and what is NOT affected). Include the exact CVE identifier in summary.
+- In summary, provide a direct, tailored response answering what the user specifically asked in user_inquiry in clear, plain English, using the verified facts and retrieved context in the evidence package. If user_inquiry asks about severity, state the CVSS score and severity tier; if it asks about KEV status or active exploitation, state the CISA KEV exploitation status; if it asks about a specific mechanism or bypass (e.g. admin setup bypass, root cause, or remediation), explain how it operates in plain English. Ensure the exact CVE identifier is included in summary, and cite only evidence IDs that support its stated facts.
 - In cve, include only the supplied CVSS version, score, severity and vector. Exclude the description, affected-version ranges and dates.
 - In remediation, if kev_required_action_evidence_ids is non-empty, include the supplied KEV required_action and cite every ID in kev_required_action_evidence_ids in addition to any retrieved guidance used.
 - In risk, explain only supplied CVSS and known-exploited KEV drivers. If neither exists, use null with no evidence IDs. Do not assign or name a risk tier; deterministic code will do that later.
 - In limitations, report only material uncertainty that is not already in the supplied limitations. Deterministic report assembly carries the supplied limitations.
-- Keep summary clear and informative (30-60 words). Keep CVE, product, KEV and risk text concise (10-25 words each); remediation may use up to 50 words with actionable steps. Use null for sections outside the requested topic or already represented by deterministic report fields.
+- Keep summary clear, tailored to user_inquiry, and informative (40-90 words). Keep CVE, product, KEV and risk text concise (10-25 words each); remediation may use up to 50 words with actionable steps. Use null for sections outside the requested topic or already represented by deterministic report fields.
 - Keep the complete eight-section JSON well-structured under 512 output tokens.
 - Use null for unsupported sections and for sections outside the requested topic. Limitations may be null when supplied limitations are preserved elsewhere.
 Return JSON only, with no Markdown or additional keys."""
@@ -73,6 +73,7 @@ Return JSON only, with no Markdown or additional keys."""
 
 class AnalystState(TypedDict, total=False):
     package: EvidencePackage
+    user_query: str | None
     draft: AnalystDraft
     critic_issues: list[dict]
     validation_error: str
@@ -101,9 +102,10 @@ def parse_draft(content: str) -> AnalystDraft:
         raise AnalystError("Qwen did not return a valid eight-section draft.") from exc
 
 
-def build_user_prompt(package: EvidencePackage) -> str:
+def build_user_prompt(package: EvidencePackage, user_query: str | None = None) -> str:
     payload = {
         "cve_id": package.cve_id,
+        "user_inquiry": user_query or f"Investigate {package.cve_id}",
         "cve_facts": package.cve.model_dump(mode="json") if package.cve else None,
         "affected_products": package.affected_products,
         "kev_status": package.kev.model_dump(mode="json"),
@@ -143,6 +145,7 @@ def build_revision_prompt(
     draft: AnalystDraft,
     issues: list[dict],
     validation_error: str | None = None,
+    user_query: str | None = None,
 ) -> str:
     payload = {
         "previous_draft": json.loads(draft.model_dump_json()),
@@ -163,7 +166,7 @@ def build_revision_prompt(
             f"because: {validation_error} Correct that failure too."
         )
     return (
-        build_user_prompt(package)
+        build_user_prompt(package, user_query=user_query)
         + "\nCRITIC_REVISION_REQUEST:\n"
         + json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     )
@@ -420,6 +423,7 @@ class AnalystAgent:
     def collect(self, state: AnalystState) -> AnalystState:
         started = time.perf_counter()
         package = EvidencePackage.model_validate(state["package"])
+        user_query = state.get("user_query")
         issues = state.get("critic_issues")
         previous = state.get("draft")
         validation_error = state.get("validation_error")
@@ -431,9 +435,9 @@ class AnalystAgent:
         try:
             if revising:
                 draft_in = previous if isinstance(previous, AnalystDraft) else AnalystDraft.model_validate(previous)
-                prompt = build_revision_prompt(package, draft_in, issues, validation_error)
+                prompt = build_revision_prompt(package, draft_in, issues, validation_error, user_query=user_query)
             else:
-                prompt = build_user_prompt(package)
+                prompt = build_user_prompt(package, user_query=user_query)
             response = self.client.complete(
                 SYSTEM_PROMPT, prompt, max_tokens=1024
             )
@@ -479,8 +483,8 @@ class AnalystAgent:
             max_tokens=response.max_tokens,
         )
 
-    def create_draft(self, package: EvidencePackage) -> AnalystDraft:
+    def create_draft(self, package: EvidencePackage, user_query: str | None = None) -> AnalystDraft:
         result = self.graph.invoke(
-            {"package": package}, config={"recursion_limit": settings.max_steps}
+            {"package": package, "user_query": user_query}, config={"recursion_limit": settings.max_steps}
         )
         return result["draft"]

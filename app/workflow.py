@@ -299,7 +299,11 @@ class InvestigationWorkflow:
                 "draft_fallback_reason": "cve_not_found",
             }
         review = state.get("review")
-        inputs: dict = {"package": state["package"]}
+        user_query = None
+        req = state.get("request")
+        if req is not None:
+            user_query = getattr(req, "query", None) or (req.get("query") if isinstance(req, dict) else None)
+        inputs: dict = {"package": state["package"], "user_query": user_query}
         revised = False
         if review is not None and not state.get("revised"):
             issues = (
