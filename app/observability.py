@@ -22,6 +22,32 @@ _client_unavailable = False
 _trace: Any | None = None
 _trace_id: str | None = None
 _project_id: str | None = None
+_prompt_cache: dict[str, Any] = {}
+
+STAGE_PROMPT_MAP = {
+    "analyst": "analyst_agent_system",
+    "critic": "critic_agent_system",
+    "evidence": "evidence_agent_system",
+    "single_agent": "single_agent_system",
+}
+
+
+def _get_prompt_obj(stage: str) -> Any | None:
+    prompt_name = STAGE_PROMPT_MAP.get(stage)
+    if not prompt_name:
+        return None
+    if prompt_name in _prompt_cache:
+        return _prompt_cache[prompt_name]
+    client = _get_client()
+    if client is None:
+        return None
+    try:
+        obj = client.get_prompt(prompt_name)
+        _prompt_cache[prompt_name] = obj
+        return obj
+    except Exception:
+        _prompt_cache[prompt_name] = None
+        return None
 
 
 def _loopback(host: str) -> bool:
@@ -171,13 +197,20 @@ def record_generation(
     if parent is None:
         return
     try:
-        generation = parent.generation(
-            name=_current_stage.get(),
-            model=model,
-            input=[
+        stage = _current_stage.get()
+        prompt_obj = _get_prompt_obj(stage)
+        gen_kwargs = {
+            "name": stage,
+            "model": model,
+            "input": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
+        }
+        if prompt_obj is not None:
+            gen_kwargs["prompt"] = prompt_obj
+        generation = parent.generation(
+            **gen_kwargs,
             output=jsonable(output),
             usage={
                 key: value
