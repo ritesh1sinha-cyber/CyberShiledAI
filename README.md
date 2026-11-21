@@ -163,6 +163,12 @@ retrieval, the facts, and the grading of whatever text came back.
 ## Reading the design
 
 The primary comprehensive technical document for this repository is:
-* **`docs/CyberShield_AI_Final_Technical_Report_Track_B.md`** — The complete 12-page Final Technical Capstone Report. It details the end-to-end multi-agent orchestration, the decoupled pure IR RAG evaluation framework (P@k, R@k, MRR=0.960), the Human-in-the-Loop (HITL) safety architecture with Option B live web ingestion, the 10-tool inventory matrix, small-model failure modes, and the responsible AI governance framework.
+* **`docs/CyberShield_AI_Final_Technical_Report_Track_B.md`** — The complete 12-page Final Technical Capstone Report. It details the end-to-end multi-agent orchestration, the multi-layered perimeter and semantic policy guardrail architecture (blocking off-topic prompt smuggling and injection attacks), the decoupled pure IR RAG evaluation framework (P@k, R@k, MRR=0.960), the Human-in-the-Loop (HITL) safety architecture with Option B live web ingestion, the 10-tool inventory matrix, small-model failure modes, and the responsible AI governance framework.
+
+### Multi-Layered Policy Guardrail Architecture
+CyberShield AI protects enterprise environments from malicious prompt injection, weaponization payloads, and off-topic domain diversion (e.g., questions smuggling non-security queries such as politics or elections alongside CVE IDs):
+1. **Deterministic Perimeter Policy Guard (`app/policy.py`, `app/api.py`)**: Sub-millisecond (< 1 ms) pure-Python regex gate (`IRRELEVANT_TOPIC_RE` + `UNSAFE_PROMPT_RE`) that enforces domain relevance *before* entity extraction, issuing an immediate HTTP 422 refusal (`unsafe_request_refused`) with zero LLM inference cost across all 5 execution modes (Copilot, Single-Agent, Zero-Shot, Few-Shot, CoT).
+2. **Semantic Relevance Judge in Evidence Agent (`app/evidence_qwen.py`)**: LLM-level intent classification (`is_cyber_relevant`) that intercepts linguistically obfuscated off-topic queries before FAISS, BM25, or OSINT retrieval tools are invoked.
+3. **Workflow Fast-Refusal Loop (`app/workflow.py`)**: LangGraph state bypasses downstream Analyst, Critic, and Validator stages, producing an audited refusal report with valid trace telemetry.
 
 > **Note:** For all architectural reviews and capstone evaluation, please check **`docs/CyberShield_AI_Final_Technical_Report_Track_B.md`** directly in GitHub.
