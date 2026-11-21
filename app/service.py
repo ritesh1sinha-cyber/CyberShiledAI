@@ -78,8 +78,19 @@ class InvestigationService:
                     ms=max(0, round((time.perf_counter() - started) * 1000)),
                 ),
             ]
+            review = state.get("review")
+            if review is not None and isinstance(review, dict):
+                try:
+                    from app.contracts import CriticReview
+                    review = CriticReview.model_validate(review)
+                except Exception:
+                    pass
             response = InvestigateResponse(
-                report=report, trace_id=request_id, timings=timings
+                report=report,
+                trace_id=request_id,
+                timings=timings,
+                critic_review=review,
+                revised=bool(state.get("revised")),
             )
             self.store.append(request, response, state=state, error=error)
             return response

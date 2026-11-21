@@ -335,6 +335,8 @@ class InvestigateResponse(Strict):
     report: Report
     trace_id: str = Field(min_length=1)
     timings: list[StageTiming] = Field(default_factory=list)
+    critic_review: CriticReview | None = None
+    revised: bool = False
 
 
 class HistoryEntry(Strict):
