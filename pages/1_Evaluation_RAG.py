@@ -445,11 +445,11 @@ with c_d1:
         mime="application/json",
     )
 with c_d2:
-    excel_path = ROOT / "CyberShield_Golden_Dataset_100.xlsx"
+    excel_path = ROOT / "CyberShield_Gold_Dataset.xlsx"
     if excel_path.exists():
         st.download_button(
-            "Download 100-CVE Golden Reference Dataset (Excel)",
+            "Download Golden Benchmark Dataset (Excel)",
             data=excel_path.read_bytes(),
-            file_name="CyberShield_Golden_Dataset_100.xlsx",
+            file_name="CyberShield_Gold_Dataset.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )

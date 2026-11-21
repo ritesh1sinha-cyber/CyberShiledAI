@@ -32,3 +32,9 @@ desktop.ini
 # Ignore all documentation except the 12-page final technical report markdown
 docs/*
 !docs/CyberShield_AI_Final_Technical_Report_Track_B.md
+
+# Ignore loose media, course guides, and redundant datasets
+*.png
+*.docx
+*.pdf
+CyberShield_Golden_Dataset_100.xlsx
