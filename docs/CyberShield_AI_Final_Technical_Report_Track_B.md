@@ -201,7 +201,9 @@ CyberShield AI implements a dual-path hybrid retrieval engine:
 1. **Lexical Path (Rank-BM25):** Operates on tokenized text to pinpoint exact CVE identifiers, CWE codes, and software versions.
 2. **Dense Path (FAISS):** Computes 384-dimensional dense vectors using `bge-small-en-v1.5` over CPU-optimized flat inner-product indexing.
 3. **Fusion:** Top candidate lists from both paths are merged using **Reciprocal Rank Fusion**:
-   $$RRF\_Score(d) = rac{1}{60 + 	ext{Rank}_{BM25}(d)} + rac{1}{60 + 	ext{Rank}_{Dense}(d)}$$
+   $$RRF\_Score(d) = 
+rac{1}{60 + 	ext{Rank}_{BM25}(d)} + 
+rac{1}{60 + 	ext{Rank}_{Dense}(d)}$$
 4. **Context Injection:** The top 8 deduplicated passages (~1,500 tokens) are packaged into the structured Evidence Manifest.
 
 ```
@@ -485,16 +487,15 @@ To ensure unbiased comparison, every single iteration was scored using identical
 ## 9. Final Empirical Results & Comparative Observations
 
 ### 9.1 Consolidated 10-CVE Benchmark Scorecard (All 5 Iterations)
-The table below reports the average performance across all 10 benchmark CVEs under strictly identical evaluation protocols:
+The table below reports the average empirical performance measured live on the hosted Qwen model (`Qwen/Qwen3-8B`) across all 10 benchmark CVEs under strictly identical evaluation protocols:
 
-| Experimental Iteration / Technique | ROUGE-1 F1 | ROUGE-2 F1 | ROUGE-L F1 | Semantic Cosine | CVSS Acc. | LLM Judge Pass | Factual (1–5) | Grounded (1–5) | Overall (1–5) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **1. Prompting: Zero-Shot (No RAG)** | 0.2283 | 0.0158 | 0.0979 | 0.7402 | 0% | **0%** | 1.00 | 1.00 | **1.00 / 5** |
-| **2. Prompting: Few-Shot JSON (No RAG)** | 0.1091 | 0.0092 | 0.0444 | 0.7210 | 0% | **0%** | 1.00 | 1.00 | **1.00 / 5** |
-| **3. Prompting: Chain-of-Thought (No RAG)** | 0.2131 | 0.0201 | 0.0936 | 0.7409 | 0% | **0%** | 1.00 | 1.00 | **1.00 / 5** |
-| **4. Single-Agent with RAG (Best Prompt)** | 0.5351 | 0.3084 | 0.2555 | 0.8909 | 100% | **100%** | 4.00 | 4.00 | **4.00 / 5** |
-| **5. Multi-Agent RAG (CyberShield AI)** | 0.5817 | 0.3504 | 0.2839 | 0.9280 | 100% | **100%** | 5.00 | 5.00 | **5.00 / 5** |
-
+| Experimental Iteration / Technique | ROUGE-1 F1 | ROUGE-2 F1 | ROUGE-L F1 | Semantic Cosine (BGE) | Deterministic Field Pass | LLM Judge Strict Pass | LLM Judge (1-5) | Final Empirical Verdict |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1. Prompting: Zero-Shot (No RAG)** | 0.2681 | 0.0227 | 0.1179 | 0.7340 | **0% (0/10)** | **0% (0/10)** | **1.0 / 5.0** | Failed (Severe Hallucinations) |
+| **2. Prompting: Few-Shot JSON (No RAG)** | 0.2432 | 0.0169 | 0.1022 | 0.7391 | **0% (0/10)** | **0% (0/10)** | **1.0 / 5.0** | Failed (Valid JSON, Fabricated Facts) |
+| **3. Prompting: Chain-of-Thought (No RAG)** | 0.1637 | 0.0076 | 0.0820 | 0.7266 | **0% (0/10)** | **0% (0/10)** | **1.0 / 5.0** | Failed (Plausible Fiction) |
+| **4. Single-Agent with RAG (Best Prompt)** | 0.3396 | 0.1873 | 0.1708 | 0.7573 | **60% (6/10)** | **60% (6/10)** | **2.8 / 5.0** | Degraded (4/10 failed validation without Critic) |
+| **5. Multi-Agent RAG (CyberShield AI)** | **0.5153** | **0.2892** | **0.2464** | **0.8948** | **100% (10/10)** | **80% (8/10)** | **4.2 / 5.0** | **Passed (Production Verified · 0 Hallucinations)** |
 ### 9.2 Formal RAG Retrieval & Grounding Evaluation Benchmark
 
 #### 9.2.1 Two-Stage Decoupled Evaluation Methodology
@@ -540,13 +541,17 @@ To isolate the architectural contribution of Reciprocal Rank Fusion (RRF), we co
 
 ### 9.3 Key Comparative Observations
 
-1. **Prompting Without RAG Fails Completely (0% Pass Rate):**
-   - **Zero-Shot:** The model exhibited a strong statistical prior toward CVSS `7.5` High (guessing 7.5 for 8/10 CVEs) and achieved 0% accuracy on fixed patch versions.
-   - **Few-Shot JSON:** While achieving 100% JSON validity, the model copied facts from the exemplar (e.g., repeatedly identifying unrelated CVEs as "Windows Print Spooler").
-   - **Chain-of-Thought:** Step-by-step reasoning appeared coherent, but escalated severity to `9.8` Critical for 8/10 CVEs based on speculative worst-case scenarios.
-2. **RAG Provides the Grounding Foundation:** Incorporating hybrid FAISS+BM25 retrieval boosted CVSS accuracy from 20% to 100% and average semantic cosine similarity from 0.74 to 0.89.
-3. **The Multi-Agent Advantage (Lead Analyst + Critic):** Single-agent RAG achieved grounded answers but omitted nuanced boundary conditions (e.g. specific forged UDP packet prerequisites). CyberShield AI's **Critic Agent** caught these omissions in peer review, elevating ROUGE-L to 0.2839, semantic cosine to 0.9280, and achieving a **perfect 10/10 (100%) strict LLM judge pass rate** with **zero hallucinated claims** across all 110 audited facts.
-
+1. **Prompting Without RAG Fails Completely (0% Deterministic Pass):**
+   - **Zero-Shot:** The model exhibited severe parametric hallucination, misstating CVSS base scores and guessing false patch numbers (0% accuracy on fixed versions and 0% accuracy on KEV dates).
+   - **Few-Shot JSON:** While conforming syntactically to the JSON schema, the factual assertions remained fabricated (e.g. inventing CVE associations and hallucinating severity vectors).
+   - **Chain-of-Thought:** Step-by-step reasoning appeared persuasive, but reasoned from hallucinated premises, failing all deterministic field checks.
+2. **Single-Agent RAG Suffers from Validation Brittleness (60% Pass Rate):**
+   - While Single-Agent with RAG leverages retrieved context (achieving semantic cosine of 0.7573 and ROUGE-1 of 0.3396), **4 out of 10 investigations failed the final deterministic validation gate** (`CS-B10-02`, `CS-B10-08`, `CS-B10-09`, `CS-B10-10`).
+   - *Failure Mechanism:* Without an adversarial review step, omissions in evidence citations or schema discrepancies caused unrecoverable gate rejections.
+3. **The Multi-Agent Advantage (Lead Analyst + Critic Peer Review = 100% Deterministic Accuracy):**
+   - CyberShield AI's **Adversarial Critic Agent** acts as an automated quality gate, reviewing the Lead Analyst's draft for user-inquiry compliance, citation authenticity, and schema validity before final validation.
+   - When the Critic detected inquiry omissions or validation risks, it triggered an automated revision loop (`revised=True`), repairing the draft before submission.
+   - *Empirical Outcome:* **100% Deterministic Field Pass (10/10 clean investigations)**, **100% Gold Claim Accuracy (100 Pass, 10 Safe Abstentions, 0 Fails)**, an average Semantic Cosine of **0.8948** (BGE-Small), and an average LLM Judge score of **4.2 / 5.0** (80% strict pass rate) with zero factual hallucinations.
 ### 9.4 Complete Per-CVE Empirical Audit Directory (Individual Dossier Links)
 To maintain report clarity while providing complete scientific auditability, the full side-by-side progression tables (containing expected outputs, verbatim responses, ROUGE scores, cosine similarity, LLM judge audits, and field matches for each technique) are catalogued in the companion audit dossier:
 
