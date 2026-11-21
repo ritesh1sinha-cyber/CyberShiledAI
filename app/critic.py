@@ -49,7 +49,7 @@ Each ISSUE has exactly this shape: {"section":"summary"|"cve"|"affected_products
 The issue category is exactly "citation" (singular), never "citations"; only the top-level check field is named "citations".
 Review meanings:
 - support: wording must accurately represent the cited facts or passages; retrieved context must not be described as verified.
-- completeness: all eight sections must be addressed and material supplied limitations or KEV required actions must not be omitted.
+- completeness: all eight sections must be addressed, material supplied limitations or KEV required actions must not be omitted, and the summary must directly address what the user specifically asked in user_inquiry. If the user asked about a specific facet (such as severity, KEV, patch, attack vector, root cause) and the summary ignored it, raise a completeness issue on summary.
 - citations: deterministic code checks citation presence and claim types after your review. Do not return citation issues; use support for semantic concerns about whether cited text supports a claim.
 - uncertainty: unknowns, missing mappings and retrieval limitations must remain explicit; an empty mapping does not prove no technique exists.
 Rules:
@@ -67,6 +67,7 @@ Complete the JSON within 400 output tokens. Return JSON only, with no Markdown o
 class CriticState(TypedDict, total=False):
     package: EvidencePackage
     draft: AnalystDraft
+    user_query: str | None
     review: CriticReview
     timings: list[StageTiming]
     model_calls: list[ModelCallTrace]
@@ -95,9 +96,11 @@ def parse_review(content: str) -> CriticReview:
         raise CriticError("Qwen did not return a valid Critic review.") from exc
 
 
-def build_review_prompt(package: EvidencePackage, draft: AnalystDraft) -> str:
+def build_review_prompt(
+    package: EvidencePackage, draft: AnalystDraft, user_query: str | None = None
+) -> str:
     return (
-        build_user_prompt(package)
+        build_user_prompt(package, user_query=user_query)
         + "\nANALYST_DRAFT:\n"
         + json.dumps(
             draft.model_dump(mode="json"), ensure_ascii=False, separators=(",", ":")
@@ -148,6 +151,58 @@ def sanitize_model_findings(
             continue
         issues.append(issue)
     return review.model_copy(update={"issues": issues})
+
+
+INQUIRY_FACET_CHECKS = (
+    (
+        re.compile(r"\b(?:severity|cvss|score|criticality)\b", re.IGNORECASE),
+        re.compile(r"\b(?:severity|cvss|critical|high|medium|low)\b", re.IGNORECASE),
+        "severity",
+    ),
+    (
+        re.compile(r"\b(?:kev|actively exploited|known exploited|exploitation status)\b", re.IGNORECASE),
+        re.compile(r"\b(?:kev|cisa|actively exploited|known exploited|catalog|in the wild|exploited)\b", re.IGNORECASE),
+        "KEV status",
+    ),
+    (
+        re.compile(r"\b(?:patch|fix|remediation|upgrade|update|version)\b", re.IGNORECASE),
+        re.compile(r"\b(?:patch|remediation|update|upgrade|mitigat|fixed in|version)\b", re.IGNORECASE),
+        "remediation",
+    ),
+    (
+        re.compile(r"\b(?:bypass|vector|mechanism|root cause)\b", re.IGNORECASE),
+        re.compile(r"\b(?:bypass|vector|mechanism|root cause|allows|crafted|forge|exploit|execution|overwrite)\b", re.IGNORECASE),
+        "bypass mechanism",
+    ),
+)
+
+
+def add_deterministic_inquiry_findings(
+    review: CriticReview, draft: AnalystDraft, user_query: str | None = None
+) -> CriticReview:
+    if not user_query or not draft.summary or not draft.summary.text:
+        return review
+    summary_text = draft.summary.text
+    missing_facets = []
+    for query_re, summary_re, facet_name in INQUIRY_FACET_CHECKS:
+        if query_re.search(user_query) and not summary_re.search(summary_text):
+            missing_facets.append(facet_name)
+    if not missing_facets:
+        return review
+
+    payload = review.model_dump(mode="python")
+    issues = list(payload.get("issues", []))
+    facet_desc = ", ".join(missing_facets)
+    issues.append(
+        {
+            "section": "summary",
+            "category": "completeness",
+            "detail": f"The summary fails to address the requested inquiry facet: {facet_desc}.",
+            "evidence_ids": [],
+        }
+    )
+    payload["issues"] = issues[:2]
+    return CriticReview.model_validate(payload)
 
 
 def add_deterministic_citation_findings(
@@ -263,8 +318,9 @@ class CriticAgent:
         started = time.perf_counter()
         package = EvidencePackage.model_validate(state["package"])
         draft = AnalystDraft.model_validate(state["draft"])
+        user_query = state.get("user_query")
         response = self.client.complete(
-            SYSTEM_PROMPT, build_review_prompt(package, draft), max_tokens=1024
+            SYSTEM_PROMPT, build_review_prompt(package, draft, user_query=user_query), max_tokens=1024
         )
         try:
             if response.finish_reason not in {None, "stop"}:
@@ -273,6 +329,7 @@ class CriticAgent:
             validate_issue_references(review, package, draft)
             review = sanitize_model_findings(review, draft)
             review = add_deterministic_citation_findings(review, package, draft)
+            review = add_deterministic_inquiry_findings(review, draft, user_query)
             review = derive_statuses(review)
             validate_review(review, package, draft)
         except Exception as exc:
@@ -302,10 +359,10 @@ class CriticAgent:
         )
 
     def create_review(
-        self, package: EvidencePackage, draft: AnalystDraft
+        self, package: EvidencePackage, draft: AnalystDraft, user_query: str | None = None
     ) -> CriticReview:
         result = self.graph.invoke(
-            {"package": package, "draft": draft},
+            {"package": package, "draft": draft, "user_query": user_query},
             config={"recursion_limit": settings.max_steps},
         )
         return result["review"]

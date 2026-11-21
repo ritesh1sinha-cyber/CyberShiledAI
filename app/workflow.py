@@ -364,12 +364,17 @@ class InvestigationWorkflow:
         )
         return "revise" if failed or state.get("draft_invalid") else "validate"
 
-    def _review_attempt(self, package, draft):
+    def _review_attempt(self, package, draft, user_query=None):
         """Return (result, error); retries once only when the review is unusable."""
         error: Exception | None = None
         for _attempt in range(2):
             try:
-                return self.critic.collect({"package": package, "draft": draft}), None
+                return (
+                    self.critic.collect(
+                        {"package": package, "draft": draft, "user_query": user_query}
+                    ),
+                    None,
+                )
             except (CriticError, QwenError) as exc:
                 error = exc
         return None, error
@@ -383,7 +388,11 @@ class InvestigationWorkflow:
                 "timings": [*state.get("timings", []), StageTiming(stage="critic", ms=0)],
                 "model_calls": state.get("model_calls", []),
             }
-        result, review_error = self._review_attempt(state["package"], state["draft"])
+        user_query = None
+        req = state.get("request")
+        if req is not None:
+            user_query = getattr(req, "query", None) or (req.get("query") if isinstance(req, dict) else None)
+        result, review_error = self._review_attempt(state["package"], state["draft"], user_query=user_query)
         if review_error is not None:
             if not state.get("revised"):
                 # An unusable FIRST review must not fail the investigation: the

@@ -349,6 +349,39 @@ def test_connected_workflow_runs_analyst_and_critic_without_a_planner():
     assert result["report"].status == "partial"
     assert result["report"].risk.tier == "critical"
     assert "Critic finding (summary/support)" in result["report"].limitations[-1]
+
+
+def test_critic_flags_missing_user_inquiry_facets():
+    from app.contracts import CriticReview
+    from app.critic import add_deterministic_inquiry_findings, derive_statuses
+    package = make_package()
+    draft = make_draft()
+    draft = draft.model_copy(
+        update={
+            "summary": draft.summary.model_copy(
+                update={"text": "This is a generic vulnerability description."}
+            )
+        }
+    )
+    passing_review = CriticReview(
+        cve_id=package.cve_id,
+        support="pass",
+        completeness="pass",
+        citations="pass",
+        uncertainty="pass",
+        checked_sections=list(SECTION_NAMES),
+        issues=[],
+    )
+    user_query = "Investigate CVE-2024-1709: explain severity, KEV status, and admin setup bypass."
+    audited = add_deterministic_inquiry_findings(passing_review, draft, user_query=user_query)
+    audited = derive_statuses(audited)
+    assert audited.completeness == "fail"
+    assert len(audited.issues) >= 1
+    issue = audited.issues[0]
+    assert issue.section == "summary"
+    assert issue.category == "completeness"
+    assert "inquiry facet" in issue.detail
+
     assert [call.stage for call in result["model_calls"]] == [
         "analyst",
         "critic",
@@ -504,3 +537,36 @@ def test_failed_second_review_reverts_to_original_draft_with_first_review():
     assert result["review"].support == "fail"
     assert result["report"].status == "partial"
     assert "Critic finding (summary/support)" in result["report"].limitations[-1]
+
+
+def test_critic_flags_missing_user_inquiry_facets():
+    from app.contracts import CriticReview
+    from app.critic import add_deterministic_inquiry_findings, derive_statuses
+    package = make_package()
+    draft = make_draft()
+    draft = draft.model_copy(
+        update={
+            "summary": draft.summary.model_copy(
+                update={"text": "This is a generic vulnerability description."}
+            )
+        }
+    )
+    passing_review = CriticReview(
+        cve_id=package.cve_id,
+        support="pass",
+        completeness="pass",
+        citations="pass",
+        uncertainty="pass",
+        checked_sections=list(SECTION_NAMES),
+        issues=[],
+    )
+    user_query = "Investigate CVE-2024-1709: explain severity, KEV status, and admin setup bypass."
+    audited = add_deterministic_inquiry_findings(passing_review, draft, user_query=user_query)
+    audited = derive_statuses(audited)
+    assert audited.completeness == "fail"
+    assert len(audited.issues) >= 1
+    issue = audited.issues[0]
+    assert issue.section == "summary"
+    assert issue.category == "completeness"
+    assert "inquiry facet" in issue.detail
+

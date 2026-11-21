@@ -27,7 +27,12 @@ IRRELEVANT_TOPIC_RE = re.compile(
     r"recipe|how to cook|how to make (?:pizza|coffee|tea|cake|bread)|pizza|burger|cake|diet|horoscope|zodiac|dating advice|relationship advice|tell me a joke|"
     r"write (?:a )?poem|write (?:a )?story|write (?:an )?essay|essay on|solve (?:this )?math|fibonacci|bubble sort|homework|do my homework|"
     r"stock price|bitcoin price|crypto price|crypto prediction|buy shares|invest in stocks|"
-    r"capital of|tallest mountain|highest peak|population of|distance between|weather in|weather forecast"
+    r"capital of|tallest mountain|highest peak|population of|distance between|weather in|weather forecast|"
+    r"what is (?:the )?(?:universe|meaning of life|earth|sun|moon|galaxy|gravity|quantum|physics|chemistry|biology|philosophy|religion|god|life|space|matter|nature)|"
+    r"universe|galaxy|solar system|astronomy|cosmology|astrophysics|"
+    r"quantum physics|chemistry|biology|philosophy|religion|theology|"
+    r"who is (?:god|shakespeare|einstein|newton|plato|aristotle|socrates)|"
+    r"what is (?:love|happiness|consciousness)"
     r")\b",
     re.IGNORECASE,
 )
