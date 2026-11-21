@@ -56,8 +56,8 @@ To protect enterprise infrastructure from speculation, data exfiltration, and ou
 
 1. **Layer 1: Deterministic Perimeter Policy Guard (`app/policy.py`, `app/api.py`, `streamlit_app.py`)**:
    - **Order-of-Operations Priority Gate:** Evaluates incoming user queries for policy and domain compliance *before* checking CVE ID validity or initiating entity extraction.
-   - **Prompt Smuggling & Irrelevant Topic Defense:** Detects and immediately rejects queries that combine a legitimate or mock CVE ID with off-topic domains (e.g., *"for cve-2024-55555 who won 2021 US election"*). The regex pattern engine (`IRRELEVANT_TOPIC_RE`) intercepts politics, elections, politicians, general trivia, entertainment, cooking/recipes, creative writing/poems, and financial/crypto speculation.
-   - **Malicious & Injection Refusal:** Intercepts prompt injections, jailbreak templates, and offensive exploit/weaponization requests (`UNSAFE_PROMPT_RE`).
+   - **Prompt Smuggling & Irrelevant Topic Defense:** Detects and immediately rejects queries that combine a legitimate or mock CVE ID with off-topic domains (e.g., *"for cve-2024-55555 who won 2021 US election"*, *"Investigate CVE-2021-23017: what is universe"*). The regex pattern engine (`IRRELEVANT_TOPIC_RE`) strictly intercepts politics, elections, politicians, general trivia, entertainment, cooking/recipes, creative writing/poems, financial/crypto speculation, and natural sciences / cosmology / astrophysics / philosophy / theology (e.g., *"what is universe"*, *"galaxy"*, *"solar system"*, *"philosophy"*, *"religion"*).
+   - **Malicious & Injection Refusal:** Intercepts prompt injections, jailbreak templates, reverse shells, shellcode, and offensive exploit/weaponization payloads (`UNSAFE_REQUEST_RE`).
    - **Performance & Zero Cost:** Operates in pure Python in under 1 ms ($< 1\text{ ms}$) with zero external network egress and zero LLM inference cost, returning a structured HTTP 422 refusal (`code: unsafe_request_refused`).
    - **Cross-Architecture Enforcement:** Universally applied at the intake gate across all 5 operational modalities: Multi-Agent Copilot, Single-Agent RAG, Zero-Shot, Few-Shot JSON, and Chain-of-Thought (CoT).
 
@@ -285,11 +285,11 @@ In total, CyberShield AI integrates **10 primary tools** across the pipeline:
 | **10** | `Tool_Risk_Engine` | **Final Validator (4)** | Applies mathematical business rules (CVSS &ge; 9.0 or KEV listed &rarr; CRITICAL), deterministically overriding LLM errors. |
 
 ### 6.3 The Adversarial Critic Review Protocol
-The Critic Agent acts as an independent code reviewer before any report is presented to the user. It audits four criteria:
-1. **Citation Authenticity:** Every claim in the Summary and Remediation must cite a valid `[EV-xxxx]` tag present in the Evidence Manifest. Uncited or phantom citations trigger immediate rejection.
-2. **Factual Grounding:** Prohibits the Analyst from inventing patch versions or configuration prerequisites absent from the evidence.
-3. **Completeness:** Ensures all required sections (CVSS vector, CWE, KEV status, Remediation, Project Risk) are explicitly addressed.
-4. **Handling of Missing Data:** Confirms that unverified attributes are transparently hedged (e.g. stating "Not Listed in KEV" rather than assuming safe status).
+The Critic Agent acts as an independent adversarial reviewer before any report is presented to the user. It operates under strict audit criteria across four dimensions:
+1. **Citation Authenticity & Support:** Every claim in the Summary and Remediation must cite a valid `[EV-xxxx]` tag present in the Evidence Manifest. Uncited or phantom citations trigger immediate rejection. Cited facts must accurately reflect the underlying evidence without exaggerating certainty.
+2. **Factual Grounding:** Prohibits the Analyst from inventing patch versions, CPE configurations, or prerequisites absent from the authoritative evidence.
+3. **Completeness & User Inquiry Compliance:** In addition to verifying that all 8 required sections are present, the Critic Agent dynamically audits the executive summary against the user's specific request (`user_inquiry`). If the user specifically asked for key facets (e.g., severity rating, CVSS score, CISA KEV exploitation status, vendor remediation/patch guidance, or attack/bypass mechanism), the Critic verifies that each requested facet is explicitly answered in plain English. If any requested facet was ignored by the Analyst, the Critic raises a `completeness: fail` issue on `summary` and forces an immediate revision loop.
+4. **Handling of Missing Data:** Confirms that unverified attributes are transparently hedged (e.g. stating "Not Listed in KEV" rather than assuming safe status, and retaining null attack mappings when no verified ATT&CK link exists).
 
 #### Evidence Provenance & Anti-Tampering Architecture: Who Provides Evidence to the Critic?
 A critical architectural safety decision in CyberShield AI is that **the Analyst Agent does NOT forward or pass the Evidence Package to the Critic Agent**:
@@ -300,6 +300,42 @@ A critical architectural safety decision in CyberShield AI is that **the Analyst
 
 ### 6.4 The Targeted Self-Correction Loop
 If the Critic rejects a draft, it produces a structured issue list (e.g., *"Missing explicit distinction against related CVE-2023-42793"*). The Lead Analyst receives the critique along with the original evidence and performs **one targeted revision pass**. This self-correction loop catches subtle omissions without causing infinite generation cycles.
+
+### 6.6 Dynamic User-Tailored Executive Summary & 8 Collapsible Checkpoints UI Architecture
+
+To address critical operational feedback regarding cognitive load and response specificity, CyberShield AI underwent a major architectural UI transformation:
+
+#### A. The Problem with Monolithic Fixed Reports
+In enterprise SOC workflows, analysts rarely want to scroll through a flat, 8-page monolithic report when they asked a specific operational question (e.g., *"Investigate CVE-2024-1709: explain severity, KEV status, and admin setup bypass"*). Standardizing on fixed templates previously forced identical boilerplate text regardless of what was asked.
+
+#### B. The Dual-Layer Response Solution
+CyberShield AI decouples the **direct user answer** from the **fixed deterministic deep-dive checkpoints**:
+
+1. **Layer 1: Top Plain-English Executive Summary Card (`🎯 1. Executive Summary & Direct Query Response`)**:
+   - The user query is extracted and passed to the Lead Analyst Agent (`USER_INQUIRY: {query}`).
+   - Rules 63 and 68 instruct Qwen to synthesize a concise, plain-English direct answer addressing the exact facets requested by the analyst while citing supporting evidence IDs (`[EV-0001]`).
+   - The Critic Agent verifies that every facet requested in the prompt is explicitly answered before approving the summary.
+
+2. **Layer 2: 8 Collapsible Deterministic Deep Dive Windows (`st.expander`)**:
+   All 8 formal technical checkpoints remain 100% compliant with enterprise regulatory schemas, housed in clean collapsible expanders:
+   - **🔬 Checkpoint 1: Technical CVE Facts & CVSS 3.1 Metrics:** Base score, severity badge, vector string, CWE weakness, and CPE product boundaries.
+   - **🛡️ Checkpoint 2: Verified Patch & Remediation Guidance:** Official vendor patch versions, BOD 22-01 deadlines, and mitigation steps.
+   - **🚨 Checkpoint 3: CISA Known Exploited Vulnerabilities (KEV) Status:** Weaponized active exploitation telemetry, ransomware campaign usage, and catalog verification.
+   - **🎯 Checkpoint 4: MITRE ATT&CK Matrix Alignment:** Curated enterprise tactic and technique mappings (e.g., T1190 Exploit Public-Facing Application).
+   - **⚖️ Checkpoint 5: Deterministic Project Risk Tier & Audit Limitations:** Risk tier calculation with explicit disclosure of corpus boundaries.
+   - **📄 Checkpoint 6: Authoritative Evidence Manifest & Citations:** Atomic evidence cards (`[EV-0001]..[EV-0008]`) with clickable verified source URLs.
+   - **🛡️ Checkpoint 7: Critic Adversarial Audit & Grounding Verification:** Live dynamic audit telemetry displaying quality gates, verified sections, and the **User Inquiry Compliance Audit** card verifying that requested facets were answered.
+   - **📊 Checkpoint 8: Execution Telemetry, Evaluation & Latency Benchmarks:** Real-time scoring across LLM-as-a-Judge, Semantic Cosine, ROUGE-1/2/L, and RAG Context Recall/Precision/MRR.
+
+#### C. Cross-Modality Standardization
+This dual-layer format is strictly standardized across all 5 operational modalities:
+- Multi-Agent Copilot
+- Single-Agent with RAG
+- Prompting: Zero-Shot (No RAG)
+- Prompting: Few-Shot JSON (No RAG)
+- Prompting: Chain-of-Thought (No RAG)
+
+---
 
 ### 6.5 Human-in-the-Loop (HITL) Safety Gate & Autonomous Web Ingestion (Option B)
 To prevent unconstrained outbound internet traffic and adhere to enterprise perimeter boundaries, CyberShield AI implements a deterministic **Human-in-the-Loop (HITL)** decision gate whenever an operator queries a CVE outside the local 155-snapshot database.
@@ -382,6 +418,18 @@ Building an enterprise-grade agent entirely on top of a hosted ≤8B model requi
 ### 7.4 Constraint 4: Rate Limiting & Sequential Execution
 - **Constraint:** The hosted inference service enforces a strict concurrency ceiling of **1 active request per API key**. Parallel asynchronous LLM requests trigger HTTP 429 rate limit exceptions.
 - **Solution:** Multi-agent stages run in sequential pipeline order with graceful pauses between turns and local disk-based response caching (`data/evaluation/judge_cache_*.json`), ensuring stability during heavy evaluation runs.
+
+### 7.5 Constraint 5: Off-Topic Domain Smuggling & Adversarial Query Diversion
+- **Constraint:** Malicious or careless users frequently smuggle non-cybersecurity inquiries (elections, politics, entertainment, cosmology, trivia) alongside valid or mock CVE identifiers (e.g., *"for cve-2024-55555 who won 2021 US election"*, *"Investigate CVE-2021-23017: what is universe"*). Naive agent systems parse the CVE, strip off the tail question as conversational noise, and waste expensive LLM inference tokens and database queries synthesizing irrelevant reports.
+- **Solution:** Multi-layered defense: Layer 1 deterministic perimeter regex filter (< 1 ms, pure Python) blocks smuggled topics before entity extraction; Layer 2 Evidence Agent semantic intent classifier flags off-topic intent (`is_cyber_relevant: false`) before retrieval; Layer 3 workflow fast-refusal produces an audited HTTP 422 refusal report with zero LLM inference cost.
+
+### 7.6 Constraint 6: Balancing User Inquiry Specificity with Fixed Deterministic Checkpoints
+- **Constraint:** Operators require direct, plain-English answers to specific vulnerability questions (e.g., *"explain severity, KEV status, and admin setup bypass"*), while enterprise regulatory governance mandates an unchanging 8-section technical audit checklist. Fixed monolithic outputs either ignore the user's specific question or violate schema stability.
+- **Solution:** Dual-representation architecture: dynamic user inquiry extraction routed to Lead Analyst rules 63/68, enforced by Critic Agent completeness audit, and presented via a top plain-English query answer card plus 8 collapsible deterministic checkpoints (`st.expander`).
+
+### 7.7 Constraint 7: Baseline Prompting Modality Variance & Dual-Mode Resilient Parsing
+- **Constraint:** When evaluating baseline prompting modalities (Zero-Shot, Few-Shot, CoT), unassisted direct models frequently output free-form markdown headers instead of valid JSON, causing parsing crashes and dumping raw repetitive headers into the dashboard.
+- **Solution:** Standardized JSON prompting schemas across all baselines combined with a dual-mode resilient parser (`parse_prompting_output`): if JSON decoding succeeds, structured fields are populated; if the model returns free-form markdown, an automated regex fallback engine extracts CVSS scores, severity tiers, CWE IDs, KEV status, product boundaries, and strips raw headers to extract only the clean executive summary.
 
 ---
 
@@ -528,7 +576,7 @@ Enterprise SecOps mandates complete transparency into how AI systems reach techn
   4. The Critic Agent's review critique and issue list.
   5. The revised advisory and final deterministic validation status.
   6. Token consumption and stage-by-stage latency timings.
-- **Telemetry Integrations:** Native support for Langfuse, LangSmith, and OpenTelemetry instrumentation for visual trace inspection.
+- **Telemetry Integrations & Langfuse Prompt Registry:** Native support for Langfuse v2, LangSmith, and OpenTelemetry instrumentation for visual trace inspection. All 9 production agent and baseline prompt templates (`analyst_agent_system`, `critic_agent_system`, `evidence_agent_system`, `single_agent_system`, `websearch_agent_system`, `llm_as_judge_system`, `prompt_zero_shot`, `prompt_few_shot_json`, `prompt_chain_of_thought`) are centrally versioned in the Langfuse Prompt Registry (`scripts/seed_langfuse_prompts.py`). Every generation call dynamically links its active Langfuse prompt object (`prompt=prompt_obj`), recording generation volume and strict prompt lineage directly in the Langfuse dashboard.
 
 ```
 +----------------------------------------------------------------------------------------------------+
