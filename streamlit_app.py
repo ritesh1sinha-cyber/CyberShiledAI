@@ -885,10 +885,19 @@ def render_response(response: InvestigateResponse, client: CyberShieldClient) ->
 
 
 ZERO_SHOT_SYSTEM = (
-    "You are a cybersecurity expert. Provide an authoritative assessment of the requested CVE. "
-    "State the CVSS base score (e.g. 7.5), severity tier (LOW/MEDIUM/HIGH/CRITICAL), CWE weakness ID, "
-    "whether it is listed on the CISA Known Exploited Vulnerabilities (KEV) catalog (YES/NO), "
-    "affected product, and the exact fixed version."
+    "You are a cybersecurity expert. Provide an authoritative assessment of the requested CVE.\n"
+    "Output pure JSON adhering to this exact schema:\n"
+    "{\n"
+    '  "cve_id": "string",\n'
+    '  "product": "string",\n'
+    '  "cvss_score": float,\n'
+    '  "severity": "LOW|MEDIUM|HIGH|CRITICAL",\n'
+    '  "cwe_id": "string",\n'
+    '  "cisa_kev_listed": boolean,\n'
+    '  "fixed_version": "string",\n'
+    '  "summary": "string"\n'
+    "}\n"
+    "The summary must be a concise, plain-English executive summary directly answering what was requested. Return valid JSON only without markdown code fences or conversational text."
 )
 
 FEW_SHOT_SYSTEM = (
@@ -929,6 +938,7 @@ COT_SYSTEM = (
 
 def parse_prompting_output(raw: str, query: str = "") -> dict:
     from app.identifiers import CVE_RE
+    import re
     cve_match = CVE_RE.findall(query) or CVE_RE.findall(raw)
     cve_id = cve_match[0].upper() if cve_match else "CVE-INVESTIGATION"
 
@@ -938,7 +948,7 @@ def parse_prompting_output(raw: str, query: str = "") -> dict:
     cwe_id = "CWE-UNKNOWN"
     cisa_kev_str = "NOT_LISTED"
     fixed_version = "Vendor Patch / Mitigation"
-    summary = raw.strip()
+    summary = ""
     thought_process = ""
 
     # Parse JSON if output is structured
@@ -950,6 +960,7 @@ def parse_prompting_output(raw: str, query: str = "") -> dict:
 
     first_brace = clean_json_str.find("{")
     last_brace = clean_json_str.rfind("}")
+    parsed_json = False
     if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
         if first_brace > 0:
             thought_process = clean_json_str[:first_brace].strip()
@@ -967,10 +978,52 @@ def parse_prompting_output(raw: str, query: str = "") -> dict:
                 else:
                     cisa_kev_str = "NOT_LISTED"
                 fixed_version = parsed.get("fixed_version") or parsed.get("patch") or fixed_version
-                summary = parsed.get("summary") or parsed.get("description") or summary
+                summary = parsed.get("summary") or parsed.get("description") or ""
                 thought_process = parsed.get("thought_process") or parsed.get("reasoning") or thought_process
+                parsed_json = True
         except Exception:
             pass
+
+    if not parsed_json:
+        # Robust regex extraction for unstructured markdown or plain text baseline responses
+        cvss_m = re.search(r"\bCVSS(?:\s+Base)?(?:\s+Score)?[:\s]+(\d+(?:\.\d+)?)\b", raw, re.I)
+        if cvss_m:
+            try:
+                cvss_score = float(cvss_m.group(1))
+            except (ValueError, TypeError):
+                pass
+
+        sev_m = re.search(r"\b(?:Severity(?:\s+Tier)?|Rating)[:\s]+(CRITICAL|HIGH|MEDIUM|LOW)\b", raw, re.I)
+        if sev_m:
+            severity = sev_m.group(1).upper()
+
+        cwe_m = re.search(r"\b(CWE-\d+)\b", raw, re.I)
+        if cwe_m:
+            cwe_id = cwe_m.group(1).upper()
+
+        kev_m = re.search(r"(?:CISA\s+)?(?:KEV|Known\s+Exploited)[^\n\r]*?[:\s]+(YES|NO|TRUE|FALSE|LISTED|NOT[_\s]LISTED|KNOWN[_\s]EXPLOITED)", raw, re.I)
+        if kev_m:
+            val = kev_m.group(1).upper()
+            if val in ("YES", "TRUE", "LISTED", "KNOWN_EXPLOITED", "KNOWN EXPLOITED"):
+                cisa_kev_str = "KNOWN_EXPLOITED"
+            else:
+                cisa_kev_str = "NOT_LISTED"
+
+        prod_m = re.search(r"(?:Affected\s+Product[s]?|Product)[:\s*-]+([^\n\r]+)", raw, re.I)
+        if prod_m:
+            product = prod_m.group(1).strip().strip("`*-")
+
+        fix_m = re.search(r"(?:Fixed\s+Version[s]?|Patch(?:\s+Guidance)?|Remediation)[:\s*-]+([^\n\r]+)", raw, re.I)
+        if fix_m:
+            fixed_version = fix_m.group(1).strip().strip("`*-")
+
+        sum_m = re.search(r"(?:Vulnerability\s+Summary|Executive\s+Summary|Summary)[:\s*\n\r]+(.*?)(?=\n\s*(?:CVSS|Severity|CWE|CISA|Affected|Fixed|Remediation|###|$))", raw, re.I | re.S)
+        if sum_m:
+            summary = sum_m.group(1).strip()
+        else:
+            blocks = raw.strip().split("\n\n")
+            non_header_blocks = [b.strip() for b in blocks if not re.match(r"^#+\s+", b.strip()) and not re.match(r"^(?:CVSS|CWE|CISA|Affected Product)", b.strip(), re.I)]
+            summary = " ".join(non_header_blocks[:2]) if non_header_blocks else raw.strip()
 
     if not thought_process and "### REASONING PROCESS" in raw:
         parts = raw.split("### STRUCTURED ASSESSMENT")
@@ -1073,23 +1126,26 @@ def render_prompting_result(res: dict) -> None:
 
     st.markdown(
         """
-        <div class="report-card">
-          <div class="report-card-title">📋 1. Executive Summary &amp; Overview</div>
-        </div>
+        <div class="report-card" style="border-left: 4px solid #f59e0b; background: #f8fafc; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <div style="font-size:16px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+            <span>🎯 1. Executive Summary &amp; Direct Query Response</span>
+            <span class="badge-pill badge-warning" style="font-size:11px;">Plain-English Inquiry Answer (Unassisted LLM)</span>
+          </div>
         """,
         unsafe_allow_html=True,
     )
     st.write(data["summary"])
     st.caption("⚠️ Anchor Citations: None (Unassisted Direct LLM Baseline — Synthesized purely from parametric memory without retrieved NVD/KEV context)")
+    st.markdown("</div>", unsafe_allow_html=True)
 
     if data.get("thought_process"):
         with st.expander("🧠 Chain-of-Thought Reasoning (Intermediate Steps)", expanded=True):
             st.markdown(data["thought_process"])
 
-    st.markdown("### 📋 8 Technical Checkpoints (Baseline Evaluation)")
-    st.caption("The 8 checkpoints below illustrate the baseline output compared against CyberShield AI's multi-agent grounded architecture.")
+    st.markdown("### 📋 8 Deterministic Technical Checkpoints (Collapsible Deep Dive)")
+    st.caption("The 8 deterministic checkpoints below follow a fixed format. Expand any checkpoint to inspect underlying facts, metrics, and evidence.")
 
-    with st.expander("📋 Checkpoint 1: Technical CVE Facts (Parametric Memory)", expanded=True):
+    with st.expander("🔬 Checkpoint 1: Technical CVE Facts & CVSS 3.1 Metrics", expanded=True):
         col1, col2, col3, col4 = st.columns(4)
         col1.markdown(
             f"""<div class="stat-card"><div class="stat-val">{data['cvss_score'] if data['cvss_score'] is not None else 'N/A'}</div><div class="stat-label">CVSS Base Score</div></div>""",
@@ -1113,7 +1169,7 @@ def render_prompting_result(res: dict) -> None:
         st.write(f"- `{data['product']}`")
         st.info("⚠️ **Parametric Memory Notice:** In baseline prompting mode, CVSS base scores and product boundaries are recalled directly from Qwen's weights without grounding against NIST NVD records.")
 
-    with st.expander("🛡️ Checkpoint 2: Remediation Guidance (Unverified Recall)", expanded=False):
+    with st.expander("🛡️ Checkpoint 2: Verified Patch & Remediation Guidance", expanded=False):
         st.markdown("### Official Patch & Remediation Guidance")
         st.markdown(
             f"""
@@ -1126,7 +1182,7 @@ def render_prompting_result(res: dict) -> None:
         )
         st.warning("⚠️ **Unverified Remediation Guidance:** In baseline prompting mode, the LLM often fabricates patch versions (e.g. invented KB numbers or minor release tags) without official vendor advisory verification.")
 
-    with st.expander("🚨 Checkpoint 3: CISA KEV Exploitation Status (Parametric Guess)", expanded=False):
+    with st.expander("🚨 Checkpoint 3: CISA Known Exploited Vulnerabilities (KEV) Status", expanded=False):
         st.markdown("### CISA Known Exploited Vulnerabilities (KEV) Status")
         st.markdown(get_kev_badge_html(data["cisa_kev_str"]), unsafe_allow_html=True)
         st.caption("Catalog Version: Unassisted LLM · Audited: Direct LLM Baseline")
@@ -1138,7 +1194,7 @@ def render_prompting_result(res: dict) -> None:
         st.markdown("### MITRE ATT&CK Enterprise Matrix Alignment")
         st.info("🎯 No verified MITRE ATT&CK technique mapping was retrieved. In baseline prompting mode, RAG retrieval across the 800+ technique Enterprise matrix is disabled. CyberShield AI abstains from fabricating ungrounded ATT&CK techniques.")
 
-    with st.expander("⚖️ Checkpoint 5: Project Risk Tier & Baseline Limitations", expanded=False):
+    with st.expander("⚖️ Checkpoint 5: Deterministic Project Risk Tier & Audit Limitations", expanded=False):
         st.markdown(f"### Deterministic Project Risk Tier: **{data['severity'].title()} (Unassisted Baseline)**")
         st.write("**Governance Rationale:** Direct LLM output generated without retrieved evidence, deterministic schema gate, or adversarial peer review.")
         st.write("**Key Risk Drivers:**")
@@ -1150,7 +1206,7 @@ def render_prompting_result(res: dict) -> None:
         st.warning("⚠️ Baseline Prompting Limitation: No external RAG retrieval was executed for this query.")
         st.warning("⚠️ Citation Grounding: 0% verified citations anchors.")
 
-    with st.expander("📄 Checkpoint 6: Authoritative Evidence Manifest (0 Citations)", expanded=False):
+    with st.expander("📄 Checkpoint 6: Authoritative Evidence Manifest & Citations", expanded=False):
         st.markdown("### Authoritative Evidence Manifest & Citations")
         e_col1, e_col2, e_col3 = st.columns(3)
         e_col1.markdown(
@@ -1167,10 +1223,10 @@ def render_prompting_result(res: dict) -> None:
         )
         st.info("ℹ️ **Zero RAG Retrieval in Baseline Mode:** Baseline prompting modes do not query FAISS, BM25, NIST NVD, or CISA KEV catalogs. Compare with **Multi-Agent Copilot** mode to see verified evidence anchors with clickable official source links.")
 
-    with st.expander("🛡️ Checkpoint 7: Peer Review & Critic Audit (Bypassed in Baseline)", expanded=False):
+    with st.expander("🛡️ Checkpoint 7: Critic Adversarial Audit & Grounding Verification", expanded=False):
         st.warning("⚠️ **Critic Agent Bypassed:** Baseline prompting generates unassisted single-pass completions without peer critique, citation validation, or self-correction loops.")
 
-    with st.expander("📊 Checkpoint 8: Run Quality & Telemetry Audit", expanded=False):
+    with st.expander("📊 Checkpoint 8: Execution Telemetry, Evaluation & Latency Benchmarks", expanded=False):
         st.markdown("### 📊 Live Run Quality & Telemetry Audit")
         st.write(
             "Live evaluation metrics measured on this unassisted prompt generation and recorded directly on the **Langfuse Trace**:"
@@ -1789,7 +1845,7 @@ def main() -> None:
                         res = qwen.complete(
                             system=sys_prompt,
                             user=f"Investigate vulnerability: {query}",
-                            json_mode=(mode_key != "zero_shot"),
+                            json_mode=True,
                         )
                         observability.record_generation(
                             model=settings.qwen_model,
