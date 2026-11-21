@@ -10,7 +10,6 @@ __pycache__/
 data/raw/*
 !data/raw/nvd/
 data/indexes/
-data/index/
 data/logs/
 data/backups/
 # The frozen corpus ships so chunks_sha256 and every recorded number reproduce on a new
