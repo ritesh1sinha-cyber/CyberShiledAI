@@ -3,9 +3,16 @@ from __future__ import annotations
 import re
 
 UNSAFE_REQUEST_RE = re.compile(
-    r"\b(working exploit|write (?:a )?exploit|exploit for|exploit code|payload|intrusion|credential theft|"
-    r"evad(?:e|ing)|unauthori[sz]ed access|print (?:the )?system prompt|"
-    r"reveal (?:the )?system prompt|ignore all previous instructions)\b",
+    r"\b("
+    r"ignore (?:all )?(?:previous|prior|above) instructions|"
+    r"disregard (?:all )?(?:previous|prior|above) instructions|"
+    r"you are now dan|jailbreak|"
+    r"write (?:a |an )?(?:(?:functional|working|python|c|bash|custom)\s+)*(?:exploit|shellcode|payload|reverse shell)|"
+    r"exploit for|exploit code|exploit payload|exploit script|working exploit|"
+    r"shellcode|reverse shell|weaponiz(?:e|ed|ation)|"
+    r"credential theft|unauthori[sz]ed access|evad(?:e|ing)|"
+    r"(?:print|reveal|show|display) (?:the )?system prompt"
+    r")\b",
     re.IGNORECASE,
 )
 
