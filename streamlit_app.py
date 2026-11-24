@@ -15,10 +15,12 @@ from app.contracts import (
     HistoryEntry,
     InvestigateRequest,
     InvestigateResponse,
+    ModelCallTrace,
     Report,
     StageTiming,
     TraceDetail,
 )
+from app.history import TraceStore
 from app.identifiers import CVE_RE
 from app.qwen import QwenClient
 from app.workflow import SingleAgentWorkflow
@@ -1302,7 +1304,7 @@ def render_prompting_result(res: dict) -> None:
 
         p_c1, p_c2, p_c3, p_c4 = st.columns(4)
         p_c1.markdown(
-            """<div class="stat-card"><div class="stat-val" style="color:#ef4444;">FAIL (0.0)</div><div class="stat-label">LLM as Judge</div></div>""",
+            """<div class="stat-card"><div class="stat-val" style="color:#94a3b8;">N/A</div><div class="stat-label">LLM as Judge (Not Evaluated)</div></div>""",
             unsafe_allow_html=True,
         )
         p_c2.markdown(
@@ -1323,10 +1325,10 @@ def render_prompting_result(res: dict) -> None:
             {
                 "Evaluation Dimension": "🤖 LLM-as-a-Judge",
                 "Langfuse Score Name": "llm_as_judge",
-                "Live Measured Value": "0.0 (FAIL)",
-                "Measurement Description": "Evaluates factual correctness, completeness, and groundedness against gold reference.",
+                "Live Measured Value": "Not Evaluated (§9.1 Baseline)",
+                "Measurement Description": "Baseline prompting rows are unassisted direct completions and not judged by LLM-as-a-judge.",
                 "Quality Threshold": "Score >= 4/5, Pass = True",
-                "Status": "❌ FAILED (Ungrounded Output)",
+                "Status": "⏭️ NOT EVALUATED",
             },
             {
                 "Evaluation Dimension": "📐 Semantic Similarity",
@@ -1589,23 +1591,29 @@ def main() -> None:
         col_c1, col_c2, col_c3, col_c4, col_c5 = st.columns(5)
         
         default_query = "Investigate CVE-2024-27198: explain severity, KEV exploitation status, and patch guidance."
-        
+        if "vulnerability_query_input" not in st.session_state:
+            st.session_state["vulnerability_query_input"] = st.session_state.get("query_input", default_query)
+
         if col_c1.button("TeamCity Auth Bypass", help="CVE-2024-27198 (CVSS 9.8 Critical)"):
-            st.session_state["query_input"] = "Investigate CVE-2024-27198: explain severity, KEV exploitation status, and patch guidance."
+            st.session_state["vulnerability_query_input"] = "Investigate CVE-2024-27198: explain severity, KEV exploitation status, and patch guidance."
+            st.session_state.pop("policy_refusal", None)
         if col_c2.button("Nginx DNS Memory", help="CVE-2021-23017 (CVSS 7.7 High)"):
-            st.session_state["query_input"] = "Investigate CVE-2021-23017: explain severity, KEV status, and memory overwrite mechanics."
+            st.session_state["vulnerability_query_input"] = "Investigate CVE-2021-23017: explain severity, KEV status, and memory overwrite mechanics."
+            st.session_state.pop("policy_refusal", None)
         if col_c3.button("ScreenConnect RCE", help="CVE-2024-1709 (CVSS 10.0 Critical)"):
-            st.session_state["query_input"] = "Investigate CVE-2024-1709: explain severity, KEV status, and admin setup bypass."
+            st.session_state["vulnerability_query_input"] = "Investigate CVE-2024-1709: explain severity, KEV status, and admin setup bypass."
+            st.session_state.pop("policy_refusal", None)
         if col_c4.button("Log4Shell Exploit", help="CVE-2021-44228 (CVSS 10.0 Critical)"):
-            st.session_state["query_input"] = "Investigate CVE-2021-44228: explain severity, KEV status, and JNDI lookup remediation."
+            st.session_state["vulnerability_query_input"] = "Investigate CVE-2021-44228: explain severity, KEV status, and JNDI lookup remediation."
+            st.session_state.pop("policy_refusal", None)
         if col_c5.button("Joomla REST Disclosure", help="CVE-2023-23752 (CVSS 5.3 Medium)"):
-            st.session_state["query_input"] = "Investigate CVE-2023-23752: explain severity, KEV status, and unauthorized API disclosure."
+            st.session_state["vulnerability_query_input"] = "Investigate CVE-2023-23752: explain severity, KEV status, and unauthorized API disclosure."
+            st.session_state.pop("policy_refusal", None)
 
         with st.form("investigation_form"):
-            current_val = st.session_state.get("query_input", default_query)
             query = st.text_area(
                 "Vulnerability Query (Targeting exactly one CVE)",
-                value=current_val,
+                key="vulnerability_query_input",
                 max_chars=500,
                 height=90,
             )
@@ -1644,10 +1652,13 @@ def main() -> None:
                 "pending_hitl",
                 "execute_hitl_run",
                 "query_input",
+                "active_query",
+                "policy_refusal",
                 "execution_mode",
                 "conversation_context",
             ]:
                 st.session_state.pop(k, None)
+            st.session_state["vulnerability_query_input"] = ""
             st.rerun()
 
         execute_run = False
@@ -1799,6 +1810,13 @@ def main() -> None:
                         diag_slot.markdown(get_pipeline_html("policy", set(), web_approved=web_approved, is_single_agent=False), unsafe_allow_html=True)
                         try:
                             response = investigate_live(client, request, diag_slot=diag_slot, web_approved=web_approved, is_single=False)
+                        except ApiValidationError as exc:
+                            if exc.code in ("cve_required", "multiple_cves_unsupported", "unsafe_request_refused", "future_cves_unpredictable"):
+                                st.warning(f"🛡️ **Query Policy Notice:** {exc}")
+                                status.update(label=f"🛑 Request Refused: {exc.code.replace('_', ' ').title()}", state="error")
+                            else:
+                                st.error(f"Validation Error: {exc}")
+                                status.update(label="❌ Validation Error", state="error")
                         except Exception as exc:
                             st.error(f"Investigation Error: {exc}")
                             status.update(label="❌ Investigation Failed", state="error")
@@ -1869,9 +1887,38 @@ def main() -> None:
                                 trace_id=req_id,
                                 timings=state.get("timings", []),
                             )
+                            TraceStore(settings.trace_file).append(request, response, state=state)
+                        except ValueError as exc:
+                            if "CVE identifier" in str(exc):
+                                st.warning(f"🛡️ **Query Policy Notice:** {exc}")
+                                status.update(label="🛑 Request Refused: Single CVE Required", state="error")
+                            else:
+                                st.error(f"Single-Agent Workflow Error: {exc}")
+                                status.update(label="❌ Execution Failed", state="error")
                         except Exception as exc:
                             st.error(f"Single-Agent Workflow Error: {exc}")
                             status.update(label="❌ Execution Failed", state="error")
+                            try:
+                                failed_report = Report(
+                                    request_id=req_id if "req_id" in locals() else f"CS-{datetime.now(timezone.utc):%Y%m%d%H%M%S%f}",
+                                    status="failed",
+                                    summary="Single-agent investigation failed; see limitations.",
+                                    limitations=[f"Execution stopped: {exc}"],
+                                    generated_at=datetime.now(timezone.utc),
+                                )
+                                failed_response = InvestigateResponse(
+                                    report=failed_report,
+                                    trace_id=failed_report.request_id,
+                                    timings=state.get("timings", []) if "state" in locals() else [],
+                                )
+                                TraceStore(settings.trace_file).append(
+                                    request,
+                                    failed_response,
+                                    state=state if "state" in locals() else {},
+                                    error={"type": type(exc).__name__, "message": str(exc)[:500]},
+                                )
+                            except Exception:
+                                pass
                         else:
                             st.session_state["investigation_response"] = response
                             st.session_state["active_query"] = query
@@ -1905,7 +1952,7 @@ def main() -> None:
                 with st.status(f"⚡ Querying Direct LLM ({prompt_name}) without RAG", expanded=True) as status:
                     try:
                         qwen = QwenClient()
-                        trace_id = f"CS-PROMPT-{datetime.now(timezone.utc):%Y%m%d%H%M%S%f}"
+                        trace_id = f"CS-{datetime.now(timezone.utc):%Y%m%d%H%M%S%f}"
                         observability.start_trace(
                             name="cve_investigation",
                             trace_id=trace_id,
@@ -1946,7 +1993,6 @@ def main() -> None:
 
                         observability.score("deterministic_validation", 0.0, "NUMERIC", comment="Prompting baseline without RAG context", trace_id=trace_id)
                         observability.score("citation_grounding", 0.0, "NUMERIC", comment="Zero citation grounding", trace_id=trace_id)
-                        observability.score("llm_as_judge", 0.0, "NUMERIC", comment="Failed: Ungrounded unassisted output", trace_id=trace_id)
                         observability.score("semantic_similarity", cos_sim, "NUMERIC", comment=f"Semantic cosine vs reference: {cos_sim}", trace_id=trace_id)
                         observability.score("rouge_1", r1, "NUMERIC", comment=f"ROUGE-1: {r1}", trace_id=trace_id)
                         observability.score("rouge_2", r2, "NUMERIC", comment=f"ROUGE-2: {r2}", trace_id=trace_id)
@@ -1982,6 +2028,38 @@ def main() -> None:
                             "rouge_1": r1,
                             "rouge_2": r2,
                         }
+                        try:
+                            prompt_report = Report(
+                                request_id=trace_id,
+                                status="completed",
+                                summary=(res.content[:280] + "...") if len(res.content) > 280 else (res.content or "Baseline prompting completion"),
+                                generated_at=datetime.now(timezone.utc),
+                                limitations=[
+                                    f"Unassisted {mode_key} prompting baseline without RAG retrieval, policy grounding, or critic review."
+                                ],
+                            )
+                            prompt_response = InvestigateResponse(
+                                report=prompt_report,
+                                trace_id=trace_id,
+                                timings=[StageTiming(stage="total", ms=res.latency_ms or 0)],
+                            )
+                            prompt_state = {
+                                "model_calls": [
+                                    ModelCallTrace(
+                                        stage=prompt_name,
+                                        model=settings.qwen_model,
+                                        latency_ms=res.latency_ms or 0,
+                                        prompt_tokens=res.prompt_tokens,
+                                        completion_tokens=res.completion_tokens,
+                                    )
+                                ],
+                                "architecture": mode_key,
+                            }
+                            TraceStore(settings.trace_file).append(
+                                InvestigateRequest(query=query), prompt_response, state=prompt_state
+                            )
+                        except Exception:
+                            pass
                         st.session_state["execution_mode"] = "prompting"
                         status.update(label="✅ LLM Response Received", state="complete")
 

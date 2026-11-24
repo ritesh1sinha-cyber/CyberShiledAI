@@ -51,3 +51,45 @@ def test_history_row_shows_the_model_and_the_short_index_fingerprint():
 
 def test_history_row_without_a_stamp_reads_as_not_recorded():
     assert ui._vectors_label(history_row(None, None)) == "not recorded"
+
+
+def test_single_agent_and_prompt_traces_persist_and_readback(tmp_path):
+    from app.history import TraceStore
+    from app.contracts import InvestigateRequest, InvestigateResponse, Report, StageTiming
+    store = TraceStore(tmp_path / "traces.jsonl")
+    
+    req_id = "CS-20261124120000000000"
+    report = Report(
+        request_id=req_id,
+        status="completed",
+        summary="Test single agent summary",
+        generated_at=datetime.now(timezone.utc),
+    )
+    resp = InvestigateResponse(
+        report=report,
+        trace_id=req_id,
+        timings=[StageTiming(stage="total", ms=100)],
+    )
+    store.append(InvestigateRequest(query="Investigate CVE-2024-27198: test"), resp, state={"package": None})
+    
+    prompt_id = "CS-20261124120100000000"
+    p_report = Report(
+        request_id=prompt_id,
+        status="completed",
+        summary="Test prompt summary",
+        generated_at=datetime.now(timezone.utc),
+    )
+    p_resp = InvestigateResponse(
+        report=p_report,
+        trace_id=prompt_id,
+        timings=[StageTiming(stage="total", ms=50)],
+    )
+    store.append(InvestigateRequest(query="Investigate CVE-2024-27198: prompt"), p_resp, state={"architecture": "zero_shot"})
+    
+    history = store.list_recent(limit=10)
+    assert len(history) == 2
+    assert history[0].trace_id == prompt_id
+    assert history[1].trace_id == req_id
+    assert store.get(req_id) is not None
+    assert store.get(prompt_id) is not None
+
