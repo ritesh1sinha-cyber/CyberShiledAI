@@ -65,3 +65,32 @@ def test_single_agent_refuses_offtopic():
     state = wf.run(req, request_id="CS-99999902")
     assert state.get("refusal_reason") is not None
     assert state["report"].status == "refused"
+
+def test_console_does_not_send_a_refused_query_to_the_api(monkeypatch):
+    # The refusal banner used to be cosmetic: the CVE/HITL branch below it reset
+    # execute_run to True, so refused text still reached the transport layer.
+    from streamlit.testing.v1 import AppTest
+
+    import app.client as client_module
+    from streamlit_app import ROOT
+
+    dispatched: list[str] = []
+
+    def offline(self):
+        raise client_module.ApiError("offline")
+
+    def record(self, request, on_event):
+        dispatched.append(request.query)
+        raise AssertionError("a policy-refused query reached the transport layer")
+
+    monkeypatch.setattr(client_module.CyberShieldClient, "health", offline)
+    monkeypatch.setattr(client_module.CyberShieldClient, "history", lambda self, limit=20: [])
+    monkeypatch.setattr(client_module.CyberShieldClient, "investigate_stream", record)
+
+    at = AppTest.from_file(str(ROOT / "streamlit_app.py"), default_timeout=180).run()
+    submit = next(b for b in at.button if "Run Vulnerability" in (b.label or ""))
+    at.text_area[0].set_value("Who won the last presidential election?")
+    submit.click().run()
+
+    assert dispatched == []
+    assert any("Security Policy Guard Refusal" in e.value for e in at.error)

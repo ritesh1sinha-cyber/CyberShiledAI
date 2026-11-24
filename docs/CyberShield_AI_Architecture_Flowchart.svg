@@ -68,7 +68,7 @@
     <!-- Status Badges right -->
     <g transform="translate(1120, 28)">
       <rect width="125" height="34" rx="17" fill="#1e293b" stroke="#334155"/>
-      <text x="62" y="22" fill="#93c5fd" font-size="12" font-weight="700" text-anchor="middle">MODEL: Qwen 2.5 8B</text>
+      <text x="62" y="22" fill="#93c5fd" font-size="12" font-weight="700" text-anchor="middle">MODEL: Qwen3-8B</text>
     </g>
     <g transform="translate(1255, 28)">
       <rect width="125" height="34" rx="17" fill="#1e293b" stroke="#334155"/>
@@ -76,7 +76,7 @@
     </g>
     <g transform="translate(1390, 28)">
       <rect width="125" height="34" rx="17" fill="#1e293b" stroke="#334155"/>
-      <text x="62" y="22" fill="#fde68a" font-size="12" font-weight="700" text-anchor="middle">100% GROUNDED</text>
+      <text x="62" y="22" fill="#fde68a" font-size="12" font-weight="700" text-anchor="middle">8/10 JUDGE PASS</text>
     </g>
   </g>
 
@@ -120,8 +120,8 @@
       <rect width="210" height="210" rx="10" fill="#09142e" stroke="#1d4ed8" stroke-width="1" stroke-dasharray="4 3"/>
       <text x="105" y="30" fill="#60a5fa" font-size="13" font-weight="800" text-anchor="middle">PERIMETER BOUNDARY</text>
       <text x="20" y="60" fill="#cbd5e1" font-size="12" font-weight="600">Strict SLA &amp; Safety:</text>
-      <text x="20" y="85" fill="#94a3b8" font-size="12">• Latency: &lt; 25 ms</text>
-      <text x="20" y="110" fill="#94a3b8" font-size="12">• 100% Local code gate</text>
+      <text x="20" y="85" fill="#94a3b8" font-size="12">• Pure regex, no model call</text>
+      <text x="20" y="110" fill="#94a3b8" font-size="12">• Local deterministic gate</text>
       <text x="20" y="135" fill="#94a3b8" font-size="12">• Prevents hallucinated IDs</text>
       <text x="20" y="160" fill="#94a3b8" font-size="12">• Clean refusal payload</text>
       <rect x="20" y="175" width="170" height="22" rx="4" fill="#1e293b"/>
@@ -144,19 +144,19 @@
     <g transform="translate(30, 60)">
       <rect width="300" height="90" rx="12" fill="#1c1917" stroke="#f59e0b" stroke-width="2"/>
       <text x="150" y="32" fill="#fde68a" font-size="15" font-weight="800" text-anchor="middle">🔍 Local Snapshot Check</text>
-      <text x="150" y="54" fill="#e7e5e4" font-size="13" text-anchor="middle">Is CVE in offline corpus? (155 CVEs)</text>
+      <text x="150" y="54" fill="#e7e5e4" font-size="13" text-anchor="middle">Is CVE in offline corpus? (157 CVEs)</text>
       <text x="150" y="74" fill="#a8a29e" font-size="12" text-anchor="middle">NVD 2.0 JSON + CISA KEV snapshot</text>
     </g>
 
     <!-- PATH A: LOCAL HIT (Green) -->
     <path d="M 330 90 L 370 90 L 370 200 L 330 200" stroke="#10b981" stroke-width="2.5" fill="none" marker-end="url(#arrow-emerald)"/>
-    <text x="355" y="145" fill="#6ee7b7" font-size="12" font-weight="700">95%+</text>
+    <text x="355" y="145" fill="#6ee7b7" font-size="12" font-weight="700">10/10</text>
 
     <g transform="translate(30, 170)">
       <rect width="300" height="110" rx="10" fill="#062e24" stroke="#10b981" stroke-width="2"/>
       <text x="20" y="28" fill="#6ee7b7" font-size="14" font-weight="800">✅ PATH A: Local DB Hit (Cache Hit)</text>
       <text x="20" y="52" fill="#d1fae5" font-size="13">• Zero external network egress</text>
-      <text x="20" y="74" fill="#d1fae5" font-size="13">• Instant retrieval latency: ~15 ms</text>
+      <text x="20" y="74" fill="#d1fae5" font-size="13">• Measured hybrid search: 347 ms</text>
       <rect x="20" y="82" width="260" height="20" rx="4" fill="#064e3b"/>
       <text x="150" y="96" fill="#a7f3d0" font-size="11" font-weight="700" text-anchor="middle">Routes directly to Evidence Agent &amp; RAG</text>
     </g>
@@ -223,7 +223,7 @@
     <rect width="390" height="710" rx="14" fill="url(#s3Grad)" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
     <rect width="390" height="42" rx="14" fill="#6d28d9"/>
     <rect y="24" width="390" height="18" fill="#6d28d9"/>
-    <text x="195" y="27" fill="#ffffff" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="0.5">STAGE 3: MULTI-PASS RAG RETRIEVAL (UP TO 2 ROUNDS)</text>
+    <text x="195" y="27" fill="#ffffff" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="0.5">STAGE 3: MULTI-PASS RAG RETRIEVAL (UP TO 3 ROUNDS)</text>
 
     <!-- Box 3.1: EvidenceAgent Header -->
     <g transform="translate(25, 60)">
@@ -267,10 +267,10 @@
     <g transform="translate(25, 500)">
       <rect width="340" height="110" rx="10" fill="#0f172a" stroke="#d97706" stroke-width="1.5"/>
       <text x="20" y="28" fill="#fde68a" font-size="14" font-weight="800">📑 ROUND 2: Reference-Scoped Search</text>
-      <text x="20" y="52" fill="#cbd5e1" font-size="12">• Queries 3,341+ NVD-cited vendor advisories</text>
+      <text x="20" y="52" fill="#cbd5e1" font-size="12">• Searches 15,746 chunks from 1,323 pages</text>
       <text x="20" y="72" fill="#cbd5e1" font-size="12">• Scoped strictly to target CVE ID</text>
       <rect x="20" y="80" width="300" height="20" rx="4" fill="#451a03"/>
-      <text x="170" y="94" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle">Guarantees 100% Core Fact Recall</text>
+      <text x="170" y="94" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle">Support@8 = 98.8% of claims</text>
     </g>
 
     <!-- Merge to Immutable Evidence Package -->
@@ -320,7 +320,7 @@
     <!-- Center Loop Badge -->
     <g transform="translate(130, 200)">
       <rect width="110" height="26" rx="13" fill="#881337" stroke="#fda4af" stroke-width="1"/>
-      <text x="55" y="17" fill="#ffe4e6" font-size="11" font-weight="800" text-anchor="middle">MAX 2 ROUNDS</text>
+      <text x="55" y="17" fill="#ffe4e6" font-size="11" font-weight="800" text-anchor="middle">MAX 1 REVISION</text>
     </g>
 
     <!-- Box 4.2: Critic Agent -->
@@ -354,7 +354,7 @@
       <text x="165" y="28" fill="#a7f3d0" font-size="13" font-weight="800" text-anchor="middle">🏆 Stage 5: Deterministic Validator</text>
       
       <text x="20" y="58" fill="#ecfdf5" font-size="12" font-weight="700">• Zero-LLM Pure Python Enforcement</text>
-      <text x="20" y="76" fill="#a7f3d0" font-size="11">Cryptographic EV citation audit against evidence</text>
+      <text x="20" y="76" fill="#a7f3d0" font-size="11">Every EV id audited against the evidence package</text>
       
       <text x="20" y="98" fill="#ecfdf5" font-size="12" font-weight="700">• Mathematical Risk Override Engine</text>
       <text x="20" y="116" fill="#a7f3d0" font-size="11">CVSS ≥ 9.0 or KEV listed ➔ Forces CRITICAL tier</text>
@@ -362,7 +362,7 @@
       <!-- Shipped Advisory Box -->
       <rect x="15" y="130" width="300" height="42" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
       <text x="165" y="148" fill="#34d399" font-size="12" font-weight="800" text-anchor="middle">📋 SHIPPED SECURITY ADVISORY</text>
-      <text x="165" y="164" fill="#94a3b8" font-size="11" text-anchor="middle">8 Sections · 100% Grounded · SHA-256 Verifiable</text>
+      <text x="165" y="164" fill="#94a3b8" font-size="11" text-anchor="middle">8 Sections · 8/10 Judge Pass · 69/70 Fields</text>
     </g>
   </g>
 
@@ -373,7 +373,7 @@
     <!-- Pillar 1 -->
     <g transform="translate(25, 12)">
       <text x="0" y="18" fill="#60a5fa" font-size="13" font-weight="800">1. Air-Gapped Speed</text>
-      <text x="0" y="36" fill="#94a3b8" font-size="11">15ms local cache hit for 95%+ queries; 0 external egress</text>
+      <text x="0" y="36" fill="#94a3b8" font-size="11">All 10 benchmark CVEs hit the cache; 0 external egress</text>
     </g>
 
     <!-- Pillar 2 -->
@@ -385,7 +385,7 @@
     <!-- Pillar 3 -->
     <g transform="translate(800, 12)">
       <text x="0" y="18" fill="#f43f5e" font-size="13" font-weight="800">3. Adversarial Revision Loop</text>
-      <text x="0" y="36" fill="#94a3b8" font-size="11">Critic catches omissions; max 2 loops prevent infinite delay</text>
+      <text x="0" y="36" fill="#94a3b8" font-size="11">Critic catches omissions; one bounded revision prevents loops</text>
     </g>
 
     <!-- Pillar 4 -->

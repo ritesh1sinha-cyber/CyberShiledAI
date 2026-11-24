@@ -19,6 +19,12 @@ x-app: &app
   env_file:
     - path: .env
       required: false
+  # The API persists the multi-agent runs it executes; the single-agent and prompting modes
+  # run inside this UI process and append their own records. Both containers therefore have to
+  # share one store, or a UI-written trace is a 404 to the API: the report's citations then read
+  # back as "attribution unavailable" and those runs never appear in Audit History.
+  volumes:
+    - traces:/app/data/traces
   environment:
     # app/config.py resolves a relative certificate against the project root, so the
     # image's own copies of the two CA files are what these names point at. A host .env
@@ -67,3 +73,9 @@ services:
       timeout: 5s
       start_period: 30s
       retries: 3
+
+# Created empty, then seeded by Docker from the investigation store already inside the image,
+# so a fresh `docker compose up` still shows the recorded history. `docker compose down -v`
+# is the only thing that discards it.
+volumes:
+  traces:

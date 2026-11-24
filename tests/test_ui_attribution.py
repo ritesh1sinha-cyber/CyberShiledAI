@@ -93,3 +93,31 @@ def test_single_agent_and_prompt_traces_persist_and_readback(tmp_path):
     assert store.get(req_id) is not None
     assert store.get(prompt_id) is not None
 
+
+
+def test_reset_button_empties_the_query_textarea(monkeypatch):
+    # The reset click submits the form the textarea lives in, so the textarea's own text is
+    # written back into its key before the handler runs. Clearing the key in that same run is
+    # reverted when Streamlit restores the submitted value, hence the deferred clear.
+    from streamlit.testing.v1 import AppTest
+
+    import app.client as client_module
+    from streamlit_app import ROOT
+
+    def offline(self):
+        raise client_module.ApiError("offline")
+
+    monkeypatch.setattr(client_module.CyberShieldClient, "health", offline)
+    monkeypatch.setattr(client_module.CyberShieldClient, "history", lambda self, limit=20: [])
+    monkeypatch.setattr(client_module.CyberShieldClient, "investigate_stream", lambda self, req, on_event: offline(self))
+
+    at = AppTest.from_file(str(ROOT / "streamlit_app.py"), default_timeout=180).run()
+    at.text_area[0].set_value("Investigate CVE-2021-44228: explain severity and remediation.")
+    submit = next(b for b in at.button if "Run Vulnerability" in (b.label or ""))
+    submit.click().run()
+    assert at.text_area[0].value.startswith("Investigate CVE-2021-44228")
+
+    reset = next(b for b in at.button if "Reset UI" in (b.label or ""))
+    reset.click().run()
+
+    assert at.text_area[0].value == ""

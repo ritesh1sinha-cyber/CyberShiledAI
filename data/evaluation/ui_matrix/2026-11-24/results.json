@@ -1,0 +1,660 @@
+[
+  {
+    "scenario": "S01-landing",
+    "name": "landing renders hero",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:16:49.927Z"
+  },
+  {
+    "scenario": "S01-landing",
+    "name": "sidebar API status OK",
+    "ok": true,
+    "detail": "API Status: OK",
+    "at": "2026-11-24T08:16:49.928Z"
+  },
+  {
+    "scenario": "S01-landing",
+    "name": "three console tabs",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:16:49.929Z"
+  },
+  {
+    "scenario": "S01-landing",
+    "name": "pipeline list visible",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:16:49.930Z"
+  },
+  {
+    "scenario": "S02-guardrail-offtopic",
+    "name": "off-topic refusal shown",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:01.623Z"
+  },
+  {
+    "scenario": "S02-guardrail-offtopic",
+    "name": "defect#5: refused off-topic never reaches the API",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:01.857Z"
+  },
+  {
+    "scenario": "S03-guardrail-jailbreak",
+    "name": "jailbreak refusal shown",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:13.693Z"
+  },
+  {
+    "scenario": "S03-guardrail-jailbreak",
+    "name": "defect#5: refused jailbreak never reaches the API",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:13.950Z"
+  },
+  {
+    "scenario": "S04-nocve-refusal",
+    "name": "no-CVE shows a clean server-side refusal",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:19.314Z"
+  },
+  {
+    "scenario": "S04-nocve-refusal",
+    "name": "no-CVE is NOT 'Investigation Failed'",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:19.314Z"
+  },
+  {
+    "scenario": "S04-nocve-refusal",
+    "name": "no raw traceback",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:19.315Z"
+  },
+  {
+    "scenario": "S05-quickselect",
+    "name": "quick-select fills textarea",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:26.894Z"
+  },
+  {
+    "scenario": "S06-reset",
+    "name": "reset clears textarea",
+    "ok": true,
+    "detail": "\"\"",
+    "at": "2026-11-24T08:17:28.512Z"
+  },
+  {
+    "scenario": "S06-reset",
+    "name": "reset raises no widget-state exception",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:28.513Z"
+  },
+  {
+    "scenario": "S06-reset",
+    "name": "reset drops stale refusal banner",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:28.513Z"
+  },
+  {
+    "scenario": "S06-reset",
+    "name": "reset drops previous report",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:17:28.513Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent dossier mounted",
+    "ok": true,
+    "detail": "details=29",
+    "at": "2026-11-24T08:18:05.388Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent run completes",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:18:05.400Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent critic audit ran rather than being bypassed",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:18:05.401Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent made one API call",
+    "ok": true,
+    "detail": "\"POST /investigate/stream HTTP/1.1\" 200 OK",
+    "at": "2026-11-24T08:18:05.650Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "all checkpoints open",
+    "ok": true,
+    "detail": "opened=28",
+    "at": "2026-11-24T08:18:07.595Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent citations render",
+    "ok": true,
+    "detail": "lines=60",
+    "at": "2026-11-24T08:18:07.601Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent attribution readable",
+    "ok": true,
+    "detail": "keyboard_arrow_down || ",
+    "at": "2026-11-24T08:18:07.602Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent attribution names sections",
+    "ok": true,
+    "detail": "keyboard_arrow_down",
+    "at": "2026-11-24T08:18:07.602Z"
+  },
+  {
+    "scenario": "S07-multiagent-live",
+    "name": "multi-agent trace id discovered",
+    "ok": true,
+    "detail": "CS-20261124081736355413",
+    "at": "2026-11-24T08:18:09.121Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "executed as Single-Agent with RAG",
+    "ok": true,
+    "detail": "Single-Agent RAG Mode",
+    "at": "2026-11-24T08:19:01.376Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "single-agent dossier mounted",
+    "ok": true,
+    "detail": "details=29",
+    "at": "2026-11-24T08:19:01.379Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "single-agent run completes",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:01.383Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "single-agent states the critic cycle was bypassed",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:01.383Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "defect#1: single-agent citations render",
+    "ok": true,
+    "detail": "lines=60",
+    "at": "2026-11-24T08:19:03.308Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "defect#1: single-agent citation readback",
+    "ok": true,
+    "detail": "keyboard_arrow_down || ",
+    "at": "2026-11-24T08:19:03.309Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "defect#1: single-agent trace id discovered",
+    "ok": true,
+    "detail": "CS-20261124081834463152",
+    "at": "2026-11-24T08:19:04.815Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "single-agent ran in the UI process (no API call)",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:04.983Z"
+  },
+  {
+    "scenario": "S08-singleagent-rag",
+    "name": "defect#1: API reads the UI-written single-agent trace",
+    "ok": true,
+    "detail": "CS-20261124081834463152 -> 200",
+    "at": "2026-11-24T08:19:04.996Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "prompting zero-shot completes",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:36.109Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "prompting zero-shot ran in the UI process (no API call)",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:36.339Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "prompting zero-shot not rate-limited",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:36.343Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "prompting zero-shot dossier mounted",
+    "ok": true,
+    "detail": "details=10",
+    "at": "2026-11-24T08:19:36.344Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "prompting zero-shot rendered the unassisted-prompt notice",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:38.164Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "prompting zero-shot shows the Critic as bypassed",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:38.165Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "defect#2: zero-shot judge is reported as not evaluated",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:38.166Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "defect#2: zero-shot publishes no FAIL (0.0) judge verdict",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:19:38.167Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "defect#2: zero-shot judge card reads N/A, not a score",
+    "ok": true,
+    "detail": "N/A\nLLM AS JUDGE (NOT EVALUATED)",
+    "at": "2026-11-24T08:19:38.168Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "defect#2: zero-shot baseline row names §9.1 (frame-verified: st.dataframe is a canvas grid)",
+    "ok": "INFO",
+    "detail": "heading present=true",
+    "at": "2026-11-24T08:19:38.169Z"
+  },
+  {
+    "scenario": "S09-prompt-zero-shot",
+    "name": "defect#1: API reads the UI-written zero-shot trace",
+    "ok": true,
+    "detail": "CS-20261124081928455340 -> 200",
+    "at": "2026-11-24T08:19:39.697Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "prompting few-shot completes",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:10.862Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "prompting few-shot ran in the UI process (no API call)",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:11.065Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "prompting few-shot not rate-limited",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:11.066Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "prompting few-shot dossier mounted",
+    "ok": true,
+    "detail": "details=10",
+    "at": "2026-11-24T08:20:11.068Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "prompting few-shot rendered the unassisted-prompt notice",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:12.897Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "prompting few-shot shows the Critic as bypassed",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:12.898Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "defect#2: few-shot judge is reported as not evaluated",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:12.898Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "defect#2: few-shot publishes no FAIL (0.0) judge verdict",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:12.898Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "defect#2: few-shot judge card reads N/A, not a score",
+    "ok": true,
+    "detail": "N/A\nLLM AS JUDGE (NOT EVALUATED)",
+    "at": "2026-11-24T08:20:12.899Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "defect#2: few-shot baseline row names §9.1 (frame-verified: st.dataframe is a canvas grid)",
+    "ok": "INFO",
+    "detail": "heading present=true",
+    "at": "2026-11-24T08:20:12.899Z"
+  },
+  {
+    "scenario": "S09-prompt-few-shot",
+    "name": "defect#1: API reads the UI-written few-shot trace",
+    "ok": true,
+    "detail": "CS-20261124082000274393 -> 200",
+    "at": "2026-11-24T08:20:14.425Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "prompting cot completes",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:47.083Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "prompting cot ran in the UI process (no API call)",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:47.271Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "prompting cot not rate-limited",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:47.329Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "prompting cot dossier mounted",
+    "ok": true,
+    "detail": "details=11",
+    "at": "2026-11-24T08:20:47.339Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "prompting cot rendered the unassisted-prompt notice",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:49.170Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "prompting cot shows the Critic as bypassed",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:49.171Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "defect#2: cot judge is reported as not evaluated",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:49.172Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "defect#2: cot publishes no FAIL (0.0) judge verdict",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:20:49.172Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "defect#2: cot judge card reads N/A, not a score",
+    "ok": true,
+    "detail": "N/A\nLLM AS JUDGE (NOT EVALUATED)",
+    "at": "2026-11-24T08:20:49.173Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "defect#2: cot baseline row names §9.1 (frame-verified: st.dataframe is a canvas grid)",
+    "ok": "INFO",
+    "detail": "heading present=true",
+    "at": "2026-11-24T08:20:49.173Z"
+  },
+  {
+    "scenario": "S09-prompt-cot",
+    "name": "defect#1: API reads the UI-written cot trace",
+    "ok": true,
+    "detail": "CS-20261124082034916845 -> 200",
+    "at": "2026-11-24T08:20:50.699Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "HITL approval card appears",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:07.116Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "HITL names the offline DB miss",
+    "ok": true,
+    "detail": "OFFLINE DB MISS",
+    "at": "2026-11-24T08:21:07.117Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "HITL names the CVE it cannot find locally",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:07.117Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "HITL offers the web-agent dispatch, unapproved",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:07.117Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "HITL pauses before dispatching",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:07.204Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "reject aborts with operator notice",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:08.717Z"
+  },
+  {
+    "scenario": "S10-hitl-reject",
+    "name": "reject never dispatched the web agent",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:08.721Z"
+  },
+  {
+    "scenario": "S11-widgets",
+    "name": "top-K slider changes value",
+    "ok": true,
+    "detail": "before=8 after=12",
+    "at": "2026-11-24T08:21:18.774Z"
+  },
+  {
+    "scenario": "S11-widgets",
+    "name": "ATT&CK checkbox toggles",
+    "ok": true,
+    "detail": "true -> false",
+    "at": "2026-11-24T08:21:21.794Z"
+  },
+  {
+    "scenario": "S11-widgets",
+    "name": "ATT&CK checkbox restores",
+    "ok": true,
+    "detail": "true",
+    "at": "2026-11-24T08:21:24.802Z"
+  },
+  {
+    "scenario": "S12-benchmark",
+    "name": "benchmark tab loads",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:34.388Z"
+  },
+  {
+    "scenario": "S12-benchmark",
+    "name": "benchmark states judge coverage honestly",
+    "ok": true,
+    "detail": "Judge scores exist only for Multi-Agent RAG (CyberShield AI) (8/10 passed, mean 4.2/5); every other row keeps the deterministic field check as its verdict.",
+    "at": "2026-11-24T08:21:34.392Z"
+  },
+  {
+    "scenario": "S12-benchmark",
+    "name": "benchmark counts failed validations instead of hiding them",
+    "ok": true,
+    "detail": "wers that answered. 4 of 10 single-agent runs failed final validation; they are counted as failures, so its means are over 6 runs and are not comparable with a",
+    "at": "2026-11-24T08:21:34.394Z"
+  },
+  {
+    "scenario": "S12-benchmark",
+    "name": "benchmark publishes no unqualified 100% judge pass",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:34.395Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "history tab loads",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:52.140Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "history shows the vectors stamp",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:21:52.141Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "history has rows",
+    "ok": true,
+    "detail": "rows=12",
+    "at": "2026-11-24T08:21:52.144Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "multi-agent run appears in history",
+    "ok": true,
+    "detail": "CS-20261124081736355413",
+    "at": "2026-11-24T08:21:52.160Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "defect#1b: single-agent run appears in history",
+    "ok": true,
+    "detail": "CS-20261124081834463152",
+    "at": "2026-11-24T08:21:52.161Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "defect#1b: prompting run appears in history",
+    "ok": true,
+    "detail": "CS-20261124081928455340,CS-20261124082000274393,CS-20261124082034916845",
+    "at": "2026-11-24T08:21:52.161Z"
+  },
+  {
+    "scenario": "S13-history",
+    "name": "refresh history works",
+    "ok": true,
+    "detail": "rows 12 -> 12",
+    "at": "2026-11-24T08:21:59.511Z"
+  },
+  {
+    "scenario": "S14-eval-rag",
+    "name": "/Evaluation_RAG renders",
+    "ok": true,
+    "detail": "chars=16406",
+    "at": "2026-11-24T08:22:21.833Z"
+  },
+  {
+    "scenario": "S14-eval-rag",
+    "name": "/Evaluation_RAG shows measured rows",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:22:21.835Z"
+  },
+  {
+    "scenario": "S15-eval-llm",
+    "name": "/Evaluation_LLM renders",
+    "ok": true,
+    "detail": "chars=14777",
+    "at": "2026-11-24T08:22:47.345Z"
+  },
+  {
+    "scenario": "S15-eval-llm",
+    "name": "/Evaluation_LLM shows measured rows",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:22:47.347Z"
+  },
+  {
+    "scenario": "S16-console-clean",
+    "name": "no stale failure banner after navigation",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:23:04.686Z"
+  },
+  {
+    "scenario": "S16-console-clean",
+    "name": "app still healthy after full sweep",
+    "ok": true,
+    "detail": "",
+    "at": "2026-11-24T08:23:04.687Z"
+  }
+]

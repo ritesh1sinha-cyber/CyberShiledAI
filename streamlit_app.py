@@ -1594,6 +1594,13 @@ def main() -> None:
         if "vulnerability_query_input" not in st.session_state:
             st.session_state["vulnerability_query_input"] = st.session_state.get("query_input", default_query)
 
+        # A reset click submits the investigation form, so the textarea's current text is
+        # written back into its key before this run starts. Clearing that key in the same
+        # run is reverted when Streamlit restores the submitted form value, so the clear is
+        # deferred to the top of the next run, before the widget exists.
+        if st.session_state.pop("reset_query_requested", False):
+            st.session_state["vulnerability_query_input"] = ""
+
         if col_c1.button("TeamCity Auth Bypass", help="CVE-2024-27198 (CVSS 9.8 Critical)"):
             st.session_state["vulnerability_query_input"] = "Investigate CVE-2024-27198: explain severity, KEV exploitation status, and patch guidance."
             st.session_state.pop("policy_refusal", None)
@@ -1658,7 +1665,7 @@ def main() -> None:
                 "conversation_context",
             ]:
                 st.session_state.pop(k, None)
-            st.session_state["vulnerability_query_input"] = ""
+            st.session_state["reset_query_requested"] = True
             st.rerun()
 
         execute_run = False
@@ -1681,21 +1688,21 @@ def main() -> None:
             else:
                 st.session_state.pop("policy_refusal", None)
 
-            # Check if query targets a single CVE not in local offline database
-            matches = CVE_RE.findall(query)
-            target_cve = matches[0].upper() if len(matches) == 1 else None
+                # Check if query targets a single CVE not in local offline database
+                matches = CVE_RE.findall(query)
+                target_cve = matches[0].upper() if len(matches) == 1 else None
 
-            if target_cve and not has_local_nvd(target_cve):
-                st.session_state["pending_hitl"] = {
-                    "cve": target_cve,
-                    "query": query,
-                    "arch": selected_arch,
-                    "include_attack": include_attack,
-                    "top_k": top_k,
-                }
-                execute_run = False
-            else:
-                execute_run = True
+                if target_cve and not has_local_nvd(target_cve):
+                    st.session_state["pending_hitl"] = {
+                        "cve": target_cve,
+                        "query": query,
+                        "arch": selected_arch,
+                        "include_attack": include_attack,
+                        "top_k": top_k,
+                    }
+                    execute_run = False
+                else:
+                    execute_run = True
 
         if st.session_state.get("policy_refusal"):
             st.error(

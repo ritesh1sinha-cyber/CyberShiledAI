@@ -1,0 +1,131 @@
+{
+  "results": [
+    {
+      "status": "PASS",
+      "name": "sign-in form accepts credentials",
+      "detail": "email=true password=true"
+    },
+    {
+      "status": "PASS",
+      "name": "sign-in lands past the auth page",
+      "detail": "path /"
+    },
+    {
+      "status": "PASS",
+      "name": "a project is reachable after sign-in",
+      "detail": "project cybershield-investigations"
+    },
+    {
+      "status": "PASS",
+      "name": "the time filter is widened to show the recorded runs",
+      "detail": "picked: All time"
+    },
+    {
+      "status": "PASS",
+      "name": "trace list renders rows",
+      "detail": "50 rows on screen"
+    },
+    {
+      "status": "PASS",
+      "name": "the dashboard shows CyberShield investigations",
+      "detail": "50 trace-name cells visible"
+    },
+    {
+      "status": "PASS",
+      "name": "the API lists a recorded investigation",
+      "detail": "cve_investigation 2026-11-23T09:17:22.828Z"
+    },
+    {
+      "status": "PASS",
+      "name": "the traced agent stages appear as spans",
+      "detail": "spans: analyst, critic, evidence, final_validator"
+    },
+    {
+      "status": "PASS",
+      "name": "the trace metadata carries the guardrail and revision outcome",
+      "detail": "metadata: cve_id,status,revised,request_id,model_calls,architecture,first_draft_invalid,first_review_failed,draft_fallback_reason,revision_review_failed"
+    },
+    {
+      "status": "PASS",
+      "name": "the trace page renders those spans",
+      "detail": "4 of 4 span names visible: analyst,critic,evidence,final_validator"
+    },
+    {
+      "status": "PASS",
+      "name": "deterministic and judge scores are attached to the trace",
+      "detail": "11 score names: citation_grounding,deterministic_status,deterministic_validation,llm_as_judge,rag_mrr,rag_precision,rag_recall,rouge_1,rouge_2,rouge_l,semantic_similarity"
+    },
+    {
+      "status": "PASS",
+      "name": "the pushed scores appear on the trace page",
+      "detail": "11 of 11 score names on screen: citation_grounding,deterministic_status,deterministic_validation,llm_as_judge,rag_mrr,rag_precision,rag_recall,rouge_1,rouge_2,rouge_l,semantic_similarity"
+    },
+    {
+      "status": "PASS",
+      "name": "the trace page scrolls to the model calls",
+      "detail": "scrollTop 551, 6 GENERATION rows visible"
+    },
+    {
+      "status": "PASS",
+      "name": "the scores table lists recorded scores",
+      "detail": "50 score rows on screen"
+    },
+    {
+      "status": "PASS",
+      "name": "the range popover is closed before the shot",
+      "detail": "0 menu items still visible"
+    },
+    {
+      "status": "PASS",
+      "name": "the project dashboard counts the recorded work",
+      "detail": "dashboard shows 213 traces, 907 scores"
+    },
+    {
+      "status": "PASS",
+      "name": "the dashboard cards match the store they read",
+      "detail": "cards 213/907 vs 213 traces and 907 score rows on a listed trace"
+    },
+    {
+      "status": "FAIL",
+      "name": "every score row belongs to a listed trace",
+      "detail": "24 orphan rows on 4 missing trace ids: CS-20261124085436956619,trace-gold-test,trace-non-gold-test,CS-1234"
+    }
+  ],
+  "pass": 17,
+  "fail": 1,
+  "project": "cybershield-investigations",
+  "sampler_frames": 28,
+  "trace_id_shown": "CS-20261123091722827745",
+  "trace_shown_at": "2026-11-23T09:17:22.828Z",
+  "trace_shown_cve": "CVE-2022-47966",
+  "api_total_traces": 213,
+  "api_total_scores": 931,
+  "orphan_score_rows": 24,
+  "orphan_trace_ids": [
+    "CS-20261124085436956619",
+    "trace-gold-test",
+    "trace-non-gold-test",
+    "CS-1234"
+  ],
+  "dashboard_trace_card": "213",
+  "dashboard_score_card": "907",
+  "score_names_on_shown_trace": [
+    "citation_grounding",
+    "deterministic_status",
+    "deterministic_validation",
+    "llm_as_judge",
+    "rag_mrr",
+    "rag_precision",
+    "rag_recall",
+    "rouge_1",
+    "rouge_2",
+    "rouge_l",
+    "semantic_similarity"
+  ],
+  "spans_on_shown_trace": [
+    "analyst",
+    "critic",
+    "evidence",
+    "final_validator"
+  ]
+}

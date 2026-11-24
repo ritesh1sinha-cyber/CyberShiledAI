@@ -1,0 +1,27 @@
+[
+  {
+    "id": "CS-20261124081736355413",
+    "kind": "multi_agent",
+    "scenario": "S07-multiagent-live"
+  },
+  {
+    "id": "CS-20261124081834463152",
+    "kind": "single_agent",
+    "scenario": "S08-singleagent-rag"
+  },
+  {
+    "id": "CS-20261124081928455340",
+    "kind": "prompting",
+    "scenario": "S09-prompt-zero-shot"
+  },
+  {
+    "id": "CS-20261124082000274393",
+    "kind": "prompting",
+    "scenario": "S09-prompt-few-shot"
+  },
+  {
+    "id": "CS-20261124082034916845",
+    "kind": "prompting",
+    "scenario": "S09-prompt-cot"
+  }
+]

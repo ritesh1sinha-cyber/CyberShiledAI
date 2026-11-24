@@ -1,0 +1,22 @@
+[
+  {
+    "scenario": "S14-eval-rag",
+    "url": "http://127.0.0.1:8501/Evaluation_RAG/_stcore/host-config",
+    "status": 404
+  },
+  {
+    "scenario": "S14-eval-rag",
+    "url": "http://127.0.0.1:8501/Evaluation_RAG/_stcore/health",
+    "status": 404
+  },
+  {
+    "scenario": "S15-eval-llm",
+    "url": "http://127.0.0.1:8501/Evaluation_LLM/_stcore/health",
+    "status": 404
+  },
+  {
+    "scenario": "S15-eval-llm",
+    "url": "http://127.0.0.1:8501/Evaluation_LLM/_stcore/host-config",
+    "status": 404
+  }
+]

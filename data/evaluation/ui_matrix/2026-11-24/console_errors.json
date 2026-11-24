@@ -1,0 +1,22 @@
+[
+  {
+    "scenario": "S14-eval-rag",
+    "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "url": "http://127.0.0.1:8501/Evaluation_RAG/_stcore/host-config"
+  },
+  {
+    "scenario": "S14-eval-rag",
+    "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "url": "http://127.0.0.1:8501/Evaluation_RAG/_stcore/health"
+  },
+  {
+    "scenario": "S15-eval-llm",
+    "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "url": "http://127.0.0.1:8501/Evaluation_LLM/_stcore/health"
+  },
+  {
+    "scenario": "S15-eval-llm",
+    "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "url": "http://127.0.0.1:8501/Evaluation_LLM/_stcore/host-config"
+  }
+]

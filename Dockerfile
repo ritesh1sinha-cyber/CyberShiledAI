@@ -20,13 +20,14 @@ COPY . ./
 
 # Optional target: `docker build --target test .` runs the offline suite inside the
 # image, which proves the image can execute this code, not just carry the files.
-# The two modules left out guard the report and the per-CVE dossier under docs/, and
-# .dockerignore excludes docs/ because the container runs the product, not its
-# documentation. Measured on 23 November: 404 pass on the host, 387 here.
+# The three modules left out guard the report, the per-CVE dossier and the browser-matrix
+# evidence under docs/, and .dockerignore excludes docs/ because the container runs the
+# product, not its documentation. Measured on 24 November: 420 pass on the host, 390 here.
 FROM app AS test
 RUN /venv/bin/python -m pytest -q -p no:cacheprovider \
     --ignore=tests/test_report_html.py \
-    --ignore=tests/test_audit_dossier.py
+    --ignore=tests/test_audit_dossier.py \
+    --ignore=tests/test_ui_matrix.py
 
 # Layer 3: runtime = slim base + venv + project. The test layer and build tools stay behind.
 FROM python:3.11-slim AS runtime

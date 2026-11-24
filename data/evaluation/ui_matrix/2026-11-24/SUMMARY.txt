@@ -1,0 +1,97 @@
+PASS S01-landing :: landing renders hero :: 
+PASS S01-landing :: sidebar API status OK :: API Status: OK
+PASS S01-landing :: three console tabs :: 
+PASS S01-landing :: pipeline list visible :: 
+PASS S02-guardrail-offtopic :: off-topic refusal shown :: 
+PASS S02-guardrail-offtopic :: defect#5: refused off-topic never reaches the API :: 
+PASS S03-guardrail-jailbreak :: jailbreak refusal shown :: 
+PASS S03-guardrail-jailbreak :: defect#5: refused jailbreak never reaches the API :: 
+PASS S04-nocve-refusal :: no-CVE shows a clean server-side refusal :: 
+PASS S04-nocve-refusal :: no-CVE is NOT 'Investigation Failed' :: 
+PASS S04-nocve-refusal :: no raw traceback :: 
+PASS S05-quickselect :: quick-select fills textarea :: 
+PASS S06-reset :: reset clears textarea :: ""
+PASS S06-reset :: reset raises no widget-state exception :: 
+PASS S06-reset :: reset drops stale refusal banner :: 
+PASS S06-reset :: reset drops previous report :: 
+PASS S07-multiagent-live :: multi-agent dossier mounted :: details=29
+PASS S07-multiagent-live :: multi-agent run completes :: 
+PASS S07-multiagent-live :: multi-agent critic audit ran rather than being bypassed :: 
+PASS S07-multiagent-live :: multi-agent made one API call :: "POST /investigate/stream HTTP/1.1" 200 OK
+PASS S07-multiagent-live :: all checkpoints open :: opened=28
+PASS S07-multiagent-live :: multi-agent citations render :: lines=60
+PASS S07-multiagent-live :: multi-agent attribution readable :: keyboard_arrow_down || 
+PASS S07-multiagent-live :: multi-agent attribution names sections :: keyboard_arrow_down
+PASS S07-multiagent-live :: multi-agent trace id discovered :: CS-20261124081736355413
+PASS S08-singleagent-rag :: executed as Single-Agent with RAG :: Single-Agent RAG Mode
+PASS S08-singleagent-rag :: single-agent dossier mounted :: details=29
+PASS S08-singleagent-rag :: single-agent run completes :: 
+PASS S08-singleagent-rag :: single-agent states the critic cycle was bypassed :: 
+PASS S08-singleagent-rag :: defect#1: single-agent citations render :: lines=60
+PASS S08-singleagent-rag :: defect#1: single-agent citation readback :: keyboard_arrow_down || 
+PASS S08-singleagent-rag :: defect#1: single-agent trace id discovered :: CS-20261124081834463152
+PASS S08-singleagent-rag :: single-agent ran in the UI process (no API call) :: 
+PASS S08-singleagent-rag :: defect#1: API reads the UI-written single-agent trace :: CS-20261124081834463152 -> 200
+PASS S09-prompt-zero-shot :: prompting zero-shot completes :: 
+PASS S09-prompt-zero-shot :: prompting zero-shot ran in the UI process (no API call) :: 
+PASS S09-prompt-zero-shot :: prompting zero-shot not rate-limited :: 
+PASS S09-prompt-zero-shot :: prompting zero-shot dossier mounted :: details=10
+PASS S09-prompt-zero-shot :: prompting zero-shot rendered the unassisted-prompt notice :: 
+PASS S09-prompt-zero-shot :: prompting zero-shot shows the Critic as bypassed :: 
+PASS S09-prompt-zero-shot :: defect#2: zero-shot judge is reported as not evaluated :: 
+PASS S09-prompt-zero-shot :: defect#2: zero-shot publishes no FAIL (0.0) judge verdict :: 
+PASS S09-prompt-zero-shot :: defect#2: zero-shot judge card reads N/A, not a score :: N/A
+LLM AS JUDGE (NOT EVALUATED)
+INFO S09-prompt-zero-shot :: defect#2: zero-shot baseline row names §9.1 (frame-verified: st.dataframe is a canvas grid) :: heading present=true
+PASS S09-prompt-zero-shot :: defect#1: API reads the UI-written zero-shot trace :: CS-20261124081928455340 -> 200
+PASS S09-prompt-few-shot :: prompting few-shot completes :: 
+PASS S09-prompt-few-shot :: prompting few-shot ran in the UI process (no API call) :: 
+PASS S09-prompt-few-shot :: prompting few-shot not rate-limited :: 
+PASS S09-prompt-few-shot :: prompting few-shot dossier mounted :: details=10
+PASS S09-prompt-few-shot :: prompting few-shot rendered the unassisted-prompt notice :: 
+PASS S09-prompt-few-shot :: prompting few-shot shows the Critic as bypassed :: 
+PASS S09-prompt-few-shot :: defect#2: few-shot judge is reported as not evaluated :: 
+PASS S09-prompt-few-shot :: defect#2: few-shot publishes no FAIL (0.0) judge verdict :: 
+PASS S09-prompt-few-shot :: defect#2: few-shot judge card reads N/A, not a score :: N/A
+LLM AS JUDGE (NOT EVALUATED)
+INFO S09-prompt-few-shot :: defect#2: few-shot baseline row names §9.1 (frame-verified: st.dataframe is a canvas grid) :: heading present=true
+PASS S09-prompt-few-shot :: defect#1: API reads the UI-written few-shot trace :: CS-20261124082000274393 -> 200
+PASS S09-prompt-cot :: prompting cot completes :: 
+PASS S09-prompt-cot :: prompting cot ran in the UI process (no API call) :: 
+PASS S09-prompt-cot :: prompting cot not rate-limited :: 
+PASS S09-prompt-cot :: prompting cot dossier mounted :: details=11
+PASS S09-prompt-cot :: prompting cot rendered the unassisted-prompt notice :: 
+PASS S09-prompt-cot :: prompting cot shows the Critic as bypassed :: 
+PASS S09-prompt-cot :: defect#2: cot judge is reported as not evaluated :: 
+PASS S09-prompt-cot :: defect#2: cot publishes no FAIL (0.0) judge verdict :: 
+PASS S09-prompt-cot :: defect#2: cot judge card reads N/A, not a score :: N/A
+LLM AS JUDGE (NOT EVALUATED)
+INFO S09-prompt-cot :: defect#2: cot baseline row names §9.1 (frame-verified: st.dataframe is a canvas grid) :: heading present=true
+PASS S09-prompt-cot :: defect#1: API reads the UI-written cot trace :: CS-20261124082034916845 -> 200
+PASS S10-hitl-reject :: HITL approval card appears :: 
+PASS S10-hitl-reject :: HITL names the offline DB miss :: OFFLINE DB MISS
+PASS S10-hitl-reject :: HITL names the CVE it cannot find locally :: 
+PASS S10-hitl-reject :: HITL offers the web-agent dispatch, unapproved :: 
+PASS S10-hitl-reject :: HITL pauses before dispatching :: 
+PASS S10-hitl-reject :: reject aborts with operator notice :: 
+PASS S10-hitl-reject :: reject never dispatched the web agent :: 
+PASS S11-widgets :: top-K slider changes value :: before=8 after=12
+PASS S11-widgets :: ATT&CK checkbox toggles :: true -> false
+PASS S11-widgets :: ATT&CK checkbox restores :: true
+PASS S12-benchmark :: benchmark tab loads :: 
+PASS S12-benchmark :: benchmark states judge coverage honestly :: Judge scores exist only for Multi-Agent RAG (CyberShield AI) (8/10 passed, mean 4.2/5); every other row keeps the deterministic field check as its verdict.
+PASS S12-benchmark :: benchmark counts failed validations instead of hiding them :: wers that answered. 4 of 10 single-agent runs failed final validation; they are counted as failures, so its means are over 6 runs and are not comparable with a
+PASS S12-benchmark :: benchmark publishes no unqualified 100% judge pass :: 
+PASS S13-history :: history tab loads :: 
+PASS S13-history :: history shows the vectors stamp :: 
+PASS S13-history :: history has rows :: rows=12
+PASS S13-history :: multi-agent run appears in history :: CS-20261124081736355413
+PASS S13-history :: defect#1b: single-agent run appears in history :: CS-20261124081834463152
+PASS S13-history :: defect#1b: prompting run appears in history :: CS-20261124081928455340,CS-20261124082000274393,CS-20261124082034916845
+PASS S13-history :: refresh history works :: rows 12 -> 12
+PASS S14-eval-rag :: /Evaluation_RAG renders :: chars=16406
+PASS S14-eval-rag :: /Evaluation_RAG shows measured rows :: 
+PASS S15-eval-llm :: /Evaluation_LLM renders :: chars=14777
+PASS S15-eval-llm :: /Evaluation_LLM shows measured rows :: 
+PASS S16-console-clean :: no stale failure banner after navigation :: 
+PASS S16-console-clean :: app still healthy after full sweep :: 
