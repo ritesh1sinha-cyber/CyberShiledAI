@@ -13,6 +13,9 @@ from app.analyst import (
     build_revision_prompt,
     build_user_prompt,
     cap_citations,
+    ensure_requested_facets,
+    missing_inquiry_facets,
+    section_evidence_ids,
     validate_draft,
 )
 from app.contracts import (
@@ -535,3 +538,103 @@ def test_first_critic_review_failure_still_ships_a_report():
     assert result["review"] is None
     assert result["report"].status == "partial"
     assert "Critic review was unavailable" in " ".join(result["report"].limitations)
+
+
+def test_the_prompt_lists_the_evidence_ids_each_section_may_cite():
+    allowed = section_evidence_ids(make_package())
+    assert allowed["affected_products"] == ["EV-0004"]
+    assert allowed["risk"] == ["EV-0002", "EV-0003"]
+    assert allowed["attack_mapping"] == ["EV-0006"]
+    assert allowed["limitations"] == []
+    listed = json.loads(
+        build_user_prompt(make_package(), user_query="q").split("EVIDENCE_PACKAGE:\n", 1)[1]
+    )["section_evidence_ids"]
+    assert listed == allowed
+
+
+def test_every_listed_id_is_one_the_validator_accepts_for_that_section():
+    package = make_package()
+    draft = AnalystDraft.model_validate(valid_payload())
+    for name, ids in section_evidence_ids(package).items():
+        if not ids:
+            continue
+        candidate = draft.model_copy(
+            update={
+                name: AnalystSection(
+                    text=getattr(draft, name).text, evidence_ids=ids
+                )
+            }
+        )
+        validate_draft(candidate, package)
+
+
+INQUIRY = (
+    f"Investigate {CVE_ID}: explain the vulnerability, technical mechanism, affected "
+    "products and prerequisites, severity, exploitation status, weakness and remediation."
+)
+
+
+def test_the_summary_is_repaired_to_answer_what_was_asked():
+    package = make_package()
+    draft = AnalystDraft.model_validate(valid_payload())
+    thin = draft.model_copy(
+        update={
+            "summary": AnalystSection(
+                text=f"{CVE_ID} is a serious issue in Apache Log4j2.",
+                evidence_ids=["EV-0001"],
+            )
+        }
+    )
+    assert missing_inquiry_facets(INQUIRY, thin.summary.text)
+    repaired = ensure_requested_facets(package, INQUIRY, thin)
+    text = repaired.summary.text
+    assert missing_inquiry_facets(INQUIRY, text) == []
+    assert "Severity: CVSS 3.1 base score 10 (CRITICAL)." in text
+    assert "CISA KEV lists this CVE as known exploited, added 2021-12-10." in text
+    assert "Weakness: CWE-917 Improper Neutralization." in text
+    assert "Affected products: Apache Log4j2." in text
+    assert set(repaired.summary.evidence_ids) <= {
+        item.evidence_id for item in package.evidence
+    }
+    validate_draft(repaired, package)
+
+
+def test_a_summary_that_already_answers_the_inquiry_is_left_untouched():
+    draft = AnalystDraft.model_validate(valid_payload())
+    answered = draft.model_copy(
+        update={
+            "summary": AnalystSection(
+                text=(
+                    f"{CVE_ID} lets a remote attacker execute code by sending a crafted "
+                    "JNDI lookup, which is why it is exploited in the wild; the affected "
+                    "product is Apache Log4j2, CWE-917 applies, and vendors have published "
+                    "an update. Severity is CVSS 3.1 base score 10.0 CRITICAL."
+                ),
+                evidence_ids=["EV-0001", "EV-0002", "EV-0003", "EV-0004", "EV-0005"],
+            )
+        }
+    )
+    assert ensure_requested_facets(make_package(), INQUIRY, answered) is answered
+
+
+def test_a_repair_never_writes_a_fact_the_rules_would_reject():
+    package = make_package()
+    diverted = package.model_copy(
+        update={
+            "cve": package.cve.model_copy(
+                update={"description": "Compare CVE-2017-0144. Apache Log4j2 JNDI lookup."}
+            )
+        }
+    )
+    draft = AnalystDraft.model_validate(valid_payload())
+    thin = draft.model_copy(
+        update={
+            "summary": AnalystSection(
+                text=f"{CVE_ID} is a serious issue in Apache Log4j2.",
+                evidence_ids=["EV-0001"],
+            )
+        }
+    )
+    repaired = ensure_requested_facets(diverted, INQUIRY, thin)
+    assert "CVE-2017-0144" not in repaired.summary.text
+    validate_draft(repaired, diverted)

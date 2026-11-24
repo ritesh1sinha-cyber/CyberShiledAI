@@ -20,7 +20,6 @@ from app.identifiers import CVE_RE
 
 ROOT = Path(__file__).resolve().parent.parent
 CONS_PATH = ROOT / "data" / "evaluation" / "consolidated_10cve_all_iterations.json"
-SCORES_PATH = ROOT / "data" / "evaluation" / "batch10" / "scores.json"
 
 ZERO_SHOT_SYSTEM = (
     "You are a cybersecurity expert. Provide an authoritative assessment of the requested CVE.\n"
@@ -143,10 +142,25 @@ def format_prompting_as_text(parsed: dict) -> str:
     ]
     return "\n".join(parts)
 
+
+def field_check_proxy(is_clean: bool, note: str) -> dict:
+    """The deterministic field check, in the shape the old judge block had.
+
+    No model judged this row, so ``judge`` stays null and this goes under a name that
+    cannot be read as a judgment; see the same helper in
+    benchmark_all_5_iterations_live.py.
+    """
+    return {
+        "measured": False,
+        "source": "deterministic field check - no model judgment",
+        "pass": is_clean,
+        "note": note,
+    }
+
+
 def main():
     print("Loading benchmark dataset...", flush=True)
     cons_data = json.loads(CONS_PATH.read_text("utf-8"))
-    scores_data = json.loads(SCORES_PATH.read_text("utf-8"))
 
     embedder = EmbeddingsClient()
     single_workflow = SingleAgentWorkflow()
@@ -164,7 +178,7 @@ def main():
         start_sa = time.perf_counter()
         req = InvestigateRequest(query=query, top_k=8, include_attack=True)
         sa_text = ""
-        sa_is_clean = False
+        sa_error: str | None = None
         try:
             sa_state = single_workflow.run(req)
             sa_report = sa_state.get("report")
@@ -174,53 +188,53 @@ def main():
         except Exception as sa_e:
             print(f"  [VALIDATION-FAIL] Single-Agent failed deterministic gate: {sa_e}", flush=True)
             sa_text = f"Validation Failure: {sa_e}"
+            sa_error = str(sa_e)
 
         sa_elapsed = time.perf_counter() - start_sa
 
-        if sa_text and not sa_text.startswith("Validation Failure"):
+        completed = bool(sa_text) and not sa_text.startswith("Validation Failure")
+        sa_fields = field_check(cve, expected, sa_text)
+        sa_is_clean = (
+            completed
+            and all(v in ("match", "not-in-reference") for v in sa_fields.values())
+            and len(sa_fields) > 0
+        )
+        if completed:
             sa_r = rouge_scores(sa_text, expected)
-            sa_cos = cosine(embedder, [(expected, sa_text)])[0]
-            sa_fields = field_check(cve, expected, sa_text)
-            sa_is_clean = all(v in ("match", "not-in-reference") for v in sa_fields.values()) and len(sa_fields) > 0
-            sa_r1 = round(sa_r["rouge1_f"], 4)
-            sa_r2 = round(sa_r["rouge2_f"], 4)
-            sa_rl = round(sa_r["rougeL_f"], 4)
-            sa_cos_val = round(float(sa_cos), 4)
-            judge_score = {
-                "factual_correctness": 4,
-                "completeness": 4,
-                "groundedness": 4,
-                "overall": 4,
-                "pass": sa_is_clean,
-                "issues": ["Single-agent draft lacks secondary adversarial review for citation completeness."] if not sa_is_clean else []
+            sa_rouge = {
+                "rouge1_f": round(sa_r["rouge1_f"], 4),
+                "rouge2_f": round(sa_r["rouge2_f"], 4),
+                "rougeL_f": round(sa_r["rougeL_f"], 4),
             }
+            sa_cos_val = round(float(cosine(embedder, [(expected, sa_text)])[0]), 4)
         else:
-            sa_fields = {k: "mismatch" for k in ("cve_id", "cvss_version", "cvss_score", "severity", "cvss_vector", "kev_status", "kev_date_added")}
-            sa_r1, sa_r2, sa_rl = 0.05, 0.01, 0.03
-            sa_cos_val = 0.55
-            judge_score = {
-                "factual_correctness": 1,
-                "completeness": 1,
-                "groundedness": 1,
-                "overall": 1,
-                "pass": False,
-                "issues": ["Single-agent pipeline failed deterministic validation without Critic repair."]
-            }
+            # A run that produced no report is a failure, not a low score. The constants
+            # this branch used to write (ROUGE 0.05/0.01/0.03, cosine 0.55) were never
+            # measured, and they dragged row 4 of the published scorecard down.
+            sa_rouge = {"rouge1_f": None, "rouge2_f": None, "rougeL_f": None}
+            sa_cos_val = None
 
         item["iterations"]["single_agent"] = {
             "actual_response": sa_text,
-            "rouge": {
-                "rouge1_f": sa_r1,
-                "rouge2_f": sa_r2,
-                "rougeL_f": sa_rl,
-            },
+            "rouge": sa_rouge,
             "semantic_cosine": sa_cos_val,
-            "judge": judge_score,
+            "judge": None,
+            "judge_proxy": field_check_proxy(
+                sa_is_clean,
+                "Single-agent draft has no adversarial review, and no model judged it.",
+            ),
             "fields": sa_fields,
             "technique_name": "Single-Agent RAG (Lead Analyst Only)",
             "latency_s": round(sa_elapsed, 2),
         }
-        print(f"  [OK] Single-Agent RAG: R1={sa_r1:.3f} Cos={sa_cos_val:.3f} Det={'PASS' if sa_is_clean else 'FAIL'} ({sa_elapsed:.1f}s)", flush=True)
+        if not completed:
+            item["iterations"]["single_agent"]["error"] = sa_error or "no report produced"
+        print(
+            f"  [OK] Single-Agent RAG: R1={sa_rouge['rouge1_f']} Cos={sa_cos_val} "
+            f"Det={'PASS' if sa_is_clean else 'FAIL'} ({sa_elapsed:.1f}s)"
+            + ("" if completed else " [FAILED - not scored]"),
+            flush=True,
+        )
 
     # Save consolidated results
     CONS_PATH.write_text(json.dumps(cons_data, indent=2, ensure_ascii=False), "utf-8")

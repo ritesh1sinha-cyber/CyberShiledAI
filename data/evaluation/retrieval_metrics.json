@@ -1,0 +1,1747 @@
+{
+ "generated_at": "2026-11-23T06:27:22+00:00",
+ "tool": "scripts/measure_retrieval_metrics.py",
+ "provenance": {
+  "scores_artifact": "data\\evaluation\\batch10\\scores.json",
+  "trace_dir": "data\\traces\\batch10",
+  "dataset_sha256": "22faa619bae33e4871d471437e659ace535d2658927b9efd8d6c6f3edccf9361",
+  "model": "Qwen/Qwen3-8B",
+  "embedding_model": "bge-small-en-v1.5",
+  "relevance_rule": "A chunk is ground truth for a CVE only if the frozen Batch 10 grading recorded it as the retrieved passage supporting one of that CVE's gold claims (claim field source_chunk_id where retrieval_method is retrieved_passage). Claims grounded in a structured NVD or KEV record instead are counted and reported separately, because no passage rank exists for them.",
+  "reproduce": ".venv/Scripts/python -m scripts.measure_retrieval_metrics"
+ },
+ "claim_support": {
+  "overall": {
+   "gold_claims": 110,
+   "passage_grounded": 85,
+   "structured_record_grounded": 25,
+   "deepest_rank_seen": 15,
+   "median_rank": 1,
+   "mrr": 0.7684,
+   "support_at_1": 0.6824,
+   "support_at_3": 0.8118,
+   "support_at_5": 0.8706,
+   "support_at_8": 0.9882
+  },
+  "per_cve": [
+   {
+    "cve_id": "CVE-2021-23017",
+    "gold_claims": 11,
+    "passage_grounded": 10,
+    "structured_record_grounded": 1,
+    "deepest_rank_seen": 6,
+    "median_rank": 5.0,
+    "mrr": 0.5067,
+    "support_at_1": 0.4,
+    "support_at_3": 0.4,
+    "support_at_5": 0.6,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2021-21315",
+    "gold_claims": 11,
+    "passage_grounded": 9,
+    "structured_record_grounded": 2,
+    "deepest_rank_seen": 1,
+    "median_rank": 1,
+    "mrr": 1.0,
+    "support_at_1": 1.0,
+    "support_at_3": 1.0,
+    "support_at_5": 1.0,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2021-26084",
+    "gold_claims": 11,
+    "passage_grounded": 8,
+    "structured_record_grounded": 3,
+    "deepest_rank_seen": 1,
+    "median_rank": 1.0,
+    "mrr": 1.0,
+    "support_at_1": 1.0,
+    "support_at_3": 1.0,
+    "support_at_5": 1.0,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2023-23752",
+    "gold_claims": 11,
+    "passage_grounded": 9,
+    "structured_record_grounded": 2,
+    "deepest_rank_seen": 1,
+    "median_rank": 1,
+    "mrr": 1.0,
+    "support_at_1": 1.0,
+    "support_at_3": 1.0,
+    "support_at_5": 1.0,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2024-27198",
+    "gold_claims": 11,
+    "passage_grounded": 5,
+    "structured_record_grounded": 6,
+    "deepest_rank_seen": 15,
+    "median_rank": 3,
+    "mrr": 0.4467,
+    "support_at_1": 0.2,
+    "support_at_3": 0.8,
+    "support_at_5": 0.8,
+    "support_at_8": 0.8
+   },
+   {
+    "cve_id": "CVE-2023-42793",
+    "gold_claims": 11,
+    "passage_grounded": 10,
+    "structured_record_grounded": 1,
+    "deepest_rank_seen": 7,
+    "median_rank": 2.5,
+    "mrr": 0.5893,
+    "support_at_1": 0.5,
+    "support_at_3": 0.5,
+    "support_at_5": 0.6,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2023-40044",
+    "gold_claims": 11,
+    "passage_grounded": 10,
+    "structured_record_grounded": 1,
+    "deepest_rank_seen": 1,
+    "median_rank": 1.0,
+    "mrr": 1.0,
+    "support_at_1": 1.0,
+    "support_at_3": 1.0,
+    "support_at_5": 1.0,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2024-1709",
+    "gold_claims": 11,
+    "passage_grounded": 9,
+    "structured_record_grounded": 2,
+    "deepest_rank_seen": 6,
+    "median_rank": 3,
+    "mrr": 0.537,
+    "support_at_1": 0.3333,
+    "support_at_3": 0.6667,
+    "support_at_5": 0.8889,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2024-24919",
+    "gold_claims": 11,
+    "passage_grounded": 9,
+    "structured_record_grounded": 2,
+    "deepest_rank_seen": 2,
+    "median_rank": 1,
+    "mrr": 0.9444,
+    "support_at_1": 0.8889,
+    "support_at_3": 1.0,
+    "support_at_5": 1.0,
+    "support_at_8": 1.0
+   },
+   {
+    "cve_id": "CVE-2022-47966",
+    "gold_claims": 11,
+    "passage_grounded": 6,
+    "structured_record_grounded": 5,
+    "deepest_rank_seen": 8,
+    "median_rank": 2.5,
+    "mrr": 0.4653,
+    "support_at_1": 0.1667,
+    "support_at_3": 0.8333,
+    "support_at_5": 0.8333,
+    "support_at_8": 1.0
+   }
+  ],
+  "rows": [
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-187f75a665d96f9d#000",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-187f75a665d96f9d#000",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-187f75a665d96f9d#000",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C05",
+    "family": "SEVERITY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-eebfda7d36c0537b#027",
+    "production_rank": 5,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-eebfda7d36c0537b#027",
+    "production_rank": 5,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0a1a6ac89dc428b5#002",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-01",
+    "cve_id": "CVE-2021-23017",
+    "claim_id": "CS-B10-01-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-187f75a665d96f9d#000",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C05",
+    "family": "SEVERITY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-02",
+    "cve_id": "CVE-2021-21315",
+    "claim_id": "CS-B10-02-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-085f0c4359f2c04c#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C05",
+    "family": "SEVERITY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C08",
+    "family": "REMEDIATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-03",
+    "cve_id": "CVE-2021-26084",
+    "claim_id": "CS-B10-03-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-83ccdb4894640521#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C05",
+    "family": "SEVERITY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-04",
+    "cve_id": "CVE-2023-23752",
+    "claim_id": "CS-B10-04-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73295f19dfa8807#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C05",
+    "family": "SEVERITY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "CWE-288#000",
+    "production_rank": 2,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NIST-SP-800-53r5#667",
+    "production_rank": 15,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "OWASP-Vulnerable_Dependency_Management_Cheat_Sheet#006",
+    "production_rank": 3,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "OWASP-Vulnerable_Dependency_Management_Cheat_Sheet#006",
+    "production_rank": 3,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-05",
+    "cve_id": "CVE-2024-27198",
+    "claim_id": "CS-B10-05-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-201fad6eaf50ae12#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-5bdd6353813221dd#004",
+    "production_rank": 4,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-8438df5843184745#004",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0c0775f7a7c7328e#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0c0775f7a7c7328e#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C05",
+    "family": "SEVERITY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-8438df5843184745#004",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0c0775f7a7c7328e#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-5bdd6353813221dd#009",
+    "production_rank": 7,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0c0775f7a7c7328e#000",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-0c0775f7a7c7328e#000",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-06",
+    "cve_id": "CVE-2023-42793",
+    "claim_id": "CS-B10-06-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-8438df5843184745#004",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C05",
+    "family": "SEVERITY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-07",
+    "cve_id": "CVE-2023-40044",
+    "claim_id": "CS-B10-07-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4568bdda9acb1dcc#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d6798cd87d006f0#001",
+    "production_rank": 6,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d6798cd87d006f0#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-d664c50c4acf8778#004",
+    "production_rank": 4,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-b73da2c3fda7deaf#004",
+    "production_rank": 2,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C05",
+    "family": "SEVERITY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-d664c50c4acf8778#004",
+    "production_rank": 4,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d6798cd87d006f0#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-f49be5772b45307e#004",
+    "production_rank": 3,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-f49be5772b45307e#004",
+    "production_rank": 3,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-08",
+    "cve_id": "CVE-2024-1709",
+    "claim_id": "CS-B10-08-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d6798cd87d006f0#004",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C05",
+    "family": "SEVERITY",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#000",
+    "production_rank": 2,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C08",
+    "family": "REMEDIATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-09",
+    "cve_id": "CVE-2024-24919",
+    "claim_id": "CS-B10-09-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-4d007665011311da#001",
+    "production_rank": 1,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C01",
+    "family": "PLAIN-LANGUAGE SUMMARY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C02",
+    "family": "TECHNICAL DETAILS",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C03",
+    "family": "PLAIN-LANGUAGE EXPLANATION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-979b1db95bfa2adc#000",
+    "production_rank": 3,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C04",
+    "family": "AFFECTED / CONDITIONS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-d4637924b2a8189e#004",
+    "production_rank": 2,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C05",
+    "family": "SEVERITY",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C06",
+    "family": "EXPLOITATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C07",
+    "family": "WEAKNESS",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-088bdce497ef7811#003",
+    "production_rank": 8,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C08",
+    "family": "REMEDIATION",
+    "grounding": "structured_record",
+    "supporting_chunk_id": "",
+    "production_rank": null,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C09",
+    "family": "PROJECT RISK",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-979b1db95bfa2adc#000",
+    "production_rank": 3,
+    "claim_result": "Pass",
+    "result_basis": "deterministic field check plus abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C10",
+    "family": "GUIDANCE",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-d4637924b2a8189e#003",
+    "production_rank": 1,
+    "claim_result": "Abstain",
+    "result_basis": "abstention guardrail"
+   },
+   {
+    "eval_id": "CS-B10-10",
+    "cve_id": "CVE-2022-47966",
+    "claim_id": "CS-B10-10-C11",
+    "family": "DISTINCTION",
+    "grounding": "retrieved_passage",
+    "supporting_chunk_id": "NVDREF-d4637924b2a8189e#004",
+    "production_rank": 2,
+    "claim_result": "Pass",
+    "result_basis": "lexical anchor proxy"
+   }
+  ],
+  "note": "support_at_k is the share of passage-grounded gold claims whose supporting passage sat at or above rank k in the evidence package the Analyst actually received. It says nothing about whether the answer used it."
+ },
+ "engine_ablation": {
+  "overall": {
+   "bm25": {
+    "recall_at_k_mean": 0.95,
+    "precision_at_k_mean": 0.3,
+    "mrr": 1.0,
+    "hit_at_3_rate": 1,
+    "first_hit_none": 0,
+    "median_latency_ms": 172.43,
+    "min_latency_ms": 111.77,
+    "max_latency_ms": 221.84
+   },
+   "dense": {
+    "recall_at_k_mean": 0.8133,
+    "precision_at_k_mean": 0.2375,
+    "mrr": 0.9,
+    "hit_at_3_rate": 1,
+    "first_hit_none": 0,
+    "median_latency_ms": 320.92,
+    "min_latency_ms": 276.62,
+    "max_latency_ms": 368.39
+   },
+   "hybrid": {
+    "recall_at_k_mean": 0.975,
+    "precision_at_k_mean": 0.3125,
+    "mrr": 1.0,
+    "hit_at_3_rate": 1,
+    "first_hit_none": 0,
+    "median_latency_ms": 346.93,
+    "min_latency_ms": 284.53,
+    "max_latency_ms": 375.58
+   }
+  },
+  "per_cve": [
+   {
+    "cve_id": "CVE-2021-23017",
+    "eval_id": "CS-B10-01",
+    "top_k": 8,
+    "production_contexts": 16,
+    "gold_passages": 3,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.375,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 130.42
+     },
+     "dense": {
+      "recall_at_k": 0.3333,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 2,
+      "hit_at_3": 1,
+      "reciprocal_rank": 0.5,
+      "latency_ms": 276.62
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.375,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 292.62
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2021-21315",
+    "eval_id": "CS-B10-02",
+    "top_k": 8,
+    "production_contexts": 14,
+    "gold_passages": 1,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 172.23
+     },
+     "dense": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 284.69
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 349.61
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2021-26084",
+    "eval_id": "CS-B10-03",
+    "top_k": 8,
+    "production_contexts": 10,
+    "gold_passages": 1,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 200.23
+     },
+     "dense": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 329.78
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 344.24
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2023-23752",
+    "eval_id": "CS-B10-04",
+    "top_k": 8,
+    "production_contexts": 10,
+    "gold_passages": 1,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 111.77
+     },
+     "dense": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 323.24
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 284.53
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2024-27198",
+    "eval_id": "CS-B10-05",
+    "top_k": 8,
+    "production_contexts": 16,
+    "gold_passages": 4,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 0.5,
+      "precision_at_k": 0.25,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 134.98
+     },
+     "dense": {
+      "recall_at_k": 0.5,
+      "precision_at_k": 0.25,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 310.04
+     },
+     "hybrid": {
+      "recall_at_k": 0.75,
+      "precision_at_k": 0.375,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 329.24
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2023-42793",
+    "eval_id": "CS-B10-06",
+    "top_k": 8,
+    "production_contexts": 16,
+    "gold_passages": 4,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 158.51
+     },
+     "dense": {
+      "recall_at_k": 0.75,
+      "precision_at_k": 0.375,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 350.98
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 375.58
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2023-40044",
+    "eval_id": "CS-B10-07",
+    "top_k": 8,
+    "production_contexts": 16,
+    "gold_passages": 1,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 172.63
+     },
+     "dense": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 368.39
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.125,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 350.33
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2024-1709",
+    "eval_id": "CS-B10-08",
+    "top_k": 8,
+    "production_contexts": 16,
+    "gold_passages": 5,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.625,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 217.94
+     },
+     "dense": {
+      "recall_at_k": 0.8,
+      "precision_at_k": 0.5,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 318.6
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.625,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 351.29
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2024-24919",
+    "eval_id": "CS-B10-09",
+    "top_k": 8,
+    "production_contexts": 14,
+    "gold_passages": 2,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.25,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 221.84
+     },
+     "dense": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.25,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 301.77
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.25,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 362.59
+     }
+    }
+   },
+   {
+    "cve_id": "CVE-2022-47966",
+    "eval_id": "CS-B10-10",
+    "top_k": 8,
+    "production_contexts": 16,
+    "gold_passages": 4,
+    "modes": {
+     "bm25": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 192.0
+     },
+     "dense": {
+      "recall_at_k": 0.75,
+      "precision_at_k": 0.375,
+      "first_hit_rank": 2,
+      "hit_at_3": 1,
+      "reciprocal_rank": 0.5,
+      "latency_ms": 339.44
+     },
+     "hybrid": {
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "first_hit_rank": 1,
+      "hit_at_3": 1,
+      "reciprocal_rank": 1.0,
+      "latency_ms": 336.09
+     }
+    }
+   }
+  ],
+  "provenance": {
+   "index_dir": "data\\index",
+   "corpus_chunks": 10457,
+   "reference_chunks_tagged_to_benchmark_cves": 312,
+   "gold_passages_in_reference_store": 23,
+   "gold_passages_in_generic_corpus": 3,
+   "repeats_per_query": 5,
+   "note": "Dense and BM25 rows search the identical candidate pools the production pipeline uses (the CVE's own NVD-cited reference pages first, then the generic corpus), so the only variable is the ranking engine. Latency is the median of repeated searches and includes the hosted embedding call in the dense rows; corpus load is excluded."
+  }
+ }
+}

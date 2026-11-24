@@ -26,6 +26,12 @@ class QwenResponse:
 
 
 class QwenClient:
+    TRANSIENT_STATUS = (429, 500, 502, 503, 504)
+    # Re-ask once, then give up: the same single retry the judge path uses. A second
+    # timeout would add the full 30 s to a request that is already failing.
+    ATTEMPTS = 2
+    RETRY_BACKOFF_S = 1.5
+
     def __init__(self, timeout: float = 30.0):
         self.timeout = timeout
 
@@ -65,38 +71,49 @@ class QwenClient:
             max_tokens=effective_max_tokens,
             estimated_prompt_tokens=estimated_prompt_tokens,
         )
-        started = time.perf_counter()
-        try:
-            with httpx.Client(timeout=self.timeout, verify=settings.qwen_ca_cert) as client:
-                response = client.post(
-                    base_url + "/chat/completions",
-                    json=payload,
-                    headers={"Authorization": f"Bearer {settings.qwen_api_key}"},
+        for attempt in range(1, self.ATTEMPTS + 1):
+            reask = attempt < self.ATTEMPTS
+            started = time.perf_counter()
+            try:
+                with httpx.Client(timeout=self.timeout, verify=settings.qwen_ca_cert) as client:
+                    response = client.post(
+                        base_url + "/chat/completions",
+                        json=payload,
+                        headers={"Authorization": f"Bearer {settings.qwen_api_key}"},
+                    )
+            except httpx.HTTPError as exc:
+                latency_ms = max(0, round((time.perf_counter() - started) * 1000))
+                reason = f"transport failure: {type(exc).__name__}"
+                progress.emit(
+                    "model_retry" if reask else "model_end",
+                    ok=False,
+                    ms=latency_ms,
+                    reason=reason,
                 )
-        except httpx.HTTPError as exc:
+                observability.record_generation(
+                    settings.qwen_model,
+                    system,
+                    user,
+                    None,
+                    {},
+                    {"max_tokens": effective_max_tokens},
+                    level="ERROR",
+                    status_message=f"{reason} on attempt {attempt}/{self.ATTEMPTS}",
+                )
+                if reask:
+                    time.sleep(self.RETRY_BACKOFF_S * attempt)
+                    continue
+                raise QwenError(f"Qwen request failed ({type(exc).__name__}): {exc}") from exc
             latency_ms = max(0, round((time.perf_counter() - started) * 1000))
-            progress.emit(
-                "model_end",
-                ok=False,
-                ms=latency_ms,
-                reason=f"transport failure: {type(exc).__name__}",
-            )
-            observability.record_generation(
-                settings.qwen_model,
-                system,
-                user,
-                None,
-                {},
-                {"max_tokens": effective_max_tokens},
-                level="ERROR",
-                status_message=f"transport failure: {type(exc).__name__}",
-            )
-            raise QwenError(f"Qwen request failed ({type(exc).__name__}): {exc}") from exc
-        latency_ms = max(0, round((time.perf_counter() - started) * 1000))
-        if response.status_code != 200:
+            if response.status_code == 200:
+                break
+            transient = response.status_code in self.TRANSIENT_STATUS
             detail = " ".join(response.text.split())[:300]
             progress.emit(
-                "model_end", ok=False, ms=latency_ms, reason=f"HTTP {response.status_code}"
+                "model_retry" if transient and reask else "model_end",
+                ok=False,
+                ms=latency_ms,
+                reason=f"HTTP {response.status_code}",
             )
             observability.record_generation(
                 settings.qwen_model,
@@ -106,8 +123,11 @@ class QwenClient:
                 {},
                 {"max_tokens": effective_max_tokens},
                 level="ERROR",
-                status_message=f"HTTP {response.status_code}",
+                status_message=f"HTTP {response.status_code} on attempt {attempt}/{self.ATTEMPTS}",
             )
+            if transient and reask:
+                time.sleep(self.RETRY_BACKOFF_S * attempt)
+                continue
             if response.status_code == 429:
                 raise QwenError(f"HTTP 429: Rate Limit / Concurrent Request Limit Exceeded ({detail})")
             raise QwenError(f"Qwen returned HTTP {response.status_code}: {detail}")

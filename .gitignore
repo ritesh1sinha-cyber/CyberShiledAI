@@ -29,9 +29,18 @@ Thumbs.db
 desktop.ini
 ~$*
 
-# Ignore all documentation except the 12-page final technical report markdown
+# Ignore internal notes and intermediate drafts in docs/
 docs/*
 !docs/CyberShield_AI_Final_Technical_Report_Track_B.md
+!docs/CyberShield_AI_Final_Technical_Report_Track_B.html
+!docs/CyberShield_AI_Per_CVE_Audit_Dossier.md
+!docs/CyberShield_AI_Per_CVE_Audit_Dossier.html
+!docs/CyberShield_AI_Architecture_Flowchart.svg
+!docs/CyberShield_AI_Presentation_Flowchart.html
+!docs/CyberShield_AI_Architecture_FAQ.md
+!docs/CyberShield_AI_End_to_End_Flowchart.svg
+!docs/CyberShield_AI_End_to_End_Flowchart.mmd
+!docs/CyberShield_AI_Executive_Flowchart.mmd
 
 # Ignore loose media, course guides, and redundant datasets
 *.png

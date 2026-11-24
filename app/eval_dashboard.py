@@ -4,7 +4,9 @@ The dashboards show what the frozen Batch 10 run already recorded in the
 traceability workbook, its scores file and the run traces; nothing here computes
 a new score. A value that was never captured comes back as NOT_CAPTURED rather
 than a blank or a plausible number, because a report writer cannot tell those
-apart later.
+apart later. The one arithmetic in this module is a mean over stored per-run
+figures, and a run that produced no answer is counted separately instead of
+averaged in.
 """
 
 from __future__ import annotations
@@ -24,8 +26,13 @@ BATCH10_WORKBOOK = (
 BATCH10_SHEET = "Batch 10 - RAG Agent Eval"
 BATCH10_FIRST_ROW, BATCH10_LAST_ROW = 5, 114
 BATCH10_COLUMNS = 77
-BATCH10_SCORES_JSON = ROOT / "data" / "evaluation" / "batch10_live_20261118" / "scores.json"
-BATCH10_TRACE_DIR = ROOT / "data" / "traces" / "batch10_live_20261118"
+# The workbook's run-specific columns (68-77) name trace ids CS-20261121…, which are
+# the traces in BATCH10_TRACE_DIR; reading a different run here would pair one
+# run's scores with another run's answer text.
+BATCH10_SCORES_JSON = ROOT / "data" / "evaluation" / "batch10" / "scores.json"
+BATCH10_TRACE_DIR = ROOT / "data" / "traces" / "batch10"
+RETRIEVAL_METRICS_JSON = ROOT / "data" / "evaluation" / "retrieval_metrics.json"
+CONSOLIDATED_JSON = ROOT / "data" / "evaluation" / "consolidated_10cve_all_iterations.json"
 
 NOT_CAPTURED = "not captured"
 NO_TRACE = "not captured: no run trace file for this row"
@@ -35,7 +42,12 @@ ANSWER_FROM_TRACE = (
     "check graded."
 )
 
-BATCH10_SOURCES = (BATCH10_WORKBOOK, BATCH10_SCORES_JSON, BATCH10_TRACE_DIR)
+BATCH10_SOURCES = (
+    BATCH10_WORKBOOK,
+    BATCH10_SCORES_JSON,
+    BATCH10_TRACE_DIR,
+    RETRIEVAL_METRICS_JSON,
+)
 
 BATCH10_GOLD_COLUMNS = {
     3: "question",
@@ -175,7 +187,7 @@ def batch10_summary() -> dict:
 
 
 def batch10_claims() -> list[dict]:
-    """The 110 per-claim records of the 18 November live run: scores.json numbers
+    """The 110 per-claim records of the 21 November live run: scores.json numbers
     joined to the workbook gold columns by claim id."""
     gold = _batch10_gold()
     payload = batch10_scores()
@@ -404,6 +416,128 @@ def _batch10_rag_detail(eval_id: str) -> dict:
     }
 
 
+# ------------------------------------------------- measured retrieval ----
+
+# data/evaluation/retrieval_metrics.json is the output of
+# scripts/measure_retrieval_metrics.py. Nothing below recomputes it: the dashboards
+# show the numbers that file holds and name the rule that decided each one.
+
+ENGINE_LABELS = {
+    "bm25": "Keywords only (BM25)",
+    "dense": "Meaning only (dense vectors)",
+    "hybrid": "Both fused (hybrid - what the product runs)",
+}
+
+
+def retrieval_metrics() -> dict:
+    if not RETRIEVAL_METRICS_JSON.exists():
+        return {}
+    return json.loads(RETRIEVAL_METRICS_JSON.read_text("utf-8"))
+
+
+def _latency_range(stats: dict) -> str:
+    """The fastest and slowest repeat as one cell, or a plain blank, never a blank
+    dressed up as a measurement."""
+    if stats.get("min_latency_ms") is None or stats.get("max_latency_ms") is None:
+        return NOT_CAPTURED
+    return f"{number(stats['min_latency_ms'], 2)} / {number(stats['max_latency_ms'], 2)}"
+
+
+def retrieval_ablation_table() -> list[dict]:
+    """One row per ranking engine, measured over the same ten retrieval queries."""
+    overall = retrieval_metrics().get("engine_ablation", {}).get("overall", {})
+    rows = []
+    for engine, label in ENGINE_LABELS.items():
+        stats = overall.get(engine) or {}
+        rows.append(
+            {
+                "Ranking engine tested": label,
+                "Gold passages found (recall@8)": number(stats.get("recall_at_k_mean")),
+                "Of the eight passages handed over, how many were gold (precision@8)": number(
+                    stats.get("precision_at_k_mean")
+                ),
+                "How far down the first gold passage sat (MRR; 1.00 = always first)": number(
+                    stats.get("mrr")
+                ),
+                "Queries where no gold passage was found at all": number(
+                    stats.get("first_hit_none"), 0
+                ),
+                "Median time per search (ms)": number(stats.get("median_latency_ms"), 2),
+                "Fastest and slowest repeat (ms)": _latency_range(stats),
+            }
+        )
+    return rows
+
+
+def retrieval_support_table() -> list[dict]:
+    """One row per CVE: where the passage behind each gold claim actually landed."""
+    return [
+        {
+            "CVE": text(row["cve_id"]),
+            "Gold claims": number(row["gold_claims"], 0),
+            "Grounded in a retrieved passage": number(row["passage_grounded"], 0),
+            "Grounded in a structured NVD/KEV record": number(
+                row["structured_record_grounded"], 0
+            ),
+            "Support@1": number(row["support_at_1"]),
+            "Support@3": number(row["support_at_3"]),
+            "Support@5": number(row["support_at_5"]),
+            "Support@8": number(row["support_at_8"]),
+            "Mean reciprocal rank": number(row["mrr"]),
+            "Median rank": number(row["median_rank"], 1),
+            "Deepest rank any gold passage reached": number(row["deepest_rank_seen"], 0),
+        }
+        for row in retrieval_metrics().get("claim_support", {}).get("per_cve", [])
+    ]
+
+
+def retrieval_claim_table() -> list[dict]:
+    """One row per gold claim, naming the passage that supported it and its rank."""
+    return [
+        {
+            "Eval ID": text(row["eval_id"]),
+            "CVE": text(row["cve_id"]),
+            "Claim ID": text(row["claim_id"]),
+            "Claim family": text(row["family"]),
+            "What the claim rests on": text(row["grounding"]),
+            "Supporting chunk": text(row["supporting_chunk_id"]),
+            "Rank in the evidence package": number(row["production_rank"], 0),
+            "Deterministic claim result": text(row["claim_result"]),
+            "Rule behind that result": text(row["result_basis"]),
+        }
+        for row in retrieval_metrics().get("claim_support", {}).get("rows", [])
+    ]
+
+
+def retrieval_provenance() -> list[list[str]]:
+    """Where the measured retrieval numbers came from, as field/value pairs."""
+    payload = retrieval_metrics()
+    provenance = payload.get("provenance", {})
+    engine = payload.get("engine_ablation", {}).get("provenance", {})
+    overall = payload.get("claim_support", {}).get("overall", {})
+    return [
+        ["Measured from run", text(provenance.get("scores_artifact"))],
+        ["Traces", text(provenance.get("trace_dir"))],
+        ["Dataset SHA-256", text(provenance.get("dataset_sha256"))],
+        ["Answer model", text(provenance.get("model"))],
+        ["Embedding model", text(provenance.get("embedding_model"))],
+        ["Gold claims judged", number(overall.get("gold_claims"), 0)],
+        ["Corpus chunks", number(engine.get("corpus_chunks"), 0)],
+        ["Reference chunks tagged to these CVEs", number(engine.get("reference_chunks_tagged_to_benchmark_cves"), 0)],
+        [
+            "Gold passages that live in the per-CVE reference store / the generic corpus",
+            (
+                f"{number(engine.get('gold_passages_in_reference_store'), 0)} / "
+                f"{number(engine.get('gold_passages_in_generic_corpus'), 0)}"
+            ),
+        ],
+        ["Repeats per timed query", number(engine.get("repeats_per_query"), 0)],
+        ["How to reproduce", text(provenance.get("reproduce"))],
+        ["Generated at", text(payload.get("generated_at"))],
+        ["Written by", text(payload.get("tool"))],
+    ]
+
+
 # ------------------------------------------------------------- LLM views ----
 
 
@@ -560,6 +694,25 @@ def _batch10_llm_detail(eval_id: str) -> dict:
     }
 
 
+def claim_judge_coverage() -> str:
+    """How many claims this run's per-claim judge scored, stated as the run recorded it.
+
+    A run can grade every claim deterministically and still have no judge verdicts for
+    this scoring pass, and an empty element table then looks like a broken dashboard
+    rather than an unjudged run.
+    """
+    judge = batch10_summary().get("claim_judge") or {}
+    if not judge:
+        return NOT_CAPTURED
+    verdicts = ", ".join(
+        f"{count} {verdict}" for verdict, count in sorted((judge.get("verdict_totals") or {}).items())
+    )
+    return (
+        f"{judge.get('scored', 0)} of {judge.get('of', 0)} gold claims carry a judge verdict "
+        f"in this run ({verdicts or 'no verdicts recorded'})"
+    )
+
+
 def claim_elements(claim_id: str) -> dict:
     """The per-element table behind one claim-level judge call."""
     for claim in batch10_claims():
@@ -681,3 +834,126 @@ def detail_markdown(detail: dict) -> str:
         if section.get("note"):
             lines += ["", f"_{section['note']}_"]
     return "\n".join(lines)
+
+
+# -------------------------------------------------- iteration scorecard ----
+
+ITERATION_LABELS = (
+    ("zero_shot", "1. Prompting: Zero-Shot (no RAG)"),
+    ("few_shot", "2. Prompting: Few-Shot JSON (no RAG)"),
+    ("chain_of_thought", "3. Prompting: Chain-of-Thought (no RAG)"),
+    ("single_agent", "4. Single-Agent RAG (Lead Analyst only)"),
+    ("multi_agent", "5. Multi-Agent RAG (CyberShield AI)"),
+)
+
+
+def run_failed(entry: dict) -> bool:
+    """True when a stored row records a run that never produced an answer.
+
+    Two benchmark scripts used to write placeholder scores onto failed runs (ROUGE
+    0.05/0.01/0.03, cosine 0.55, judge 1/1/1/1), so the figures on those rows
+    describe nothing. The stored answer is the runner's own failure marker, and the
+    scripts now save `error` in place of a score, so either signal excludes the row.
+    """
+    answer = str(entry.get("actual_response") or "").lstrip()
+    return entry.get("error") is not None or answer.startswith(("Validation Failure", "Error:"))
+
+
+def judge_measured(entry: dict) -> bool:
+    """True only where a model actually judged the answer.
+
+    `app.answer_layers.judge_one` stamps every judgment with `judge_attempt`, and the
+    constant blocks the benchmark scripts wrote carry no such stamp, so this asks the
+    artifact instead of trusting a list of iteration names.
+    """
+    return "judge_attempt" in (entry.get("judge") or {})
+
+
+def _mean(values: list) -> float | None:
+    numbers = [
+        float(value)
+        for value in values
+        if isinstance(value, (int, float)) and not isinstance(value, bool)
+    ]
+    return round(sum(numbers) / len(numbers), 4) if numbers else None
+
+
+def iteration_scorecard() -> list[dict]:
+    """One row per iteration, averaged over only the runs that produced an answer.
+
+    `runs_scored` and `runs_failed` travel with every figure because the single-agent
+    row is a mean over 6 completed runs while the rest are over 10; a bare mean over
+    ten would divide by runs that never answered.
+    """
+    if not CONSOLIDATED_JSON.exists():
+        return []
+    rows = json.loads(CONSOLIDATED_JSON.read_text(encoding="utf-8"))
+    table = []
+    for key, label in ITERATION_LABELS:
+        entries = [row["iterations"][key] for row in rows]
+        scored = [entry for entry in entries if not run_failed(entry)]
+        judged = [entry for entry in scored if judge_measured(entry)]
+        table.append(
+            {
+                "iteration": label,
+                "runs": len(entries),
+                "runs_scored": len(scored),
+                "runs_failed": len(entries) - len(scored),
+                "rouge1_f": _mean([entry["rouge"]["rouge1_f"] for entry in scored]),
+                "rouge2_f": _mean([entry["rouge"]["rouge2_f"] for entry in scored]),
+                "rougeL_f": _mean([entry["rouge"]["rougeL_f"] for entry in scored]),
+                "semantic_cosine": _mean([entry.get("semantic_cosine") for entry in scored]),
+                "latency_s": _mean([entry.get("latency_s") for entry in scored]),
+                "cvss_match": sum(
+                    1
+                    for entry in scored
+                    if (entry.get("fields") or {}).get("cvss_score") == "match"
+                ),
+                "judge_overall": _mean([entry["judge"]["overall"] for entry in judged])
+                if judged
+                else None,
+                "judge_pass": f"{sum(1 for entry in judged if entry['judge']['pass'])}/{len(judged)}"
+                if judged
+                else NOT_CAPTURED,
+                "judge_source": "Qwen3-8B judge, secondary only" if judged else NOT_CAPTURED,
+            }
+        )
+    return table
+
+
+def scorecard_takeaway(table: list[dict]) -> str:
+    """The sentence the scorecard can support, assembled from the table it describes.
+
+    This used to be a fixed string claiming a 100% judge pass rate and hallucinations
+    "completely eliminated"; building it from the rows means such a claim cannot
+    outlive the data it was written against.
+    """
+    if not table:
+        return NOT_CAPTURED
+    by_number = {row["iteration"].split(".")[0]: row for row in table}
+    zero, single, multi = by_number["1"], by_number["4"], by_number["5"]
+    lines = [
+        f"Retrieval moves the similarity numbers: ROUGE-1 {zero['rouge1_f']} without it, "
+        f"{single['rouge1_f']} for the single-agent row and {multi['rouge1_f']} for the "
+        f"multi-agent row (semantic cosine {zero['semantic_cosine']} / "
+        f"{single['semantic_cosine']} / {multi['semantic_cosine']}).",
+        f"The Critic's contribution shows in fields and completions, not prose: CVSS "
+        f"matched the reference on {multi['cvss_match']} of {multi['runs']} multi-agent "
+        f"answers against {single['cvss_match']} of {single['runs_scored']} single-agent "
+        f"answers that answered.",
+    ]
+    if single["runs_failed"]:
+        lines.append(
+            f"{single['runs_failed']} of {single['runs']} single-agent runs failed final "
+            f"validation; they are counted as failures, so its means are over "
+            f"{single['runs_scored']} runs and are not comparable with a ten-run mean."
+        )
+    judged = [row for row in table if row["judge_pass"] != NOT_CAPTURED]
+    if judged:
+        lines.append(
+            "Judge scores exist only for "
+            + ", ".join(row["iteration"].split(". ")[1] for row in judged)
+            + f" ({judged[0]['judge_pass']} passed, mean {judged[0]['judge_overall']}/5); "
+            + "every other row keeps the deterministic field check as its verdict."
+        )
+    return " ".join(lines)

@@ -1,0 +1,47 @@
+flowchart TD
+    subgraph S1["Stage 1: Intake & Perimeter Boundary"]
+        Query["🎯 Target CVE Query<br/><b>Investigate CVE-YYYY-NNNN</b>"] --> PG["🛡️ PolicyGuard (Agent 0)<br/>Regex Validation · Anti-Prompt Injection · Refusal Gate"]
+    end
+
+    subgraph S2["Stage 2: Local DB Check vs HITL Safety Gate"]
+        PG --> DBCache{"Local DB Hit?<br/>155 CVE Offline Snapshot"}
+        DBCache -->|✅ Local Hit 95%+| EA
+        DBCache -->|❌ Local Miss| HITL{"🛑 HITL Safety Gate<br/>Operator Approval Modal"}
+        HITL -->|❌ Operator Rejects| Abort["Immediate Refusal<br/>Zero Network Egress"]
+        HITL -->|✅ Operator Approves| WebAgent["🌐 FetchFromWebAgent<br/>6 Live Security Sources"]
+        WebAgent --> Ingest["Option B Ingestion<br/>Raw + Chunks Indexed"]
+        Ingest --> EA
+    end
+
+    subgraph S3["Stage 3: Evidence Agent & Multi-Pass RAG"]
+        EA["🔍 EvidenceAgent (Agent 1)<br/>Tool Orchestration & RAG Retrieval"]
+        EA --> RAG1["🔄 RAG Round 1: Hybrid RRF Search<br/>Dense FAISS (BGE-Small) + Sparse BM25Okapi"]
+        RAG1 --> CheckCoverage{"Prerequisites &<br/>Patch Covered?"}
+        CheckCoverage -->|Missing Detail| RAG2["📑 RAG Round 2: Reference Scoped Search<br/>NVD-Cited Bulletins (reference_chunks.jsonl)"]
+        CheckCoverage -->|Sufficient| Pkg["📦 Immutable EvidencePackage<br/>Top 8 Passages EV-0001..EV-0008 + NVD/KEV Facts"]
+        RAG2 --> Pkg
+    end
+
+    subgraph S4["Stage 4: Adversarial Analyst ⟷ Critic Revision Loop (Max 2 Rounds)"]
+        Pkg ==>|"Orchestrator-Enforced State Pass (Anti-Tampering)"| Analyst["🤖 Lead Analyst Agent (Agent 2)<br/>Drafts 8-Section Report citing EV-xxxx"]
+        Pkg ==>|"Direct Pass-Through (Analyst cannot modify)"| Critic
+        Analyst -->|"1. Submit Draft"| Critic{"⚖️ Critic Review Agent (Agent 3)<br/>Audits Support, Citations,<br/>Uncertainty & Completeness"}
+        Critic -->|"❌ Reject (Issues Found) [Max 2 Iterations]<br/>CRITIC_REVISION_REQUEST"| Analyst
+    end
+
+    subgraph S5["Stage 5: Deterministic Final Validation"]
+        Critic -->|"✅ Approved"| Val["🛡️ Final Validator (Pure Python)<br/>Zero-LLM · Rule-Based Citation & Risk Engine"]
+        Val --> Out["📋 Shipped Security Advisory<br/>8 Sections · 100% Grounded · SHA-256 Verifiable Trace"]
+    end
+
+    classDef stage1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a;
+    classDef stage2 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f;
+    classDef stage3 fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#4c1d95;
+    classDef stage4 fill:#fff1f2,stroke:#f43f5e,stroke-width:2px,color:#881337;
+    classDef stage5 fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#064e3b;
+
+    class Query,PG stage1;
+    class DBCache,HITL,Abort,WebAgent,Ingest stage2;
+    class EA,RAG1,CheckCoverage,RAG2,Pkg stage3;
+    class Analyst,Critic stage4;
+    class Val,Out stage5;

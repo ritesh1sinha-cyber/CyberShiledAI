@@ -349,39 +349,6 @@ def test_connected_workflow_runs_analyst_and_critic_without_a_planner():
     assert result["report"].status == "partial"
     assert result["report"].risk.tier == "critical"
     assert "Critic finding (summary/support)" in result["report"].limitations[-1]
-
-
-def test_critic_flags_missing_user_inquiry_facets():
-    from app.contracts import CriticReview
-    from app.critic import add_deterministic_inquiry_findings, derive_statuses
-    package = make_package()
-    draft = make_draft()
-    draft = draft.model_copy(
-        update={
-            "summary": draft.summary.model_copy(
-                update={"text": "This is a generic vulnerability description."}
-            )
-        }
-    )
-    passing_review = CriticReview(
-        cve_id=package.cve_id,
-        support="pass",
-        completeness="pass",
-        citations="pass",
-        uncertainty="pass",
-        checked_sections=list(SECTION_NAMES),
-        issues=[],
-    )
-    user_query = "Investigate CVE-2024-1709: explain severity, KEV status, and admin setup bypass."
-    audited = add_deterministic_inquiry_findings(passing_review, draft, user_query=user_query)
-    audited = derive_statuses(audited)
-    assert audited.completeness == "fail"
-    assert len(audited.issues) >= 1
-    issue = audited.issues[0]
-    assert issue.section == "summary"
-    assert issue.category == "completeness"
-    assert "inquiry facet" in issue.detail
-
     assert [call.stage for call in result["model_calls"]] == [
         "analyst",
         "critic",
@@ -540,6 +507,7 @@ def test_failed_second_review_reverts_to_original_draft_with_first_review():
 
 
 def test_critic_flags_missing_user_inquiry_facets():
+    from app.analyst import ensure_requested_facets
     from app.contracts import CriticReview
     from app.critic import add_deterministic_inquiry_findings, derive_statuses
     package = make_package()
@@ -569,4 +537,50 @@ def test_critic_flags_missing_user_inquiry_facets():
     assert issue.section == "summary"
     assert issue.category == "completeness"
     assert "inquiry facet" in issue.detail
+
+    # The Analyst repairs exactly the summary this finding is about, so the same review
+    # passes once the repair has run: one table decides the question on both sides.
+    repaired = ensure_requested_facets(package, user_query, draft)
+    repaired_audit = add_deterministic_inquiry_findings(
+        passing_review, repaired, user_query=user_query
+    )
+    assert derive_statuses(repaired_audit).completeness == "pass"
+    assert repaired_audit.issues == []
+
+
+def test_model_summary_completeness_finding_follows_the_deterministic_table():
+    from app.contracts import CriticReview
+    from app.critic import add_deterministic_inquiry_findings, derive_statuses
+    package = make_package()
+    user_query = f"Investigate {CVE_ID}: explain the severity and exploitation status."
+    contradicting = CriticReview(
+        cve_id=CVE_ID,
+        support="pass",
+        completeness="fail",
+        citations="pass",
+        uncertainty="pass",
+        checked_sections=list(SECTION_NAMES),
+        issues=[
+            {
+                "section": "summary",
+                "category": "completeness",
+                "detail": "Summary does not address exploitation status or root cause.",
+                "evidence_ids": [],
+            }
+        ],
+    )
+    answered = make_draft()
+    audited = add_deterministic_inquiry_findings(
+        contradicting, answered, user_query=user_query
+    )
+    assert audited.issues == []
+    assert derive_statuses(audited).completeness == "pass"
+
+    thin = answered.model_copy(
+        update={"summary": answered.summary.model_copy(update={"text": f"{CVE_ID} is serious."})}
+    )
+    audited = add_deterministic_inquiry_findings(contradicting, thin, user_query=user_query)
+    assert len(audited.issues) == 1
+    assert "inquiry facet" in audited.issues[0].detail
+    assert "severity" in audited.issues[0].detail
 

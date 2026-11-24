@@ -183,7 +183,10 @@ def test_qwen_calls_publish_model_events(monkeypatch):
 
 
 def test_failed_qwen_call_publishes_one_unusable_model_event(monkeypatch):
+    calls = []
+
     def handler(request):
+        calls.append(request)
         return httpx.Response(503, text="upstream busy")
 
     monkeypatch.setattr(settings, "qwen_base_url", "https://unit.test/v1")
@@ -197,16 +200,25 @@ def test_failed_qwen_call_publishes_one_unusable_model_event(monkeypatch):
         "Client",
         lambda **kwargs: real_client(transport=httpx.MockTransport(handler)),
     )
+    monkeypatch.setattr(qwen_module.time, "sleep", lambda seconds: None)
     channel = progress.ProgressChannel()
 
     with pytest.raises(Exception), progress.bound(channel), progress.stage("critic"):
         QwenClient().complete("system", "user")
 
     events = channel.pending()
-    assert [event["type"] for event in events] == ["model_start", "model_end"]
+    # A re-ask is reported as model_retry so model_end stays the one terminal event
+    # per logical call; the stream never looks like two calls happened.
+    assert [event["type"] for event in events] == [
+        "model_start",
+        "model_retry",
+        "model_end",
+    ]
+    assert len(calls) == 2
     assert events[1]["stage"] == "critic"
-    assert events[1]["ok"] is False
-    assert events[1]["reason"] == "HTTP 503"
+    assert events[2]["stage"] == "critic"
+    assert events[2]["ok"] is False
+    assert events[2]["reason"] == "HTTP 503"
 
 
 def test_api_stream_endpoint_emits_server_sent_events(tmp_path):

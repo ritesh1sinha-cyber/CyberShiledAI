@@ -1,0 +1,109 @@
+%% CyberShield AI — end-to-end target architecture
+%% Qwen calls are sequential: one active request, at most ten calls per investigation.
+flowchart TD
+    User["User<br/>Enters one CVE question"] --> UI["Streamlit interface<br/>Query + include_attack + top_k"]
+    UI --> API["FastAPI boundary<br/>POST /investigate · POST /investigate/stream<br/>GET /health · /history · /traces/{request_id}<br/>Strict InvestigateRequest"]
+    API --> Guard{"Input Guard<br/>Exactly one CVE ID?"}
+
+    Guard -->|No| Invalid["Validation error<br/>cve_required or<br/>multiple_cves_unsupported"]
+    Guard -->|Unsafe| Refused["Deterministic safety refusal<br/>Short reason + limitations + trace"]
+    Guard -->|Safe| DBCheck{"Local Offline DB Check<br/>has_local_nvd(cve_id)?"}
+
+    DBCheck -->|Local Hit<br/>Base Snapshot or Ingested| EvidenceQwen["Evidence Agent (Qwen + Python)<br/>Reads cached NVD/KEV records<br/>Hybrid RAG search (BM25 + FAISS)<br/>Reference-First advisory lookup"]
+
+    DBCheck -->|Offline Miss<br/>Uncached CVE| HITL{"Human-in-the-Loop (HITL)<br/>Operator Approval Card<br/>Prompt on Streamlit UI"}
+
+    HITL -->|Operator Rejects| Aborted["🛑 Investigation Aborted<br/>Zero external web requests<br/>Refusal banner rendered on UI"]
+    HITL -->|Operator Approves| WebAgent["🌐 FetchFromWebAgent<br/>Live queries across 6 web sources:<br/>1. NIST NVD REST API 2.0<br/>2. CISA KEV Live Catalog<br/>3. MITRE ATT&amp;CK Framework<br/>4. GitHub Security / OSV API<br/>5. ExploitDB / Public CTI<br/>6. Official Vendor Advisories"]
+
+    WebAgent --> Ingest["Option B: Incremental Chunking & Ingestion<br/>• Ingest NVD JSON to data/raw/nvd/<br/>• Ingest KEV row to data/processed/kev.jsonl<br/>• Incremental chunking into reference_chunks.jsonl<br/>• Register in data/raw/web_ingested.json<br/>• Hot-reload ReferenceRetriever index"]
+
+    Ingest --> Package["Evidence package<br/>Structured facts + retrieved passages<br/>EV IDs + source URLs + timestamps"]
+    Ingest -.->|"Subsequent queries for this CVE<br/>Bypass HITL completely (Local Hit)"| DBCheck
+
+    subgraph Tools["Structured security tools"]
+        NVD["NVD 2.0 lookup<br/>Description + products + dates<br/>Deterministic CVSS selection"]
+        KEV["CISA KEV local snapshot<br/>Tri-state status + required action<br/>Catalog version + freshness check"]
+        Attack["Verified ATT&amp;CK mappings<br/>Curated or source-reference only<br/>No model-invented technique IDs"]
+    end
+
+    subgraph RAG["Hybrid retrieval over the local corpus"]
+        Retriever["Hybrid Retriever<br/>BM25 keywords + hosted bge-small dense vectors<br/>Reciprocal Rank Fusion"]
+        Corpus[("Searchable library<br/>1,834 documents · 10,457 chunks<br/>ATT&amp;CK · CWE · OWASP · NIST<br/>Table-aware NIST passages")]
+        Corpus --> Retriever
+    end
+
+    subgraph Refs["NVD-cited reference pages · searched first"]
+        RefRetriever["Reference Retriever<br/>Per-CVE-scoped BM25 with smoothed idf<br/>NVD_REF citations; generic corpus is the fallback"]
+        RefStore[("Reference chunk store<br/>3,341+ chunks · pre-fetched + incrementally chunked")]
+        RefStore --> RefRetriever
+    end
+
+    EvidenceQwen --> NVD
+    EvidenceQwen --> KEV
+    EvidenceQwen --> Attack
+    EvidenceQwen --> RefRetriever
+    EvidenceQwen --> Retriever
+
+    NVD --> Package
+    KEV --> Package
+    Attack --> Package
+    RefRetriever --> Package
+    Retriever --> Package
+
+    Package --> Analyst["Analyst<br/>Qwen call<br/>Grounded eight-section draft<br/>Only supplied facts and evidence<br/>One Critic-driven revision"]
+    Analyst --> Critic["Critic<br/>Qwen call + deterministic checks<br/>Support + completeness + uncertainty<br/>Citation findings; no new facts"]
+    Critic -.->|"Failing first review or invalid first draft<br/>CRITIC_REVISION_REQUEST · re-review after revision"| Analyst
+    Critic --> Validator{"Final Validator<br/>Deterministic code<br/>No LLM call"}
+
+    Validator --> Schema["Pydantic report validation<br/>Null semantics + explicit limitations<br/>completed / partial / refused / failed"]
+    Validator --> Citations["Citation integrity<br/>Every material EV reference resolves<br/>to same-request evidence"]
+    Validator --> Risk["Deterministic risk engine<br/>CVSS + KEV rules<br/>Model explains; never chooses tier"]
+
+    Schema --> Response["InvestigateResponse<br/>Eight-section report + citations<br/>Trace ID + stage timings"]
+    Citations --> Response
+    Risk --> Response
+
+    Response --> Result["Streamlit result<br/>Summary + facts + remediation<br/>Risk drivers + sources + limitations<br/>Live per-agent progress (D25) · retrieved paragraph beside every citation (D26)"]
+    Response --> Trace[("Local JSONL trace + history<br/>Request + evidence interpretation + evidence + model usage<br/>Safe errors + stage and total latency<br/>Revision + fallback reasons + retrieved contexts")]
+    Trace -.->|"GET /traces/{request_id} · read-only, no model call<br/>evidence + contexts + used_by attribution"| API
+
+    Limits["Execution budgets<br/>One active Qwen request · worst case 10 Qwen calls<br/>Up to 3 searches: initial query + two reviewer-driven refinements<br/>At most one Critic-driven revision (revision analyst + critic re-review)<br/>Up to 1,024 output tokens per call; 8,192 combined context/output"]
+    Limits -.-> EvidenceQwen
+    Limits -.-> Analyst
+    Limits -.-> Critic
+
+    Fallbacks["Draft safety nets<br/>Invalid parsed first drafts are kept (draft_invalid) and revised once<br/>Deterministic evidence-only text only for unparseable or truncated output<br/>or a revision that still fails deterministic validation<br/>Trace: first_draft_invalid · draft_invalid_reason · draft_fallback_reason"]
+    Fallbacks -.-> Analyst
+
+    Evaluation["Frozen comparison · same gold SHA + evidence<br/>Single: 80/80 · 300 calls · P95 15.368 s<br/>Multi: 80/80 · 377 calls · P95 16.188 s<br/>0 truncations; zero score lift from Critic<br/>Pre-dates D16-D20; the D20 Analyst prompt change makes later runs not strictly comparable"]
+    Evaluation -.-> Response
+
+    Tracing["Local-only Langfuse mirror · D21<br/>One trace per investigation · one span per node · one generation per Qwen call<br/>Raw prompts + raw completions · 127.0.0.1:3100 only · worst case 10 calls<br/>Off unless explicitly enabled · local JSONL stays the system of record"]
+    Tracing -.-> EvidenceQwen
+    Tracing -.-> Analyst
+    Tracing -.-> Critic
+    Tracing -.-> Validator
+
+    classDef interface fill:#e8f0fe,stroke:#245fbe,stroke-width:1.5px,color:#17243a;
+    classDef agent fill:#eaf8fa,stroke:#087d91,stroke-width:1.7px,color:#17243a;
+    classDef tool fill:#edf9f3,stroke:#187451,stroke-width:1.4px,color:#17243a;
+    classDef decision fill:#fff7e7,stroke:#8b5a08,stroke-width:1.6px,color:#17243a;
+    classDef data fill:#f2f5f9,stroke:#5d6b80,stroke-width:1.3px,color:#17243a;
+    classDef output fill:#e9f3ff,stroke:#17385f,stroke-width:1.8px,color:#10233f;
+    classDef stop fill:#fff0f0,stroke:#a33838,stroke-width:1.4px,color:#762929;
+    classDef note fill:#ffffff,stroke:#8b9bb0,stroke-width:1px,stroke-dasharray:5 4,color:#46566c;
+
+    classDef hitl fill:#fffbeb,stroke:#f59e0b,stroke-width:1.8px,color:#92400e;
+    classDef web fill:#eff6ff,stroke:#2563eb,stroke-width:1.8px,color:#1e40af;
+
+    class User,UI,API interface;
+    class EvidenceQwen,Analyst,Critic agent;
+    class NVD,KEV,Attack,Retriever,RefRetriever,Package,Schema,Citations,Risk tool;
+    class Guard,Validator,DBCheck decision;
+    class HITL hitl;
+    class WebAgent,Ingest web;
+    class Corpus,Trace,RefStore data;
+    class Response,Result output;
+    class Invalid,Refused,Aborted stop;
+    class Limits,Evaluation,Fallbacks,Tracing note;

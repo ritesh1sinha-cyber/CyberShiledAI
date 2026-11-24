@@ -1,0 +1,69 @@
+# CyberShield AI application stack (decision D35).
+# Build:  docker compose build
+# Test:   docker build --target test .
+# Start:  docker compose up -d        API on http://127.0.0.1:8000, UI on http://127.0.0.1:8501
+# Stop:   docker compose down
+#
+# Both published ports are bound to 127.0.0.1, so nothing here is reachable from outside
+# this machine, and no image is pushed to any registry. Keys are read from the host .env
+# at container start; the .env itself is excluded from the build context by .dockerignore,
+# so no credential is ever stored in an image layer.
+name: cybershield
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+    target: runtime
+  image: cybershield:local
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    # app/config.py resolves a relative certificate against the project root, so the
+    # image's own copies of the two CA files are what these names point at. A host .env
+    # may carry an absolute path to the same certificate, which is meaningless inside the
+    # image; overriding it here keeps `docker run` and the host checkout working alike.
+    QWEN_CA_CERT: vm06-ca.crt
+    EMBEDDINGS_CA_CERT: vm02-ca.crt
+  restart: unless-stopped
+
+services:
+  api:
+    <<: *app
+    command: ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD", "/venv/bin/python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read(1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 25s
+      retries: 3
+
+  ui:
+    <<: *app
+    command:
+      - streamlit
+      - run
+      - streamlit_app.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+      - --server.headless=true
+      - --browser.gatherUsageStats=false
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      QWEN_CA_CERT: vm06-ca.crt
+      EMBEDDINGS_CA_CERT: vm02-ca.crt
+      # Container-to-container on the compose network; the API is never published here.
+      API_BASE_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/venv/bin/python", "-c", "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3).read() == b'ok'"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3

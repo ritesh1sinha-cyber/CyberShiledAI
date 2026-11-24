@@ -139,6 +139,76 @@ B10_ROW = {
     },
 }
 
+RETRIEVAL = {
+    "generated_at": "2026-11-23T00:00:00+00:00",
+    "tool": "scripts/measure_retrieval_metrics.py",
+    "provenance": {
+        "scores_artifact": "data/evaluation/batch10/scores.json",
+        "trace_dir": "data/traces/batch10",
+        "dataset_sha256": "22faa6",
+        "model": "Qwen/Qwen3-8B",
+        "embedding_model": "bge-small-en-v1.5",
+        "relevance_rule": "The frozen grading names the supporting chunk.",
+        "reproduce": ".venv/Scripts/python -m scripts.measure_retrieval_metrics",
+    },
+    "claim_support": {
+        "overall": {"gold_claims": 2},
+        "note": "support@k says nothing about whether the answer used it.",
+        "per_cve": [
+            {
+                "cve_id": "CVE-2021-23017",
+                "gold_claims": 2,
+                "passage_grounded": 1,
+                "structured_record_grounded": 1,
+                "deepest_rank_seen": 6,
+                "median_rank": 6.0,
+                "mrr": 0.1667,
+                "support_at_1": 0.0,
+                "support_at_3": 0.0,
+                "support_at_5": 0.0,
+                "support_at_8": 1.0,
+            }
+        ],
+        "rows": [
+            {
+                "eval_id": "CS-B10-01",
+                "cve_id": "CVE-2021-23017",
+                "claim_id": "CS-B10-01-C01",
+                "family": "SEVERITY",
+                "grounding": "retrieved_passage",
+                "supporting_chunk_id": "NVDREF-187f#000",
+                "production_rank": 6,
+                "claim_result": "Pass",
+                "result_basis": "deterministic field check",
+            }
+        ],
+    },
+    "engine_ablation": {
+        "overall": {
+            "bm25": {
+                "recall_at_k_mean": 0.95,
+                "precision_at_k_mean": 0.3,
+                "mrr": 1.0,
+                "first_hit_none": 0,
+                "median_latency_ms": 172.43,
+                "min_latency_ms": 111.77,
+                "max_latency_ms": 221.84,
+            },
+            "dense": {"recall_at_k_mean": 0.8133, "median_latency_ms": 320.92},
+        },
+        "per_cve": [],
+        "provenance": {
+            "index_dir": "data/index",
+            "corpus_chunks": 10457,
+            "reference_chunks_tagged_to_benchmark_cves": 312,
+            "gold_passages_in_reference_store": 23,
+            "gold_passages_in_generic_corpus": 3,
+            "repeats_per_query": 5,
+            "note": "The only variable is the ranking engine.",
+        },
+    },
+}
+
 
 @pytest.fixture
 def batch10(tmp_path, monkeypatch):
@@ -172,7 +242,15 @@ def batch10(tmp_path, monkeypatch):
     (tmp_path / "scores.json").write_text(
         json.dumps(
             {
-                "summary": {"model": "Qwen/Qwen3-8B", "claims": 2},
+                "summary": {
+                    "model": "Qwen/Qwen3-8B",
+                    "claims": 2,
+                    "claim_judge": {
+                        "scored": 1,
+                        "of": 2,
+                        "verdict_totals": {"conveys": 1, "partial": 1},
+                    },
+                },
                 "rows": [B10_ROW],
                 "claims": [B10_CLAIM, B10_CLAIM_TWO],
             }
@@ -222,6 +300,8 @@ def batch10(tmp_path, monkeypatch):
     monkeypatch.setattr(ui, "BATCH10_WORKBOOK", tmp_path / "batch10.xlsx")
     monkeypatch.setattr(ui, "BATCH10_SCORES_JSON", tmp_path / "scores.json")
     monkeypatch.setattr(ui, "BATCH10_TRACE_DIR", tmp_path / "traces")
+    (tmp_path / "retrieval_metrics.json").write_text(json.dumps(RETRIEVAL), encoding="utf-8")
+    monkeypatch.setattr(ui, "RETRIEVAL_METRICS_JSON", tmp_path / "retrieval_metrics.json")
     return tmp_path
 
 
@@ -353,6 +433,14 @@ def test_claim_elements_expose_the_quote_the_judge_found(batch10):
         ui.claim_elements("CS-B10-01-C77")
 
 
+def test_claim_judge_coverage_names_an_unjudged_run(batch10, monkeypatch):
+    assert ui.claim_judge_coverage() == (
+        "1 of 2 gold claims carry a judge verdict in this run (1 conveys, 1 partial)"
+    )
+    monkeypatch.setattr(ui, "batch10_scores", lambda: {"summary": {}})
+    assert ui.claim_judge_coverage() == NOT
+
+
 def test_judge_lines_state_their_own_units(batch10):
     line = ui.judge_line(ui.batch10_claims()[0]["answer_judge"])
     assert line.startswith("factual 2/5, completeness 3/5, groundedness 3/5, overall 2/5")
@@ -362,6 +450,49 @@ def test_judge_lines_state_their_own_units(batch10):
 
 def test_batch10_options_are_one_per_investigation(batch10):
     assert ui.options() == [("CS-B10-01", "CS-B10-01 - CVE-2021-23017")]
+
+
+# ------------------------------------------------- retrieval benchmark ----
+
+
+def test_the_engine_table_keeps_every_engine_and_marks_unmeasured_cells(batch10):
+    rows = ui.retrieval_ablation_table()
+    assert [row["Ranking engine tested"] for row in rows] == list(ui.ENGINE_LABELS.values())
+    bm25, dense, hybrid = rows
+    assert bm25["Gold passages found (recall@8)"] == "0.9500"
+    assert bm25["Fastest and slowest repeat (ms)"] == "111.77 / 221.84"
+    assert dense["Of the eight passages handed over, how many were gold (precision@8)"] == NOT
+    assert all(value == NOT for key, value in hybrid.items() if key != "Ranking engine tested")
+
+
+def test_the_support_tables_are_the_recorded_rows_not_a_recomputation(batch10):
+    support = ui.retrieval_support_table()
+    assert support[0]["Gold claims"] == "2"
+    assert support[0]["Support@1"] == "0.0000"
+    assert support[0]["Support@8"] == "1.0000"
+    assert support[0]["Deepest rank any gold passage reached"] == "6"
+    claim = ui.retrieval_claim_table()[0]
+    assert claim["Supporting chunk"] == "NVDREF-187f#000"
+    assert claim["Rank in the evidence package"] == "6"
+    assert claim["What the claim rests on"] == "retrieved_passage"
+
+
+def test_the_benchmark_names_the_command_that_produced_it(batch10):
+    recorded = dict(ui.retrieval_provenance())
+    assert recorded["How to reproduce"] == RETRIEVAL["provenance"]["reproduce"]
+    assert recorded["Written by"] == "scripts/measure_retrieval_metrics.py"
+    assert (
+        recorded["Gold passages that live in the per-CVE reference store / the generic corpus"]
+        == "23 / 3"
+    )
+
+
+def test_an_absent_benchmark_file_returns_nothing_rather_than_zeroes(tmp_path, monkeypatch):
+    monkeypatch.setattr(ui, "RETRIEVAL_METRICS_JSON", tmp_path / "absent.json")
+    assert ui.retrieval_metrics() == {}
+    assert ui.retrieval_support_table() == []
+    assert ui.retrieval_claim_table() == []
+    assert ui.retrieval_provenance()[0][1] == NOT
 
 
 # --------------------------------------------------------------- exports ----
@@ -420,12 +551,39 @@ def test_the_real_batch10_dashboards_hold_the_frozen_hundred_and_ten_claims():
         section for section in detail["sections"] if "per gold claim" in section["heading"]
     )
     assert len(per_claim["rows"]) == 11
-    assert {row["Deterministic claim result (authority)"] for row in ui.llm_table()} == {
-        "Pass",
-        "Partial",
-        "Fail",
-        "Abstain",
-    }
+    # Which verdicts exist at all is a property of the run, so it is read back from
+    # the scores file rather than hardcoded; what must hold is that the authority
+    # column of the rendered table carries exactly those verdicts and nothing else.
+    assert {row["Deterministic claim result (authority)"] for row in ui.llm_table()} == set(
+        tally
+    )
+
+
+def test_the_measured_benchmark_describes_the_run_the_dashboards_show():
+    if ui.missing_artifacts():
+        pytest.skip("the measured retrieval benchmark is not in the working tree")
+    payload = ui.retrieval_metrics()
+    scores = ui.BATCH10_SCORES_JSON.relative_to(ui.ROOT).as_posix()
+    traces = ui.BATCH10_TRACE_DIR.relative_to(ui.ROOT).as_posix()
+    provenance = payload["provenance"]
+    assert provenance["scores_artifact"].replace("\\", "/") == scores
+    assert provenance["trace_dir"].replace("\\", "/") == traces
+    claims = ui.batch10_claims()
+    assert len(claims) == len(ui.retrieval_claim_table()) == 110
+    assert len(ui.retrieval_support_table()) == len(ui.options()) == 10
+    assert payload["claim_support"]["overall"]["gold_claims"] == 110
+    # A claim the benchmark calls passage-grounded must carry the same chunk id and
+    # rank the frozen scoring recorded for it, so the two cannot drift apart quietly.
+    graded = {claim["claim_id"]: claim for claim in claims}
+    for row in ui.retrieval_claim_table():
+        claim = graded[row["Claim ID"]]
+        assert (claim["retrieval_method"] == "retrieved_passage") is (
+            row["What the claim rests on"] == "retrieved_passage"
+        )
+        if row["What the claim rests on"] == "retrieved_passage":
+            assert claim["source_chunk_id"] == row["Supporting chunk"]
+            assert claim["retriever_rank"] == int(row["Rank in the evidence package"])
+        assert claim["claim_result"] == row["Deterministic claim result"]
 
 
 # ----------------------------------------------------- the pages themselves ----
@@ -451,6 +609,10 @@ def run_page(page: str):
                 "Expected versus retrieved, one row per gold claim",
                 "Every passage this investigation retrieved",
                 "What these rows do not prove",
+                "Three ways of searching, same questions, same material",
+                "Where the evidence for each gold claim landed, one row per CVE",
+                "How these numbers were produced",
+                "What this benchmark does not show",
             ),
         ),
         (
@@ -476,3 +638,94 @@ def test_a_page_renders_the_frozen_batch10_without_an_error(page, rows, headings
         assert heading in shown
     assert "Copy this investigation for the report" in shown
     assert app.get("download_button"), page
+
+
+# ---------------------------------------------------- iteration scorecard ----
+
+
+def synthetic_iterations(rows: list[dict]) -> dict:
+    """One row per iteration, with the keys the scorecard reads defaulted."""
+    iterations = {}
+    for index, key in enumerate(("zero_shot", "few_shot", "chain_of_thought", "single_agent", "multi_agent")):
+        entry = rows[index]
+        entry.setdefault("rouge", {"rouge1_f": 0.1, "rouge2_f": 0.01, "rougeL_f": 0.05})
+        entry.setdefault("semantic_cosine", 0.5)
+        entry.setdefault("latency_s", 5.0)
+        entry.setdefault("fields", {})
+        entry.setdefault("judge", None)
+        entry.setdefault("actual_response", "STATUS: completed\nCVE: CVE-2021-23017")
+        iterations[key] = entry
+    return {"eval_id": "CS-B10-01", "iterations": iterations}
+
+
+def write_iterations(tmp_path, rows) -> Path:
+    path = tmp_path / "consolidated.json"
+    path.write_text(json.dumps(rows), encoding="utf-8")
+    return path
+
+
+def test_a_failed_run_is_counted_as_a_failure_not_a_low_score(tmp_path, monkeypatch):
+    rows = [
+        synthetic_iterations(
+            [
+                {},
+                {},
+                {},
+                {
+                    "actual_response": "Validation Failure: Draft or review failed final validation.",
+                    "rouge": {"rouge1_f": 0.05, "rouge2_f": 0.01, "rougeL_f": 0.03},
+                    "semantic_cosine": 0.55,
+                },
+                {},
+            ]
+        )
+    ]
+    monkeypatch.setattr(ui, "CONSOLIDATED_JSON", write_iterations(tmp_path, rows))
+    single = ui.iteration_scorecard()[3]
+    assert single["runs_scored"] == 0
+    assert single["runs_failed"] == 1
+    # The placeholder 0.05 is not averaged in, so there is no mean to report at all.
+    assert single["rouge1_f"] is None
+    assert single["semantic_cosine"] is None
+
+
+def test_the_scorecard_reports_a_judge_only_where_a_model_judged(tmp_path, monkeypatch):
+    judged = {"overall": 4, "pass": True, "judge_attempt": "full"}
+    proxy = {"factual_correctness": 4, "completeness": 4, "overall": 4, "pass": True}
+    rows = [synthetic_iterations([{"judge": proxy}, {}, {}, {}, {"judge": judged}])]
+    monkeypatch.setattr(ui, "CONSOLIDATED_JSON", write_iterations(tmp_path, rows))
+    table = ui.iteration_scorecard()
+    assert table[0]["judge_pass"] == NOT
+    assert table[0]["judge_overall"] is None
+    assert table[4]["judge_pass"] == "1/1"
+    assert table[4]["judge_overall"] == 4.0
+
+
+def test_the_stored_single_agent_mean_covers_the_six_runs_that_answered():
+    single = ui.iteration_scorecard()[3]
+    assert (single["runs_scored"], single["runs_failed"]) == (6, 4)
+    # Averaging all ten rows, as the old UI did, mixes in four placeholder scores and
+    # reports 0.3399 / 0.7570 for a system that answered six times.
+    assert single["rouge1_f"] == pytest.approx(0.5332)
+    assert single["semantic_cosine"] == pytest.approx(0.8951)
+
+
+def test_only_the_multi_agent_row_was_judged_in_the_stored_artifact():
+    table = ui.iteration_scorecard()
+    assert [row["judge_pass"] for row in table[:4]] == [NOT] * 4
+    assert table[4]["judge_pass"] == "8/10"
+    assert table[4]["judge_overall"] == pytest.approx(4.2)
+
+
+def test_the_takeaway_claims_no_pass_rate_the_rows_do_not_show():
+    sentence = ui.scorecard_takeaway(ui.iteration_scorecard())
+    assert "100%" not in sentence
+    assert "eliminat" not in sentence.lower()
+    assert "8/10" in sentence
+    assert "4 of 10 single-agent runs failed final validation" in sentence
+
+
+def test_an_absent_scorecard_file_returns_nothing_rather_than_zeroes(tmp_path, monkeypatch):
+    monkeypatch.setattr(ui, "CONSOLIDATED_JSON", tmp_path / "absent.json")
+    assert ui.iteration_scorecard() == []
+    assert ui.scorecard_takeaway([]) == NOT

@@ -7,7 +7,7 @@ from uuid import uuid4
 import streamlit as st
 from pydantic import ValidationError
 
-from app import observability
+from app import eval_dashboard, observability
 from app.client import ApiError, ApiValidationError, CyberShieldClient
 from app.config import settings
 from app.contracts import (
@@ -2007,51 +2007,48 @@ def main() -> None:
     with benchmark_tab:
         st.markdown("### 📊 Consolidated 10-CVE Benchmark Scorecard (All 5 Iterations)")
         st.write(
-            "Empirical results evaluated across 10 unique production CVEs under strictly identical evaluation protocols "
-            "(ROUGE-1/2/L, Semantic Cosine via BGE-small, Deterministic Field Checks, and LLM-as-a-Judge audits):"
+            "The same 10 Batch 10 questions, one iteration at a time, scored by ROUGE-1/2/L, "
+            "semantic cosine from the hosted bge-small endpoint, and the deterministic field "
+            "check. A mean covers only the runs that produced an answer, and a metric that was "
+            "never measured reads "
+            f"`{eval_dashboard.NOT_CAPTURED}` instead of a plausible number."
         )
-        
         try:
-            data_file = ROOT / "data" / "evaluation" / "consolidated_10cve_all_iterations.json"
-            if data_file.exists():
-                bench_data = json.loads(data_file.read_text("utf-8"))
-                
-                tech_defs = [
-                    ("zero_shot", "1. Prompting: Zero-Shot (No RAG)"),
-                    ("few_shot", "2. Prompting: Few-Shot JSON (No RAG)"),
-                    ("chain_of_thought", "3. Prompting: Chain-of-Thought (No RAG)"),
-                    ("single_agent", "4. Single-Agent with RAG (Best Prompt)"),
-                    ("multi_agent", "5. Multi-Agent RAG (CyberShield AI)")
-                ]
-                
-                table_rows = []
-                for t_k, t_lbl in tech_defs:
-                    r1 = [d["iterations"][t_k]["rouge"]["rouge1_f"] for d in bench_data]
-                    r2 = [d["iterations"][t_k]["rouge"]["rouge2_f"] for d in bench_data]
-                    rl = [d["iterations"][t_k]["rouge"]["rougeL_f"] for d in bench_data]
-                    cos = [d["iterations"][t_k]["semantic_cosine"] for d in bench_data]
-                    passes = [1 if d["iterations"][t_k]["judge"].get("pass") else 0 for d in bench_data]
-                    overalls = [d["iterations"][t_k]["judge"].get("overall", 1) for d in bench_data]
-                    
-                    cvss_m = sum(1 for d in bench_data if d["iterations"][t_k].get("fields", {}).get("cvss_score") == "match")
-                    
-                    table_rows.append({
-                        "Technique / Iteration": t_lbl,
-                        "ROUGE-1 F1": f"{sum(r1)/len(r1):.4f}",
-                        "ROUGE-2 F1": f"{sum(r2)/len(r2):.4f}",
-                        "ROUGE-L F1": f"{sum(rl)/len(rl):.4f}",
-                        "Semantic Cosine": f"{sum(cos)/len(cos):.4f}",
-                        "CVSS Accuracy": f"{(cvss_m/len(bench_data))*100:.0f}%",
-                        "LLM Judge Pass": f"{(sum(passes)/len(passes))*100:.0f}%",
-                        "Overall Score": f"{sum(overalls)/len(overalls):.2f} / 5"
-                    })
-                
-                st.dataframe(table_rows, use_container_width=True)
-                st.success("🎯 **Key Takeaway:** Multi-Agent RAG (CyberShield AI) achieves a 100% Judge Pass Rate and 100% CVSS Accuracy, completely eliminating hallucinations observed in unassisted prompting.")
+            scorecard = eval_dashboard.iteration_scorecard()
+            if not scorecard:
+                st.info(
+                    f"Consolidated evaluation data not found at {eval_dashboard.CONSOLIDATED_JSON}."
+                )
             else:
-                st.info("Consolidated evaluation data not found.")
+                st.dataframe(
+                    [
+                        {
+                            "Technique / Iteration": row["iteration"],
+                            "Runs answered": f"{row['runs_scored']}/{row['runs']}",
+                            "ROUGE-1 F1": eval_dashboard.number(row["rouge1_f"]),
+                            "ROUGE-2 F1": eval_dashboard.number(row["rouge2_f"]),
+                            "ROUGE-L F1": eval_dashboard.number(row["rougeL_f"]),
+                            "Semantic Cosine": eval_dashboard.number(row["semantic_cosine"]),
+                            "Mean latency (s)": eval_dashboard.number(row["latency_s"], 1),
+                            "CVSS field matched": f"{row['cvss_match']}/{row['runs_scored']}",
+                            "Judge pass": row["judge_pass"],
+                            "Judge mean /5": eval_dashboard.number(row["judge_overall"], 2),
+                        }
+                        for row in scorecard
+                    ],
+                    use_container_width=True,
+                )
+                st.caption(eval_dashboard.scorecard_takeaway(scorecard))
+                st.caption(
+                    "Judge scores exist only on the multi-agent row: the benchmark scripts wrote "
+                    "constant blocks into the other four, so those are reported as not measured "
+                    "and the deterministic field check stays the verdict. Four single-agent runs "
+                    "failed final validation before an answer existed; the stored rows carried "
+                    "placeholder scores for them, which are excluded from every mean above and "
+                    "are no longer written."
+                )
         except Exception as e:
-            st.error(f"Error loading benchmark: {e}")
+            st.error(f"Benchmark scorecard could not be read: {e}")
 
     with history_tab:
         st.markdown("### 📜 Recent Investigation Traces")

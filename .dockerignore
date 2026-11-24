@@ -1,0 +1,49 @@
+# Version control and local tooling
+.git
+.gitignore
+.venv/
+venv/
+.devcontainer/
+.vscode/
+.idea/
+.streamlit/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Secrets: keys are passed to the container at runtime, never baked into a layer.
+.env
+*.key
+*.pem
+docker/langfuse-data/
+
+# Byte-compiled and editor byproducts
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Bulk that the image does not run on
+KGP.7z
+*.zip
+*.png
+*.docx
+*.pdf
+d9acdf10-*.pdf
+docs/
+*.bak
+
+# Build-time snapshots: scripts/build_corpus.py reads these, the product reads the
+# built corpus in data/processed instead. Excluding them keeps the image at ~130 MB
+# instead of ~480 MB. data/raw/nvd, web_cache and web_ingested.json stay: app/evidence.py
+# and app/fetch_web_agent.py open them while answering.
+data/raw/attack/
+data/raw/cwe/
+data/raw/kev/
+data/raw/nist/
+data/raw/nvd_references/
+data/raw/nvd_searches/
+data/raw/owasp/
+data/backups/
+data/logs/
+data/indexes/

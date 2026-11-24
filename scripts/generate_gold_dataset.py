@@ -2,7 +2,9 @@
 
 Reads from:
   - The original 77-column evaluation workbook (CyberShield_Batch10_Consolidated_RAG_Agent_Evaluation_Traceability.xlsx)
-  - data/evaluation/batch10_live_20261118/scores.json (D33 live run results)
+  - data/evaluation/batch10/scores.json, the 21 November run — the same run the dashboards and
+    workbook columns BP-BY describe. If that file is absent it falls back to the 18 November run and
+    says so on stdout.
 
 Writes:
   - CyberShield_Gold_Dataset.xlsx (4 sheets)
@@ -216,7 +218,7 @@ def main():
     src_wb.close()
     print(f"  Read {len(all_rows)} data rows")
 
-    print(f"Reading scores: {SCORES_JSON.name}")
+    print(f"Reading scores: {SCORES_JSON.relative_to(ROOT)}")
     scores = json.loads(SCORES_JSON.read_text("utf-8"))
     answer_by_eval = {r["eval_id"]: r for r in scores["rows"]}
     claim_by_id = {c["claim_id"]: c for c in scores["claims"]}

@@ -20,7 +20,6 @@ from app.identifiers import CVE_RE
 
 ROOT = Path(__file__).resolve().parent.parent
 CONS_PATH = ROOT / "data" / "evaluation" / "consolidated_10cve_all_iterations.json"
-SCORES_PATH = ROOT / "data" / "evaluation" / "batch10" / "scores.json"
 
 ZERO_SHOT_SYSTEM = (
     "You are a cybersecurity expert. Provide an authoritative assessment of the requested CVE.\n"
@@ -143,11 +142,26 @@ def format_prompting_as_text(parsed: dict) -> str:
     ]
     return "\n".join(parts)
 
+
+def field_check_proxy(is_clean: bool, note: str) -> dict:
+    """The deterministic field check, in the shape the old judge block had.
+
+    No model judged these rows, so ``judge`` stays null and this goes under a name that
+    cannot be read as a judgment. The deterministic check remains the only pass/fail
+    authority; a 1-5 score here would sit in the same column as the measured
+    multi-agent judgments without any judgment behind it.
+    """
+    return {
+        "measured": False,
+        "source": "deterministic field check - no model judgment",
+        "pass": is_clean,
+        "note": note,
+    }
+
+
 def main():
     print("Loading benchmark dataset...", flush=True)
     cons_data = json.loads(CONS_PATH.read_text("utf-8"))
-    scores_data = json.loads(SCORES_PATH.read_text("utf-8"))
-    multi_agent_by_eval = {r["eval_id"]: r for r in scores_data["rows"]}
 
     qwen = QwenClient()
     embedder = EmbeddingsClient()
@@ -181,80 +195,117 @@ def main():
                 raw_output = res.content
                 parsed = parse_prompting_output(raw_output, query)
                 flat_text = format_prompting_as_text(parsed)
+                call_error = None
             except Exception as e:
                 print(f"  [ERROR] {tech_name}: {e}", flush=True)
                 raw_output = f"Error: {e}"
                 flat_text = raw_output
                 parsed = {}
+                call_error = str(e)
 
             elapsed = time.perf_counter() - start_t
-            r_scores = rouge_scores(flat_text, expected)
-            cos = cosine(embedder, [(expected, flat_text)])[0]
             fields = field_check(cve, expected, flat_text)
-
-            is_factual = all(v in ("match", "not-in-reference") for v in fields.values()) and len(fields) > 0
-            judge_score = {
-                "factual_correctness": 1 if not is_factual else 4,
-                "completeness": 2,
-                "groundedness": 1,
-                "overall": 1 if not is_factual else 4,
-                "pass": is_factual,
-                "issues": ["Parametric output without retrieval context - ungrounded predictions."] if not is_factual else []
-            }
-
-            item["iterations"][key] = {
-                "actual_response": raw_output,
-                "rouge": {
+            if call_error is None:
+                r_scores = rouge_scores(flat_text, expected)
+                rouge_block = {
                     "rouge1_f": round(r_scores["rouge1_f"], 4),
                     "rouge2_f": round(r_scores["rouge2_f"], 4),
                     "rougeL_f": round(r_scores["rougeL_f"], 4),
-                },
-                "semantic_cosine": round(float(cos), 4),
-                "judge": judge_score,
+                }
+                cos_value = round(float(cosine(embedder, [(expected, flat_text)])[0]), 4)
+            else:
+                # An error string is not an answer, so scoring it would record a
+                # measurement of something the model never said.
+                rouge_block = {"rouge1_f": None, "rouge2_f": None, "rougeL_f": None}
+                cos_value = None
+
+            is_factual = all(v in ("match", "not-in-reference") for v in fields.values()) and len(fields) > 0
+
+            item["iterations"][key] = {
+                "actual_response": raw_output,
+                # What the ROUGE and cosine columns below were computed against.
+                # `actual_response` is the raw model string; the score is taken on
+                # the flattened rendering, so without this the row's numbers could
+                # not be recomputed from the artifact.
+                "scored_text": flat_text,
+                "rouge": rouge_block,
+                "semantic_cosine": cos_value,
+                "judge": None,
+                "judge_proxy": field_check_proxy(
+                    is_factual,
+                    "Parametric output without retrieval context - ungrounded predictions."
+                    if not is_factual
+                    else "",
+                ),
                 "fields": fields,
                 "technique_name": tech_name,
                 "latency_s": round(elapsed, 2),
             }
-            print(f"  [OK] {tech_name}: R1={r_scores['rouge1_f']:.3f} Cos={cos:.3f} Det={'PASS' if is_factual else 'FAIL'} ({elapsed:.1f}s)", flush=True)
+            if call_error is not None:
+                item["iterations"][key]["error"] = call_error
+            print(
+                f"  [OK] {tech_name}: R1={rouge_block['rouge1_f']} Cos={cos_value} "
+                f"Det={'PASS' if is_factual else 'FAIL'} ({elapsed:.1f}s)"
+                + (f" [ERROR {call_error[:60]}]" if call_error else ""),
+                flush=True,
+            )
 
         # 2. Single-Agent with RAG
         start_sa = time.perf_counter()
         req = InvestigateRequest(query=query, top_k=8, include_attack=True)
+        sa_text = ""
+        sa_error: str | None = None
         try:
             sa_state = single_workflow.run(req)
             sa_report = sa_state.get("report")
-            sa_text = flatten_report(sa_report) if sa_report else ""
+            if sa_report:
+                sa_text = flatten_report(sa_report.model_dump(mode="json"))
         except Exception as sa_e:
             print(f"  [ERROR] Single-Agent: {sa_e}", flush=True)
-            sa_text = f"Error: {sa_e}"
+            sa_text = f"Validation Failure: {sa_e}"
+            sa_error = str(sa_e)
 
         sa_elapsed = time.perf_counter() - start_sa
-        sa_r = rouge_scores(sa_text, expected)
-        sa_cos = cosine(embedder, [(expected, sa_text)])[0]
+        sa_completed = bool(sa_text) and not sa_text.startswith("Validation Failure")
         sa_fields = field_check(cve, expected, sa_text)
-        sa_is_clean = all(v in ("match", "not-in-reference") for v in sa_fields.values()) and len(sa_fields) > 0
-
-        item["iterations"]["single_agent"] = {
-            "actual_response": sa_text,
-            "rouge": {
+        sa_is_clean = (
+            sa_completed
+            and all(v in ("match", "not-in-reference") for v in sa_fields.values())
+            and len(sa_fields) > 0
+        )
+        if sa_completed:
+            sa_r = rouge_scores(sa_text, expected)
+            sa_rouge = {
                 "rouge1_f": round(sa_r["rouge1_f"], 4),
                 "rouge2_f": round(sa_r["rouge2_f"], 4),
                 "rougeL_f": round(sa_r["rougeL_f"], 4),
-            },
-            "semantic_cosine": round(float(sa_cos), 4),
-            "judge": {
-                "factual_correctness": 4,
-                "completeness": 4,
-                "groundedness": 4,
-                "overall": 4,
-                "pass": True,
-                "issues": ["Single-agent draft lacks secondary adversarial review for citation completeness."]
-            },
+            }
+            sa_cos_value = round(float(cosine(embedder, [(expected, sa_text)])[0]), 4)
+        else:
+            sa_rouge = {"rouge1_f": None, "rouge2_f": None, "rougeL_f": None}
+            sa_cos_value = None
+
+        item["iterations"]["single_agent"] = {
+            "actual_response": sa_text,
+            "rouge": sa_rouge,
+            "semantic_cosine": sa_cos_value,
+            "judge": None,
+            "judge_proxy": field_check_proxy(
+                sa_is_clean,
+                "Single-agent draft has no adversarial review, and no model judged it.",
+            ),
             "fields": sa_fields,
             "technique_name": "Single-Agent RAG (Lead Analyst Only)",
             "latency_s": round(sa_elapsed, 2),
         }
-        print(f"  [OK] Single-Agent RAG: R1={sa_r['rouge1_f']:.3f} Cos={sa_cos:.3f} Det={'PASS' if sa_is_clean else 'FAIL'} ({sa_elapsed:.1f}s)", flush=True)
+        if not sa_completed:
+            item["iterations"]["single_agent"]["error"] = sa_error or "no report produced"
+        print(
+            f"  [OK] Single-Agent RAG: R1={sa_rouge['rouge1_f']} Cos={sa_cos_value} "
+            f"Det={'PASS' if sa_is_clean else 'FAIL'} ({sa_elapsed:.1f}s)"
+            + ("" if sa_completed else " [FAILED - not scored]"),
+            flush=True,
+        )
 
     # Save consolidated results
     CONS_PATH.write_text(json.dumps(cons_data, indent=2, ensure_ascii=False), "utf-8")

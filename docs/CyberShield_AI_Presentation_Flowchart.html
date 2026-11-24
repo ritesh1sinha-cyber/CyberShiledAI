@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CyberShield AI — Executive Architecture Flowchart</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @media print {
+      body { background: white !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-sans antialiased">
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- Header Banner -->
+    <div class="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-blue-500/30 rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-semibold rounded-full uppercase tracking-wider">Track B Capstone</span>
+          <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-semibold rounded-full uppercase tracking-wider">Multi-Agent Operations Copilot</span>
+        </div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
+          <span>🛡️ CyberShield AI</span>
+          <span class="text-blue-400 font-light text-2xl">| End-to-End Blackbox Architecture</span>
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">Grounded Autonomous CVE Investigation with Adversarial Self-Correction & Human-in-the-Loop Safety</p>
+      </div>
+      <div class="text-right flex flex-col items-end gap-1 text-xs text-slate-400 border-l border-slate-700/60 pl-6">
+        <div><strong class="text-slate-200">Model:</strong> Hosted Qwen 2.5 8B (≤8B Cap)</div>
+        <div><strong class="text-slate-200">Embeddings:</strong> BGE-Small (384-dim, FAISS + BM25)</div>
+        <div><strong class="text-slate-200">SLA:</strong> ~24s End-to-End · 100% Grounded</div>
+        <div class="mt-2">
+          <a href="CyberShield_AI_Architecture_Flowchart.svg" target="_blank" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded font-bold text-xs shadow inline-flex items-center gap-1.5 transition">
+            <span>🖼️ Open Widescreen Slide SVG</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDESCREEN SLIDE SVG EMBED -->
+    <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shadow-2xl">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+          <span>📐 16:9 Presentation Vector Slide (PowerPoint &amp; Keynote Optimized)</span>
+        </h2>
+        <a href="CyberShield_AI_Architecture_Flowchart.svg" download="CyberShield_AI_Architecture_Flowchart.svg" class="text-xs text-blue-400 hover:underline">Download .svg file</a>
+      </div>
+      <div class="rounded-xl overflow-hidden border border-slate-700 bg-[#090d16] p-2 flex justify-center">
+        <img src="CyberShield_AI_Architecture_Flowchart.svg" alt="CyberShield AI Architecture Flowchart" class="w-full h-auto max-h-[620px] object-contain">
+      </div>
+    </div>
+
+    <!-- MAIN FLOWCHART PIPELINE -->
+    <div class="grid grid-cols-1 gap-6">
+
+      <!-- STAGE 1: Intake & Gateway -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 shadow-lg relative">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 bg-blue-600 text-white text-xs font-bold rounded-md uppercase tracking-wider">
+          Stage 1: Intake & Perimeter Boundary
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center pt-2">
+          <div class="bg-slate-900/90 border border-slate-700 rounded-lg p-4 text-center">
+            <div class="text-2xl mb-1">🎯</div>
+            <div class="font-bold text-slate-200">Operator Target Query</div>
+            <div class="text-xs text-slate-400 mt-1 font-mono">"Investigate CVE-YYYY-NNNN"</div>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+            <span class="text-blue-400 text-xs font-semibold mb-1">Regex & Injection Filter</span>
+            <div class="w-full h-1 bg-blue-500/40 relative">
+              <div class="absolute right-0 -top-1 w-3 h-3 border-t-2 border-r-2 border-blue-400 rotate-45"></div>
+            </div>
+          </div>
+          <div class="bg-blue-950/40 border border-blue-500/40 rounded-lg p-4">
+            <div class="flex items-center gap-2 font-bold text-blue-300 text-sm mb-1">
+              <span>🛡️ PolicyGuard (Agent 0)</span>
+            </div>
+            <p class="text-xs text-slate-300">Sanitizes CVE syntax, strips prompt injections, and immediately refuses non-defensive exploit requests.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWN ARROW -->
+      <div class="flex justify-center -my-3">
+        <div class="w-8 h-8 rounded-full bg-blue-600/30 border border-blue-400 text-blue-300 flex items-center justify-center font-bold text-sm">↓</div>
+      </div>
+
+      <!-- STAGE 2: Local DB vs HITL Gate -->
+      <div class="bg-gradient-to-b from-slate-800/90 to-amber-950/20 border border-amber-500/30 rounded-xl p-5 shadow-lg relative">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 bg-amber-600 text-white text-xs font-bold rounded-md uppercase tracking-wider flex items-center gap-1.5">
+          <span>🛑 Stage 2: Local DB Check & Human-in-the-Loop (HITL) Safety Gate</span>
+        </div>
+        
+        <div class="pt-2">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            
+            <!-- Path A: Local Cache Hit -->
+            <div class="bg-emerald-950/30 border border-emerald-500/40 rounded-lg p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-emerald-300 text-sm flex items-center gap-2">
+                    <span>✅ Path A: Local Database Found</span>
+                  </span>
+                  <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 text-[10px] font-mono rounded">95%+ Queries</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  CVE exists in local 155-record snapshot. Bypasses operator interruption; immediately routes to offline Hybrid RAG.
+                </p>
+              </div>
+              <div class="mt-3 pt-3 border-t border-emerald-500/20 text-[11px] text-emerald-400 font-semibold flex items-center gap-2">
+                <span>⚡ Zero external network egress · 15 ms lookup</span>
+              </div>
+            </div>
+
+            <!-- Path B: Local Cache Miss -> HITL Modal -->
+            <div class="bg-amber-950/30 border border-amber-500/40 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-amber-300 text-sm flex items-center gap-2">
+                  <span>🛑 Path B: Local DB Miss (Unseen / Zero-Day CVE)</span>
+                </span>
+                <span class="px-2 py-0.5 bg-amber-500/20 text-amber-300 text-[10px] font-mono rounded">Operator Gate</span>
+              </div>
+              <p class="text-xs text-slate-300 mb-3">
+                Prevents unconstrained web crawler traffic. System pauses and presents an interactive <strong>[Approve / Reject]</strong> modal.
+              </p>
+
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <div class="bg-rose-950/40 border border-rose-500/40 rounded p-2.5">
+                  <strong class="text-rose-300 block mb-1">❌ Operator Rejects:</strong>
+                  <span class="text-slate-400 text-[11px]">Immediate clean refusal. 0 external calls, 0 hallucinations.</span>
+                </div>
+                <div class="bg-blue-950/40 border border-blue-500/40 rounded p-2.5">
+                  <strong class="text-blue-300 block mb-1">✅ Operator Approves:</strong>
+                  <span class="text-slate-400 text-[11px]">Dispatches <code>FetchFromWebAgent</code> (6 live sources) + <strong>Option B Ingestion</strong>.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWN ARROW -->
+      <div class="flex justify-center -my-3">
+        <div class="w-8 h-8 rounded-full bg-blue-600/30 border border-blue-400 text-blue-300 flex items-center justify-center font-bold text-sm">↓</div>
+      </div>
+
+      <!-- STAGE 3: Multi-Pass RAG -->
+      <div class="bg-slate-800/80 border border-indigo-500/30 rounded-xl p-5 shadow-lg relative">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 bg-indigo-600 text-white text-xs font-bold rounded-md uppercase tracking-wider flex items-center gap-1.5">
+          <span>📚 Stage 3: Evidence Agent & Multi-Pass RAG Retrieval (Up to 2 Rounds)</span>
+        </div>
+        
+        <div class="pt-2 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="bg-slate-900 border border-slate-700 rounded-lg p-3.5">
+              <div class="text-xs font-bold text-indigo-300 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+                <span>🔄 Round 1: Hybrid RRF Search</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Dual-path retrieval fusing <strong>Dense FAISS</strong> (BGE-Small) + <strong>Sparse BM25Okapi</strong> via Reciprocal Rank Fusion ($k=60$) over 10,457 chunks.
+              </p>
+              <div class="mt-2 text-[10px] text-indigo-400 font-mono bg-indigo-950/40 px-2 py-1 rounded border border-indigo-500/20">
+                Hit Rate@3 = 100% · MRR = 0.960
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-700 rounded-lg p-3.5">
+              <div class="text-xs font-bold text-purple-300 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+                <span>📑 Round 2: Reference Scoped Search</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                If vendor patch or prerequisites are missing in Round 1, queries <strong>NVD-cited bulletins</strong> (<code>reference_chunks.jsonl</code>) scoped strictly to target CVE.
+              </p>
+              <div class="mt-2 text-[10px] text-purple-400 font-mono bg-purple-950/40 px-2 py-1 rounded border border-purple-500/20">
+                Core Fact Recall@8 = 100%
+              </div>
+            </div>
+
+            <div class="bg-indigo-950/40 border border-indigo-500/40 rounded-lg p-3.5 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-bold text-indigo-300 uppercase tracking-wide mb-1.5">
+                  📦 Immutable EvidencePackage
+                </div>
+                <p class="text-xs text-slate-300">
+                  Packages top 8 passages tagged <code>[EV-0001..EV-0008]</code> + NVD/KEV facts directly into LangGraph shared state.
+                </p>
+              </div>
+              <div class="text-[11px] text-emerald-400 font-semibold mt-2">
+                🔒 Read-only ground truth (cannot be altered)
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWN ARROW -->
+      <div class="flex justify-center -my-3">
+        <div class="w-8 h-8 rounded-full bg-blue-600/30 border border-blue-400 text-blue-300 flex items-center justify-center font-bold text-sm">↓</div>
+      </div>
+
+      <!-- STAGE 4: Adversarial Analyst <-> Critic Revision Loop -->
+      <div class="bg-gradient-to-r from-slate-800 via-rose-950/20 to-slate-800 border-2 border-rose-500/40 rounded-xl p-5 shadow-2xl relative">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 bg-rose-600 text-white text-xs font-bold rounded-md uppercase tracking-wider flex items-center gap-1.5">
+          <span>⚖️ Stage 4: Adversarial Analyst ⟷ Critic Self-Correction Loop (Up to 2 Iterations)</span>
+        </div>
+
+        <div class="pt-2">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            
+            <!-- Analyst Box (Cols 1-5) -->
+            <div class="lg:col-span-5 bg-slate-900/90 border border-blue-500/30 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-blue-300 text-sm">🤖 Lead Analyst Agent (2)</span>
+                <span class="text-[10px] text-slate-400 font-mono bg-blue-950/60 px-2 py-0.5 rounded border border-blue-500/20">Qwen 2.5 8B</span>
+              </div>
+              <p class="text-xs text-slate-300 mb-2">
+                Reads <code>state["package"]</code> and writes the 8-section security advisory, attaching bracketed evidence tags <code>[EV-xxxx]</code> to every factual statement.
+              </p>
+              <div class="text-[11px] text-blue-400 font-mono bg-slate-950 p-2 rounded border border-slate-800">
+                Output: <code>state["draft"]</code>
+              </div>
+            </div>
+
+            <!-- Loop Arrows & Anti-Tampering (Cols 6-7) -->
+            <div class="lg:col-span-2 flex flex-col items-center justify-center text-center gap-2">
+              <div class="w-full flex items-center justify-center">
+                <span class="text-xs font-bold text-blue-400">1. Draft Submit ➔</span>
+              </div>
+              <div class="p-2 bg-rose-950/60 border border-rose-500/40 rounded text-[10px] text-rose-300 font-semibold leading-tight">
+                🔁 Revision Loop<br/>
+                <span class="text-[9px] text-slate-400 font-normal">Max 2 Iterations</span>
+              </div>
+              <div class="w-full flex items-center justify-center">
+                <span class="text-xs font-bold text-rose-400">⮌ 2. Targeted Fix</span>
+              </div>
+            </div>
+
+            <!-- Critic Box (Cols 8-12) -->
+            <div class="lg:col-span-5 bg-slate-900/90 border border-rose-500/40 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-rose-300 text-sm">⚖️ Critic Review Agent (3)</span>
+                <span class="text-[10px] text-slate-400 font-mono bg-rose-950/60 px-2 py-0.5 rounded border border-rose-500/20">Adversarial Auditor</span>
+              </div>
+              <p class="text-xs text-slate-300 mb-2">
+                Reads <code>state["package"]</code> <strong>directly from orchestrator</strong> (Anti-Tampering) and audits the draft across 4 criteria:
+              </p>
+              <ul class="text-[11px] text-slate-300 space-y-1 list-disc list-inside">
+                <li><strong class="text-rose-200">Support:</strong> No unverified claims</li>
+                <li><strong class="text-rose-200">Citations:</strong> Exact <code>EV-xxxx</code> grounding</li>
+                <li><strong class="text-rose-200">Uncertainty:</strong> Explicit disclaimers</li>
+                <li><strong class="text-rose-200">Completeness:</strong> All 8 sections present</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Anti-Tampering Banner -->
+          <div class="mt-4 bg-slate-950/80 border border-slate-700/80 rounded-lg p-3 text-xs text-slate-300 flex items-center gap-3">
+            <span class="text-lg">🛡️</span>
+            <div>
+              <strong class="text-amber-300">Anti-Tampering Architectural Guardrail:</strong>
+              The Analyst Agent does <em>not</em> forward the Evidence Package to the Critic. LangGraph passes <code>state["package"]</code> directly from the Evidence Agent so the Analyst cannot cherry-pick or falsify evidence to pass review!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWN ARROW -->
+      <div class="flex justify-center -my-3">
+        <div class="w-8 h-8 rounded-full bg-emerald-600/30 border border-emerald-400 text-emerald-300 flex items-center justify-center font-bold text-sm">↓ Passed Critic</div>
+      </div>
+
+      <!-- STAGE 5: Final Validator & Verified Output -->
+      <div class="bg-slate-800/80 border border-emerald-500/40 rounded-xl p-5 shadow-lg relative">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded-md uppercase tracking-wider flex items-center gap-1.5">
+          <span>🏆 Stage 5: Deterministic Validation & Verified Advisory Output</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          
+          <div class="bg-slate-900 border border-slate-700 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-emerald-300 text-sm">✅ Final Validator (4)</span>
+              <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20">Zero-LLM · Pure Python</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Cryptographically audits citations, overrides risk tiers using mathematical formulas (CVSS ≥ 9.0 or KEV listed ➔ <strong>CRITICAL</strong>), and verifies zero phantom citations.
+            </p>
+          </div>
+
+          <div class="bg-emerald-950/30 border border-emerald-500/50 rounded-lg p-4 flex flex-col justify-between">
+            <div>
+              <div class="font-bold text-white text-sm flex items-center gap-2 mb-1">
+                <span>📋 Shipped Security Advisory</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                8 clean, structured sections ready for SOC tier-3 ingestion. 100% grounded citations, explicit unknown-state disclosures, and verifiable cryptographic SHA-256 traces.
+              </p>
+            </div>
+            <div class="text-[11px] text-emerald-400 font-mono pt-2 border-t border-emerald-500/20 flex justify-between">
+              <span>Overall Accuracy: 100%</span>
+              <span>Hallucinations: 0</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRESENTATION CHEAT-SHEET BULLETS -->
+    <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-5 text-xs text-slate-300 space-y-3">
+      <h3 class="text-sm font-bold text-white flex items-center gap-2">
+        <span>🎤 4 Key Presentation Talking Points</span>
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300">
+        <div class="bg-slate-900/60 p-2.5 rounded border border-slate-700/60">
+          <strong class="text-blue-300 block mb-0.5">1. Why RAG First + Controlled HITL?</strong>
+          RAG provides 15ms speed and air-gapped security for 95%+ queries; HITL prevents open internet crawling and API rate throttles while enabling zero-day freshness.
+        </div>
+        <div class="bg-slate-900/60 p-2.5 rounded border border-slate-700/60">
+          <strong class="text-indigo-300 block mb-0.5">2. Why Multi-Pass RAG (2 Rounds)?</strong>
+          Round 1 queries global frameworks (NIST, OWASP, CWE, ATT&CK); Round 2 targets the specific CVE's vendor patch bulletins, achieving 100% Core Fact Recall.
+        </div>
+        <div class="bg-slate-900/60 p-2.5 rounded border border-slate-700/60">
+          <strong class="text-rose-300 block mb-0.5">3. Why the Adversarial Revision Loop?</strong>
+          Small ≤8B models make formatting and citation slips. The Critic acts as an adversarial auditor, forcing the Analyst to correct omissions without infinite loops.
+        </div>
+        <div class="bg-slate-900/60 p-2.5 rounded border border-slate-700/60">
+          <strong class="text-emerald-300 block mb-0.5">4. Why Pure Python Final Validator?</strong>
+          We never allow an LLM to assign final risk tiers. Pure Python logic guarantees 100% deterministic compliance with NIST/CISA standards.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
