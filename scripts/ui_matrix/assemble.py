@@ -55,7 +55,7 @@ CUE_TAIL = 1.2          # silence left after a cue before the next one may start
 SIZE = "1440x1100"
 OUTPUT_FPS = 25
 CONTAINER = "ffcap"
-VOICE = "Microsoft David Desktop"
+VOICE = "Microsoft Christopher Neural (Professional)"
 SAMPLE_RATE = 22050
 
 # Scenario id -> (card title, subtitle). Check counts are appended from SUMMARY.
